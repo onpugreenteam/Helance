@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">Ranpeak</string>
+    <string name="app_name" translatable="false">Ranpeak</string>
+    <string name="user_name">Name</string>
+    <string name="user_age">Age</string>
+    <string name="user_country">Country</string>
+    <string name="user_gender">Gender</string>
 </resources>
