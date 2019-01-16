@@ -1,4 +1,4 @@
-package com.ranpeak.ranpeak;
+package com.ranpeak.ProjectX;
 
 import org.junit.Test;
 

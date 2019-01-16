@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <string name="item_settings">Настройки</string>
+    <string name="item_languages">Язык</string>
+    <string name="item_about">О нас</string>
+
+
+
     <string name="user_name">Имя</string>
     <string name="user_gender">Пол</string>
     <string name="user_country">Страна</string>
     <string name="user_age">Возраст</string>
+
 </resources>

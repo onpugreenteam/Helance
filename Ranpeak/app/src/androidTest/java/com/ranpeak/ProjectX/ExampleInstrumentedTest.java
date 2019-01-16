@@ -1,4 +1,4 @@
-package com.ranpeak.ranpeak;
+package com.ranpeak.ProjectX;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.ranpeak.ranpeak", appContext.getPackageName());
+        assertEquals("com.ProjectX.ProjectX", appContext.getPackageName());
     }
 }
