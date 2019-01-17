@@ -32,6 +32,16 @@
             android:name=".LobbyActivity">
         </activity>
 
+        <activity
+            android:name=".WaitingTimeActivity">
+        </activity>
+
+        <activity
+            android:name=".CommunicationActivity">
+        </activity>
+
+
+
     </application>
 
 </manifest>
