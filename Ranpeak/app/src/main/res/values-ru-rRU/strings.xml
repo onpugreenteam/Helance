@@ -6,6 +6,20 @@
     <string name="item_about">О нас</string>
 
 
+    <string name="title_activity_login2">Войти в систему</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Войти в систему</string>
+    <string name="action_sign_in_short">Войти в систему</string>
+    <string name="error_invalid_email">Этот эмейл недествительный</string>
+    <string name="error_invalid_password">Этот пароль слишком короткий</string>
+    <string name="error_incorrect_password">Этот пароль неправильный</string>
+    <string name="error_field_required">Это поле обязательно к заполнению</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
 
     <string name="user_name">Имя</string>
     <string name="user_gender">Пол</string>
