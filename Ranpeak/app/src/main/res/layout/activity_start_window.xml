@@ -26,6 +26,7 @@
         android:paddingEnd="25dp"
         android:layout_marginTop="200dp"
 
+
         android:background="@color/colorPrimary"
         android:text="@string/search_1_user"
         android:textSize="15sp"
