@@ -11,19 +11,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30pt"
-        android:src="@mipmap/ic_launcher"/>
+        android:src="@mipmap/ic_launcher"
+        android:contentDescription="TODO" />
     <EditText
         android:id="@+id/log_in_field"
         android:layout_width="100pt"
         android:layout_height="20pt"
         android:hint="@string/user_login"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:importantForAutofill="no" />
     <EditText
         android:id="@+id/password_field"
         android:layout_width="100pt"
         android:layout_height="20pt"
         android:hint="@string/user_password"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:autofillHints="" />
     <Button
         android:id="@+id/log_in"
 

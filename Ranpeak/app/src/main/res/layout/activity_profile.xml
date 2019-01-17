@@ -13,6 +13,7 @@
         style="@style/TextView"
         android:src="@mipmap/ic_launcher" />
 
+
     <TextView
         android:id="@+id/user__text_view"
         android:text="@string/user_name"
