@@ -21,7 +21,7 @@ public class StartActivity extends AppCompatActivity {
     }
 
     public void ClickLogIn(View view){
-        Intent intent = new Intent(getApplicationContext(),RegistrationActivity.class);
+        Intent intent = new Intent(getApplicationContext(),LogInActivity.class);
         startActivity(intent);
     }
 
