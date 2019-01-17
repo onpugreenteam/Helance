@@ -3,41 +3,43 @@
 <RelativeLayout
 
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:padding="11dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="50pt">
+    android:layout_marginTop="50pt"
+    android:padding="11dp">
 
- <ImageView
-     android:id="@+id/user_image_view"
-     style="@style/TextView"
-     android:src="@mipmap/ic_launcher" />
+    <ImageView
+        android:id="@+id/user_image_view"
+        style="@style/TextView"
+        android:src="@mipmap/ic_launcher" />
 
     <TextView
         android:id="@+id/user_name_text_view"
-        android:text="@string/user_name"
+        style="@style/TextView"
         android:layout_below="@id/user_image_view"
         android:layout_marginTop="@dimen/text_small_margin"
-        style="@style/TextView"/>
+        android:text="@string/user_name" />
 
- <TextView
-     android:id="@+id/user_age_text_view"
-     style="@style/TextView"
-     android:layout_below="@id/user_name_text_view"
-     android:layout_marginTop="7dp"
-     android:text="@string/user_age" />
+    <TextView
+        android:id="@+id/user_age_text_view"
+        style="@style/TextView"
+        android:layout_below="@id/user_name_text_view"
+        android:layout_marginTop="7dp"
+        android:text="@string/user_age" />
+
     <TextView
         android:id="@+id/user_country_text_view"
-        android:text="@string/user_country"
+        style="@style/TextView"
         android:layout_below="@id/user_age_text_view"
         android:layout_marginTop="@dimen/text_small_margin"
-        style="@style/TextView"/>
+        android:text="@string/user_country" />
+
     <TextView
         android:id="@+id/user_gender_text_view"
-        android:text="@string/user_gender"
+        style="@style/TextView"
         android:layout_below="@id/user_country_text_view"
         android:layout_marginTop="@dimen/text_small_margin"
-        style="@style/TextView"/>
+        android:text="@string/user_gender" />
 
 </RelativeLayout>
 
