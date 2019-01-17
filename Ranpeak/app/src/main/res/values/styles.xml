@@ -8,11 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-<style name="TextView">
-    <item name="android:layout_height">wrap_content</item>
-    <item name="android:layout_width">wrap_content</item>
-    <item name="android:textAppearance">@style/Text</item>
-</style>
+    <style name="TextView">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textAppearance">@style/Text</item>
+    </style>
 
     <style name="TextView.Primary">
         <item name="android:textAppearance">@style/Text.Primary</item>
@@ -36,6 +36,12 @@
     <style name="Text.Secondary">
         <item name="android:textColor">@color/color_Gray</item>
     </style>
+
+    <style name="ImageView">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
 
 
 </resources>

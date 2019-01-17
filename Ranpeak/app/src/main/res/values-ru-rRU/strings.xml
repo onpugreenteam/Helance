@@ -12,4 +12,6 @@
     <string name="user_country">Страна</string>
     <string name="user_age">Возраст</string>
 
+    <string name="search_1_user">1 на 1</string>
+    <string name="login">Войти</string>
 </resources>
