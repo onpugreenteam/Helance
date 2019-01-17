@@ -28,6 +28,10 @@
             android:name=".ProfileActivity">
         </activity>
 
+        <activity
+            android:name=".Lobby">
+        </activity>
+
     </application>
 
 </manifest>

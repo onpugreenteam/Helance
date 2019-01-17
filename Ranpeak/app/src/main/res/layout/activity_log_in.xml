@@ -36,7 +36,7 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:layout_marginTop="161dp"
-
+        android:onClick="ClickLogInLobby"
         android:text="@string/login"
         style="@style/TextView" />
     <Button
@@ -48,7 +48,7 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:layout_marginTop="161dp"
-
+        android:onClick="ClickRegistration"
         android:text="@string/registration"
         style="@style/TextView" />
 </LinearLayout>
