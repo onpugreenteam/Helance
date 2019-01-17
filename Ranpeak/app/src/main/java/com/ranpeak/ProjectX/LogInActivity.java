@@ -14,7 +14,7 @@ public class LogInActivity extends AppCompatActivity {
     }
 
     public void ClickLogInLobby(View view){
-        Intent intent = new Intent(getApplicationContext(), Lobby.class);
+        Intent intent = new Intent(getApplicationContext(), LobbyActivity.class);
         startActivity(intent);
     }
 
