@@ -34,6 +34,7 @@ public class StartActivity extends AppCompatActivity {
 
     public void Click1to1(View view){
         Intent intent = new Intent(getApplicationContext(),CommunicationActivity.class);
+        startActivity(intent);
     }
 
 }
