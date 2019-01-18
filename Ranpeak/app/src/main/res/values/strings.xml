@@ -32,4 +32,16 @@
         completions."
     </string>
     <string name="registration_button">Registration</string>
+    <string name="title_activity_registration" translatable="false">Registration</string>
+    <string name="prompt_name">Name</string>
+    <string name="prompt_age">Age</string>
+    <string name="prompt_country">Country</string>
+    <string name="prompt_gender">Gender</string>
+    <string name="password">Password</string>
+    <string name="login_ragistration">Login</string>
+    <string name="name">Name</string>
+    <string name="register">Register</string>
+    <string name="age">Age</string>
+    <string name="country">Country</string>
+    <string name="gender">Gender</string>
 </resources>
