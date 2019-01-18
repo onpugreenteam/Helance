@@ -12,6 +12,7 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_window);
+
     }
 
     @Override
@@ -20,9 +21,19 @@ public class StartActivity extends AppCompatActivity {
         return true;
     }
 
+    /** Метод отключает на данной активити кнопку назад!**/
+//    @Override
+//    public void onBackPressed() {
+//
+//    }
+
     public void ClickLogIn(View view){
         Intent intent = new Intent(getApplicationContext(),LogInActivity.class);
         startActivity(intent);
+    }
+
+    public void Click1to1(View view){
+        Intent intent = new Intent(getApplicationContext(),CommunicationActivity.class);
     }
 
 }

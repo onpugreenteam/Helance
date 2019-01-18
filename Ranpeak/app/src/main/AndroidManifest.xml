@@ -14,16 +14,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".StartActivity"
+            android:name=".LogInActivity"
+            android:noHistory="true"
             android:label="@string/title_activity_login2"></activity>
-        <activity android:name=".LoginActivity2">
+        <activity
+            android:name=".StartActivity"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LogInActivity"></activity>
         <activity android:name=".RegistrationActivity"></activity>
         <activity android:name=".ProfileActivity"></activity>
         <activity android:name=".LobbyActivity"></activity>

@@ -8,8 +8,8 @@
 
     <string name="title_activity_login2">Войти в систему</string>
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
+    <string name="prompt_email">Логин или почту</string>
+    <string name="prompt_password">Пароль</string>
     <string name="action_sign_in">Войти в систему</string>
     <string name="action_sign_in_short">Войти в систему</string>
     <string name="error_invalid_email">Этот эмейл недествительный</string>
@@ -33,5 +33,6 @@
     <string name="user_password">пароль</string>
 
     <string name="registration">регистрация</string>
+    <string name="registration_button">Регистрация</string>
 
 </resources>
