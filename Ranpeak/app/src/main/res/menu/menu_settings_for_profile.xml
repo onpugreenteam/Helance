@@ -7,10 +7,16 @@
         android:orderInCategory="1"
         app:showAsAction="never" />
 
-
     <item
         android:id="@+id/menu_about"
         android:title="@string/item_about"
         android:orderInCategory="1"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_exit"
+        android:title="@string/exit_in_menu"
+        android:orderInCategory="1"
+        app:showAsAction="never" />
+
 </menu>

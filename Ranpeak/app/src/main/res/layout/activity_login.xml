@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/design_default_color_primary_dark"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -62,14 +63,15 @@
                     android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:autofillHints="@string/prompt_password"
                     android:hint="@string/prompt_password"
                     android:imeActionId="6"
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
-                    android:autofillHints="@string/prompt_password"
                     android:maxLines="1"
-                    android:singleLine="true" tools:targetApi="o" />
+                    android:singleLine="true"
+                    tools:targetApi="o" />
 
             </android.support.design.widget.TextInputLayout>
 

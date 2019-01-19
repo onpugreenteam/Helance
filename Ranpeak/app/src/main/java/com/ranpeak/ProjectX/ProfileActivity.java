@@ -14,7 +14,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_settings, menu);
+        getMenuInflater().inflate(R.menu.menu_settings_for_profile, menu);
         return true;
     }
 }

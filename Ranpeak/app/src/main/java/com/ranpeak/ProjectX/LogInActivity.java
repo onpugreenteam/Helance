@@ -47,12 +47,6 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
         startActivity(intent);
     }
 
-    public void ClickLogInLobby(View view){
-
-        Intent intent = new Intent(getApplicationContext(), LobbyActivity.class);
-        startActivity(intent);
-    }
-
 
     /**
      * Id to identity READ_CONTACTS permission request.
