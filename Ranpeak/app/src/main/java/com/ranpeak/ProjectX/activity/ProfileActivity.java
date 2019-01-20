@@ -1,8 +1,10 @@
-package com.ranpeak.ProjectX;
+package com.ranpeak.ProjectX.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+
+import com.ranpeak.ProjectX.R;
 
 public class ProfileActivity extends AppCompatActivity {
 

@@ -1,16 +1,15 @@
-package com.ranpeak.ProjectX;
+package com.ranpeak.ProjectX.activity;
 
-import android.app.Application;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-public class RegistrationActivity extends AppCompatActivity {
+import com.ranpeak.ProjectX.R;
+
+public class CommunicationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registration);
+        setContentView(R.layout.activity_communication);
     }
-
-
 }

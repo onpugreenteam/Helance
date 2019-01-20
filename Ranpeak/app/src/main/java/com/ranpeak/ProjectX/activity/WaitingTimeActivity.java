@@ -1,7 +1,9 @@
-package com.ranpeak.ProjectX;
+package com.ranpeak.ProjectX.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import com.ranpeak.ProjectX.R;
 
 public class WaitingTimeActivity extends AppCompatActivity {
 
