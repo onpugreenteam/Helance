@@ -1,12 +1,15 @@
 package com.ranpeak.ProjectX.activity;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 
 import com.ranpeak.ProjectX.R;
+import com.ranpeak.ProjectX.activity.LogInActivity;
+import com.ranpeak.ProjectX.activity.WaitingTimeActivity;
 
 public class StartActivity extends AppCompatActivity {
 
@@ -14,6 +17,8 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_window);
+
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
     }
 
@@ -30,12 +35,12 @@ public class StartActivity extends AppCompatActivity {
 //    }
 
     public void ClickLogIn(View view){
-        Intent intent = new Intent(getApplicationContext(),LogInActivity.class);
+        Intent intent = new Intent(getApplicationContext(), LogInActivity.class);
         startActivity(intent);
     }
 
     public void Click1to1(View view){
-        Intent intent = new Intent(getApplicationContext(),WaitingTimeActivity.class);
+        Intent intent = new Intent(getApplicationContext(), WaitingTimeActivity.class);
         startActivity(intent);
     }
 
