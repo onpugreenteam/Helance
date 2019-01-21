@@ -5,4 +5,10 @@
     <color name="colorAccent">#D81B60</color>
     <color name="color_Gray">#957C7C7C</color>
     <color name="color_Black">#000000</color>
+
+    <color name="dimBackgroundColor">#40000000</color>
+    <color name="brightBackgroundColor">#ffffffff</color>
+    <color name="colorRowSeparator">#cccccc</color>
+    <color name="filterBackground">#cccccc</color>
+    <color name="filterText">#3366cc</color>
 </resources>

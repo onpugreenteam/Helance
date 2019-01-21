@@ -11,7 +11,7 @@
     android:orientation="vertical">
 
     <ImageView
-        android:id="@+id/IconInLogin"
+        android:id="@+id/IconInRegister"
         android:layout_width="80pt"
         android:layout_height="60pt"
         android:layout_gravity="center_horizontal"

@@ -33,6 +33,10 @@ import android.widget.TextView;
 
 import com.ranpeak.ProjectX.R;
 
+import org.springframework.http.HttpAuthentication;
+import org.springframework.http.HttpBasicAuthentication;
+import org.springframework.http.HttpHeaders;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -343,7 +347,7 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
         }
 
 
-        //Метод перекидівает пользователя в лобби, если все условия входа были выполнены
+        //Метод перекидывает пользователя в лобби, если все условия входа были выполнены
         //Введен правильно логин и пароль
         @Override
         protected void onPostExecute(final Boolean success) {
