@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 
-public class User implements Serializable {
+public class Users implements Serializable {
 
     @JsonProperty("login")
     private int login;
@@ -20,10 +20,10 @@ public class User implements Serializable {
     @JsonProperty("gender")
     private String gender;
 
-    public User() {
+    public Users() {
     }
 
-    public User(int login, String password, String name, int age, String country, String gender) {
+    public Users(int login, String password, String name, int age, String country, String gender) {
         this.login = login;
         this.password = password;
         this.name = name;

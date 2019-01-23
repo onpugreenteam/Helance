@@ -44,9 +44,10 @@
         android:textColorHint="@color/colorAccent" />
 
     <Button
-        android:id="@+id/register_register"
+        android:id="@+id/register_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="onClick"
         android:layout_below="@+id/register_gender"
         android:layout_alignEnd="@+id/register_gender"
         android:layout_alignParentStart="true"
