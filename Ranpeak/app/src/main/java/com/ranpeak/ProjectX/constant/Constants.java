@@ -1,7 +1,6 @@
 package com.ranpeak.ProjectX.constant;
 
 
-
 public class Constants {
 
    public static class URL {

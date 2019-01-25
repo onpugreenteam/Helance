@@ -13,10 +13,13 @@ import com.ranpeak.ProjectX.activity.WaitingTimeActivity;
 
 public class StartActivity extends AppCompatActivity {
 
+    private final static int START_ACTIVITY = R.layout.activity_start_window;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start_window);
+        setContentView(START_ACTIVITY);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 

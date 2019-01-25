@@ -48,6 +48,8 @@ import static android.Manifest.permission.READ_CONTACTS;
  */
 public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
+   private final static int LOGIN_ACTIVITY = R.layout.activity_login;
+
 
     public void ClickRegistration(View view){
         Intent intent = new Intent(getApplicationContext(), RegistrationActivity.class);
@@ -81,7 +83,7 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(LOGIN_ACTIVITY);
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();

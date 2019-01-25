@@ -9,10 +9,13 @@ import com.ranpeak.ProjectX.R;
 
 public class ProfileActivity extends AppCompatActivity {
 
+    private final static int PROFILE_ACTIVITY = R.layout.activity_profile;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(PROFILE_ACTIVITY);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
