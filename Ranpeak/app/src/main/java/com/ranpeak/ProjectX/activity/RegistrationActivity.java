@@ -1,9 +1,8 @@
 package com.ranpeak.ProjectX.activity;
 
-import android.app.DownloadManager;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -21,18 +20,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.constant.Constants;
-import com.ranpeak.ProjectX.entities.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.StringHttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -51,9 +41,10 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
     private Button register_button;
 
-    private ImageView IconInRegister;
+    private ImageView iconInRegister;
 
     private ProgressDialog progressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +53,8 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+
+        /** Находим и передаем локальным переменным обьекты activity_registration **/
         register_login = (EditText) findViewById(R.id.register_login);
         register_password = (EditText) findViewById(R.id.register_password);
         register_name = (EditText) findViewById(R.id.register_name);
@@ -69,7 +62,8 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         register_country = (EditText) findViewById(R.id.register_country);
         register_gender = (EditText) findViewById(R.id.register_gender);
 
-        register_button = (Button) findViewById(R.id.register_register);
+        register_button = (Button) findViewById(R.id.register_button);
+        iconInRegister = (ImageView) findViewById(R.id.IconInRegister);
 
         progressDialog = new ProgressDialog(this);
         register_button.setOnClickListener(this);
@@ -82,6 +76,8 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View v) {
         if(v==register_button){
             registerUser();
+            Intent intent = new Intent(getApplicationContext(),LobbyActivity.class);
+            startActivity(intent);
         }
 
     }
@@ -106,7 +102,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-                            Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), jsonObject.getString("Error"), Toast.LENGTH_LONG).show();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -140,9 +136,9 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     }
 
 
-//     private class  RESTTask extends AsyncTask<String, Void, ResponseEntity<User>> {
+//     private class  RESTTask extends AsyncTask<String, Void, ResponseEntity<Users>> {
 //
-//        protected ResponseEntity<User> doInBackground(String... uri) {
+//        protected ResponseEntity<Users> doInBackground(String... uri) {
 //
 //            final String url = uri[0];
 //            RestTemplate restTemplate = new RestTemplate();
@@ -162,7 +158,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 //
 //                HttpEntity<String> entity = new HttpEntity<String>(headers);
 //
-//                ResponseEntity<User> response = restTemplate.exchange(url, HttpMethod.GET, entity, User.class);
+//                ResponseEntity<Users> response = restTemplate.exchange(url, HttpMethod.GET, entity, Users.class);
 //
 //                return response;
 //
@@ -173,9 +169,9 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 //            }
 //        }
 //
-//        protected void OnPostExecute(ResponseEntity<User> result){
+//        protected void OnPostExecute(ResponseEntity<Users> result){
 //            HttpStatus statusCode = result.getStatusCode();
-//            User userReturned = result.getBody();
+//            Users userReturned = result.getBody();
 //        }
 //
 //    }
