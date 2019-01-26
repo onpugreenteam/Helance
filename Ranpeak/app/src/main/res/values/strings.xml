@@ -38,7 +38,7 @@
     <string name="prompt_country">Country</string>
     <string name="prompt_gender">Gender</string>
     <string name="password">Password</string>
-    <string name="login_ragistration">Login</string>
+    <string name="login_registration">Login</string>
     <string name="name">Name</string>
     <string name="register">Register</string>
     <string name="age">Age</string>

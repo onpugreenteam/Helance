@@ -14,7 +14,7 @@
         android:layout_marginTop="25dp"
 
         android:background="@color/colorPrimary"
-        android:src="@mipmap/ic_launcher"
+        android:contentDescription="TODO" android:src="@mipmap/ic_launcher"
         style="@style/ImageView" />
 
     <Button
@@ -31,7 +31,6 @@
         style="@style/TextView" />
     <Button
         android:id="@+id/log_in"
-
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:paddingLeft="20dp"

@@ -14,5 +14,6 @@ public class CommunicationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_communication);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
     }
 }
