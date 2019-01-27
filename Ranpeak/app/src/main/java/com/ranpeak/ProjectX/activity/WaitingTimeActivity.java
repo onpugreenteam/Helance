@@ -10,7 +10,7 @@ import com.ranpeak.ProjectX.R;
 
 public class WaitingTimeActivity extends AppCompatActivity {
 
-    private final static int WAITYNG_TIME_ACTIVITY = R.layout.activity_waiting_time;
+    private final static int WAITING_TIME_ACTIVITY = R.layout.activity_waiting_time;
 
     private int seconds;
 
@@ -18,7 +18,7 @@ public class WaitingTimeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(WAITYNG_TIME_ACTIVITY);
+        setContentView(WAITING_TIME_ACTIVITY);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 

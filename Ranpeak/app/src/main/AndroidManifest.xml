@@ -21,7 +21,7 @@
             android:label="@string/title_activity_login2"
             android:windowSoftInputMode="stateHidden"/>
         <activity
-            android:name=".activity.StartActivity"
+            android:name=".splashscreen.SplashScreen"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -35,6 +35,7 @@
         <activity android:name=".activity.LobbyActivity" />
         <activity android:name=".activity.WaitingTimeActivity" />
         <activity android:name=".activity.CommunicationActivity" />
+        <activity android:name=".activity.StartActivity"/>
     </application>
 
 </manifest>

@@ -11,5 +11,5 @@
     <color name="colorRowSeparator">#cccccc</color>
     <color name="filterBackground">#cccccc</color>
     <color name="filterText">#3366cc</color>
-    <color name="bg_splash">#0288D1</color>
+    <color name="bg_splash">#2eddd8</color>
 </resources>

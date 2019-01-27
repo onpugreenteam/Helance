@@ -45,4 +45,5 @@
     <string name="country">Country</string>
     <string name="gender">Gender</string>
     <string name="exit_in_menu">Exit</string>
+    <string name="splashscreenText">Ranpeak</string>
 </resources>
