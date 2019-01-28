@@ -43,6 +43,7 @@ public class SplashScreen extends AwesomeSplash {
         configSplash.setAnimLogoSplashDuration(3000);
         configSplash.setAnimTitleTechnique(Techniques.Bounce);
 
+
     }
 
     @Override
