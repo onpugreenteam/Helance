@@ -11,14 +11,12 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
-import android.os.*;
 
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -31,6 +29,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,7 +42,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.constant.Constants;
-import com.ranpeak.ProjectX.user.data.UserData;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -57,84 +55,89 @@ import java.util.List;
 import java.util.Map;
 
 
+import static android.Manifest.permission.LOCATION_HARDWARE;
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**
  * A login screen that offers login via email/password.
  */
-public class LogInActivity extends AppCompatActivity /*implements LoaderCallbacks<Cursor> */{
+public class LogInActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private EditText editTextLogin, editTextPassword;
-    private Button buttonLogin;
+   private final static int LOGIN_ACTIVITY = R.layout.aaaa;
+
+
+    private EditText login_login;
+    private EditText login_password;
+    private Button login_button;
     private ProgressDialog progressDialog;
+
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(LOGIN_ACTIVITY);
+
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+
+        /** Находим и передаем локальным переменным обьекты activity_registration **/
+
+
+        login_login = (EditText) findViewById(R.id.login_login);
+        login_password = (EditText) findViewById(R.id.login_password);
+        login_button = (Button) findViewById(R.id.login_button);
+        login_button.setOnClickListener(this);
+        progressDialog = new ProgressDialog(this);
+    }
 
     public void ClickRegistration(View view){
         Intent intent = new Intent(getApplicationContext(), RegistrationActivity.class);
         startActivity(intent);
     }
 
-    public void ClickLogin(View view){
-        userLogin();
-    }
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+    public void onClick(View v) {
+        if(v==login_button){
+            loginUser();
+            Intent intent = new Intent(getApplicationContext(),LobbyActivity.class);
+            startActivity(intent);
+        }
 
-        editTextLogin = (EditText) findViewById(R.id.email);
-        editTextLogin = (EditText) findViewById(R.id.password);
-        buttonLogin = (Button) findViewById(R.id.email_sign_in_button);
 
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Please wait...");
+
     }
 
-    private void userLogin(){
-        final String login = editTextLogin.getText().toString().trim();
-        final String password = editTextPassword.getText().toString().trim();
+    private void loginUser() {
+        final String login = login_login.getText().toString().trim();
+        final String password = login_password.getText().toString().trim();
 
-        progressDialog.show();
 
-        StringRequest stringRequest = new StringRequest(
-                Request.Method.GET,
-                Constants.URL.LOGIN,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                Constants.URL.LOGIN_USER,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         progressDialog.dismiss();
-                        try{
-                            JSONObject obj = new JSONObject(response);
-                            if(!obj.getBoolean("error")){
-                                UserData.getInstance(getApplicationContext())
-                                        .userLogin(
-                                                obj.getString("login")
-                                        );
-                                Toast.makeText(
-                                        getApplicationContext(),
-                                        "User login successful",
-                                        Toast.LENGTH_LONG
-                                ).show();
-                            }else{
-                                Toast.makeText(
-                                        getApplicationContext(),
-                                        obj.getString("message"),
-                                        Toast.LENGTH_LONG
-                                ).show();
-                            }
-                        }catch (JSONException e){
+
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            Toast.makeText(getApplicationContext(), jsonObject.getString("Error"), Toast.LENGTH_LONG).show();
+                        } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
                     }
-                },new Response.ErrorListener(){
+                },
+                new Response.ErrorListener() {
                     @Override
-                    public void onErrorResponse(VolleyError error){
-
+                    public void onErrorResponse(VolleyError error) {
+                        progressDialog.hide();
+                        Toast.makeText(getApplicationContext(),error.getMessage(), Toast.LENGTH_LONG).show();
                     }
-                }
-        )
-        {
+                }){
+
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> params = new HashMap<>();
@@ -142,16 +145,16 @@ public class LogInActivity extends AppCompatActivity /*implements LoaderCallback
                 params.put("password",password);
                 return params;
             }
-        };
 
+        };
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
+
     }
 
 
-
-
+//
 //    /**
 //     * Id to identity READ_CONTACTS permission request.
 //     */
@@ -178,7 +181,7 @@ public class LogInActivity extends AppCompatActivity /*implements LoaderCallback
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_login);
+//        setContentView(LOGIN_ACTIVITY);
 //        // Set up the login form.
 //        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
 //        populateAutoComplete();

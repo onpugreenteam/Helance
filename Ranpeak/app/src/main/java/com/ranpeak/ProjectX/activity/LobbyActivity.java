@@ -10,10 +10,13 @@ import com.ranpeak.ProjectX.R;
 
 public class LobbyActivity extends AppCompatActivity {
 
+   private final static int LOBBY_ACTIVITY = R.layout.activity_lobby;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lobby);
+        setContentView(LOBBY_ACTIVITY);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }

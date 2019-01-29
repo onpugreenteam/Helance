@@ -29,6 +29,9 @@ import java.util.Map;
 
 public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener{
 
+    private final static int REGISTRATION_ACTIVITY = R.layout.activity_registration;
+
+
     private EditText register_login;
     private EditText register_password;
     private EditText register_name;
@@ -46,7 +49,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registration);
+        setContentView(REGISTRATION_ACTIVITY);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 

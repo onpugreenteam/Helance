@@ -6,18 +6,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
 
 import com.ranpeak.ProjectX.R;
+import com.ranpeak.ProjectX.activity.LogInActivity;
+import com.ranpeak.ProjectX.activity.WaitingTimeActivity;
 
 public class StartActivity extends AppCompatActivity {
 
-    private Button log_in;
+    private final static int START_ACTIVITY = R.layout.activity_start_window;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start_window);
+        setContentView(START_ACTIVITY);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
