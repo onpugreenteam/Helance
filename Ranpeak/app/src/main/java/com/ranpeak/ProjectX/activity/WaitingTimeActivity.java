@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
-
 import com.ranpeak.ProjectX.R;
 
 public class WaitingTimeActivity extends AppCompatActivity {
@@ -22,12 +21,11 @@ public class WaitingTimeActivity extends AppCompatActivity {
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        runtimer(true);
+        runTimer(true);
     }
 
 
-
-    private void runtimer(final Boolean running){
+    private void runTimer(final Boolean running){
 
         final TextView textView = (TextView)findViewById(R.id.time_view);
         final Handler handler = new Handler();

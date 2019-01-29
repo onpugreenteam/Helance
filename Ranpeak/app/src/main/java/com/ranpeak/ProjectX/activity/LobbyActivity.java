@@ -21,6 +21,7 @@ public class LobbyActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
+
     public void ClickProfile(View view){
         Intent intent = new Intent(getApplicationContext(),ProfileActivity.class);
         startActivity(intent);

@@ -1,8 +1,6 @@
 package com.ranpeak.ProjectX.entities;
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.io.Serializable;
 
 public class Users implements Serializable {
