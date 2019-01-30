@@ -27,7 +27,7 @@ public class WaitingTimeActivity extends AppCompatActivity {
 
     private void runTimer(final Boolean running){
 
-        final TextView textView = (TextView)findViewById(R.id.time_view);
+        final TextView textView = findViewById(R.id.time_view);
         final Handler handler = new Handler();
 
         handler.post(new Runnable() {

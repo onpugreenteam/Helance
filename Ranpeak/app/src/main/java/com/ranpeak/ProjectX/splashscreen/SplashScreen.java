@@ -3,7 +3,6 @@ package com.ranpeak.ProjectX.splashscreen;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.view.WindowManager;
-
 import com.daimajia.androidanimations.library.Techniques;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.StartActivity;
@@ -12,6 +11,7 @@ import com.viksaa.sssplash.lib.cnst.Flags;
 import com.viksaa.sssplash.lib.model.ConfigSplash;
 
 public class SplashScreen extends AwesomeSplash {
+
 
     @Override
     public void initSplash(ConfigSplash configSplash) {

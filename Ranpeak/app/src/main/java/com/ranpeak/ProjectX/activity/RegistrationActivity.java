@@ -50,7 +50,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        /** Находим и передаем локальным переменным обьекты activity_registration **/
+        // Находим и передаем локальным переменным обьекты activity_registration
         register_login = findViewById(R.id.register_login);
         register_password = findViewById(R.id.register_password);
         register_name = findViewById(R.id.register_name);
@@ -78,6 +78,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
 
     private void registerUser(){
+
         final String login = register_login.getText().toString().trim();
         final String password = register_password.getText().toString().trim();
         final String name = register_name.getText().toString().trim();

@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.user.data.SharedPrefManager;
 
@@ -18,7 +17,6 @@ public class ProfileActivity extends AppCompatActivity {
     private final static int PROFILE_ACTIVITY = R.layout.activity_profile;
 
     private TextView login;
-
     private TextView name;
     private TextView age;
     private TextView country;
@@ -43,21 +41,21 @@ public class ProfileActivity extends AppCompatActivity {
         country = findViewById(R.id.country);
         gender = findViewById(R.id.gender);
 
+        // Записывание данных о пользователе в нужные поля профиля
         login.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserLogin()));
         name.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserName()));
         age.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserAge()));
         country.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserCountry()));
         gender.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserGender()));
-        System.out.println(SharedPrefManager.getInstance(this).getUserAge());
-
-
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_settings_for_profile, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

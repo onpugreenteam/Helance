@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class SharedPrefManager {
+
     private static SharedPrefManager mInstance;
     private static Context mCtx;
 
@@ -25,6 +26,8 @@ public class SharedPrefManager {
         return mInstance;
     }
 
+    // Если пользователь ввошел в акаунт(ввел правильно логин и пароль) -->
+    // его данные(которые прийдут по логину и паролю с БД) сохраняться в приложении
     public boolean userLogin(String login, String name, String country, int age, String gender){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -40,6 +43,8 @@ public class SharedPrefManager {
         return true;
     }
 
+    // Метод показывает что пользователь уже авторизован -->
+    // ему не будет показываться те активити в которых этот медот будет переопределен
     public boolean isLoggedIn(){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
 
@@ -49,6 +54,7 @@ public class SharedPrefManager {
         return false;
     }
 
+    // Выход пользователя с приложения, очистка данных, которые были приняты с БД при входе данного пользователя
     public boolean logout(){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -56,6 +62,10 @@ public class SharedPrefManager {
         editor.apply();
         return true;
     }
+
+
+  /**Ниже показаны методы, которые используются для получения данных которые сохранились при входе,
+   *  а также предназначены для записи данных в профиле пользователя **/
 
     public String getUserLogin(){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);

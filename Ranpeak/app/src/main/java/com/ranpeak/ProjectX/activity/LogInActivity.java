@@ -19,10 +19,8 @@ import com.android.volley.toolbox.Volley;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.constant.Constants;
 import com.ranpeak.ProjectX.user.data.SharedPrefManager;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,7 +51,7 @@ public class LogInActivity extends AppCompatActivity /*implements View.OnClickLi
 //            return;
 //        }
 
-        /** Находим и передаем локальным переменным обьекты activity_logIn **/
+        //Находим и передаем локальным переменным обьекты activity_logIn
         login_login = findViewById(R.id.login_login);
         login_password = findViewById(R.id.login_password);
 //        login_button.setOnClickListener(this);
@@ -83,6 +81,7 @@ public class LogInActivity extends AppCompatActivity /*implements View.OnClickLi
 
 
     private void loginUser() {
+
         final String login = login_login.getText().toString().trim();
         final String password = login_password.getText().toString().trim();
         progressDialog.show();

@@ -27,6 +27,7 @@ public class LobbyActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+
     public void ClickOneToOne(View view){
         Intent intent = new Intent(getApplicationContext(),WaitingTimeActivity.class);
         startActivity(intent);
