@@ -18,7 +18,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.constant.Constants;
-import com.ranpeak.ProjectX.user.data.UserData;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -96,7 +95,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             if(!jsonObject.getBoolean("error")){
-//                                UserData.getInstance(getApplicationContext())
+//                                SharedPrefManager.getInstance(getApplicationContext())
 //                                        .userLogin(
 //                                                jsonObject.getString("login")
 //
