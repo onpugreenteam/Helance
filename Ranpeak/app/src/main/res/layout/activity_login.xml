@@ -47,7 +47,7 @@
         android:id="@+id/login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="onClick"
+        android:onClick="ClickLogIn"
         android:layout_below="@+id/login_password"
         android:layout_alignEnd="@+id/login_password"
         android:layout_alignParentStart="true"

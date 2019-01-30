@@ -38,6 +38,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     private EditText login_password;
     private Button login_button;
     private ProgressDialog progressDialog;
+    private boolean answer;
 
 
     @Override
@@ -63,6 +64,13 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     }
 
 
+    public void ClickLogIn(View view){
+        if(loginUser() == true){
+            Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+            startActivity(intent);
+        }
+    }
+
     @Override
     public void onClick(View v) {
         if(v==login_button){
@@ -73,11 +81,10 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     }
 
 
-    private void loginUser() {
+    private boolean loginUser() {
         final String login = login_login.getText().toString().trim();
         final String password = login_password.getText().toString().trim();
         progressDialog.show();
-
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 Constants.URL.LOGIN_USER,
@@ -101,12 +108,14 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                                         "Successful",
                                         Toast.LENGTH_LONG
                                 ).show();
+                                answer = true;
                             }else{
                                 Toast.makeText(
                                         getApplicationContext(),
                                         "error",
                                         Toast.LENGTH_LONG
                                 ).show();
+                                answer = false;
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -134,7 +143,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
-
+        return answer;
     }
 
 //
