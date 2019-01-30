@@ -9,6 +9,7 @@ import android.view.View;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.LogInActivity;
 import com.ranpeak.ProjectX.activity.WaitingTimeActivity;
+import com.ranpeak.ProjectX.user.data.SharedPrefManager;
 
 public class StartActivity extends AppCompatActivity {
 
@@ -21,6 +22,13 @@ public class StartActivity extends AppCompatActivity {
         setContentView(START_ACTIVITY);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+
+        if(!SharedPrefManager.getInstance(this).isLoggedIn()){
+            finish();
+            startActivity(new Intent(this, LobbyActivity.class));
+            return;
+        }
     }
 
 

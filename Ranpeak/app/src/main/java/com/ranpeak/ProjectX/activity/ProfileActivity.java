@@ -40,6 +40,13 @@ public class ProfileActivity extends AppCompatActivity {
         country = (TextView) findViewById(R.id.country);
         gender = (TextView) findViewById(R.id.gender);
 
+        login.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserLogin()));
+        name.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserName()));
+        age.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserAge()));
+        country.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserCountry()));
+        gender.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserGender()));
+        //System.out.println(SharedPrefManager.getInstance(this).getUserAge());
+
 
     }
 

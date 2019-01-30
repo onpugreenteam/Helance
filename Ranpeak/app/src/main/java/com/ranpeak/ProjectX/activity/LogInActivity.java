@@ -48,6 +48,13 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+
+        if(!SharedPrefManager.getInstance(this).isLoggedIn()){
+            finish();
+            startActivity(new Intent(this, ProfileActivity.class));
+            return;
+        }
+
         /** Находим и передаем локальным переменным обьекты activity_logIn **/
         login_login = (EditText) findViewById(R.id.login_login);
         login_password = (EditText) findViewById(R.id.login_password);
@@ -112,6 +119,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                                         Toast.LENGTH_LONG
                                 ).show();
                                 answer = true;
+                                finish();
                             }else{
                                 Toast.makeText(
                                         getApplicationContext(),

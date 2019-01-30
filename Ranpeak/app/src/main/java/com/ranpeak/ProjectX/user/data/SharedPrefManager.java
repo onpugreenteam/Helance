@@ -56,4 +56,29 @@ public class SharedPrefManager {
         editor.apply();
         return true;
     }
+
+    public String getUserLogin(){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(KEY_LOGIN,null);
+    }
+
+    public String getUserName(){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(KEY_NAME,null);
+    }
+
+    public int getUserAge(){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return  sharedPreferences.getInt(KEY_AGE, 0);
+    }
+
+    public String getUserCountry(){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(KEY_COUNTRY,null);
+    }
+
+    public String getUserGender(){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(KEY_GENDER,null);
+    }
 }
