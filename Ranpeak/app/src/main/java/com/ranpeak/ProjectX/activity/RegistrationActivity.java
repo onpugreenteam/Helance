@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -20,10 +19,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.constant.Constants;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,7 +50,6 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-
         /** Находим и передаем локальным переменным обьекты activity_registration **/
         register_login = (EditText) findViewById(R.id.register_login);
         register_password = (EditText) findViewById(R.id.register_password);
@@ -67,10 +63,8 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
         progressDialog = new ProgressDialog(this);
         register_button.setOnClickListener(this);
-
-
-
     }
+
 
     @Override
     public void onClick(View v) {
@@ -81,6 +75,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         }
 
     }
+
 
     private void registerUser(){
         final String login = register_login.getText().toString().trim();
@@ -127,12 +122,10 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                 params.put("gender", gender);
                 return params;
             }
-
             };
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
-
     }
 
 

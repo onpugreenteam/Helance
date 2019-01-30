@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.LogInActivity;
 import com.ranpeak.ProjectX.activity.WaitingTimeActivity;
@@ -22,8 +21,8 @@ public class StartActivity extends AppCompatActivity {
         setContentView(START_ACTIVITY);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -41,6 +40,7 @@ public class StartActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), LogInActivity.class);
         startActivity(intent);
     }
+
 
     public void Click1to1(View view){
         Intent intent = new Intent(getApplicationContext(), WaitingTimeActivity.class);

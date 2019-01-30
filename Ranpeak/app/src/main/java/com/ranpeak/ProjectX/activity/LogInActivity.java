@@ -1,38 +1,14 @@
 package com.ranpeak.ProjectX.activity;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.app.LoaderManager.LoaderCallbacks;
-
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -42,35 +18,24 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.constant.Constants;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.springframework.http.HttpAuthentication;
-import org.springframework.http.HttpBasicAuthentication;
-import org.springframework.http.HttpHeaders;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-
-import static android.Manifest.permission.LOCATION_HARDWARE;
-import static android.Manifest.permission.READ_CONTACTS;
 
 /**
  * A login screen that offers login via email/password.
  */
 public class LogInActivity extends AppCompatActivity implements View.OnClickListener{
 
-   private final static int LOGIN_ACTIVITY = R.layout.aaaa;
+   private final static int LOGIN_ACTIVITY = R.layout.activity_login;
 
 
     private EditText login_login;
     private EditText login_password;
     private Button login_button;
     private ProgressDialog progressDialog;
-
 
 
     @Override
@@ -80,10 +45,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-
-        /** Находим и передаем локальным переменным обьекты activity_registration **/
-
-
+        /** Находим и передаем локальным переменным обьекты activity_logIn **/
         login_login = (EditText) findViewById(R.id.login_login);
         login_password = (EditText) findViewById(R.id.login_password);
         login_button = (Button) findViewById(R.id.login_button);
@@ -91,11 +53,11 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         progressDialog = new ProgressDialog(this);
     }
 
+
     public void ClickRegistration(View view){
         Intent intent = new Intent(getApplicationContext(), RegistrationActivity.class);
         startActivity(intent);
     }
-
 
 
     @Override
@@ -105,10 +67,8 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
             Intent intent = new Intent(getApplicationContext(),LobbyActivity.class);
             startActivity(intent);
         }
-
-
-
     }
+
 
     private void loginUser() {
         final String login = login_login.getText().toString().trim();
