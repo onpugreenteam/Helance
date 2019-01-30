@@ -5,17 +5,17 @@ import java.io.Serializable;
 
 public class Users implements Serializable {
 
-    @JsonProperty("login")
+//    @JsonProperty("login")
     private int login;
-    @JsonProperty("password")
+//    @JsonProperty("password")
     private String password;
-    @JsonProperty("name")
+//    @JsonProperty("name")
     private String name;
-    @JsonProperty("age")
+//    @JsonProperty("age")
     private int age;
-    @JsonProperty("country")
+//    @JsonProperty("country")
     private String country;
-    @JsonProperty("gender")
+//    @JsonProperty("gender")
     private String gender;
 
     public Users() {

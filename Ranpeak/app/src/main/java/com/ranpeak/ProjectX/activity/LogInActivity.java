@@ -18,6 +18,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.constant.Constants;
+import com.ranpeak.ProjectX.user.data.UserData;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -51,6 +53,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         login_button = (Button) findViewById(R.id.login_button);
         login_button.setOnClickListener(this);
         progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please wait...");
     }
 
 
@@ -64,8 +67,8 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         if(v==login_button){
             loginUser();
-            Intent intent = new Intent(getApplicationContext(),LobbyActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(getApplicationContext(),LobbyActivity.class);
+//            startActivity(intent);
         }
     }
 
@@ -73,6 +76,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     private void loginUser() {
         final String login = login_login.getText().toString().trim();
         final String password = login_password.getText().toString().trim();
+        progressDialog.show();
 
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
@@ -84,7 +88,26 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-                            Toast.makeText(getApplicationContext(), jsonObject.getString("Error"), Toast.LENGTH_LONG).show();
+                            if(!jsonObject.getBoolean("error")){
+//                                UserData.getInstance(getApplicationContext())
+//                                        .userLogin(
+//                                                jsonObject.getString("login")
+//
+//                                        );
+                                Intent intent = new Intent(getApplicationContext(),LobbyActivity.class);
+                                startActivity(intent);
+                                Toast.makeText(
+                                        getApplicationContext(),
+                                        "Successful",
+                                        Toast.LENGTH_LONG
+                                ).show();
+                            }else{
+                                Toast.makeText(
+                                        getApplicationContext(),
+                                        "error",
+                                        Toast.LENGTH_LONG
+                                ).show();
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -94,7 +117,8 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.hide();
-                        Toast.makeText(getApplicationContext(),error.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),error.getMessage(),
+                                Toast.LENGTH_LONG).show();
                     }
                 }){
 
@@ -112,7 +136,6 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         requestQueue.add(stringRequest);
 
     }
-
 
 //
 //    /**
