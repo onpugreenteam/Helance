@@ -1,15 +1,25 @@
 package com.ranpeak.ProjectX.activity;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+import android.widget.TextView;
 
 import com.ranpeak.ProjectX.R;
+import com.ranpeak.ProjectX.user.data.SharedPrefManager;
 
 public class ProfileActivity extends AppCompatActivity {
 
     private final static int PROFILE_ACTIVITY = R.layout.activity_profile;
+
+    private TextView login;
+
+    private TextView name;
+    private TextView age;
+    private TextView country;
+    private TextView gender;
 
 
     @Override
@@ -18,6 +28,19 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(PROFILE_ACTIVITY);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        if(!SharedPrefManager.getInstance(this).isLoggedIn()){
+            finish();
+            startActivity(new Intent(this, LogInActivity.class));
+        }
+
+        login = (TextView) findViewById(R.id.login);
+        name = (TextView) findViewById(R.id.name);
+        age = (TextView) findViewById(R.id.age);
+        country = (TextView) findViewById(R.id.country);
+        gender = (TextView) findViewById(R.id.gender);
+
+
     }
 
 
