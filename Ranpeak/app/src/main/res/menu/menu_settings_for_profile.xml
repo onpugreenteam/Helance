@@ -5,18 +5,18 @@
         android:id="@+id/menu_settings"
         android:title="@string/item_settings"
         android:orderInCategory="1"
-        app:showAsAction="never" />
+        app:showAsAction="never"/>
 
     <item
         android:id="@+id/menu_about"
         android:title="@string/item_about"
         android:orderInCategory="1"
-        app:showAsAction="never" />
+        app:showAsAction="never"/>
 
     <item
-        android:id="@+id/menu_exit"
-        android:title="@string/exit_in_menu"
+        android:id="@+id/menu_logout"
+        android:title="@string/log_out"
         android:orderInCategory="1"
-        app:showAsAction="never" />
+        app:showAsAction="never"/>
 
 </menu>

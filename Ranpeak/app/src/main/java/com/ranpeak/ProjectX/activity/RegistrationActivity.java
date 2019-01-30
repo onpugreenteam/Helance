@@ -51,15 +51,15 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         /** Находим и передаем локальным переменным обьекты activity_registration **/
-        register_login = (EditText) findViewById(R.id.register_login);
-        register_password = (EditText) findViewById(R.id.register_password);
-        register_name = (EditText) findViewById(R.id.register_name);
-        register_age = (EditText) findViewById(R.id.register_age);
-        register_country = (EditText) findViewById(R.id.register_country);
-        register_gender = (EditText) findViewById(R.id.register_gender);
+        register_login = findViewById(R.id.register_login);
+        register_password = findViewById(R.id.register_password);
+        register_name = findViewById(R.id.register_name);
+        register_age = findViewById(R.id.register_age);
+        register_country = findViewById(R.id.register_country);
+        register_gender = findViewById(R.id.register_gender);
 
-        register_button = (Button) findViewById(R.id.register_button);
-        iconInRegister = (ImageView) findViewById(R.id.IconInRegister);
+        register_button = findViewById(R.id.register_button);
+        iconInRegister = findViewById(R.id.IconInRegister);
 
         progressDialog = new ProgressDialog(this);
         register_button.setOnClickListener(this);
@@ -70,7 +70,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View v) {
         if(v==register_button){
             registerUser();
-            Intent intent = new Intent(getApplicationContext(),LobbyActivity.class);
+            Intent intent = new Intent(getApplicationContext(),StartActivity.class);
             startActivity(intent);
         }
 
@@ -112,7 +112,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                 }){
 
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams(){
                 Map<String,String> params = new HashMap<>();
                 params.put("login",login);
                 params.put("password",password);

@@ -29,16 +29,14 @@ import java.util.Map;
 /**
  * A login screen that offers login via email/password.
  */
-public class LogInActivity extends AppCompatActivity implements View.OnClickListener{
+public class LogInActivity extends AppCompatActivity /*implements View.OnClickListener*/{
 
    private final static int LOGIN_ACTIVITY = R.layout.activity_login;
 
 
     private EditText login_login;
     private EditText login_password;
-    private Button login_button;
     private ProgressDialog progressDialog;
-    private boolean answer;
 
 
     @Override
@@ -49,17 +47,16 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
 
-        if(!SharedPrefManager.getInstance(this).isLoggedIn()){
-            finish();
-            startActivity(new Intent(this, ProfileActivity.class));
-            return;
-        }
+//        if(SharedPrefManager.getInstance(this).isLoggedIn()){
+//            finish();
+//            startActivity(new Intent(this, LobbyActivity.class));
+//            return;
+//        }
 
         /** Находим и передаем локальным переменным обьекты activity_logIn **/
-        login_login = (EditText) findViewById(R.id.login_login);
-        login_password = (EditText) findViewById(R.id.login_password);
-        login_button = (Button) findViewById(R.id.login_button);
-        login_button.setOnClickListener(this);
+        login_login = findViewById(R.id.login_login);
+        login_password = findViewById(R.id.login_password);
+//        login_button.setOnClickListener(this);
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please wait...");
     }
@@ -72,23 +69,20 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
 
     public void ClickLogIn(View view){
-        if(loginUser() == true){
-            Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-            startActivity(intent);
-        }
+        loginUser();
     }
+//
+//    @Override
+//    public void onClick(View v) {
+//        if(v==login_button){
+//            loginUser();
+////            Intent intent = new Intent(getApplicationContext(),LobbyActivity.class);
+////            startActivity(intent);
+//        }
+//    }
 
-    @Override
-    public void onClick(View v) {
-        if(v==login_button){
-            loginUser();
-//            Intent intent = new Intent(getApplicationContext(),LobbyActivity.class);
-//            startActivity(intent);
-        }
-    }
 
-
-    private boolean loginUser() {
+    private void loginUser() {
         final String login = login_login.getText().toString().trim();
         final String password = login_password.getText().toString().trim();
         progressDialog.show();
@@ -111,14 +105,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                                                 jsonObject.getString("gender")
 
                                         );
-                                Intent intent = new Intent(getApplicationContext(),LobbyActivity.class);
-                                startActivity(intent);
-                                Toast.makeText(
-                                        getApplicationContext(),
-                                        "Successful",
-                                        Toast.LENGTH_LONG
-                                ).show();
-                                answer = true;
+                                startActivity(new Intent(getApplicationContext(),LobbyActivity.class));
                                 finish();
                             }else{
                                 Toast.makeText(
@@ -126,7 +113,6 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                                         "error",
                                         Toast.LENGTH_LONG
                                 ).show();
-                                answer = false;
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -143,7 +129,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                 }){
 
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams(){
                 Map<String,String> params = new HashMap<>();
                 params.put("login",login);
                 params.put("password",password);
@@ -154,7 +140,6 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
-        return answer;
     }
 
 //
