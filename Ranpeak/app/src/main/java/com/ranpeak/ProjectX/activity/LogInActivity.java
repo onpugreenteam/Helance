@@ -18,6 +18,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.constant.Constants;
+import com.ranpeak.ProjectX.user.data.SharedPrefManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -91,15 +92,18 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void onResponse(String response) {
                         progressDialog.dismiss();
-
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             if(!jsonObject.getBoolean("error")){
-//                                SharedPrefManager.getInstance(getApplicationContext())
-//                                        .userLogin(
-//                                                jsonObject.getString("login")
-//
-//                                        );
+                                SharedPrefManager.getInstance(getApplicationContext())
+                                        .userLogin(
+                                                jsonObject.getString("login"),
+                                                jsonObject.getString("name"),
+                                                jsonObject.getString("country"),
+                                                jsonObject.getInt("age"),
+                                                jsonObject.getString("gender")
+
+                                        );
                                 Intent intent = new Intent(getApplicationContext(),LobbyActivity.class);
                                 startActivity(intent);
                                 Toast.makeText(

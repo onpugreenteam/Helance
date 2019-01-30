@@ -8,7 +8,11 @@ public class SharedPrefManager {
     private static Context mCtx;
 
     private static final String SHARED_PREF_NAME="mysharedprefname12";
-    private static final String KEY_USERNAME="username";
+    private static final String KEY_LOGIN = "user_login";
+    private static final String KEY_NAME = "user_name";
+    private static final String KEY_COUNTRY = "user_country";
+    private static final String KEY_AGE = "user_age";
+    private static final String KEY_GENDER = "user_gender";
 
     private SharedPrefManager(Context context){
         mCtx = context;
@@ -25,7 +29,11 @@ public class SharedPrefManager {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        editor.putString(KEY_USERNAME, login);
+        editor.putString(KEY_LOGIN, login);
+        editor.putString(KEY_NAME, name);
+        editor.putString(KEY_COUNTRY, country);
+        editor.putInt(KEY_AGE, age);
+        editor.putString(KEY_GENDER, gender);
 
         editor.apply();
 
@@ -35,7 +43,7 @@ public class SharedPrefManager {
     public boolean isLoggedIn(){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
 
-        if(sharedPreferences.getString(KEY_USERNAME, null) != null){
+        if(sharedPreferences.getString(KEY_LOGIN, null) != null){
             return true;
         }
         return false;
