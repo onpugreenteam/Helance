@@ -5,6 +5,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
+/** Этот класс отвечает за обработку запросов **/
 public class RequestHandler {
 
     private static RequestHandler mInstance;
