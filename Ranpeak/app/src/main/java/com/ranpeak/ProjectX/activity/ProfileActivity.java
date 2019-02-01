@@ -70,7 +70,7 @@ public class ProfileActivity extends AppCompatActivity {
             case  R.id.menu_settings:
                 Toast.makeText(this,"You clicked settings",
                         Toast.LENGTH_LONG).show();
-               // startActivity(new Intent(this, SettingsActivity.class));
+                startActivity(new Intent(this, SettingsActivity.class));
                 break;
             case  R.id.menu_logout:
                 SharedPrefManager.getInstance(this).logout();
