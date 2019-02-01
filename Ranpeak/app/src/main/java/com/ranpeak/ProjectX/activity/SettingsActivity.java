@@ -18,7 +18,6 @@ import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
 import android.view.MenuItem;
-
 import com.ranpeak.ProjectX.R;
 
 import java.util.List;
