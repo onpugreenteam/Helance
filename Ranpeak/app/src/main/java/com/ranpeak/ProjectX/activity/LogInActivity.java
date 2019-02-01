@@ -69,22 +69,14 @@ public class LogInActivity extends AppCompatActivity /*implements View.OnClickLi
     public void ClickLogIn(View view){
         loginUser();
     }
-//
-//    @Override
-//    public void onClick(View v) {
-//        if(v==login_button){
-//            loginUser();
-////            Intent intent = new Intent(getApplicationContext(),LobbyActivity.class);
-////            startActivity(intent);
-//        }
-//    }
-
 
     private void loginUser() {
 
         final String login = login_login.getText().toString().trim();
         final String password = login_password.getText().toString().trim();
         progressDialog.show();
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 Constants.URL.LOGIN_USER,
@@ -94,7 +86,7 @@ public class LogInActivity extends AppCompatActivity /*implements View.OnClickLi
                         progressDialog.dismiss();
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-                            if(!jsonObject.getBoolean("error")){
+                            if(jsonObject.getString("login").equals(login)){
                                 SharedPrefManager.getInstance(getApplicationContext())
                                         .userLogin(
                                                 jsonObject.getString("login"),
@@ -137,7 +129,6 @@ public class LogInActivity extends AppCompatActivity /*implements View.OnClickLi
 
         };
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
 
