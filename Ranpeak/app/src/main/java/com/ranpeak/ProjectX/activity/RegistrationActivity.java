@@ -32,6 +32,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     private EditText register_login;
     private EditText register_password;
     private EditText register_name;
+    private EditText register_email;
     private EditText register_age;
     private EditText register_country;
     private EditText register_gender;
@@ -54,6 +55,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         register_login = findViewById(R.id.register_login);
         register_password = findViewById(R.id.register_password);
         register_name = findViewById(R.id.register_name);
+        register_email =findViewById(R.id.register_email);
         register_age = findViewById(R.id.register_age);
         register_country = findViewById(R.id.register_country);
         register_gender = findViewById(R.id.register_gender);
@@ -82,6 +84,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         final String login = register_login.getText().toString().trim();
         final String password = register_password.getText().toString().trim();
         final String name = register_name.getText().toString().trim();
+        final String email = register_email.getText().toString().trim();
         final String age = register_age.getText().toString().trim();
         final String country = register_country.getText().toString().trim();
         final String gender = register_gender.getText().toString().trim();
@@ -118,6 +121,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                 params.put("login",login);
                 params.put("password",password);
                 params.put("name", name);
+                params.put("email",email);
                 params.put("age", age);
                 params.put("country", country);
                 params.put("gender", gender);

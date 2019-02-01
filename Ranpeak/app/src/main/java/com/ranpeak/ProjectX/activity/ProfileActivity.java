@@ -18,6 +18,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private TextView login;
     private TextView name;
+    private TextView email;
     private TextView age;
     private TextView country;
     private TextView gender;
@@ -37,6 +38,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         login = findViewById(R.id.login);
         name = findViewById(R.id.name);
+        email = findViewById(R.id.email);
         age = findViewById(R.id.age);
         country = findViewById(R.id.country);
         gender = findViewById(R.id.gender);
@@ -44,6 +46,7 @@ public class ProfileActivity extends AppCompatActivity {
         // Записывание данных о пользователе в нужные поля профиля
         login.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserLogin()));
         name.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserName()));
+        email.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserEmail()));
         age.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserAge()));
         country.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserCountry()));
         gender.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserGender()));
@@ -67,6 +70,7 @@ public class ProfileActivity extends AppCompatActivity {
             case  R.id.menu_settings:
                 Toast.makeText(this,"You clicked settings",
                         Toast.LENGTH_LONG).show();
+               // startActivity(new Intent(this, SettingsActivity.class));
                 break;
             case  R.id.menu_logout:
                 SharedPrefManager.getInstance(this).logout();

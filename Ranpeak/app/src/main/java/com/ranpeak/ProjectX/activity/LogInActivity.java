@@ -90,6 +90,7 @@ public class LogInActivity extends AppCompatActivity /*implements View.OnClickLi
                                         .userLogin(
                                                 jsonObject.getString("login"),
                                                 jsonObject.getString("name"),
+                                                jsonObject.getString("email"),
                                                 jsonObject.getString("country"),
                                                 jsonObject.getInt("age"),
                                                 jsonObject.getString("gender")

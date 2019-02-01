@@ -19,6 +19,15 @@
 
         android:textSize="20pt" />
 
+    <TextView
+        android:id="@+id/email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="email"
+        android:textColor="@color/color_Black"
+        android:textSize="11pt"
+        android:textStyle="italic" />
+
     <ImageView
         android:id="@+id/user_image_view"
         style="@style/TextView"
@@ -128,4 +137,5 @@
         </LinearLayout>
 
     </LinearLayout>
+
 </LinearLayout>

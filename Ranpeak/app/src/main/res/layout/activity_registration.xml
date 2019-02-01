@@ -12,7 +12,7 @@
     <ImageView
         android:id="@+id/IconInRegister"
         android:layout_width="80pt"
-        android:layout_height="60pt"
+        android:layout_height="40pt"
         android:layout_gravity="center_horizontal"
         android:layout_marginVertical="15pt"
         android:contentDescription="TODO" android:src="@mipmap/ic_launcher" />
@@ -65,11 +65,23 @@
         android:textColorHint="@color/colorAccent" />
 
     <EditText
-        android:id="@+id/register_age"
+        android:id="@+id/register_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/register_name"
         android:layout_alignEnd="@+id/register_name"
+        android:layout_alignParentStart="true"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:hint="@string/email"
+        android:textColorHint="@color/colorAccent" />
+
+    <EditText
+        android:id="@+id/register_age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/register_email"
+        android:layout_alignEnd="@+id/register_email"
         android:layout_alignParentStart="true"
         android:ems="10"
         android:inputType="number"
