@@ -18,6 +18,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.constant.Constants;
+import com.ranpeak.ProjectX.user.data.RequestHandler;
 import com.ranpeak.ProjectX.user.data.SharedPrefManager;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -76,8 +77,6 @@ public class LogInActivity extends AppCompatActivity /*implements View.OnClickLi
         final String password = login_password.getText().toString().trim();
         progressDialog.show();
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 Constants.URL.LOGIN_USER,
                 new Response.Listener<String>() {
@@ -129,7 +128,8 @@ public class LogInActivity extends AppCompatActivity /*implements View.OnClickLi
 
         };
 
-        requestQueue.add(stringRequest);
+        RequestHandler.getmInstance(this).addToRequestqueue(stringRequest);
+
     }
 
 //
