@@ -1,5 +1,7 @@
 package com.ranpeak.ProjectX.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
@@ -25,7 +27,6 @@ public class StartActivity extends AppCompatActivity {
         if(SharedPrefManager.getInstance(this).isLoggedIn()){
             finish();
             startActivity(new Intent(this, LobbyActivity.class));
-            return;
         }
     }
 
@@ -35,6 +36,20 @@ public class StartActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_settings, menu);
         return true;
     }
+//
+//    @Override
+//    public void onBackPressed() {
+//        new AlertDialog.Builder(this)
+//                .setTitle("Выйти из приложения?")
+//                .setMessage("Вы действительно хотите выйти?")
+//                .setNegativeButton(android.R.string.no, null)
+//                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface arg0, int arg1) {
+//                        //SomeActivity - имя класса Activity для которой переопределяем onBackPressed();
+//                        StartActivity.super.onBackPressed();
+//                    }
+//                }).create().show();
+//    }
 
     /** Метод отключает на данной активити кнопку назад!**/
 //    @Override

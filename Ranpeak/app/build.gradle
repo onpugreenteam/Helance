@@ -29,6 +29,7 @@ android {
 }
 
 dependencies {
+    implementation 'com.google.android.gms:play-services-auth:16.0.1'
     implementation('com.github.ViksaaSkool:AwesomeSplash:v1.0.0') {
         exclude group: 'com.android.support'
         exclude module: 'appcompat-v7'
@@ -52,6 +53,7 @@ dependencies {
 }
 
 repositories {
+    google()
     maven {
         url 'https://repo.spring.io/libs-milestone'
     }
