@@ -10,15 +10,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.constant.Constants;
+import com.ranpeak.ProjectX.user.data.RequestHandler;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.HashMap;
@@ -70,7 +68,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void onClick(View v) {
-        if(v==register_button){
+        if(v == register_button){
             registerUser();
             Intent intent = new Intent(getApplicationContext(),StartActivity.class);
             startActivity(intent);
@@ -129,54 +127,8 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             }
             };
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
+        RequestHandler.getmInstance(this).addToRequestQueue(stringRequest);
+
     }
-
-
-//     private class  RESTTask extends AsyncTask<String, Void, ResponseEntity<Users>> {
-//
-//        protected ResponseEntity<Users> doInBackground(String... uri) {
-//
-//            final String url = uri[0];
-//            RestTemplate restTemplate = new RestTemplate();
-//
-//            try{
-//                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-//
-//                HttpHeaders headers = new HttpHeaders();
-//
-//                headers.set("APIKey", "5567GGH67225HYVGG");
-//
-//                String auth = "Jack" + ":" + "Jones";
-//
-//                String encodeAuth = Base64.encodeToString(auth.getBytes(), Base64.DEFAULT);
-//                String authHeader = "Basic" + new String(encodeAuth);
-//                headers.set("Authorization", authHeader);
-//
-//                HttpEntity<String> entity = new HttpEntity<String>(headers);
-//
-//                ResponseEntity<Users> response = restTemplate.exchange(url, HttpMethod.GET, entity, Users.class);
-//
-//                return response;
-//
-//        }catch (Exception ex){
-//
-//                String message = ex.getMessage();
-//                return null;
-//            }
-//        }
-//
-//        protected void OnPostExecute(ResponseEntity<Users> result){
-//            HttpStatus statusCode = result.getStatusCode();
-//            Users userReturned = result.getBody();
-//        }
-//
-//    }
-//
-//    public  void sendMessage(View view){
-//        final String uri = "http://localhost:8080/getallusers/1";
-//        new RESTTask().execute(uri);
-//    }
 
 }

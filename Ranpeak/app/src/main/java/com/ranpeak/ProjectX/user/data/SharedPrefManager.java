@@ -66,8 +66,9 @@ public class SharedPrefManager {
     }
 
 
-  /**Ниже показаны методы, которые используются для получения данных которые сохранились при входе,
-   *  а также предназначены для записи данных в профиле пользователя **/
+  /** Ниже показаны методы, которые используются для получения данных, которые сохранились при входе,
+   *  а также предназначены для записи данных в профиле пользователя
+   */
 
     public String getUserLogin(){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
