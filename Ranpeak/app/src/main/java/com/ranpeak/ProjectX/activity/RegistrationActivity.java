@@ -91,7 +91,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         progressDialog.setMessage("Registering user...");
         progressDialog.show();
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                Constants.URL.POST_USER,
+                Constants.URL.CHECK_LOGIN,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -99,7 +99,10 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-                            Toast.makeText(getApplicationContext(), jsonObject.getString("Error"), Toast.LENGTH_LONG).show();
+                            if(jsonObject.getString("login").equals("no")){
+                                Toast.makeText(getApplicationContext(),"This login already registered",Toast.LENGTH_LONG);
+
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
