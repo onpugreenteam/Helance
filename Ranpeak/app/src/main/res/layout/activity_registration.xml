@@ -118,7 +118,8 @@
         android:digits="qwertyuiopasdfghjklzxcvbnm"
         android:ems="10"
         android:hint="@string/gender"
-        android:inputType="" android:textColorHint="@color/colorAccent" />
+        android:inputType=""
+        android:textColorHint="@color/colorAccent" />
 </RelativeLayout>
 
 </LinearLayout>
