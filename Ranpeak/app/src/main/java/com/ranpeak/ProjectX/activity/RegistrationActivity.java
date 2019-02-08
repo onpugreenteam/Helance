@@ -69,7 +69,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View v) {
         if(v == register_button){
-            registerUser();
+//            registerUser();
             Intent intent = new Intent(getApplicationContext(),StartActivity.class);
             startActivity(intent);
         }
@@ -77,19 +77,19 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     }
 
 
-    private void registerUser(){
+    private void checkLogin(){
 
         final String login = register_login.getText().toString().trim();
-        final String password = register_password.getText().toString().trim();
-        final String name = register_name.getText().toString().trim();
-        final String email = register_email.getText().toString().trim();
-        final String age = register_age.getText().toString().trim();
-        final String country = register_country.getText().toString().trim();
-        final String gender = register_gender.getText().toString().trim();
+//        final String password = register_password.getText().toString().trim();
+//        final String name = register_name.getText().toString().trim();
+//        final String email = register_email.getText().toString().trim();
+//        final String age = register_age.getText().toString().trim();
+//        final String country = register_country.getText().toString().trim();
+//        final String gender = register_gender.getText().toString().trim();
 
 
-        progressDialog.setMessage("Registering user...");
-        progressDialog.show();
+//        progressDialog.setMessage("Registering user...");
+//        progressDialog.show();
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 Constants.URL.CHECK_LOGIN,
                 new Response.Listener<String>() {
@@ -101,6 +101,8 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                             JSONObject jsonObject = new JSONObject(response);
                             if(jsonObject.getString("login").equals("no")){
                                 Toast.makeText(getApplicationContext(),"This login already registered",Toast.LENGTH_LONG);
+
+                            }else if(jsonObject.getString("login").equals("ok")){
 
                             }
                         } catch (JSONException e) {
@@ -120,12 +122,12 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             protected Map<String, String> getParams(){
                 Map<String,String> params = new HashMap<>();
                 params.put("login",login);
-                params.put("password",password);
-                params.put("name", name);
-                params.put("email",email);
-                params.put("age", age);
-                params.put("country", country);
-                params.put("gender", gender);
+//                params.put("password",password);
+//                params.put("name", name);
+//                params.put("email",email);
+//                params.put("age", age);
+//                params.put("country", country);
+//                params.put("gender", gender);
                 return params;
             }
             };
