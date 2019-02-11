@@ -47,6 +47,10 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
@@ -71,9 +75,9 @@ public class RegistrationActivity extends AppCompatActivity implements TextWatch
 
     private ProgressDialog progressDialog;
 
-    private boolean login_exists = true;
+    private boolean login_exists = false;
 
-    private boolean email_exists = true;
+    private boolean email_exists = false;
 
 
     @Override
@@ -101,18 +105,23 @@ public class RegistrationActivity extends AppCompatActivity implements TextWatch
         iconInRegister = findViewById(R.id.IconInRegister);
 
         register_login.addTextChangedListener(this);
-//        register_email.addTextChangedListener(this);
+        register_email.addTextChangedListener(this);
+        register_password.addTextChangedListener(this);
+        register_name.addTextChangedListener(this);
+        register_age.addTextChangedListener(this);
+        autoCompleteTextViewCountry.addTextChangedListener(this);
+        register_gender.addTextChangedListener(this);
 
-        register_password.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-                    attemptRegistration();
-                    return true;
-                }
-                return false;
-            }
-        });
+//        register_password.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//            @Override
+//            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+//                if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
+//                    attemptRegistration();
+//                    return true;
+//                }
+//                return false;
+//            }
+//        });
 
         Button registerButton = findViewById(R.id.register_button);
         registerButton.setOnClickListener(new View.OnClickListener() {
@@ -139,27 +148,47 @@ public class RegistrationActivity extends AppCompatActivity implements TextWatch
 
     @Override
     public void afterTextChanged(Editable s) {
-        checkLogin();
-
-        if(login_exists){
-            register_login.setError(getString(R.string.error_exist_login));
-        }else{
-            register_login.setError(null);
-        }
-
-        if(email_exists) {
-            register_email.setError(getString(R.string.error_exist_email));
-        }else{
-            register_email.setError(null);
-        }
+        if(register_login.getText().hashCode() == s.hashCode()) {
+            checkLogin();
+            if (login_exists) {
+                register_login.setError(getString(R.string.error_exist_login));
+            } else {
+                register_login.setError(null);
+            }
+        }else if(register_password.getText().hashCode() == s.hashCode()){
+            if (!isPasswordValid(register_password.getText().toString())) {
+                register_password.setError(getString(R.string.error_invalid_password));
+            }
+        }else if(register_email.getText().hashCode() == s.hashCode()){
+            boolean isEmailValid = isEmailValid(register_email.getText().toString());
+            if(!isEmailValid){
+                register_email.setError(getString(R.string.error_invalid_email));
+            }else if(isEmailValid){
+                register_email.setError(null);
+            }
+            checkEmail();
+            if (email_exists) {
+                register_email.setError(getString(R.string.error_exist_email));
+            } else {
+                register_email.setError(null);
+            }
+        }else if(autoCompleteTextViewCountry.getText().hashCode() == s.hashCode()){
+            if (!stringContainsItemFromList(
+                    autoCompleteTextViewCountry.getText().toString(),
+                    Constants.Values.COUNTRIES)) {
+                autoCompleteTextViewCountry.setError(getString(R.string.error_exist_email));
+            }
+            } else {
+                autoCompleteTextViewCountry.setError(null);
+            }
     }
+
 
 
 
     private void attemptRegistration() {
 
         // Reset errors.
-        register_login.setError(null);
         register_login.setError(null);
 
         // Store values at the time of the login attempt.
@@ -315,7 +344,7 @@ public class RegistrationActivity extends AppCompatActivity implements TextWatch
 //        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
 //        Matcher matcher = pattern.matcher(email);
 //        return matcher.matches();
-
+//
 //        return EmailValidator.getInstance().isValid(email);
         boolean isValid = false;
         try {
