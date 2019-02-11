@@ -1,7 +1,5 @@
 package com.ranpeak.ProjectX.activity;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
@@ -22,7 +20,6 @@ public class StartActivity extends AppCompatActivity {
         setContentView(START_ACTIVITY);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
 
         if(SharedPrefManager.getInstance(this).isLoggedIn()){
             finish();

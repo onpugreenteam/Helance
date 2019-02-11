@@ -1,5 +1,6 @@
 package com.ranpeak.ProjectX.activity;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,6 +15,8 @@ public class WaitingTimeActivity extends AppCompatActivity {
     private int seconds;
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +25,7 @@ public class WaitingTimeActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         runTimer(true);
+
     }
 
 
