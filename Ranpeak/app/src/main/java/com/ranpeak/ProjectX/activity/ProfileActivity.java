@@ -3,10 +3,15 @@ package com.ranpeak.ProjectX.activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.ranpeak.ProjectX.R;
@@ -22,6 +27,10 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView age;
     private TextView country;
     private TextView gender;
+
+    private ImageView image;
+    private static final int PICK_IMAGE = 160;
+    private Uri imageUri;
 
 
     @Override
@@ -43,6 +52,8 @@ public class ProfileActivity extends AppCompatActivity {
         country = findViewById(R.id.country);
         gender = findViewById(R.id.gender);
 
+        image = findViewById(R.id.user_image_view);
+
         // Записывание данных о пользователе в нужные поля профиля
         login.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserLogin()));
         name.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserName()));
@@ -50,8 +61,32 @@ public class ProfileActivity extends AppCompatActivity {
         age.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserAge()));
         country.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserCountry()));
         gender.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserGender()));
+
+
+
+        image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openGallery();
+            }
+        });
+
     }
 
+    private void openGallery() {
+        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        startActivityForResult(gallery, PICK_IMAGE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == RESULT_OK && requestCode == PICK_IMAGE){
+            imageUri = data.getData();
+            image.setImageURI(imageUri);
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -82,4 +117,6 @@ public class ProfileActivity extends AppCompatActivity {
         }
         return true;
     }
+
+
 }
