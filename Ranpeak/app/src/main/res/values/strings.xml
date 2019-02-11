@@ -50,6 +50,8 @@
     <string name="gender">Gender</string>
     <string name="log_out">Log out</string>
     <string name="splashscreenText">Ranpeak</string>
+    <string name="choosedWrongCoutry">Choosed wrong country</string>
+
 
     <string name="profile">Profile</string>
     <string name="oneToOne">1 to 1</string>

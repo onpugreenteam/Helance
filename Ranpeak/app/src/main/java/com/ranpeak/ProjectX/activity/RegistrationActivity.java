@@ -8,27 +8,47 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.JsonReader;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.constant.Constants;
 import com.ranpeak.ProjectX.user.data.RequestHandler;
+import com.sun.mail.imap.Utility;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONTokener;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Scanner;
+
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 
 public class RegistrationActivity extends AppCompatActivity implements TextWatcher{
 
@@ -40,16 +60,19 @@ public class RegistrationActivity extends AppCompatActivity implements TextWatch
     private EditText register_name;
     private EditText register_email;
     private EditText register_age;
-    private EditText register_country;
+//    private EditText register_country;
     private EditText register_gender;
 
+    private AutoCompleteTextView autoCompleteTextViewCountry;
     private Button register_button;
 
     private ImageView iconInRegister;
 
     private ProgressDialog progressDialog;
 
-    private boolean login_exists = true;
+    private boolean login_exists = false;
+    private boolean email_exists = false;
+
 
 
     @Override
@@ -65,27 +88,19 @@ public class RegistrationActivity extends AppCompatActivity implements TextWatch
         register_name = findViewById(R.id.register_name);
         register_email =findViewById(R.id.register_email);
         register_age = findViewById(R.id.register_age);
-        register_country = findViewById(R.id.register_country);
+//        register_country = findViewById(R.id.register_country);
         register_gender = findViewById(R.id.register_gender);
+
+        autoCompleteTextViewCountry = findViewById(R.id.register_country);
+        ArrayAdapter<String> adapterCountry = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, Constants.Values.COUNTRIES);
+        autoCompleteTextViewCountry.setAdapter(adapterCountry);
 
         register_button = findViewById(R.id.register_button);
         iconInRegister = findViewById(R.id.IconInRegister);
 
-
-//        register_login.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//                if(register_login.getText().toString()!="") {
-//                    checkLogin();
-//                    if (login_exists) {
-//                        register_login.setError(getString(R.string.error_exist_login));
-//                    }else register_login.setError(null);
-//
-//                }
-//            }
-//        });
-
         register_login.addTextChangedListener(this);
+//        register_email.addTextChangedListener(this);
 
         register_password.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -127,6 +142,7 @@ public class RegistrationActivity extends AppCompatActivity implements TextWatch
         if (login_exists) {
             register_login.setError(getString(R.string.error_exist_login));
         }else register_login.setError(null);
+
     }
 
     private void attemptRegistration() {
@@ -141,7 +157,7 @@ public class RegistrationActivity extends AppCompatActivity implements TextWatch
         String name = register_name.getText().toString();
         String email = register_email.getText().toString();
         String age = register_age.getText().toString();
-        String country = register_country.getText().toString();
+        String country = autoCompleteTextViewCountry.getText().toString();
         String gender = register_gender.getText().toString();
 
         boolean cancel = false;
@@ -161,8 +177,12 @@ public class RegistrationActivity extends AppCompatActivity implements TextWatch
 
         // Check for a valid country, if the user entered one.
         if (TextUtils.isEmpty(country)) {
-            register_country.setError(getString(R.string.error_field_required));
-            focusView = register_country;
+            autoCompleteTextViewCountry.setError(getString(R.string.error_field_required));
+            focusView = autoCompleteTextViewCountry;
+            cancel = true;
+        }else if(!stringContainsItemFromList(country, Constants.Values.COUNTRIES)){
+            autoCompleteTextViewCountry.setError(getString(R.string.choosedWrongCoutry));
+            focusView = autoCompleteTextViewCountry;
             cancel = true;
         }
 //        else if (!isCountryValid(country)) {
@@ -193,6 +213,11 @@ public class RegistrationActivity extends AppCompatActivity implements TextWatch
             focusView = register_email;
             cancel = true;
         }
+//        else if(!email_exists){
+//            register_email.setError(getString(R.string.error_invalid_email));
+//            focusView = register_email;
+//            cancel = true;
+//        }
 
         // Check for a valid name, if the user entered one.
         if (TextUtils.isEmpty(name)) {
@@ -270,25 +295,34 @@ public class RegistrationActivity extends AppCompatActivity implements TextWatch
     }
 
     private boolean isEmailValid(String email){
-        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
-        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
+//        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+//        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+//        Matcher matcher = pattern.matcher(email);
+//        return matcher.matches();
+
+//        return EmailValidator.getInstance().isValid(email);
+        boolean isValid = false;
+        try {
+            //
+            // Create InternetAddress object and validated the supplied
+            // address which is this case is an email address.
+            InternetAddress internetAddress = new InternetAddress(email);
+            internetAddress.validate();
+            isValid = true;
+        } catch (AddressException e) {
+            e.printStackTrace();
+        }
+        return isValid;
+    }
+
+    private void checkEmail() throws IOException, JSONException {
+
     }
 
     private void checkLogin(){
 
         final String login = register_login.getText().toString().trim();
-//        final String password = register_password.getText().toString().trim();
-//        final String name = register_name.getText().toString().trim();
-//        final String email = register_email.getText().toString().trim();
-//        final String age = register_age.getText().toString().trim();
-//        final String country = register_country.getText().toString().trim();
-//        final String gender = register_gender.getText().toString().trim();
 
-
-//        progressDialog.setMessage("Registering user...");
-//        progressDialog.show();
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 Constants.URL.CHECK_LOGIN,
                 new Response.Listener<String>() {
@@ -324,12 +358,6 @@ public class RegistrationActivity extends AppCompatActivity implements TextWatch
             protected Map<String, String> getParams(){
                 Map<String,String> params = new HashMap<>();
                 params.put("login",login);
-//                params.put("password",password);
-//                params.put("name", name);
-//                params.put("email",email);
-//                params.put("age", age);
-//                params.put("country", country);
-//                params.put("gender", gender);
                 return params;
             }
             };
@@ -345,7 +373,7 @@ public class RegistrationActivity extends AppCompatActivity implements TextWatch
         final String name = register_name.getText().toString().trim();
         final String email = register_email.getText().toString().trim();
         final String age = register_age.getText().toString().trim();
-        final String country = register_country.getText().toString().trim();
+        final String country = autoCompleteTextViewCountry.getText().toString().trim();
         final String gender = register_gender.getText().toString().trim();
 
 
@@ -387,4 +415,15 @@ public class RegistrationActivity extends AppCompatActivity implements TextWatch
 
     }
 
+    private static boolean stringContainsItemFromList(String inputStr, String[] items)
+    {
+        for(int i =0; i < items.length; i++)
+        {
+            if(inputStr.contains(items[i]))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }
