@@ -14,6 +14,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.ranpeak.ProjectX.R;
+import com.ranpeak.ProjectX.activity.registration.RegistrationActivity;
 import com.ranpeak.ProjectX.constant.Constants;
 import com.ranpeak.ProjectX.user.data.RequestHandler;
 import com.ranpeak.ProjectX.user.data.SharedPrefManager;
@@ -21,8 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
+
 import android.annotation.TargetApi;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
@@ -295,8 +295,8 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
                         progressDialog.dismiss();
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-                            if(jsonObject.getString("login").equals(login)
-                                   /* && jsonObject.getString("password").equals(password)*/){
+                            if(jsonObject.getString("login").equals(login) || jsonObject.getString("email").equals(login)
+                                /* && jsonObject.getString("password").equals(password)*/){
                                 SharedPrefManager.getInstance(getApplicationContext())
                                         .userLogin(
                                                 jsonObject.getString("login"),

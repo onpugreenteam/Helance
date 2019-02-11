@@ -1,4 +1,4 @@
-package com.ranpeak.ProjectX.activity;
+package com.ranpeak.ProjectX.activity.registration;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -28,6 +28,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ranpeak.ProjectX.R;
+import com.ranpeak.ProjectX.activity.StartActivity;
 import com.ranpeak.ProjectX.constant.Constants;
 import com.ranpeak.ProjectX.user.data.RequestHandler;
 import com.sun.mail.imap.Utility;
@@ -70,9 +71,9 @@ public class RegistrationActivity extends AppCompatActivity implements TextWatch
 
     private ProgressDialog progressDialog;
 
-    private boolean login_exists = false;
-    private boolean email_exists = false;
+    private boolean login_exists = true;
 
+    private boolean email_exists = true;
 
 
     @Override
@@ -139,11 +140,21 @@ public class RegistrationActivity extends AppCompatActivity implements TextWatch
     @Override
     public void afterTextChanged(Editable s) {
         checkLogin();
-        if (login_exists) {
-            register_login.setError(getString(R.string.error_exist_login));
-        }else register_login.setError(null);
 
+        if(login_exists){
+            register_login.setError(getString(R.string.error_exist_login));
+        }else{
+            register_login.setError(null);
+        }
+
+        if(email_exists) {
+            register_email.setError(getString(R.string.error_exist_email));
+        }else{
+            register_email.setError(null);
+        }
     }
+
+
 
     private void attemptRegistration() {
 
@@ -212,6 +223,13 @@ public class RegistrationActivity extends AppCompatActivity implements TextWatch
             register_email.setError(getString(R.string.error_invalid_email));
             focusView = register_email;
             cancel = true;
+        }else if(!TextUtils.isEmpty(email) && isEmailValid(email)){
+            checkEmail();
+            if(email_exists){
+                register_email.setError(getString(R.string.error_exist_email));
+                focusView = register_email;
+                cancel = true;
+            }
         }
 //        else if(!email_exists){
 //            register_email.setError(getString(R.string.error_invalid_email));
@@ -246,7 +264,7 @@ public class RegistrationActivity extends AppCompatActivity implements TextWatch
             register_login.setError(getString(R.string.error_invalid_login));
             focusView = register_login;
             cancel = true;
-        } else if(!TextUtils.isEmpty(login) && isPasswordValid(login)){
+        } else if(!TextUtils.isEmpty(login) && isLoginValid(login)){
             checkLogin();
             if(login_exists){
                 register_login.setError(getString(R.string.error_exist_login));
@@ -263,6 +281,7 @@ public class RegistrationActivity extends AppCompatActivity implements TextWatch
             registerUser();
         }
     }
+
 
     private static boolean isEmpty(EditText editText) {
 
@@ -284,10 +303,7 @@ public class RegistrationActivity extends AppCompatActivity implements TextWatch
     }
 
     private boolean isGenderValid(String gender) {
-        if(gender == "male" || gender == "female"){
-            return true;
-        }
-        return false;
+        return gender.equals("male") || gender.equals("female");
     }
 
     private boolean isAgeValid(String age){
@@ -315,9 +331,54 @@ public class RegistrationActivity extends AppCompatActivity implements TextWatch
         return isValid;
     }
 
-    private void checkEmail() throws IOException, JSONException {
 
+    private void checkEmail() {
+
+        final String email = register_email.getText().toString().trim();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                Constants.URL.CHECK_EMAIL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        progressDialog.dismiss();
+
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            if(jsonObject.getString("login").equals("no")){
+                                Toast.makeText(getApplicationContext(),"This email already registered",Toast.LENGTH_LONG);
+                                register_email.setError(getString(R.string.error_exist_email));
+                                email_exists = true;
+
+                            }else if(jsonObject.getString("login").equals("ok")){
+                                register_email.setError(null);
+                                email_exists = false;
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progressDialog.hide();
+                        Toast.makeText(getApplicationContext(), "Please on Internet", Toast.LENGTH_LONG).show();
+                    }
+                }){
+
+            @Override
+            protected Map<String, String> getParams(){
+                Map<String,String> params = new HashMap<>();
+                params.put("email",email);
+                return params;
+            }
+        };
+
+        RequestHandler.getmInstance(this).addToRequestQueue(stringRequest);
     }
+
+
 
     private void checkLogin(){
 
@@ -350,7 +411,7 @@ public class RegistrationActivity extends AppCompatActivity implements TextWatch
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.hide();
-                        Toast.makeText(getApplicationContext(),error.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),"Please on Internet", Toast.LENGTH_LONG).show();
                     }
                 }){
 
@@ -365,6 +426,8 @@ public class RegistrationActivity extends AppCompatActivity implements TextWatch
         RequestHandler.getmInstance(this).addToRequestQueue(stringRequest);
 
     }
+
+
 
     private void registerUser(){
 
@@ -385,15 +448,16 @@ public class RegistrationActivity extends AppCompatActivity implements TextWatch
                     @Override
                     public void onResponse(String response) {
                         progressDialog.dismiss();
-                        Intent intent = new Intent(getApplicationContext(),StartActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), StartActivity.class);
                         startActivity(intent);
+                        Toast.makeText(getApplicationContext(),"Registration successful", Toast.LENGTH_LONG).show();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.hide();
-                        Toast.makeText(getApplicationContext(),error.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),"Please on Internet", Toast.LENGTH_LONG).show();
                     }
                 }){
 

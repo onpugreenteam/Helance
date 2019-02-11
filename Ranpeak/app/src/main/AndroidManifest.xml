@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.RegistrationActivity"
+            android:name=".activity.registration.RegistrationActivity"
             android:label="@string/title_activity_registration" />
         <activity android:name=".activity.ProfileActivity" />
         <activity android:name=".activity.LobbyActivity" />
