@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -28,6 +29,7 @@
         android:textSize="11pt"
         android:textStyle="italic" />
 
+
     <ImageView
         android:id="@+id/user_image_view"
         style="@style/TextView"
@@ -36,6 +38,13 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginVertical="5pt"
         android:src="@mipmap/ic_launcher" />
+
+    <ImageView
+        android:id="@+id/camera_icon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        app:srcCompat="@drawable/ic_camera_black_24dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -82,6 +91,7 @@
                     android:text="@string/user_gender"
                     android:textSize="9pt"/>
             </RelativeLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -137,7 +147,6 @@
 
             </RelativeLayout>
         </LinearLayout>
-
     </LinearLayout>
 
 </LinearLayout>
