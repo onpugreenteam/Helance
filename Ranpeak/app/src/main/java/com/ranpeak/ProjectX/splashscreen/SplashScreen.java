@@ -1,6 +1,7 @@
 package com.ranpeak.ProjectX.splashscreen;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.ActionBar;
 import android.view.WindowManager;
 import com.daimajia.androidanimations.library.Techniques;
@@ -15,6 +16,8 @@ public class SplashScreen extends AwesomeSplash {
 
     @Override
     public void initSplash(ConfigSplash configSplash) {
+
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();

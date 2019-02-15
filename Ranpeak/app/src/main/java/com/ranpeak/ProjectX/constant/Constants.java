@@ -5,7 +5,7 @@ public class Constants {
     /**Запросы который которые принимает сервер**/
    public static class URL {
 
-      private static final String HOST = "https://projectx174.herokuapp.com/";
+       private static final String HOST = "https://projectx174.herokuapp.com/";
 
 //       private static final String HOST = "http://192.168.0.102:8080/";
 
@@ -14,6 +14,7 @@ public class Constants {
        public static final String LOGIN_USER = HOST + "login";
        public static final String CHECK_LOGIN = HOST + "checkLogin";
        public static final String CHECK_EMAIL = HOST + "checkEmail";
+       public static final String UPLOAD_AVATAR = HOST + "upload/avatar";
    }
 
 

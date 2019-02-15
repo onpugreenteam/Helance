@@ -130,4 +130,5 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="email">Email</string>
+    <string name="choose">Choose method</string>
 </resources>

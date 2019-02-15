@@ -1,11 +1,9 @@
 package com.ranpeak.ProjectX.activity;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
 import com.ranpeak.ProjectX.R;
@@ -13,7 +11,7 @@ import com.ranpeak.ProjectX.user.data.SharedPrefManager;
 
 public class StartActivity extends AppCompatActivity {
 
-    private final static int START_ACTIVITY = R.layout.activity_start_window;
+    public final static int START_ACTIVITY = R.layout.activity_start_window;
 
 
     @Override

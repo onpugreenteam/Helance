@@ -2,37 +2,54 @@ package com.ranpeak.ProjectX.activity;
 
 import android.Manifest;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.DexterError;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.PermissionRequestErrorListener;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.ranpeak.ProjectX.R;
+import com.ranpeak.ProjectX.constant.Constants;
 import com.ranpeak.ProjectX.user.data.SharedPrefManager;
-import java.io.File;
+import com.ranpeak.ProjectX.user.data.VolleyMultipartRequest;
+import org.json.JSONException;
+import org.json.JSONObject;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity {
 
     private final static int PROFILE_ACTIVITY = R.layout.activity_profile;
+
 
     private TextView login;
     private TextView name;
@@ -43,11 +60,9 @@ public class ProfileActivity extends AppCompatActivity {
 
     private ImageView image;
     private ImageView camera;
-    private static final int REQUEST_IMAGE = 100;
+
     private static final int REQUEST_PERMISSION = 200;
-    private String imageFilePath = "";
-
-
+    private String NAME = "1111";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +75,8 @@ public class ProfileActivity extends AppCompatActivity {
             finish();
             startActivity(new Intent(this, StartActivity.class));
         }
+
+        requestMultiplePermissions();
 
         login = findViewById(R.id.login);
         name = findViewById(R.id.name);
@@ -80,6 +97,7 @@ public class ProfileActivity extends AppCompatActivity {
         gender.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserGender()));
 
 
+        // Спрашмвает пользователя разрешение на доступ к галерее(если он его не давал еще)
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
                 PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE},
@@ -90,12 +108,13 @@ public class ProfileActivity extends AppCompatActivity {
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openCameraIntent();
+                Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+                startActivityForResult(galleryIntent, GALLERY);
             }
         });
     }
-
-
 
 
     @Override
@@ -129,61 +148,140 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
 
-    private void openCameraIntent() {
-        Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (pictureIntent.resolveActivity(getPackageManager()) != null) {
-
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-                return;
-            }
-            Uri photoUri = FileProvider.getUriForFile(this, getPackageName() +".provider", photoFile);
-            pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-            startActivityForResult(pictureIntent, REQUEST_IMAGE);
-        }
-    }
-
-
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if (requestCode == REQUEST_PERMISSION && grantResults.length > 0) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Thanks for granting Permission", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == REQUEST_IMAGE) {
-            if (resultCode == RESULT_OK) {
-                image.setImageURI(Uri.parse(imageFilePath));
-            }
-            else if (resultCode == RESULT_CANCELED) {
-                Toast.makeText(this, "You cancelled the operation", Toast.LENGTH_SHORT).show();
+        if (resultCode == this.RESULT_CANCELED) {
+
+            return;
+        }
+
+        if (requestCode == GALLERY) {
+
+            if (data != null) {
+                Uri contentURI = data.getData();
+                try {
+
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), contentURI);
+                    image.setImageBitmap(bitmap);
+                    image.setVisibility(View.VISIBLE);
+                    uploadImage(bitmap);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(ProfileActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
+                }
             }
         }
     }
 
 
+    private final int GALLERY = 1;
+    private RequestQueue rQueue;
+    private ArrayList<HashMap<String, String>> arraylist;
 
-    private File createImageFile() throws IOException{
 
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
-        String imageFileName = "IMG_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
-        imageFilePath = image.getAbsolutePath();
+    // Запрос на загрузку, на сервер...
+    private void uploadImage(final Bitmap bitmap){
 
-        return image;
+        VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, Constants.URL.UPLOAD_AVATAR,
+                new Response.Listener<NetworkResponse>() {
+                    @Override
+                    public void onResponse(NetworkResponse response) {
+                        Log.d("ressssssoo",new String(response.data));
+                        rQueue.getCache().clear();
+
+                        try {
+                            JSONObject jsonObject = new JSONObject(new String(response.data));
+                            Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }) {
+
+            /*
+             * If you want to add more parameters with the image
+             * you can do it here
+             * here we have only one parameter with the image
+             * which is tags
+             * */
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("name", NAME);
+                return params;
+            }
+
+            /*
+             *pass files using below method
+             * */
+            @Override
+            protected Map<String, DataPart> getByteData() {
+                Map<String, DataPart> params = new HashMap<>();
+                long imageName = System.currentTimeMillis();
+                params.put("filename", new VolleyMultipartRequest.DataPart(imageName + ".png", getFileDataFromDrawable(bitmap)));
+                return params;
+            }
+        };
+
+        volleyMultipartRequest.setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        rQueue = Volley.newRequestQueue(ProfileActivity.this);
+        rQueue.add(volleyMultipartRequest);
+    }
+
+
+    // Преобразует картинку пользователя в массив байтов(для передачи на сервер)
+    public byte[] getFileDataFromDrawable(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 80, byteArrayOutputStream);
+        return byteArrayOutputStream.toByteArray();
+    }
+
+
+    // Запрашивает у пользователя разрешение на доступ к галерее
+    private void  requestMultiplePermissions(){
+        Dexter.withActivity(this)
+                .withPermissions(
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE)
+                .withListener(new MultiplePermissionsListener() {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport report) {
+                        // check if all permissions are granted
+                        if (report.areAllPermissionsGranted()) {
+                            Toast.makeText(getApplicationContext(), "All permissions are granted by user!", Toast.LENGTH_SHORT).show();
+                        }
+
+                        // check for permanent denial of any permission
+                        if (report.isAnyPermissionPermanentlyDenied()) {
+                            // show alert dialog navigating to Settings
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                        token.continuePermissionRequest();
+                    }
+                }).
+                withErrorListener(new PermissionRequestErrorListener() {
+                    @Override
+                    public void onError(DexterError error) {
+                        Toast.makeText(getApplicationContext(), "Some Error! ", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .onSameThread()
+                .check();
     }
 }
+

@@ -100,7 +100,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30pt"
-        android:onClick="ClickRegistration"
+        android:onClick="сlickRegistration"
         android:text="@string/registration_button"
         android:textStyle="bold" />
     <!--<TextView-->

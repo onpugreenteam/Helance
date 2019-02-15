@@ -1,13 +1,31 @@
 package com.ranpeak.ProjectX.activity;
 
+import android.annotation.TargetApi;
+import android.app.LoaderManager.LoaderCallbacks;
 import android.app.ProgressDialog;
+import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.Loader;
 import android.content.pm.ActivityInfo;
-import android.support.v7.app.AppCompatActivity;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.inputmethod.EditorInfo;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -20,30 +38,11 @@ import com.ranpeak.ProjectX.user.data.RequestHandler;
 import com.ranpeak.ProjectX.user.data.SharedPrefManager;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.util.HashMap;
-import java.util.Map;
-import android.annotation.TargetApi;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.app.LoaderManager.LoaderCallbacks;
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.Build;
-import android.provider.ContactsContract;
-import android.text.TextUtils;
-import android.view.KeyEvent;
-import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.TextView;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import static android.Manifest.permission.READ_CONTACTS;
-
 
 /**
  * A login screen that offers login via email/password.
@@ -110,8 +109,7 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
         progressDialog.setMessage("Please wait...");
     }
 
-
-
+    // Попытка залогинится
     private void attemptLogin() {
 
         // Reset errors.
@@ -170,7 +168,6 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
 
-
     private void populateAutoComplete() {
         if (!mayRequestContacts()) {
             return;
@@ -178,6 +175,7 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
 
         getLoaderManager().initLoader(0, null, this);
     }
+
 
     private boolean mayRequestContacts() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
@@ -274,12 +272,13 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
 
-    public void ClickRegistration(View view){
+    public void сlickRegistration(View view){
         Intent intent = new Intent(getApplicationContext(), RegistrationActivity.class);
         startActivity(intent);
     }
 
 
+    // Запрос на аунтификацию по (логину или почте) с паролем
     private void loginUser() {
 
         final String login = mEmailView.getText().toString().trim();
@@ -294,8 +293,10 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
                         progressDialog.dismiss();
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-                            if(jsonObject.getString("login").equals(login) || jsonObject.getString("email").equals(login)
-                                /* && jsonObject.getString("password").equals(password)*/){
+
+                            if(jsonObject.getString("login").equals(login) ||
+                                    jsonObject.getString("email").equals(login)){
+
                                 SharedPrefManager.getInstance(getApplicationContext())
                                         .userLogin(
                                                 jsonObject.getString("login"),
@@ -308,7 +309,8 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
                                         );
                                 startActivity(new Intent(getApplicationContext(), LobbyActivity.class));
                                 finish();
-                            }else if(jsonObject.getString("login").equals("error")){
+
+                            }else if(jsonObject.getString("message").equals("error")){
                                 mEmailView.getText().clear();
                                 mPasswordView.getText().clear();
 
