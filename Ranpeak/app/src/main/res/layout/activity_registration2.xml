@@ -1,0 +1,143 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/design_default_color_primary_dark"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingBottom="@dimen/activity_vertical_margin">
+
+            <ImageView
+                android:id="@+id/IconInRegister"
+                android:layout_width="80pt"
+                android:layout_height="40pt"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginVertical="15pt"
+                android:contentDescription="TODO"
+                android:src="@mipmap/ic_launcher" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/registration_textView_profile_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:text="@string/registration_textView_profile_info"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/activity_vertical_margin_20" />
+
+
+                <EditText
+                    android:id="@+id/register_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/registration_textView_profile_info"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="30dp"
+                    android:digits="QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm"
+                    android:ems="10"
+                    android:hint="@string/name"
+                    android:inputType="textPersonName"
+                    android:textColorHint="@color/colorAccent" />
+
+                <EditText
+                    android:id="@+id/register_age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/register_name"
+                    android:layout_alignEnd="@+id/register_name"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="30dp"
+                    android:digits="1234567890"
+                    android:ems="10"
+                    android:hint="@string/age"
+                    android:inputType="number"
+                    android:textColorHint="@color/colorAccent" />
+
+                <TextView
+                    android:id="@+id/register_country"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/register_age"
+                    android:layout_alignEnd="@+id/register_age"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="30dp"
+                    android:clickable="true"
+                    android:ems="10"
+                    android:focusable="true"
+                    android:hint="@string/country_picker"
+                    android:textColorHint="@color/colorAccent"
+                    android:textSize="@dimen/activity_vertical_margin_20" />
+
+                <TextView
+                    android:id="@+id/register_gender"
+                    android:paddingRight="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/register_country"
+                    android:text="@string/gender"
+                    android:textColor="@color/colorAccent"
+                    android:layout_marginTop="30dp"
+                    android:textSize="@dimen/activity_vertical_margin_20" />
+
+                <RadioGroup
+                    android:id="@+id/register_gender_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/register_country"
+                    android:layout_alignEnd="@+id/register_country"
+                    android:layout_marginTop="30dp"
+                    android:orientation="horizontal"
+                    android:layout_toRightOf="@+id/register_gender"
+                    android:onClick="checkRadioButton">
+
+                    <RadioButton
+                        android:id="@+id/register_gender_male"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_male"
+                        android:textColor="@color/colorAccent"
+                        android:onClick="checkRadioButton"
+                        android:checked="true"/>
+
+                    <RadioButton
+                        android:id="@+id/register_gender_female"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_female"
+                        android:textColor="@color/colorAccent"
+                        android:onClick="checkRadioButton"/>
+                </RadioGroup>
+
+                <Button
+                    android:id="@+id/registration_button_2"
+                    style="?android:textAppearanceSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/register_gender_group"
+                    android:layout_alignEnd="@+id/register_gender_group"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="40dp"
+                    android:onClick="clickRegistration_2"
+                    android:text="@string/next"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>
