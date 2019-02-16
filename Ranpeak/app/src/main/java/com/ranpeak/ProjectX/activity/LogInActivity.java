@@ -33,6 +33,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.registration.RegistrationActivity;
+import com.ranpeak.ProjectX.activity.registration.RegistrationActivity1;
 import com.ranpeak.ProjectX.constant.Constants;
 import com.ranpeak.ProjectX.user.data.RequestHandler;
 import com.ranpeak.ProjectX.user.data.SharedPrefManager;
@@ -273,7 +274,7 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
     public void сlickRegistration(View view){
-        Intent intent = new Intent(getApplicationContext(), RegistrationActivity.class);
+        Intent intent = new Intent(getApplicationContext(), RegistrationActivity1.class);
         startActivity(intent);
     }
 

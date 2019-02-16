@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.ranpeak.ProjectX">
-
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
@@ -19,8 +18,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme">
-
-
+        <!--<activity android:name=".activity.registration.CountryListActivity"></activity>-->
         <activity
             android:name=".activity.SettingsActivity"
             android:label="@string/title_activity_settings" />
@@ -45,6 +43,18 @@
         <activity android:name=".activity.WaitingTimeActivity" />
         <activity android:name=".activity.CommunicationActivity" />
         <activity android:name=".activity.StartActivity" />
+        <activity
+            android:name=".activity.registration.RegistrationActivity3"
+            android:label="@string/title_activity_registration" />
+        <activity
+            android:name=".activity.registration.RegistrationActivity2"
+            android:label="@string/title_activity_registration" />
+        <activity
+            android:name=".activity.registration.RegistrationActivity1"
+            android:label="@string/title_activity_registration" />
+        <activity
+            android:name=".activity.registration.RegistrationActivity4"
+            android:label="@string/title_activity_registration" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

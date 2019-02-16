@@ -176,7 +176,7 @@ public class RegistrationActivity extends AppCompatActivity implements TextWatch
             if (!stringContainsItemFromList(
                     autoCompleteTextViewCountry.getText().toString(),
                     Constants.Values.COUNTRIES)) {
-                autoCompleteTextViewCountry.setError(getString(R.string.error_exist_email));
+                autoCompleteTextViewCountry.setError(getString(R.string.error_country_incorrect));
             }
             } else {
                 autoCompleteTextViewCountry.setError(null);

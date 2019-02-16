@@ -16,6 +16,7 @@
 
     <string name="user_login">login</string>
     <string name="user_password">password</string>
+    <string name="user_username">username</string>
 
     <string name="registration">registration</string>
     <string name="title_activity_login2">Sign in</string>
@@ -32,6 +33,7 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_invalid_gender">This gender is incorrect</string>
     <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_weak_password">This password is too weak</string>
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
@@ -48,10 +50,26 @@
     <string name="register">Register</string>
     <string name="age">Age</string>
     <string name="country">Country</string>
-    <string name="gender">Gender</string>
+    <string name="country_picker">Click to select your country</string>
+    <string name="gender">Gender:</string>
+    <string name="user_male">male</string>
+    <string name="user_female">female</string>
     <string name="log_out">Log out</string>
     <string name="splashscreenText">Ranpeak</string>
     <string name="choosedWrongCoutry">Choosed wrong country</string>
+    <string name="invalidEmailOrPassword">Invalid email or password</string>
+    <string name="next">Next</string>
+    <string name="registration_name">Your name</string>
+    <string name="registration_surname">Your surname</string>
+    <string name="registration_email">Your email</string>
+    <string name="registration_textView_name">Type your name:</string>
+    <string name="registration_textView_surname">Type your surname:</string>
+    <string name="registration_textView_email">Type your email address:</string>
+    <string name="registration_textView_password">Create password:</string>
+    <string name="registration_textView_username">Create yor username:</string>
+    <string name="registration_textView_profile_info">This info will be shown on your profile:</string>
+    <string name="error_password_doesnt_match">This password doesn\'t match</string>
+    <string name="error_country_incorrect">Country is not correct</string>
 
 
     <string name="profile">Profile</string>
