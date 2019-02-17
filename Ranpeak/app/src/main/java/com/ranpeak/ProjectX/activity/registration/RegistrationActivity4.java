@@ -11,7 +11,6 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -20,16 +19,15 @@ import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.StartActivity;
 import com.ranpeak.ProjectX.constant.Constants;
 import com.ranpeak.ProjectX.user.data.RequestHandler;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class RegistrationActivity4 extends AppCompatActivity {
 
     private final static int REGISTRATION_ACTIVITY4 = R.layout.activity_registration4;
+
     private TextInputLayout registration_username;
     private Button nextButton;
     private boolean loginExists = false;
@@ -61,6 +59,7 @@ public class RegistrationActivity4 extends AppCompatActivity {
         }
     };
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,16 +84,19 @@ public class RegistrationActivity4 extends AppCompatActivity {
         progressDialog.setMessage("Please wait...");
     }
 
+
     public void clickRegistration_4(View view){
         registerUser();
 
     }
+
 
     @Override
     public void finish() {
         super.finish();
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
+
 
     private boolean checkLogin(){
             checkLoginOnServer();
@@ -106,6 +108,7 @@ public class RegistrationActivity4 extends AppCompatActivity {
                 return false;
             }
     }
+
 
     private void checkLoginOnServer(){
         final String login = registration_username.getEditText().getText().toString().trim();
@@ -119,12 +122,12 @@ public class RegistrationActivity4 extends AppCompatActivity {
 
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-                            if(jsonObject.getString("login").equals("no")){
-                                Toast.makeText(getApplicationContext(),"This login already registered",Toast.LENGTH_LONG);
+                            if(jsonObject.getString("message").equals("no")){
+                                Toast.makeText(getApplicationContext(),"This login already registered",Toast.LENGTH_LONG).show();
                                 registration_username.setError(getString(R.string.error_exist_login));
                                 loginExists = true;
 
-                            }else if(jsonObject.getString("login").equals("ok")){
+                            }else if(jsonObject.getString("message").equals("ok")){
                                 registration_username.setError(null);
                                 loginExists = false;
                             }
@@ -151,14 +154,18 @@ public class RegistrationActivity4 extends AppCompatActivity {
 
         RequestHandler.getmInstance(this).addToRequestQueue(stringRequest);
     }
+
+
     private boolean isLoginValid(){
+
         if(registration_username.getEditText().getText().length() <= 4){
-            registration_username.setError(getText(R.string.error_invalid_login));
+//            registration_username.setError(getText(R.string.error_invalid_login));
             return false;
         }
         registration_username.setError(null);
         return true;
     }
+
 
     private void registerUser(){
 
@@ -208,7 +215,5 @@ public class RegistrationActivity4 extends AppCompatActivity {
         };
 
         RequestHandler.getmInstance(this).addToRequestQueue(stringRequest);
-
     }
-
 }

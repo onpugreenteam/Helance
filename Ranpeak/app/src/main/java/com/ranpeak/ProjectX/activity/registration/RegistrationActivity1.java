@@ -2,17 +2,14 @@ package com.ranpeak.ProjectX.activity.registration;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.support.design.widget.TextInputEditText;
+import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -20,24 +17,22 @@ import com.android.volley.toolbox.StringRequest;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.constant.Constants;
 import com.ranpeak.ProjectX.user.data.RequestHandler;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-
 public class RegistrationActivity1 extends AppCompatActivity{
 
     private final static int REGISTRATION_ACTIVITY1 = R.layout.activity_registration1;
+
     private Button nextButton;
     private TextInputLayout register_email;
     private boolean email_exists = false;
+
+
     private TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -74,6 +69,8 @@ public class RegistrationActivity1 extends AppCompatActivity{
         nextButton.setEnabled(false);
         register_email.getEditText().addTextChangedListener(textWatcher);
     }
+
+
     public void clickRegistration_1(View view){
             Intent intent = new Intent(getApplicationContext(), RegistrationActivity2.class);
             intent.putExtra("email",register_email.getEditText().getText().toString().trim());
@@ -81,6 +78,7 @@ public class RegistrationActivity1 extends AppCompatActivity{
 
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
+
 
     private boolean emailExists(){
         checkEmail();
@@ -92,6 +90,8 @@ public class RegistrationActivity1 extends AppCompatActivity{
             return false;
         }
     }
+
+
     private void checkEmail() {
         final String email = register_email.getEditText().getText().toString().trim();
 
@@ -102,12 +102,12 @@ public class RegistrationActivity1 extends AppCompatActivity{
                     public void onResponse(String response) {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-                            if(jsonObject.getString("login").equals("no")){
+                            if(jsonObject.getString("message").equals("no")){
                                 Toast.makeText(getApplicationContext(),"This email already registered",Toast.LENGTH_LONG);
                                 register_email.setError(getString(R.string.error_exist_email));
                                 email_exists = true;
 
-                            }else if(jsonObject.getString("login").equals("ok")){
+                            }else if(jsonObject.getString("message").equals("ok")){
                                 register_email.setError(null);
                                 email_exists = false;
                             }
@@ -133,6 +133,8 @@ public class RegistrationActivity1 extends AppCompatActivity{
 
         RequestHandler.getmInstance(this).addToRequestQueue(stringRequest);
     }
+
+
     private boolean isEmailValid(String email){
 //        boolean isValid = false;
 //        try {

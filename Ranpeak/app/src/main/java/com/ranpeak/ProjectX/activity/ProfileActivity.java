@@ -50,7 +50,6 @@ public class ProfileActivity extends AppCompatActivity {
 
     private final static int PROFILE_ACTIVITY = R.layout.activity_profile;
 
-
     private TextView login;
     private TextView name;
     private TextView email;
@@ -62,7 +61,7 @@ public class ProfileActivity extends AppCompatActivity {
     private ImageView camera;
 
     private static final int REQUEST_PERMISSION = 200;
-    private String NAME = "1111";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -203,7 +202,7 @@ public class ProfileActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Please on Internet", Toast.LENGTH_SHORT).show();
                     }
                 }) {
 
@@ -216,7 +215,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("name", NAME);
+                params.put("login", String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()));
                 return params;
             }
 

@@ -8,13 +8,11 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Toast;
-
 import com.ranpeak.ProjectX.R;
 
 public class CommunicationActivity extends AppCompatActivity {
 
     private final static int COMMUNICATION_ACTIVITY = R.layout.activity_communication;
-
 
     FloatingActionButton fab1, fab2, fab3;
     Animation fabOpen, fabClose, rotateForward, rotateBackward;

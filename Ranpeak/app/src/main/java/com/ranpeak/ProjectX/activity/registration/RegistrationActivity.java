@@ -8,57 +8,31 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.JsonReader;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.StartActivity;
 import com.ranpeak.ProjectX.constant.Constants;
 import com.ranpeak.ProjectX.user.data.RequestHandler;
-import com.sun.mail.imap.Utility;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONTokener;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
-import java.util.Timer;
-import java.util.concurrent.TimeUnit;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
 public class RegistrationActivity extends AppCompatActivity implements TextWatcher{
 
     private final static int REGISTRATION_ACTIVITY = R.layout.activity_registration;
-
 
     private EditText register_login;
     private EditText register_password;
@@ -182,8 +156,6 @@ public class RegistrationActivity extends AppCompatActivity implements TextWatch
                 autoCompleteTextViewCountry.setError(null);
             }
     }
-
-
 
 
     private void attemptRegistration() {
@@ -508,8 +480,7 @@ public class RegistrationActivity extends AppCompatActivity implements TextWatch
 
     }
 
-    private static boolean stringContainsItemFromList(String inputStr, String[] items)
-    {
+    private static boolean stringContainsItemFromList(String inputStr, String[] items) {
         for(int i =0; i < items.length; i++)
         {
             if(inputStr.contains(items[i]))

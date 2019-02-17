@@ -4,19 +4,16 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.constant.Constants;
 
@@ -42,6 +39,8 @@ public class RegistrationActivity2 extends AppCompatActivity/* implements Countr
 
     //    private AutoCompleteTextView register_country;
     private Button nextButton;
+
+
     private TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -66,6 +65,7 @@ public class RegistrationActivity2 extends AppCompatActivity/* implements Countr
 
         }
     };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +104,7 @@ public class RegistrationActivity2 extends AppCompatActivity/* implements Countr
         nextButton.addTextChangedListener(textWatcher);
     }
 
+
     public void clickRegistration_2(View view){
         Intent intent = new Intent(getApplicationContext(), RegistrationActivity3.class);
         intent.putExtra("email", email);
@@ -117,13 +118,15 @@ public class RegistrationActivity2 extends AppCompatActivity/* implements Countr
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
+
     @Override
     public void finish() {
         super.finish();
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
-    private static boolean stringContainsItemFromList(String inputStr, String[] items)
-    {
+
+
+    private static boolean stringContainsItemFromList(String inputStr, String[] items) {
         for(int i =0; i < items.length; i++)
         {
             if(inputStr.contains(items[i]))
@@ -134,11 +137,13 @@ public class RegistrationActivity2 extends AppCompatActivity/* implements Countr
         return false;
     }
 
+
     public void checkRadioButton(View v){
         int radioId = register_gender.getCheckedRadioButtonId();
         radioButton = findViewById(radioId);
         gender = radioButton.getText().toString();
     }
+
 
     private boolean checkGender(){
         if(register_gender_male.isChecked()){

@@ -1,7 +1,6 @@
 package com.ranpeak.ProjectX.activity.registration;
 
 import android.app.DialogFragment;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,15 +9,16 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
-
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.constant.Constants;
 
 public class CountryListActivity extends DialogFragment {
+
     private SearchView searchView;
     private ListView listView;
     private ArrayAdapter<String> adapter;
 //    public OnInputListener onInputListener;
+
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,

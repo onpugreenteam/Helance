@@ -2,19 +2,15 @@ package com.ranpeak.ProjectX.activity.registration;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.os.CpuUsageInfo;
+import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
 import com.ranpeak.ProjectX.R;
-import com.ranpeak.ProjectX.constant.Constants;
-import com.sun.activation.viewers.TextEditor;
 
 public class RegistrationActivity3 extends AppCompatActivity {
 
@@ -29,6 +25,7 @@ public class RegistrationActivity3 extends AppCompatActivity {
     private String country;
     private String gender;
     private String age;
+
 
     private TextWatcher textWatcher = new TextWatcher() {
         @Override
@@ -46,6 +43,7 @@ public class RegistrationActivity3 extends AppCompatActivity {
 
         }
     };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,11 +67,13 @@ public class RegistrationActivity3 extends AppCompatActivity {
         nextButton.setEnabled(false);
     }
 
+
     @Override
     public void finish() {
         super.finish();
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
+
 
     public void clickRegistration_3(View view){
         Intent intent = new Intent(getApplicationContext(), RegistrationActivity4.class);
@@ -87,6 +87,7 @@ public class RegistrationActivity3 extends AppCompatActivity {
 
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
+
 
     private boolean isPasswordValid(){
         String password = password_1.getEditText().getText().toString().trim();
@@ -108,6 +109,7 @@ public class RegistrationActivity3 extends AppCompatActivity {
             return true;
         }
     }
+
 
     private boolean isSecondPasswordMatches(){
         if(!password_2.getText().toString().equals(password_1.getEditText().getText().toString())){
