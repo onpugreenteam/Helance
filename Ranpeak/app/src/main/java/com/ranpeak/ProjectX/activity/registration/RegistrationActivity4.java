@@ -7,6 +7,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
@@ -30,7 +31,6 @@ public class RegistrationActivity4 extends AppCompatActivity {
 
     private TextInputLayout registration_username;
     private Button nextButton;
-    private boolean loginExists = false;
     private ProgressDialog progressDialog;
     private String email;
     private String name;
@@ -38,6 +38,7 @@ public class RegistrationActivity4 extends AppCompatActivity {
     private String gender;
     private String age;
     private String password;
+    private boolean login_exists = false;
 
 
     private TextWatcher textWatcher = new TextWatcher() {
@@ -48,14 +49,19 @@ public class RegistrationActivity4 extends AppCompatActivity {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            nextButton.setEnabled( checkLogin()
-            && isLoginValid()
-            );
+//            nextButton.setEnabled( checkLogin()
+//            && !isLoginValid()
+//            );
         }
 
         @Override
         public void afterTextChanged(Editable s) {
-
+            checkLogin();
+            if (login_exists) {
+                registration_username.setError(getString(R.string.error_exist_login));
+            } else {
+                registration_username.setError(null);
+            }
         }
     };
 
@@ -77,19 +83,55 @@ public class RegistrationActivity4 extends AppCompatActivity {
         registration_username = findViewById(R.id.registration_username);
         registration_username.getEditText().addTextChangedListener(textWatcher);
         nextButton = findViewById(R.id.registration_button_4);
-        nextButton.setEnabled(false);
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                attemptRegistration();
+            }
+        });
 
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please wait...");
     }
 
+    private void attemptRegistration() {
 
-    public void clickRegistration_4(View view){
-        registerUser();
+        // Reset errors.
+        registration_username.setError(null);
 
+        // Store values at the time of the login attempt.
+        String login = registration_username.getEditText().getText().toString();
+
+        boolean cancel = false;
+        View focusView = null;
+
+        // Check for a valid login.
+        if (TextUtils.isEmpty(login)) {
+            registration_username.setError(getString(R.string.error_field_required));
+            focusView = registration_username;
+            cancel = true;
+        } else if (!isLoginValid(login)) {
+            registration_username.setError(getString(R.string.error_invalid_login));
+            focusView = registration_username;
+            cancel = true;
+        } else if(!TextUtils.isEmpty(login) && isLoginValid(login)){
+            checkLogin();
+            if(login_exists){
+                registration_username.setError(getString(R.string.error_exist_login));
+                focusView = registration_username;
+                cancel = true;
+            }
+        }
+
+        if (cancel) {
+            // There was an error; don't attempt login and focus the first
+            // form field with an error.
+            focusView.requestFocus();
+        } else {
+            registerUser();
+        }
     }
-
 
     @Override
     public void finish() {
@@ -98,19 +140,7 @@ public class RegistrationActivity4 extends AppCompatActivity {
     }
 
 
-    private boolean checkLogin(){
-            checkLoginOnServer();
-            if (!loginExists) {
-//                registration_username.setError(getString(R.string.error_exist_login));
-                return true;
-            } else {
-//                registration_username.setError(null);
-                return false;
-            }
-    }
-
-
-    private void checkLoginOnServer(){
+    private void checkLogin(){
         final String login = registration_username.getEditText().getText().toString().trim();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
@@ -123,13 +153,13 @@ public class RegistrationActivity4 extends AppCompatActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             if(jsonObject.getString("message").equals("no")){
-                                Toast.makeText(getApplicationContext(),"This login already registered",Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(),"This login already registered",Toast.LENGTH_LONG);
                                 registration_username.setError(getString(R.string.error_exist_login));
-                                loginExists = true;
+                                login_exists = true;
 
                             }else if(jsonObject.getString("message").equals("ok")){
                                 registration_username.setError(null);
-                                loginExists = false;
+                                login_exists = false;
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -153,17 +183,15 @@ public class RegistrationActivity4 extends AppCompatActivity {
         };
 
         RequestHandler.getmInstance(this).addToRequestQueue(stringRequest);
+
     }
 
 
-    private boolean isLoginValid(){
 
-        if(registration_username.getEditText().getText().length() <= 4){
-//            registration_username.setError(getText(R.string.error_invalid_login));
-            return false;
-        }
-        registration_username.setError(null);
-        return true;
+    private boolean isLoginValid(String login) {
+        //TODO: Replace this with your own logic
+
+        return login.length() > 4;
     }
 
 

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
@@ -41,18 +42,44 @@ public class RegistrationActivity1 extends AppCompatActivity{
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            nextButton.setEnabled(!register_email.getEditText().getText().toString().trim().isEmpty()
-                    && isEmailValid(register_email.getEditText().getText().toString())
-                    && !emailExists()
-            );
-            if(nextButton.isEnabled()){
-                register_email.setError(null);
-            }
+//            nextButton.setEnabled( !register_email.getEditText().getText().toString().isEmpty()
+//                    && isEmailValid(register_email.getEditText().getText().toString())
+//                    && !emailExists()
+//            );
         }
 
         @Override
         public void afterTextChanged(Editable s) {
+//            nextButton.setEnabled(
+//                    isEmailValid(register_email.getEditText().getText().toString())
+//                    && !emailExists()
+//            );
 
+//            boolean isEmailValid = isEmailValid(register_email.getEditText().getText().toString());
+//            if(!isEmailValid){
+//                register_email.setError(getString(R.string.error_invalid_email));
+//            }else if(isEmailValid){
+//                register_email.setError(null);
+//            }
+//            checkEmail();
+//            if (email_exists) {
+//                register_email.setError(getString(R.string.error_exist_email));
+//            } else {
+//                register_email.setError(null);
+//            }
+
+            boolean isEmailValid = isEmailValid(register_email.getEditText().getText().toString());
+            if(!isEmailValid){
+                register_email.setError(getString(R.string.error_invalid_email));
+            }else if(isEmailValid){
+                register_email.setError(null);
+            }
+            checkEmail();
+            if (email_exists) {
+                register_email.setError(getString(R.string.error_exist_email));
+            } else {
+                register_email.setError(null);
+            }
         }
     };
 
@@ -66,23 +93,71 @@ public class RegistrationActivity1 extends AppCompatActivity{
 
         register_email = findViewById(R.id.registration_email);
         nextButton = findViewById(R.id.registration_button_1);
-        nextButton.setEnabled(false);
+//        nextButton.setEnabled(false);
         register_email.getEditText().addTextChangedListener(textWatcher);
     }
 
 
     public void clickRegistration_1(View view){
+//            Intent intent = new Intent(getApplicationContext(), RegistrationActivity2.class);
+//            intent.putExtra("email",register_email.getEditText().getText().toString().trim());
+//            startActivity(intent);
+//
+//            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+        attemptRegistration();
+    }
+    private void attemptRegistration() {
+
+        // Reset errors.
+        register_email.setError(null);
+
+        // Store values at the time of the login attempt.
+        String email = register_email.getEditText().getText().toString();
+
+        boolean cancel = false;
+        View focusView = null;
+
+        // Check for a valid email, if the user entered one.
+        if (TextUtils.isEmpty(email)) {
+            register_email.setError(getString(R.string.error_field_required));
+            focusView = register_email;
+            cancel = true;
+        }else if (!isEmailValid(email)) {
+            register_email.setError(getString(R.string.error_invalid_email));
+            focusView = register_email;
+            cancel = true;
+        }else if(!TextUtils.isEmpty(email) && isEmailValid(email)){
+            checkEmail();
+            if(email_exists){
+                register_email.setError(getString(R.string.error_exist_email));
+                focusView = register_email;
+                cancel = true;
+            }
+        }
+//        else if(!email_exists){
+//            register_email.setError(getString(R.string.error_invalid_email));
+//            focusView = register_email;
+//            cancel = true;
+//        }
+
+        if (cancel) {
+            // There was an error; don't attempt login and focus the first
+            // form field with an error.
+            focusView.requestFocus();
+        } else {
             Intent intent = new Intent(getApplicationContext(), RegistrationActivity2.class);
             intent.putExtra("email",register_email.getEditText().getText().toString().trim());
             startActivity(intent);
 
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        }
     }
 
 
     private boolean emailExists(){
         checkEmail();
-        if (email_exists) {
+        if (email_exists == true) {
 //            register_email.setError(getString(R.string.error_exist_email));
             return true;
         } else {
@@ -105,10 +180,12 @@ public class RegistrationActivity1 extends AppCompatActivity{
                             if(jsonObject.getString("message").equals("no")){
                                 Toast.makeText(getApplicationContext(),"This email already registered",Toast.LENGTH_LONG);
                                 register_email.setError(getString(R.string.error_exist_email));
+//                                nextButton.setEnabled(false);
                                 email_exists = true;
 
                             }else if(jsonObject.getString("message").equals("ok")){
                                 register_email.setError(null);
+//                                nextButton.setEnabled(true);
                                 email_exists = false;
                             }
                         } catch (JSONException e) {
