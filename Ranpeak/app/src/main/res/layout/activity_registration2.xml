@@ -53,19 +53,33 @@
                     android:inputType="textPersonName"
                     android:textColorHint="@color/colorAccent" />
 
-                <EditText
+                <!--<EditText-->
+                    <!--android:id="@+id/register_age"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_below="@+id/register_name"-->
+                    <!--android:layout_alignEnd="@+id/register_name"-->
+                    <!--android:layout_alignParentStart="true"-->
+                    <!--android:layout_marginTop="30dp"-->
+                    <!--android:digits="1234567890"-->
+                    <!--android:ems="10"-->
+                    <!--android:hint="@string/age"-->
+                    <!--android:inputType="number"-->
+                    <!--android:textColorHint="@color/colorAccent" />-->
+                <TextView
                     android:id="@+id/register_age"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/register_name"
                     android:layout_alignEnd="@+id/register_name"
                     android:layout_alignParentStart="true"
                     android:layout_marginTop="30dp"
-                    android:digits="1234567890"
+                    android:clickable="true"
                     android:ems="10"
-                    android:hint="@string/age"
-                    android:inputType="number"
-                    android:textColorHint="@color/colorAccent" />
+                    android:focusable="true"
+                    android:hint="@string/age_picker"
+                    android:textColorHint="@color/colorAccent"
+                    android:textSize="@dimen/activity_vertical_margin_20" />
 
                 <TextView
                     android:id="@+id/register_country"
