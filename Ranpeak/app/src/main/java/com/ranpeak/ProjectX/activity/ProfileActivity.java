@@ -102,10 +102,14 @@ public class ProfileActivity extends AppCompatActivity {
         country.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserCountry()));
         gender.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserGender()));
 
-        byte[] decodedString = Base64.decode(String.valueOf(SharedPrefManager.getInstance(this).getUserAvatar()), Base64.DEFAULT);
-        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-        image.setImageBitmap(decodedByte);
-        image.setVisibility(View.VISIBLE);
+        if(SharedPrefManager.getInstance(this).getUserAvatar() != null){
+            byte[] decodedString = Base64.decode(String.valueOf(SharedPrefManager.getInstance(this).getUserAvatar()), Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
+        }else{
+            image.setVisibility(View.VISIBLE);
+        }
+
 
         // Спрашмвает пользователя разрешение на доступ к галерее(если он его не давал еще)
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
