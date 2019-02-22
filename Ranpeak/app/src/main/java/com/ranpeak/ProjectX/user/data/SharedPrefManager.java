@@ -30,7 +30,7 @@ public class SharedPrefManager {
 
     // Если пользователь ввошел в акаунт(ввел правильно логин и пароль) -->
     // его данные(которые прийдут по логину и паролю с БД) сохраняться в приложении
-    public boolean userLogin(String login, String name, String email, String country, int age, String gender){
+    public boolean userLogin(String login, String name, String email, String country, int age, String gender, String avatar){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -40,9 +40,20 @@ public class SharedPrefManager {
         editor.putString(KEY_COUNTRY, country);
         editor.putInt(KEY_AGE, age);
         editor.putString(KEY_GENDER, gender);
+        editor.putString(KEY_AVATAR, avatar);
 
         editor.apply();
 
+        return true;
+    }
+
+    public boolean userUpdateImage(String avatar){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.remove(KEY_AVATAR);
+        editor.putString(KEY_AVATAR, avatar);
+        editor.apply();
         return true;
     }
 
@@ -56,6 +67,7 @@ public class SharedPrefManager {
         }
         return false;
     }
+
 
     // Выход пользователя с приложения, очистка данных, которые были приняты с БД при входе данного пользователя
     public boolean logout(){
@@ -99,5 +111,10 @@ public class SharedPrefManager {
     public String getUserGender(){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getString(KEY_GENDER,null);
+    }
+
+    public String getUserAvatar() {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(KEY_AVATAR, null);
     }
 }

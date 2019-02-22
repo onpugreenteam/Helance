@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +20,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
@@ -25,6 +28,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -35,10 +39,13 @@ import com.karumi.dexter.listener.PermissionRequestErrorListener;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.constant.Constants;
+import com.ranpeak.ProjectX.user.data.RequestHandler;
 import com.ranpeak.ProjectX.user.data.SharedPrefManager;
 import com.ranpeak.ProjectX.user.data.VolleyMultipartRequest;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -95,6 +102,10 @@ public class ProfileActivity extends AppCompatActivity {
         country.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserCountry()));
         gender.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserGender()));
 
+        byte[] decodedString = Base64.decode(String.valueOf(SharedPrefManager.getInstance(this).getUserAvatar()), Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        image.setImageBitmap(decodedByte);
+        image.setVisibility(View.VISIBLE);
 
         // Спрашмвает пользователя разрешение на доступ к галерее(если он его не давал еще)
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
@@ -113,6 +124,13 @@ public class ProfileActivity extends AppCompatActivity {
                 startActivityForResult(galleryIntent, GALLERY);
             }
         });
+
+//        image.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                getAvatar();
+//            }
+//        });
     }
 
 
@@ -165,7 +183,9 @@ public class ProfileActivity extends AppCompatActivity {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), contentURI);
                     image.setImageBitmap(bitmap);
                     image.setVisibility(View.VISIBLE);
+                    SharedPrefManager.getInstance(this).userUpdateImage(encodeTobase64(bitmap));
                     uploadImage(bitmap);
+
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -175,6 +195,16 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
+    public static String encodeTobase64(Bitmap image) {
+        Bitmap immage = image;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        immage.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte[] b = baos.toByteArray();
+        String imageEncoded = Base64.encodeToString(b, Base64.DEFAULT);
+
+        Log.d("Image Log:", imageEncoded);
+        return imageEncoded;
+    }
 
     private final int GALLERY = 1;
     private RequestQueue rQueue;
@@ -281,6 +311,36 @@ public class ProfileActivity extends AppCompatActivity {
                 })
                 .onSameThread()
                 .check();
+    }
+
+
+    public void getAvatar(){
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Constants.URL.HOST +"aaa/"+ String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                byte[] decodedString = Base64.decode(response, Base64.DEFAULT);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                image.setImageBitmap(decodedByte);
+                image.setVisibility(View.VISIBLE);
+                Toast.makeText(getApplicationContext(), "ok", Toast.LENGTH_SHORT).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "Please on Internet", Toast.LENGTH_SHORT).show();
+            }
+        }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("login", String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()));
+                return params;
+            }};
+
+        RequestHandler.getmInstance(this).addToRequestQueue(stringRequest);
     }
 }
 
