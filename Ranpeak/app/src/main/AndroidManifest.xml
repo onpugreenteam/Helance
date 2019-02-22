@@ -14,17 +14,14 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme">
         <!--<activity android:name=".activity.registration.CountryListActivity"></activity>-->
         <activity
-            android:name=".activity.SettingsActivity"
-            android:label="@string/title_activity_settings" />
+            android:name=".activity.SettingsActivity" />
         <activity
             android:name=".activity.LogInActivity"
-            android:label="@string/title_activity_login2"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".splashscreen.SplashScreen"
@@ -35,23 +32,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.ProfileActivity" />
+        <activity
+            android:name=".activity.ProfileActivity"
+            android:theme="@style/ToolBarProfile"
+            android:label="@string/app_name"/>
         <activity android:name=".activity.LobbyActivity" />
         <activity android:name=".activity.WaitingTimeActivity" />
         <activity android:name=".activity.CommunicationActivity" />
         <activity android:name=".activity.StartActivity" />
         <activity
-            android:name=".activity.registration.RegistrationActivity3"
-            android:label="@string/title_activity_registration" />
+            android:name=".activity.registration.RegistrationActivity3" />
         <activity
-            android:name=".activity.registration.RegistrationActivity2"
-            android:label="@string/title_activity_registration" />
+            android:name=".activity.registration.RegistrationActivity2" />
         <activity
             android:name=".activity.registration.RegistrationActivity1"
             android:label="@string/title_activity_registration" />
         <activity
-            android:name=".activity.registration.RegistrationActivity4"
-            android:label="@string/title_activity_registration" />
+            android:name=".activity.registration.RegistrationActivity4" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
