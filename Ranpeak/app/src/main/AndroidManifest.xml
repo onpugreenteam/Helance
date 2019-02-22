@@ -35,9 +35,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activity.registration.RegistrationActivity"
-            android:label="@string/title_activity_registration" />
         <activity android:name=".activity.ProfileActivity" />
         <activity android:name=".activity.LobbyActivity" />
         <activity android:name=".activity.WaitingTimeActivity" />
