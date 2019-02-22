@@ -276,7 +276,7 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
 
-    public void сlickRegistration(View view){
+    public void clickRegistration(View view){
         Intent intent = new Intent(getApplicationContext(), RegistrationActivity1.class);
         startActivity(intent);
     }
@@ -320,7 +320,7 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
                                 mPasswordView.getText().clear();
 
                                 textView.setTextColor(getResources().getColor(R.color.colorAccent));
-                                textView.setText("Invalid email or password");
+                                textView.setText(getText(R.string.invalidEmailOrPassword));
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

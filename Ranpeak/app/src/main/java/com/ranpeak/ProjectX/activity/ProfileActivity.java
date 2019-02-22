@@ -160,7 +160,8 @@ public class ProfileActivity extends AppCompatActivity {
             case  R.id.menu_logout:
                 SharedPrefManager.getInstance(this).logout();
                 Intent intent = new Intent(this, StartActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
                 break;
@@ -320,7 +321,9 @@ public class ProfileActivity extends AppCompatActivity {
 
     public void getAvatar(){
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, Constants.URL.HOST +"aaa/"+ String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()), new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                Constants.URL.GET_AVATAR+ String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()),
+                new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 

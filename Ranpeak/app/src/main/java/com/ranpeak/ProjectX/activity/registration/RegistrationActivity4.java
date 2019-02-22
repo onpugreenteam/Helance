@@ -24,6 +24,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class RegistrationActivity4 extends AppCompatActivity {
 
@@ -49,9 +50,6 @@ public class RegistrationActivity4 extends AppCompatActivity {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-//            nextButton.setEnabled( checkLogin()
-//            && !isLoginValid()
-//            );
         }
 
         @Override
@@ -81,7 +79,7 @@ public class RegistrationActivity4 extends AppCompatActivity {
         password = getIntent().getStringExtra("password");
 
         registration_username = findViewById(R.id.registration_username);
-        registration_username.getEditText().addTextChangedListener(textWatcher);
+        Objects.requireNonNull(registration_username.getEditText()).addTextChangedListener(textWatcher);
         nextButton = findViewById(R.id.registration_button_4);
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,7 +99,7 @@ public class RegistrationActivity4 extends AppCompatActivity {
         registration_username.setError(null);
 
         // Store values at the time of the login attempt.
-        String login = registration_username.getEditText().getText().toString();
+        String login = Objects.requireNonNull(registration_username.getEditText()).getText().toString();
 
         boolean cancel = false;
         View focusView = null;
@@ -141,7 +139,7 @@ public class RegistrationActivity4 extends AppCompatActivity {
 
 
     private void checkLogin(){
-        final String login = registration_username.getEditText().getText().toString().trim();
+        final String login = Objects.requireNonNull(registration_username.getEditText()).getText().toString().trim();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 Constants.URL.CHECK_LOGIN,
@@ -153,7 +151,7 @@ public class RegistrationActivity4 extends AppCompatActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             if(jsonObject.getString("message").equals("no")){
-                                Toast.makeText(getApplicationContext(),"This login already registered",Toast.LENGTH_LONG);
+                                Toast.makeText(getApplicationContext(),"This login already registered",Toast.LENGTH_LONG).show();
                                 registration_username.setError(getString(R.string.error_exist_login));
                                 login_exists = true;
 
@@ -197,7 +195,7 @@ public class RegistrationActivity4 extends AppCompatActivity {
 
     private void registerUser(){
 
-        final String login = registration_username.getEditText().getText().toString().trim();
+        final String login = Objects.requireNonNull(registration_username.getEditText()).getText().toString().trim();
         final String password = this.password;
         final String name = this.name;
         final String email = this.email;
@@ -214,7 +212,7 @@ public class RegistrationActivity4 extends AppCompatActivity {
                     public void onResponse(String response) {
                         progressDialog.dismiss();
                         Intent intent = new Intent(getApplicationContext(), StartActivity.class);
-
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                         Toast.makeText(getApplicationContext(),"Registration successful", Toast.LENGTH_LONG).show();

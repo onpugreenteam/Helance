@@ -17,7 +17,6 @@ public class CountryListActivity extends DialogFragment {
     private SearchView searchView;
     private ListView listView;
     private ArrayAdapter<String> adapter;
-//    public OnInputListener onInputListener;
 
 
     @Override
@@ -43,10 +42,6 @@ public class CountryListActivity extends DialogFragment {
                     ((RegistrationActivity2) getActivity()).setCountry(selectedFromList);
                 }
                 getDialog().dismiss();
-
-                // best method
-//                onInputListener.sendInput(selectedFromList);
-//                getDialog().dismiss();
             }
         });
 
@@ -68,18 +63,4 @@ public class CountryListActivity extends DialogFragment {
 
         return rootView;
     }
-
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        try{
-//            onInputListener = (OnInputListener) getActivity();
-//        }catch (ClassCastException e){
-//            // code that will handle exception
-//        }
-//    }
-//
-//    public interface OnInputListener{
-//        void sendInput(String input);
-//    }
 }

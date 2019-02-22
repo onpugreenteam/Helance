@@ -22,6 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -42,36 +43,15 @@ public class RegistrationActivity1 extends AppCompatActivity{
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-//            nextButton.setEnabled( !register_email.getEditText().getText().toString().isEmpty()
-//                    && isEmailValid(register_email.getEditText().getText().toString())
-//                    && !emailExists()
-//            );
         }
 
         @Override
         public void afterTextChanged(Editable s) {
-//            nextButton.setEnabled(
-//                    isEmailValid(register_email.getEditText().getText().toString())
-//                    && !emailExists()
-//            );
 
-//            boolean isEmailValid = isEmailValid(register_email.getEditText().getText().toString());
-//            if(!isEmailValid){
-//                register_email.setError(getString(R.string.error_invalid_email));
-//            }else if(isEmailValid){
-//                register_email.setError(null);
-//            }
-//            checkEmail();
-//            if (email_exists) {
-//                register_email.setError(getString(R.string.error_exist_email));
-//            } else {
-//                register_email.setError(null);
-//            }
-
-            boolean isEmailValid = isEmailValid(register_email.getEditText().getText().toString());
+            boolean isEmailValid = isEmailValid(Objects.requireNonNull(register_email.getEditText()).getText().toString());
             if(!isEmailValid){
                 register_email.setError(getString(R.string.error_invalid_email));
-            }else if(isEmailValid){
+            }else {
                 register_email.setError(null);
             }
             checkEmail();
@@ -94,17 +74,11 @@ public class RegistrationActivity1 extends AppCompatActivity{
         register_email = findViewById(R.id.registration_email);
         nextButton = findViewById(R.id.registration_button_1);
 //        nextButton.setEnabled(false);
-        register_email.getEditText().addTextChangedListener(textWatcher);
+        Objects.requireNonNull(register_email.getEditText()).addTextChangedListener(textWatcher);
     }
 
 
     public void clickRegistration_1(View view){
-//            Intent intent = new Intent(getApplicationContext(), RegistrationActivity2.class);
-//            intent.putExtra("email",register_email.getEditText().getText().toString().trim());
-//            startActivity(intent);
-//
-//            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-
         attemptRegistration();
     }
     private void attemptRegistration() {
@@ -113,7 +87,7 @@ public class RegistrationActivity1 extends AppCompatActivity{
         register_email.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = register_email.getEditText().getText().toString();
+        String email = Objects.requireNonNull(register_email.getEditText()).getText().toString();
 
         boolean cancel = false;
         View focusView = null;
@@ -135,11 +109,6 @@ public class RegistrationActivity1 extends AppCompatActivity{
                 cancel = true;
             }
         }
-//        else if(!email_exists){
-//            register_email.setError(getString(R.string.error_invalid_email));
-//            focusView = register_email;
-//            cancel = true;
-//        }
 
         if (cancel) {
             // There was an error; don't attempt login and focus the first
@@ -155,20 +124,8 @@ public class RegistrationActivity1 extends AppCompatActivity{
     }
 
 
-    private boolean emailExists(){
-        checkEmail();
-        if (email_exists == true) {
-//            register_email.setError(getString(R.string.error_exist_email));
-            return true;
-        } else {
-//            register_email.setError(null);
-            return false;
-        }
-    }
-
-
     private void checkEmail() {
-        final String email = register_email.getEditText().getText().toString().trim();
+        final String email = Objects.requireNonNull(register_email.getEditText()).getText().toString().trim();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 Constants.URL.CHECK_EMAIL,
@@ -178,14 +135,12 @@ public class RegistrationActivity1 extends AppCompatActivity{
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             if(jsonObject.getString("message").equals("no")){
-                                Toast.makeText(getApplicationContext(),"This email already registered",Toast.LENGTH_LONG);
+                                Toast.makeText(getApplicationContext(),"This email already registered",Toast.LENGTH_LONG).show();
                                 register_email.setError(getString(R.string.error_exist_email));
-//                                nextButton.setEnabled(false);
                                 email_exists = true;
 
                             }else if(jsonObject.getString("message").equals("ok")){
                                 register_email.setError(null);
-//                                nextButton.setEnabled(true);
                                 email_exists = false;
                             }
                         } catch (JSONException e) {
@@ -213,19 +168,7 @@ public class RegistrationActivity1 extends AppCompatActivity{
 
 
     private boolean isEmailValid(String email){
-//        boolean isValid = false;
-//        try {
-//            //
-//            // Create InternetAddress object and validated the supplied
-//            // address which is this case is an email address.
-//            InternetAddress internetAddress = new InternetAddress(email);
-//            internetAddress.validate();
-//            isValid = true;
-//        } catch (AddressException e) {
-//            e.printStackTrace();
-//        }
-//        return isValid;
-                String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();

@@ -39,7 +39,6 @@ public class RegistrationActivity extends AppCompatActivity implements TextWatch
     private EditText register_name;
     private EditText register_email;
     private EditText register_age;
-//    private EditText register_country;
     private EditText register_gender;
 
     private AutoCompleteTextView autoCompleteTextViewCountry;
@@ -67,11 +66,10 @@ public class RegistrationActivity extends AppCompatActivity implements TextWatch
         register_name = findViewById(R.id.register_name);
         register_email =findViewById(R.id.register_email);
         register_age = findViewById(R.id.register_age);
-//        register_country = findViewById(R.id.register_country);
         register_gender = findViewById(R.id.register_gender);
 
         autoCompleteTextViewCountry = findViewById(R.id.register_country);
-        ArrayAdapter<String> adapterCountry = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapterCountry = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, Constants.Values.COUNTRIES);
         autoCompleteTextViewCountry.setAdapter(adapterCountry);
 
@@ -85,17 +83,6 @@ public class RegistrationActivity extends AppCompatActivity implements TextWatch
         register_age.addTextChangedListener(this);
         autoCompleteTextViewCountry.addTextChangedListener(this);
         register_gender.addTextChangedListener(this);
-
-//        register_password.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-//            @Override
-//            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-//                if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-//                    attemptRegistration();
-//                    return true;
-//                }
-//                return false;
-//            }
-//        });
 
         Button registerButton = findViewById(R.id.register_button);
         registerButton.setOnClickListener(new View.OnClickListener() {
@@ -137,7 +124,7 @@ public class RegistrationActivity extends AppCompatActivity implements TextWatch
             boolean isEmailValid = isEmailValid(register_email.getText().toString());
             if(!isEmailValid){
                 register_email.setError(getString(R.string.error_invalid_email));
-            }else if(isEmailValid){
+            }else {
                 register_email.setError(null);
             }
             checkEmail();
@@ -181,11 +168,6 @@ public class RegistrationActivity extends AppCompatActivity implements TextWatch
             focusView = register_gender;
             cancel = true;
         }
-//        else if (!isGenderValid(gender)) {
-//            register_gender.setError(getString(R.string.error_invalid_gender));
-//            focusView = register_gender;
-//            cancel = true;
-//        }
 
         // Check for a valid country, if the user entered one.
         if (TextUtils.isEmpty(country)) {
@@ -197,11 +179,6 @@ public class RegistrationActivity extends AppCompatActivity implements TextWatch
             focusView = autoCompleteTextViewCountry;
             cancel = true;
         }
-//        else if (!isCountryValid(country)) {
-//            register_country.setError(getString(R.string.error_invalid_password));
-//            focusView = register_country;
-//            cancel = true;
-//        }
 
         // Check for a valid age, if the user entered one.
         if (TextUtils.isEmpty(age)) {
@@ -209,11 +186,6 @@ public class RegistrationActivity extends AppCompatActivity implements TextWatch
             focusView = register_age;
             cancel = true;
         }
-//        else if (!isAgeValid(age)) {
-//            register_age.setError(getString(R.string.error_invalid_password));
-//            focusView = register_age;
-//            cancel = true;
-//        }
 
         // Check for a valid email, if the user entered one.
         if (TextUtils.isEmpty(email)) {
@@ -232,11 +204,6 @@ public class RegistrationActivity extends AppCompatActivity implements TextWatch
                 cancel = true;
             }
         }
-//        else if(!email_exists){
-//            register_email.setError(getString(R.string.error_invalid_email));
-//            focusView = register_email;
-//            cancel = true;
-//        }
 
         // Check for a valid name, if the user entered one.
         if (TextUtils.isEmpty(name)) {
@@ -312,12 +279,6 @@ public class RegistrationActivity extends AppCompatActivity implements TextWatch
     }
 
     private boolean isEmailValid(String email){
-//        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
-//        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
-//        Matcher matcher = pattern.matcher(email);
-//        return matcher.matches();
-//
-//        return EmailValidator.getInstance().isValid(email);
         boolean isValid = false;
         try {
             //
@@ -347,7 +308,7 @@ public class RegistrationActivity extends AppCompatActivity implements TextWatch
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             if(jsonObject.getString("login").equals("no")){
-                                Toast.makeText(getApplicationContext(),"This email already registered",Toast.LENGTH_LONG);
+                                Toast.makeText(getApplicationContext(),"This email already registered",Toast.LENGTH_LONG).show();
                                 register_email.setError(getString(R.string.error_exist_email));
                                 email_exists = true;
 

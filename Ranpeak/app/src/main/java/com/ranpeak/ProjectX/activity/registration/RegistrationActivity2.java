@@ -37,7 +37,6 @@ public class RegistrationActivity2 extends AppCompatActivity/* implements Countr
         this.register_country.setTextColor(Color.parseColor("#D81B60"));
     }
 
-    //    private AutoCompleteTextView register_country;
     private Button nextButton;
 
 
@@ -52,11 +51,9 @@ public class RegistrationActivity2 extends AppCompatActivity/* implements Countr
 
             nextButton.setEnabled(!register_name.getText().toString().trim().isEmpty()
                     && !register_age.getText().toString().trim().isEmpty()
-//                    && !register_country.getText().toString().trim().isEmpty()
                     && stringContainsItemFromList(register_country.getText().toString(),
                     Constants.Values.COUNTRIES)
                     && checkGender()
-//                    && !register_gender.getText().toString().trim().isEmpty()
             );
         }
 
@@ -110,7 +107,6 @@ public class RegistrationActivity2 extends AppCompatActivity/* implements Countr
         intent.putExtra("email", email);
         intent.putExtra("name", register_name.getText().toString().trim());
         intent.putExtra("age", register_age.getText().toString().trim());
-//        intent.putExtra("gender", register_gender.getText().toString().trim());
         intent.putExtra("gender", gender);
         intent.putExtra("country", register_country.getText().toString().trim());
         startActivity(intent);
@@ -155,11 +151,4 @@ public class RegistrationActivity2 extends AppCompatActivity/* implements Countr
         }
         return false;
     }
-
-//    @Override
-//    public void sendInput(String country) {
-////        setCountry(country);
-//        this.register_country.setText(country);
-//        this.register_country.setTextColor(Color.parseColor("#D81B60"));
-//    }
 }
