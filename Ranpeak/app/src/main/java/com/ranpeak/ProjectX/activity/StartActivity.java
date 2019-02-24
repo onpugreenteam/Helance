@@ -2,8 +2,8 @@ package com.ranpeak.ProjectX.activity;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
 import com.ranpeak.ProjectX.R;
@@ -11,7 +11,7 @@ import com.ranpeak.ProjectX.user.data.SharedPrefManager;
 
 public class StartActivity extends AppCompatActivity {
 
-    private final static int START_ACTIVITY = R.layout.activity_start_window;
+    public final static int START_ACTIVITY = R.layout.activity_start_window;
 
 
     @Override
@@ -33,26 +33,6 @@ public class StartActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_settings, menu);
         return true;
     }
-//
-//    @Override
-//    public void onBackPressed() {
-//        new AlertDialog.Builder(this)
-//                .setTitle("Выйти из приложения?")
-//                .setMessage("Вы действительно хотите выйти?")
-//                .setNegativeButton(android.R.string.no, null)
-//                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface arg0, int arg1) {
-//                        //SomeActivity - имя класса Activity для которой переопределяем onBackPressed();
-//                        StartActivity.super.onBackPressed();
-//                    }
-//                }).create().show();
-//    }
-
-    /** Метод отключает на данной активити кнопку назад!**/
-//    @Override
-//    public void onBackPressed() {
-//
-//    }
 
     public void ClickLogIn(View view){
         Intent intent = new Intent(getApplicationContext(), LogInActivity.class);

@@ -3,6 +3,7 @@ package com.ranpeak.ProjectX.activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
@@ -15,8 +16,6 @@ public class WaitingTimeActivity extends AppCompatActivity {
     private int seconds;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +25,21 @@ public class WaitingTimeActivity extends AppCompatActivity {
 
         runTimer(true);
 
+        new CountDownTimer(6000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                runTimer(false);
+                seconds = 0;
+                startActivity(new Intent(getApplicationContext(), CommunicationActivity.class));
+                finish();
+
+            }
+        }.start();
     }
 
 
