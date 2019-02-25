@@ -8,14 +8,14 @@ public class SharedPrefManager {
     private static SharedPrefManager mInstance;
     private static Context mCtx;
 
-    private static final String SHARED_PREF_NAME="mysharedprefname12";
+    private static final String SHARED_PREF_NAME = "mysharedprefname12";
     private static final String KEY_LOGIN = "user_login";
     private static final String KEY_NAME = "user_name";
     private static final String KEY_EMAIL = "user_email";
     private static final String KEY_COUNTRY = "user_country";
     private static final String KEY_AGE = "user_age";
     private static final String KEY_GENDER = "user_gender";
-    private static final String KEY_AVATAR = "user_avatar";
+    private static final String KEY_AVATAR = null;
 
     private SharedPrefManager(Context context){
         mCtx = context;

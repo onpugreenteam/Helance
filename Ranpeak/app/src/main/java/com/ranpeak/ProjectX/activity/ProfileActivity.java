@@ -102,13 +102,16 @@ public class ProfileActivity extends AppCompatActivity {
         country.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserCountry()));
         gender.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserGender()));
 
-        if(SharedPrefManager.getInstance(this).getUserAvatar() != null){
+        Log.d("A", String.valueOf(SharedPrefManager.getInstance(this).getUserAvatar() != null));
+
+        if(String.valueOf(SharedPrefManager.getInstance(this).getUserAvatar()) != null){
 
             byte[] decodedString = Base64.decode(String.valueOf(SharedPrefManager.getInstance(this).getUserAvatar()), Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             image.setImageBitmap(decodedByte);
 
         }else{
+
             image.setVisibility(View.VISIBLE);
         }
 
