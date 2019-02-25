@@ -202,6 +202,7 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
 
+
     /**
      * Callback received when a permissions request has been completed.
      */
