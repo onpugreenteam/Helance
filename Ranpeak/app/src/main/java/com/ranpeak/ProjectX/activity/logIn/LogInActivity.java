@@ -299,6 +299,13 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
                             if(jsonObject.getString("login").equals(login) ||
                                     jsonObject.getString("email").equals(login)){
 
+                                String avatar;
+//
+//                                if(jsonObject.getString("avatar").equals(null)){
+//                                    avatar = "user_avatar";
+//                                }else {
+//                                    avatar = jsonObject.getString("avatar");
+//                                }
                                 SharedPrefManager.getInstance(getApplicationContext())
                                         .userLogin(
                                                 jsonObject.getString("login"),
@@ -308,6 +315,8 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
                                                 jsonObject.getInt("age"),
                                                 jsonObject.getString("gender"),
                                                 jsonObject.getString("avatar")
+
+
 
                                         );
                                 startActivity(new Intent(getApplicationContext(), LobbyActivity.class));
