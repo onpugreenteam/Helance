@@ -15,7 +15,7 @@ public class SharedPrefManager {
     private static final String KEY_COUNTRY = "user_country";
     private static final String KEY_AGE = "user_age";
     private static final String KEY_GENDER = "user_gender";
-    private static final String KEY_AVATAR = null;
+    private static final String KEY_AVATAR = "user_avatar";
 
     private SharedPrefManager(Context context){
         mCtx = context;

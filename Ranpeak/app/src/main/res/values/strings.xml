@@ -150,4 +150,7 @@
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="email">Email</string>
     <string name="choose">Choose method</string>
+    <string name="server_client_id">945886544031-bruik0k9lsujhmj90ln0sf4h1jhcbjbf.apps.googleusercontent.com </string>
+
+
 </resources>

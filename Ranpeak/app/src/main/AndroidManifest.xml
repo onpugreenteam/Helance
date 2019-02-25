@@ -4,6 +4,8 @@
     package="com.ranpeak.ProjectX">
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.ACCOUNT_MANAGER"
+        tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -22,7 +24,7 @@
         <activity
             android:name=".activity.SettingsActivity" />
         <activity
-            android:name=".activity.LogInActivity"
+            android:name=".activity.logIn.LogInActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".splashscreen.SplashScreen"

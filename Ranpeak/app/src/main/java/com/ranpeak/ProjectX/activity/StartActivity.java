@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
 import com.ranpeak.ProjectX.R;
+import com.ranpeak.ProjectX.activity.logIn.LogInActivity;
 import com.ranpeak.ProjectX.user.data.SharedPrefManager;
 
 public class StartActivity extends AppCompatActivity {
