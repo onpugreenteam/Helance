@@ -103,17 +103,5 @@
         android:onClick="clickRegistration"
         android:text="@string/registration_button"
         android:textStyle="bold" />
-    <!--<TextView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="40dp"-->
-
-        <!--android:textSize="30dp"-->
-        <!--android:id="@+id/registration_button"-->
-        <!--style="?android:textAppearanceSmall"-->
-        <!--android:layout_marginTop="30pt"-->
-        <!--android:clickable="true"-->
-        <!--android:onClick="ClickRegistration"-->
-        <!--android:text="@string/registration_button"-->
-        <!--android:textStyle="bold" />-->
 
 </LinearLayout>

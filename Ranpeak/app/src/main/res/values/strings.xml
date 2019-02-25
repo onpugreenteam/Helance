@@ -1,5 +1,10 @@
 <resources>
 
+    <!--facebook-->
+    <string name="facebook_app_id">250707362523649</string>
+    <string name="fb_login_protocol_scheme">fb250707362523649</string>
+
+
 
     <string name="item_settings">Settings</string>
     <string name="item_languages">Language</string>

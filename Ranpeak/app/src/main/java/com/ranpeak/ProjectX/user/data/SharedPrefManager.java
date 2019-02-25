@@ -3,6 +3,9 @@ package com.ranpeak.ProjectX.user.data;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.facebook.AccessToken;
+import com.facebook.login.LoginManager;
+
 public class SharedPrefManager {
 
     private static SharedPrefManager mInstance;
@@ -71,6 +74,11 @@ public class SharedPrefManager {
 
     // Выход пользователя с приложения, очистка данных, которые были приняты с БД при входе данного пользователя
     public boolean logout(){
+        //facebook
+        LoginManager.getInstance().logOut();
+        AccessToken.setCurrentAccessToken(null);
+
+        //not facebook
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();

@@ -36,14 +36,12 @@ public class StartActivity extends AppCompatActivity {
     }
 
     public void ClickLogIn(View view){
-        Intent intent = new Intent(getApplicationContext(), LogInActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(getApplicationContext(), LogInActivity.class));
     }
 
 
     public void Click1to1(View view){
-        Intent intent = new Intent(getApplicationContext(), WaitingTimeActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(getApplicationContext(), WaitingTimeActivity.class));
     }
 
 }

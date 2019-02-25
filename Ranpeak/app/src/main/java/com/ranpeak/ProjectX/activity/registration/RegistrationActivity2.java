@@ -20,9 +20,8 @@ import android.widget.TextView;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.constant.Constants;
 
-import org.w3c.dom.Text;
 
-public class RegistrationActivity2 extends AppCompatActivity/* implements CountryListActivity.OnInputListener*/ {
+public class RegistrationActivity2 extends AppCompatActivity{
 
     private final static int REGISTRATION_ACTIVITY2 = R.layout.activity_registration2;
 
@@ -151,7 +150,6 @@ public class RegistrationActivity2 extends AppCompatActivity/* implements Countr
         gender = radioButton.getText().toString();
     }
 
-
     private boolean checkGender(){
         if(register_gender_male.isChecked()){
             gender = register_gender_male.getText().toString();
@@ -165,7 +163,7 @@ public class RegistrationActivity2 extends AppCompatActivity/* implements Countr
 
     private void ageClickerDialog(){
         NumberPicker numberPicker = new NumberPicker(this);
-        numberPicker.setMinValue(0);
+        numberPicker.setMinValue(1);
         numberPicker.setMaxValue(100);
         NumberPicker.OnValueChangeListener valueChangeListener = new NumberPicker.OnValueChangeListener() {
             @Override

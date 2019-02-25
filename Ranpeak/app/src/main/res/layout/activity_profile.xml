@@ -57,103 +57,118 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="11dp">
+        android:padding="11dp"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="11dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/user_name_text_view"
+                style="@style/TextView"
+                android:layout_marginTop="@dimen/text_small_margin"
+                android:text="@string/user_name"
+                android:layout_weight="1"
+                android:textSize="9pt"/>
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/text_small_margin"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:text="Andrey"
+                android:layout_weight="1"
+                android:textColor="@color/color_Black"
+                android:textSize="11pt"
+                android:textStyle="italic" />
+        </LinearLayout>
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:padding="11dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
 
-            <RelativeLayout
+            <TextView
+                android:id="@+id/user_age_text_view"
+                style="@style/TextView"
+                android:layout_below="@id/user_name_text_view"
+                android:layout_marginTop="7dp"
+                android:text="@string/user_age"
+                android:textSize="9pt"
+                android:layout_weight="1" />
+            <TextView
+                android:id="@+id/age"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/name"
+                android:text="18"
+                android:layout_weight="1"
+                android:textColor="@color/color_Black"
+                android:textSize="11pt"
+                android:textStyle="italic"
+                android:layout_gravity="right"
+                android:gravity="right"/>
+        </LinearLayout>
 
-                <TextView
-                    android:id="@+id/user_name_text_view"
-                    style="@style/TextView"
-                    android:layout_marginTop="@dimen/text_small_margin"
-                    android:text="@string/user_name"
-                    android:textSize="9pt"/>
-
-                <TextView
-                    android:id="@+id/user_age_text_view"
-                    style="@style/TextView"
-                    android:layout_below="@id/user_name_text_view"
-                    android:layout_marginTop="7dp"
-                    android:text="@string/user_age"
-                    android:textSize="9pt"/>
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="11dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
                 <TextView
                     android:id="@+id/user_country_text_view"
                     style="@style/TextView"
                     android:layout_below="@id/user_age_text_view"
                     android:layout_marginTop="@dimen/text_small_margin"
                     android:text="@string/user_country"
-                    android:textSize="9pt"/>
-
-                <TextView
-                    android:id="@+id/user_gender_text_view"
-                    style="@style/TextView"
-                    android:layout_below="@id/user_country_text_view"
-                    android:layout_marginTop="@dimen/text_small_margin"
-                    android:text="@string/user_gender"
-                    android:textSize="9pt"/>
-            </RelativeLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            tools:ignore="Suspicious0dp">
-
-            <RelativeLayout
+                    android:textSize="9pt"
+                    android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/country"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="25pt">
-
-
-                <TextView
-                    android:id="@+id/name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nazar"
-                    android:textColor="@color/color_Black"
-                    android:textSize="11pt"
-                    android:textStyle="italic" />
-
-                <TextView
-                    android:id="@+id/age"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/name"
-                    android:text="18"
-                    android:textColor="@color/color_Black"
-                    android:textSize="11pt"
-                    android:textStyle="italic" />
-
-                <TextView
-                    android:id="@+id/country"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/age"
-                    android:text="Ukraine"
-                    android:textColor="@color/color_Black"
-                    android:textSize="11pt"
-                    android:textStyle="italic" />
-
-                <TextView
-                    android:id="@+id/gender"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/country"
-                    android:text="male"
-                    android:textColor="@color/color_Black"
-                    android:textSize="11pt"
-                    android:textStyle="italic" />
-
-            </RelativeLayout>
+                android:layout_below="@+id/age"
+                android:text="Ukraine"
+                android:textColor="@color/color_Black"
+                android:textSize="11pt"
+                android:textStyle="italic"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+                android:gravity="right"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="11dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+            <TextView
+                android:id="@+id/user_gender_text_view"
+                style="@style/TextView"
+                android:layout_below="@id/user_country_text_view"
+                android:layout_marginTop="@dimen/text_small_margin"
+                android:text="@string/user_gender"
+                android:textSize="9pt"
+                android:layout_weight="1" />
+            <TextView
+                android:id="@+id/gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/country"
+                android:text="male"
+                android:textColor="@color/color_Black"
+                android:textSize="11pt"
+                android:textStyle="italic"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+                android:gravity="right"/>
         </LinearLayout>
     </LinearLayout>
     </LinearLayout>
