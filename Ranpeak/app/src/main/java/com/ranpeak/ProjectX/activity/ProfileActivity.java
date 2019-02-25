@@ -102,9 +102,12 @@ public class ProfileActivity extends AppCompatActivity {
         country.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserCountry()));
         gender.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserGender()));
 
-        if(SharedPrefManager.getInstance(this).getUserAvatar() != null){
+        if(String.valueOf(SharedPrefManager.getInstance(this).getUserAvatar()) != null){
+
             byte[] decodedString = Base64.decode(String.valueOf(SharedPrefManager.getInstance(this).getUserAvatar()), Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            image.setImageBitmap(decodedByte);
+            image.setVisibility(View.VISIBLE);
 
         }else{
             image.setVisibility(View.VISIBLE);
@@ -117,6 +120,7 @@ public class ProfileActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     REQUEST_PERMISSION);
         }
+
 
 
         camera.setOnClickListener(new View.OnClickListener() {
