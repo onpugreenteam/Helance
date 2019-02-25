@@ -5,7 +5,10 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
+
 import com.ranpeak.ProjectX.R;
+import com.ranpeak.ProjectX.user.data.SharedPrefManager;
 
 public class LobbyActivity extends AppCompatActivity {
 
@@ -22,8 +25,7 @@ public class LobbyActivity extends AppCompatActivity {
 
 
     public void ClickProfile(View view){
-        Intent intent = new Intent(getApplicationContext(),ProfileActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
     }
 
 
