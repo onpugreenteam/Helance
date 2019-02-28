@@ -40,9 +40,6 @@
             android:theme="@style/ToolBarProfile"
             android:label="@string/app_name"/>
         <activity android:name=".activity.LobbyActivity" />
-        <activity android:name=".activity.WaitingTimeActivity" />
-        <activity android:name=".activity.CommunicationActivity" />
-        <activity android:name=".activity.StartActivity" />
         <activity
             android:name=".activity.registration.RegistrationActivity3" />
         <activity

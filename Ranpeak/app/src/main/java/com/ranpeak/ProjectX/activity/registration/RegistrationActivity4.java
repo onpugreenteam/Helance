@@ -17,7 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.ranpeak.ProjectX.R;
-import com.ranpeak.ProjectX.activity.StartActivity;
+import com.ranpeak.ProjectX.activity.logIn.LogInActivity;
 import com.ranpeak.ProjectX.constant.Constants;
 import com.ranpeak.ProjectX.user.data.RequestHandler;
 import org.json.JSONException;
@@ -211,7 +211,7 @@ public class RegistrationActivity4 extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         progressDialog.dismiss();
-                        Intent intent = new Intent(getApplicationContext(), StartActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), LogInActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);

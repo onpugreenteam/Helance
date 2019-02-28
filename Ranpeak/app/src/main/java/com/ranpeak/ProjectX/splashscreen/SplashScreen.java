@@ -2,21 +2,11 @@ package com.ranpeak.ProjectX.splashscreen;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.ranpeak.ProjectX.R;
-import com.ranpeak.ProjectX.activity.LobbyActivity;
-import com.ranpeak.ProjectX.activity.StartActivity;
-import com.ranpeak.ProjectX.user.data.SharedPrefManager;
+import com.ranpeak.ProjectX.activity.logIn.LogInActivity;
 import com.viksaa.sssplash.lib.activity.AwesomeSplash;
 import com.viksaa.sssplash.lib.cnst.Flags;
 import com.viksaa.sssplash.lib.model.ConfigSplash;
@@ -56,7 +46,7 @@ public class SplashScreen extends AwesomeSplash {
 
     @Override
     public void animationsFinished() {
-        startActivity(new Intent(SplashScreen.this, StartActivity.class));
+        startActivity(new Intent(SplashScreen.this, LogInActivity.class));
     }
 
 

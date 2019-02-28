@@ -38,6 +38,7 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.PermissionRequestErrorListener;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.ranpeak.ProjectX.R;
+import com.ranpeak.ProjectX.activity.logIn.LogInActivity;
 import com.ranpeak.ProjectX.constant.Constants;
 import com.ranpeak.ProjectX.user.data.RequestHandler;
 import com.ranpeak.ProjectX.user.data.SharedPrefManager;
@@ -79,7 +80,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         if(!SharedPrefManager.getInstance(this).isLoggedIn()){
             finish();
-            startActivity(new Intent(this, StartActivity.class));
+            startActivity(new Intent(this, LogInActivity.class));
         }
 
         requestMultiplePermissions();
@@ -161,7 +162,7 @@ public class ProfileActivity extends AppCompatActivity {
                 break;
             case  R.id.menu_logout:
                 SharedPrefManager.getInstance(this).logout();
-                Intent intent = new Intent(this, StartActivity.class);
+                Intent intent = new Intent(this, LogInActivity.class);
 //                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
