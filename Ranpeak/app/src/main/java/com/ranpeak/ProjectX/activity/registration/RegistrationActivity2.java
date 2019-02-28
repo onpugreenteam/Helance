@@ -1,8 +1,6 @@
 package com.ranpeak.ProjectX.activity.registration;
 
-import android.app.AlertDialog;
 import android.app.FragmentManager;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
@@ -13,10 +11,8 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.NumberPicker;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
+
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.constant.Constants;
 
