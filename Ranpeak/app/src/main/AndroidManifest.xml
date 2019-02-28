@@ -4,7 +4,8 @@
     package="com.ranpeak.ProjectX">
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.ACCOUNT_MANAGER"
+    <uses-permission
+        android:name="android.permission.ACCOUNT_MANAGER"
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -12,7 +13,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -20,9 +21,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme">
-        <!--<activity android:name=".activity.registration.CountryListActivity"></activity>-->
-        <activity
-            android:name=".activity.SettingsActivity" />
+        <activity android:name=".activity.CreatingTaskActivity"></activity>
+        <!-- <activity android:name=".activity.registration.CountryListActivity"></activity> -->
+        <activity android:name=".activity.SettingsActivity" />
         <activity
             android:name=".activity.logIn.LogInActivity"
             android:windowSoftInputMode="stateHidden" />
@@ -37,18 +38,15 @@
         </activity>
         <activity
             android:name=".activity.ProfileActivity"
-            android:theme="@style/ToolBarProfile"
-            android:label="@string/app_name"/>
+            android:label="@string/app_name"
+            android:theme="@style/ToolBarProfile" />
         <activity android:name=".activity.LobbyActivity" />
-        <activity
-            android:name=".activity.registration.RegistrationActivity3" />
-        <activity
-            android:name=".activity.registration.RegistrationActivity2" />
+        <activity android:name=".activity.registration.RegistrationActivity3" />
+        <activity android:name=".activity.registration.RegistrationActivity2" />
         <activity
             android:name=".activity.registration.RegistrationActivity1"
             android:label="@string/title_activity_registration" />
-        <activity
-            android:name=".activity.registration.RegistrationActivity4" />
+        <activity android:name=".activity.registration.RegistrationActivity4" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -58,20 +56,27 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
-        </provider>
+        </provider> <!-- facebook -->
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
 
-        <!--facebook-->
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
-        <activity android:name="com.facebook.FacebookActivity" android:configChanges= "keyboard|keyboardHidden|screenLayout|screenSize|orientation" android:label="@string/app_name" />
-        <activity android:name="com.facebook.CustomTabActivity" android:exported="true">
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity
+            android:name="com.facebook.CustomTabActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>
