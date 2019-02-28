@@ -10,7 +10,7 @@
 
     <ImageView
         android:id="@+id/splash_image"
-        android:src="@drawable/splashscreen"
+        android:src="@drawable/splashscreen_emblem"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_gravity="center"/>
@@ -18,6 +18,6 @@
         android:id="@+id/splash_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ranpeak"
+        android:text="ProjectX"
         android:textSize="30sp"/>
 </LinearLayout>

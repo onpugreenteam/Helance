@@ -76,9 +76,13 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        if(SharedPrefManager.getInstance(this).isLoggedIn()){
+            finish();
+            startActivity(new Intent(this, LobbyActivity.class));
+        }
+
         mEmailView = findViewById(R.id.email);
         populateAutoComplete();
-
 
         mEmailView = findViewById(R.id.email);
         populateAutoComplete();

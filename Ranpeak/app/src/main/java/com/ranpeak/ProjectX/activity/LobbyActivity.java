@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toolbar;
 
 import com.ranpeak.ProjectX.R;
 
@@ -14,8 +15,9 @@ public class LobbyActivity extends AppCompatActivity {
 
    private final static int LOBBY_ACTIVITY = R.layout.activity_lobby;
 
-   private FloatingActionButton fab;
    private ListView listView;
+   private FloatingActionButton fab;
+   private Toolbar toolbar;
 
 
 
@@ -26,7 +28,8 @@ public class LobbyActivity extends AppCompatActivity {
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        fab.findViewById(R.id.floatingActionButton);
+        findViewById();
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -35,11 +38,12 @@ public class LobbyActivity extends AppCompatActivity {
         });
 
 
+
     }
 
-    public void ClickProfile(View view){
-        startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
-    }
 
+    private void findViewById(){
+        fab = findViewById(R.id.floatingActionButton);
+    }
 
 }
