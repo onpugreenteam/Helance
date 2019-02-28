@@ -16,8 +16,6 @@ public class SharedPrefManager {
     private static final String KEY_NAME = "user_name";
     private static final String KEY_EMAIL = "user_email";
     private static final String KEY_COUNTRY = "user_country";
-    private static final String KEY_AGE = "user_age";
-    private static final String KEY_GENDER = "user_gender";
     private static final String KEY_AVATAR = null;
 
     private SharedPrefManager(Context context){
@@ -33,7 +31,7 @@ public class SharedPrefManager {
 
     // Если пользователь ввошел в акаунт(ввел правильно логин и пароль) -->
     // его данные(которые прийдут по логину и паролю с БД) сохраняться в приложении
-    public boolean userLogin(String login, String name, String email, String country, int age, String gender, String avatar){
+    public boolean userLogin(String login, String name, String email, String country, String avatar){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -41,8 +39,6 @@ public class SharedPrefManager {
         editor.putString(KEY_NAME, name);
         editor.putString(KEY_EMAIL, email);
         editor.putString(KEY_COUNTRY, country);
-        editor.putInt(KEY_AGE, age);
-        editor.putString(KEY_GENDER, gender);
         editor.putString(KEY_AVATAR, avatar);
 
         editor.apply();
@@ -75,8 +71,8 @@ public class SharedPrefManager {
     // Выход пользователя с приложения, очистка данных, которые были приняты с БД при входе данного пользователя
     public boolean logout(){
         //facebook
-        LoginManager.getInstance().logOut();
-        AccessToken.setCurrentAccessToken(null);
+//        LoginManager.getInstance().logOut();
+//        AccessToken.setCurrentAccessToken(null);
 
         //not facebook
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
@@ -106,20 +102,11 @@ public class SharedPrefManager {
         return sharedPreferences.getString(KEY_EMAIL,null);
     }
 
-    public int getUserAge(){
-        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        return  sharedPreferences.getInt(KEY_AGE, 0);
-    }
-
     public String getUserCountry(){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getString(KEY_COUNTRY,null);
     }
 
-    public String getUserGender(){
-        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        return sharedPreferences.getString(KEY_GENDER,null);
-    }
 
     public String getUserAvatar() {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);

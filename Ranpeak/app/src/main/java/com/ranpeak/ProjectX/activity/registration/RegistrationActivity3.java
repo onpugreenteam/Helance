@@ -23,8 +23,6 @@ public class RegistrationActivity3 extends AppCompatActivity {
     private String email;
     private String name;
     private String country;
-    private String gender;
-    private String age;
 
 
     private TextWatcher textWatcher = new TextWatcher() {
@@ -55,8 +53,6 @@ public class RegistrationActivity3 extends AppCompatActivity {
         email = getIntent().getStringExtra("email");
         name = getIntent().getStringExtra("name");
         country = getIntent().getStringExtra("country");
-        gender = getIntent().getStringExtra("gender");
-        age = getIntent().getStringExtra("age");
 
         password_1 = findViewById(R.id.registration_password_1);
         password_1.getEditText().addTextChangedListener(textWatcher);
@@ -80,8 +76,6 @@ public class RegistrationActivity3 extends AppCompatActivity {
         intent.putExtra("email", email);
         intent.putExtra("name", name);
         intent.putExtra("country", country);
-        intent.putExtra("age", age);
-        intent.putExtra("gender", gender);
         intent.putExtra("password", password_2.getText().toString());
         startActivity(intent);
 

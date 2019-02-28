@@ -61,9 +61,7 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView login;
     private TextView name;
     private TextView email;
-    private TextView age;
     private TextView country;
-    private TextView gender;
 
     private ImageView image;
     private ImageView camera;
@@ -88,9 +86,7 @@ public class ProfileActivity extends AppCompatActivity {
         login = findViewById(R.id.login);
         name = findViewById(R.id.name);
         email = findViewById(R.id.email);
-        age = findViewById(R.id.age);
         country = findViewById(R.id.country);
-        gender = findViewById(R.id.gender);
 
         image = findViewById(R.id.user_image_view);
         camera = findViewById(R.id.camera_icon);
@@ -99,9 +95,7 @@ public class ProfileActivity extends AppCompatActivity {
         login.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserLogin()));
         name.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserName()));
         email.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserEmail()));
-        age.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserAge()));
         country.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserCountry()));
-        gender.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserGender()));
 
         Log.d("Aaaaaaa", String.valueOf(SharedPrefManager.getInstance(this).getUserAvatar() != null));
         Log.d("Aaaaaaa", String.valueOf(SharedPrefManager.getInstance(this).getUserAvatar()));

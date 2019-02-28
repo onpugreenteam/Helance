@@ -305,8 +305,6 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
                                                 jsonObject.getString("name"),
                                                 jsonObject.getString("email"),
                                                 jsonObject.getString("country"),
-                                                jsonObject.getInt("age"),
-                                                jsonObject.getString("gender"),
                                                 jsonObject.getString("avatar")
                                         );
                                 startActivity(new Intent(getApplicationContext(), LobbyActivity.class));

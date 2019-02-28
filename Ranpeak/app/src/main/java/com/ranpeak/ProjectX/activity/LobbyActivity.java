@@ -25,6 +25,4 @@ public class LobbyActivity extends AppCompatActivity {
     public void ClickProfile(View view){
         startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
     }
-
-
 }

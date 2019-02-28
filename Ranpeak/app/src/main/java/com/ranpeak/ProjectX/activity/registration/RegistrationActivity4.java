@@ -36,8 +36,6 @@ public class RegistrationActivity4 extends AppCompatActivity {
     private String email;
     private String name;
     private String country;
-    private String gender;
-    private String age;
     private String password;
     private boolean login_exists = false;
 
@@ -74,8 +72,6 @@ public class RegistrationActivity4 extends AppCompatActivity {
         email = getIntent().getStringExtra("email");
         name = getIntent().getStringExtra("name");
         country = getIntent().getStringExtra("country");
-        gender = getIntent().getStringExtra("gender");
-        age = getIntent().getStringExtra("age");
         password = getIntent().getStringExtra("password");
 
         registration_username = findViewById(R.id.registration_username);
@@ -199,9 +195,7 @@ public class RegistrationActivity4 extends AppCompatActivity {
         final String password = this.password;
         final String name = this.name;
         final String email = this.email;
-        final String age = this.age;
         final String country = this.country;
-        final String gender = this.gender;
 
         progressDialog.setMessage("Registering user...");
         progressDialog.show();
@@ -233,13 +227,10 @@ public class RegistrationActivity4 extends AppCompatActivity {
                 params.put("password",password);
                 params.put("name", name);
                 params.put("email",email);
-                params.put("age", age);
                 params.put("country", country);
-                params.put("gender", gender);
                 return params;
             }
         };
-
         RequestHandler.getmInstance(this).addToRequestQueue(stringRequest);
     }
 }
