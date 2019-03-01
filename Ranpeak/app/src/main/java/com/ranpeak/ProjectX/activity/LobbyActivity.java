@@ -38,7 +38,6 @@ public class LobbyActivity extends AppCompatActivity {
         });
 
 
-
     }
 
 

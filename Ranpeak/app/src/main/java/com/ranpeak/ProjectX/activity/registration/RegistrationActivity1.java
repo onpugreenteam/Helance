@@ -35,6 +35,27 @@ public class RegistrationActivity1 extends AppCompatActivity{
     private boolean email_exists = false;
 
 
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(REGISTRATION_ACTIVITY1);
+
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        findViewById();
+//        nextButton.setEnabled(false);
+        Objects.requireNonNull(register_email.getEditText()).addTextChangedListener(textWatcher);
+    }
+
+
+    private void findViewById(){
+        register_email = findViewById(R.id.registration_email);
+        nextButton = findViewById(R.id.registration_button_1);
+    }
+
+
     private TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -64,23 +85,11 @@ public class RegistrationActivity1 extends AppCompatActivity{
     };
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(REGISTRATION_ACTIVITY1);
-
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
-        register_email = findViewById(R.id.registration_email);
-        nextButton = findViewById(R.id.registration_button_1);
-//        nextButton.setEnabled(false);
-        Objects.requireNonNull(register_email.getEditText()).addTextChangedListener(textWatcher);
-    }
-
-
     public void clickRegistration_1(View view){
         attemptRegistration();
     }
+
+
     private void attemptRegistration() {
 
         // Reset errors.

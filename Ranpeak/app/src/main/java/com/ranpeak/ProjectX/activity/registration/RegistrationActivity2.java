@@ -22,16 +22,50 @@ public class RegistrationActivity2 extends AppCompatActivity{
     private final static int REGISTRATION_ACTIVITY2 = R.layout.activity_registration2;
 
     private EditText register_name;
-
     private TextView register_country;
     private static String email;
+    private Button nextButton;
 
     public void setCountry(String country) {
         this.register_country.setText(country);
         this.register_country.setTextColor(Color.parseColor("#D81B60"));
     }
 
-    private Button nextButton;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(REGISTRATION_ACTIVITY2);
+
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        findViewById();
+
+        email = getIntent().getStringExtra("email");
+        register_name.addTextChangedListener(textWatcher);
+
+        // start fragmentActivity to choose country
+        final FragmentManager fm = getFragmentManager();
+        final CountryListActivity  countryListActivity = new CountryListActivity();
+
+        register_country.addTextChangedListener(textWatcher);
+        register_country.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                countryListActivity.show(fm, "Country lists");
+            }
+        });
+
+        nextButton.setEnabled(false);
+        nextButton.addTextChangedListener(textWatcher);
+    }
+
+    private void findViewById(){
+        // Находим и передаем локальным переменным обьекты activity_registration
+        register_name = findViewById(R.id.register_name);
+        nextButton = findViewById(R.id.registration_button_2);
+        register_country = findViewById(R.id.register_country);
+    }
 
 
     private TextWatcher textWatcher = new TextWatcher() {
@@ -54,37 +88,6 @@ public class RegistrationActivity2 extends AppCompatActivity{
 
         }
     };
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(REGISTRATION_ACTIVITY2);
-
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
-        email = getIntent().getStringExtra("email");
-
-        // Находим и передаем локальным переменным обьекты activity_registration
-        register_name = findViewById(R.id.register_name);
-        register_name.addTextChangedListener(textWatcher);
-
-        // start fragmentActivity to choose country
-        final FragmentManager fm = getFragmentManager();
-        final CountryListActivity  countryListActivity = new CountryListActivity();
-        register_country = findViewById(R.id.register_country);
-        register_country.addTextChangedListener(textWatcher);
-        register_country.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                countryListActivity.show(fm, "Country lists");
-            }
-        });
-
-        nextButton = findViewById(R.id.registration_button_2);
-        nextButton.setEnabled(false);
-        nextButton.addTextChangedListener(textWatcher);
-    }
 
 
     public void clickRegistration_2(View view){

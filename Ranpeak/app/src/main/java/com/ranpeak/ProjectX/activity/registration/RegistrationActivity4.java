@@ -40,6 +40,39 @@ public class RegistrationActivity4 extends AppCompatActivity {
     private boolean login_exists = false;
 
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(REGISTRATION_ACTIVITY4);
+
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        email = getIntent().getStringExtra("email");
+        name = getIntent().getStringExtra("name");
+        country = getIntent().getStringExtra("country");
+        password = getIntent().getStringExtra("password");
+
+        findViewById();
+
+        Objects.requireNonNull(registration_username.getEditText()).addTextChangedListener(textWatcher);
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                attemptRegistration();
+            }
+        });
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please wait...");
+    }
+
+
+    private void findViewById(){
+        registration_username = findViewById(R.id.registration_username);
+        nextButton = findViewById(R.id.registration_button_4);
+    }
+
+
     private TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -61,33 +94,6 @@ public class RegistrationActivity4 extends AppCompatActivity {
         }
     };
 
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(REGISTRATION_ACTIVITY4);
-
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
-        email = getIntent().getStringExtra("email");
-        name = getIntent().getStringExtra("name");
-        country = getIntent().getStringExtra("country");
-        password = getIntent().getStringExtra("password");
-
-        registration_username = findViewById(R.id.registration_username);
-        Objects.requireNonNull(registration_username.getEditText()).addTextChangedListener(textWatcher);
-        nextButton = findViewById(R.id.registration_button_4);
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptRegistration();
-            }
-        });
-
-
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Please wait...");
-    }
 
     private void attemptRegistration() {
 

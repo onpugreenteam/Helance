@@ -19,10 +19,36 @@ public class RegistrationActivity3 extends AppCompatActivity {
     private TextInputLayout password_1;
     private EditText password_2;
     private Button nextButton;
-
     private String email;
     private String name;
     private String country;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(REGISTRATION_ACTIVITY3);
+
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        findViewById();
+
+        email = getIntent().getStringExtra("email");
+        name = getIntent().getStringExtra("name");
+        country = getIntent().getStringExtra("country");
+
+        password_1.getEditText().addTextChangedListener(textWatcher);
+        password_2.addTextChangedListener(textWatcher);
+
+        nextButton.setEnabled(false);
+    }
+
+
+    private void findViewById(){
+        password_1 = findViewById(R.id.registration_password_1);
+        password_2 = findViewById(R.id.registration_password_2);
+        nextButton = findViewById(R.id.registration_button_3);
+    }
 
 
     private TextWatcher textWatcher = new TextWatcher() {
@@ -42,26 +68,6 @@ public class RegistrationActivity3 extends AppCompatActivity {
         }
     };
 
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(REGISTRATION_ACTIVITY3);
-
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
-        email = getIntent().getStringExtra("email");
-        name = getIntent().getStringExtra("name");
-        country = getIntent().getStringExtra("country");
-
-        password_1 = findViewById(R.id.registration_password_1);
-        password_1.getEditText().addTextChangedListener(textWatcher);
-        password_2 = findViewById(R.id.registration_password_2);
-        password_2.addTextChangedListener(textWatcher);
-
-        nextButton = findViewById(R.id.registration_button_3);
-        nextButton.setEnabled(false);
-    }
 
 
     @Override

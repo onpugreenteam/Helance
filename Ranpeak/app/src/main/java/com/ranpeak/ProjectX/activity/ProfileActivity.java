@@ -81,8 +81,30 @@ public class ProfileActivity extends AppCompatActivity {
             startActivity(new Intent(this, LogInActivity.class));
         }
 
+        findViewById();
         requestMultiplePermissions();
 
+        getSaveInfoAboutUser();
+
+        // Спрашмвает пользователя разрешение на доступ к галерее(если он его не давал еще)
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
+                PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    REQUEST_PERMISSION);
+        }
+
+        camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI), GALLERY);
+            }
+        });
+
+    }
+
+
+    private void findViewById(){
         login = findViewById(R.id.login);
         name = findViewById(R.id.name);
         email = findViewById(R.id.email);
@@ -90,7 +112,9 @@ public class ProfileActivity extends AppCompatActivity {
 
         image = findViewById(R.id.user_image_view);
         camera = findViewById(R.id.camera_icon);
+    }
 
+    private void getSaveInfoAboutUser(){
         // Записывание данных о пользователе в нужные поля профиля
         login.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserLogin()));
         name.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserName()));
@@ -107,33 +131,7 @@ public class ProfileActivity extends AppCompatActivity {
         }else{
             image.setVisibility(View.VISIBLE);
         }
-
-
-        // Спрашмвает пользователя разрешение на доступ к галерее(если он его не давал еще)
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
-                PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    REQUEST_PERMISSION);
-        }
-
-
-
-        camera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivityForResult(new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI), GALLERY);
-            }
-        });
-
-//        image.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                getAvatar();
-//            }
-//        });
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

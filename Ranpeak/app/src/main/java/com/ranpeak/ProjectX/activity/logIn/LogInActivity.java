@@ -27,7 +27,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -38,35 +37,30 @@ import com.ranpeak.ProjectX.activity.registration.RegistrationActivity1;
 import com.ranpeak.ProjectX.constant.Constants;
 import com.ranpeak.ProjectX.user.data.RequestHandler;
 import com.ranpeak.ProjectX.user.data.SharedPrefManager;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import static android.Manifest.permission.READ_CONTACTS;
 
 public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
    private final static int LOGIN_ACTIVITY = R.layout.activity_login;
-
     /**
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
 
     private ProgressDialog progressDialog;
-
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-
     private TextView textView;
+    private Button mEmailSignInButton;
 
 
     @Override
@@ -81,10 +75,7 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
             startActivity(new Intent(this, LobbyActivity.class));
         }
 
-        mEmailView = findViewById(R.id.email);
-        populateAutoComplete();
-
-        mEmailView = findViewById(R.id.email);
+        findViewById();
         populateAutoComplete();
 
         mPasswordView = findViewById(R.id.password);
@@ -99,7 +90,6 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
-        Button mEmailSignInButton = findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,20 +97,25 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
-
-        textView = findViewById(R.id.textView);
-
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please wait...");
 
     }
 
 
+    private void findViewById(){
+        mEmailView = findViewById(R.id.email);
+        mEmailView = findViewById(R.id.email);
+        mPasswordView = findViewById(R.id.password);
+        mEmailSignInButton = findViewById(R.id.email_sign_in_button);
+        mLoginFormView = findViewById(R.id.login_form);
+        mProgressView = findViewById(R.id.login_progress);
+        textView = findViewById(R.id.textView);
+    }
+
+
     // Попытка залогинится
     private void attemptLogin() {
-
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
@@ -342,11 +337,9 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
                 params.put("password",password);
                 return params;
             }
-
         };
 
         RequestHandler.getmInstance(this).addToRequestQueue(stringRequest);
     }
-
 }
 

@@ -18,12 +18,14 @@ public class CreatingTaskActivity extends AppCompatActivity {
 
     private TextView datePicker;
     private DatePickerDialog.OnDateSetListener dateSetListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creating_task);
 
-        datePicker = findViewById(R.id.date_picker);
+        findViewById();
+
         datePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,5 +51,8 @@ public class CreatingTaskActivity extends AppCompatActivity {
         };
     }
 
+    private void findViewById(){
+        datePicker = findViewById(R.id.date_picker);
+    }
 
 }

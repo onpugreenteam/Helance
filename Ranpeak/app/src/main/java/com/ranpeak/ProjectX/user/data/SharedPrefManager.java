@@ -3,9 +3,6 @@ package com.ranpeak.ProjectX.user.data;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.facebook.AccessToken;
-import com.facebook.login.LoginManager;
-
 public class SharedPrefManager {
 
     private static SharedPrefManager mInstance;
