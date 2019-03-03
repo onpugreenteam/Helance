@@ -36,11 +36,16 @@ public class RegistrationActivity2 extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(REGISTRATION_ACTIVITY2);
-
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
         findViewById();
+        nextButton.setEnabled(false);
+    }
 
+    private void findViewById(){
+        // Находим и передаем локальным переменным обьекты activity_registration
+        register_name = findViewById(R.id.register_name);
+        nextButton = findViewById(R.id.registration_button_2);
+        register_country = findViewById(R.id.register_country);
         email = getIntent().getStringExtra("email");
         register_name.addTextChangedListener(textWatcher);
 
@@ -55,16 +60,7 @@ public class RegistrationActivity2 extends AppCompatActivity{
                 countryListActivity.show(fm, "Country lists");
             }
         });
-
-        nextButton.setEnabled(false);
         nextButton.addTextChangedListener(textWatcher);
-    }
-
-    private void findViewById(){
-        // Находим и передаем локальным переменным обьекты activity_registration
-        register_name = findViewById(R.id.register_name);
-        nextButton = findViewById(R.id.registration_button_2);
-        register_country = findViewById(R.id.register_country);
     }
 
 

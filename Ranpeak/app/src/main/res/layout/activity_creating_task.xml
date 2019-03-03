@@ -1,38 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.CreatingTaskActivity"
-    android:orientation="vertical">
+    android:background="@color/filn"
+    android:orientation="vertical"
+    tools:context=".activity.creatingTask.CreatingTaskActivity">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/task_name"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/type_here"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/task_description"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/type_here"/>
-    <TextView
-        android:id="@+id/date_picker"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="@string/select_date"
-        android:clickable="true"
-        android:focusable="true" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/add_files"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-</LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="@string/select_lesson" />
+
+        <TextView
+            android:id="@+id/lesson_picker"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/select_lesson" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="@string/task_name" />
+
+        <EditText
+            android:id="@+id/creating_task_type_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/type_here" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="@string/task_description" />
+
+        <EditText
+            android:id="@+id/creating_task_type_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/type_here" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="@string/select_date_below" />
+
+        <TextView
+            android:id="@+id/date_picker"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/select_date" />
+
+        <Button
+            android:id="@+id/choose_image_for_task"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/add_files" />
+
+        <HorizontalScrollView
+            android:id="@+id/scroll_view_files"
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+
+            <LinearLayout
+                android:id="@+id/linear_layout_files"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:orientation="horizontal"></LinearLayout>
+
+        </HorizontalScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/creating_task_cancel_button"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:text="@string/cancel"
+                android:textSize="5pt" />
+
+            <Button
+                android:id="@+id/creating_task_create_button"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:text="@string/create"
+                android:textSize="5pt" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

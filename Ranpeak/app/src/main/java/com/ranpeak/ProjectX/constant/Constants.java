@@ -106,6 +106,7 @@ public class Constants {
         public static Pattern getPasswordPattern() {
             return PASSWORD_PATTERN;
         }
+        public static final String[] LESSONS = new String[]{"Maths", "Physics"};
     }
 
 

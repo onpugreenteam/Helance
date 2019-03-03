@@ -69,7 +69,12 @@
     <string name="task_description">Type description of your task</string>
     <string name="type_here">Type here</string>
     <string name="add_files">Select files to add to description</string>
-    <string name="select_date">Pick deadline</string>
+    <string name="select_date">Click to set a deadline</string>
+    <string name="select_date_below">Select deadline</string>
+    <string name="select_lesson">Click to choose a lesson</string>
+    <string name="select_lesson_below">Select lesson</string>
+    <string name="cancel">Cancel</string>
+    <string name="create">Create</string>
 
 
     <string name="profile">Profile</string>

@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.Toolbar;
 
 import com.ranpeak.ProjectX.R;
+import com.ranpeak.ProjectX.activity.creatingTask.CreatingTaskActivity;
 
 public class LobbyActivity extends AppCompatActivity {
 
@@ -33,7 +34,7 @@ public class LobbyActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), CreatingTaskActivity.class));
+                startActivity(new Intent(LobbyActivity.this, CreatingTaskActivity.class));
             }
         });
 
