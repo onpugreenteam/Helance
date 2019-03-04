@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toolbar;
 
@@ -19,6 +20,7 @@ public class LobbyActivity extends AppCompatActivity {
    private ListView listView;
    private FloatingActionButton fab;
    private Toolbar toolbar;
+   private ImageView imageViewButtonProfile;
 
 
 
@@ -39,11 +41,19 @@ public class LobbyActivity extends AppCompatActivity {
         });
 
 
+        imageViewButtonProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+
+            }
+        });
     }
 
 
     private void findViewById(){
         fab = findViewById(R.id.floatingActionButton);
+        imageViewButtonProfile = findViewById(R.id.imageViewProfileButton);
     }
 
 }
