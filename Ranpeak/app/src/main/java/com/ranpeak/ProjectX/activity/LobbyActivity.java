@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toolbar;
 
 import com.ranpeak.ProjectX.R;
@@ -21,7 +22,8 @@ public class LobbyActivity extends AppCompatActivity {
    private FloatingActionButton fab;
    private Toolbar toolbar;
    private ImageView imageViewButtonProfile;
-
+   private ImageView imageViewButtonNotifications;
+   TextView textView;
 
 
     @Override
@@ -40,7 +42,6 @@ public class LobbyActivity extends AppCompatActivity {
             }
         });
 
-
         imageViewButtonProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,12 +49,23 @@ public class LobbyActivity extends AppCompatActivity {
 
             }
         });
+
+        imageViewButtonNotifications.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), NotificationsActivity.class));
+            }
+        });
+
+
     }
 
 
     private void findViewById(){
         fab = findViewById(R.id.floatingActionButton);
         imageViewButtonProfile = findViewById(R.id.imageViewProfileButton);
+        imageViewButtonNotifications = findViewById(R.id.imageViewNotificationButton);
+
     }
 
 }

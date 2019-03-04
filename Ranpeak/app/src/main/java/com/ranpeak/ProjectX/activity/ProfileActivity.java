@@ -39,6 +39,7 @@ import com.karumi.dexter.listener.PermissionRequestErrorListener;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.logIn.LogInActivity;
+import com.ranpeak.ProjectX.activity.settings.SettingsActivity;
 import com.ranpeak.ProjectX.constant.Constants;
 import com.ranpeak.ProjectX.user.data.RequestHandler;
 import com.ranpeak.ProjectX.user.data.SharedPrefManager;
@@ -62,7 +63,6 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView name;
     private TextView email;
     private TextView country;
-
     private ImageView image;
     private ImageView camera;
 

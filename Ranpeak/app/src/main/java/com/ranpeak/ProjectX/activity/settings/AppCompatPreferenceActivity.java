@@ -1,4 +1,4 @@
-package com.ranpeak.ProjectX.activity;
+package com.ranpeak.ProjectX.activity.settings;
 
 import android.content.res.Configuration;
 import android.os.Bundle;

@@ -7,13 +7,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:theme="@style/ToolBarProfile"
-    android:layout_margin="@dimen/text_small_margin">
+    android:background="#ca837c">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-
         android:layout_margin="@dimen/text_small_margin">
 
 
@@ -43,7 +42,7 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_gravity="center_horizontal"
-        android:scaleType="fitXY"
+        android:contentDescription="TODO" android:scaleType="fitXY"
         android:layout_marginVertical="5pt"
         android:src="@mipmap/ic_launcher" />
 
@@ -52,7 +51,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_gravity="center_horizontal"
-        app:srcCompat="@drawable/ic_camera_black_24dp" />
+        android:contentDescription="TODO" app:srcCompat="@drawable/ic_camera_black_24dp" />
 
     <LinearLayout
         android:layout_width="match_parent"

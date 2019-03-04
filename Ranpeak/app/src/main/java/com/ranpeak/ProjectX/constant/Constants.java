@@ -108,6 +108,4 @@ public class Constants {
         }
         public static final String[] LESSONS = new String[]{"Maths", "Physics"};
     }
-
-
 }
