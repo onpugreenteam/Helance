@@ -99,7 +99,7 @@ initTabs();
     }
 
 
-    private class RemindMeTask extends AsyncTask<Void, Void, TaskDTO> {
+    private class GetFreeTask extends AsyncTask<Void, Void, TaskDTO> {
 
         @Override
         protected TaskDTO doInBackground(Void... params) {
@@ -124,7 +124,7 @@ initTabs();
         @Override
         protected Void doInBackground(Void... params) {
 
-            new RemindMeTask().execute();
+            new GetFreeTask().execute();
             try {
                 Thread.currentThread().sleep(1000);
             } catch (InterruptedException e) {

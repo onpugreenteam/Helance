@@ -1,4 +1,4 @@
-package com.ranpeak.ProjectX.user.data;
+package com.ranpeak.ProjectX.request;
 
 import android.content.Context;
 import com.android.volley.Request;

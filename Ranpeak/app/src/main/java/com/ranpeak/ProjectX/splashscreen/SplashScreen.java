@@ -12,7 +12,7 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.logIn.LogInActivity;
 import com.ranpeak.ProjectX.constant.Constants;
-import com.ranpeak.ProjectX.user.data.RequestHandler;
+import com.ranpeak.ProjectX.request.RequestHandler;
 import com.viksaa.sssplash.lib.activity.AwesomeSplash;
 import com.viksaa.sssplash.lib.cnst.Flags;
 import com.viksaa.sssplash.lib.model.ConfigSplash;

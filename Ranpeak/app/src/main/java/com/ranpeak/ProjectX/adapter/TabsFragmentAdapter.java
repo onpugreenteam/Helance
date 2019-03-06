@@ -7,8 +7,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.ranpeak.ProjectX.dto.TaskDTO;
 import com.ranpeak.ProjectX.fragment.AbstractTabFragment;
-import com.ranpeak.ProjectX.fragment.HistoryFragment;
-import com.ranpeak.ProjectX.fragment.IdeasFragment;
+import com.ranpeak.ProjectX.fragment.FreeTaskFragment;
+import com.ranpeak.ProjectX.fragment.MyTaskFragment;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,7 +21,7 @@ public class TabsFragmentAdapter extends FragmentPagerAdapter {
 
     private List<TaskDTO> data;
 
-    private HistoryFragment historyFragment;
+    private FreeTaskFragment freeTaskFragment;
 
     public TabsFragmentAdapter(Context context, FragmentManager fm, List<TaskDTO> data) {
         super(fm);
@@ -47,14 +47,14 @@ public class TabsFragmentAdapter extends FragmentPagerAdapter {
 
     private void initTabsMap(Context context) {
         tabs = new HashMap<>();
-        historyFragment = HistoryFragment.getInstance(context, data);
-        tabs.put(0, historyFragment);
-        tabs.put(1, IdeasFragment.getInstance(context));
+        freeTaskFragment = FreeTaskFragment.getInstance(context, data);
+        tabs.put(0, freeTaskFragment);
+        tabs.put(1, MyTaskFragment.getInstance(context));
 
     }
 
     public void setData(List<TaskDTO> data) {
         this.data = data;
-        historyFragment.refreshList(data);
+        freeTaskFragment.refreshList(data);
     }
 }

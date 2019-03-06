@@ -1,4 +1,4 @@
-package com.ranpeak.ProjectX.user.data;
+package com.ranpeak.ProjectX.settings;
 
 import android.content.Context;
 import android.content.SharedPreferences;

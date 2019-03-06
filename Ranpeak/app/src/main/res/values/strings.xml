@@ -155,7 +155,7 @@
     <string name="choose">Choose method</string>
     <string name="server_client_id">945886544031-bruik0k9lsujhmj90ln0sf4h1jhcbjbf.apps.googleusercontent.com </string>
     <string name="tab_free_task">Free Task</string>
-    <string name="tab_item_ideas">My Task</string>
+    <string name="tab_item_my_task">My Task</string>
 
 
 </resources>

@@ -8,23 +8,22 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.adapter.TaskListAdapter;
 import com.ranpeak.ProjectX.dto.TaskDTO;
-
 import java.util.List;
 
-public class HistoryFragment extends AbstractTabFragment {
-    private static final int LAYOUT = R.layout.fragment;
+public class FreeTaskFragment extends AbstractTabFragment {
+
+    private static final int LAYOUT = R.layout.free_task_fragment;
 
     private List<TaskDTO> data;
 
     private TaskListAdapter adapter;
 
-    public static HistoryFragment getInstance(Context context, List<TaskDTO> data) {
+    public static FreeTaskFragment getInstance(Context context, List<TaskDTO> data) {
         Bundle args = new Bundle();
-        HistoryFragment fragment = new HistoryFragment();
+        FreeTaskFragment fragment = new FreeTaskFragment();
         fragment.setArguments(args);
         fragment.setContext(context);
         fragment.setData(data);

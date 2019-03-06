@@ -1,17 +1,12 @@
 package com.ranpeak.ProjectX.dto;
 
 public class Users {
+
     private String login;
-
-
     private String password;
-
     private String name;
-
     private String email;
-
     private String country;
-
     private String avatar;
 
     public Users() {

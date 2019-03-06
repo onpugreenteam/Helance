@@ -17,7 +17,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.constant.Constants;
-import com.ranpeak.ProjectX.user.data.RequestHandler;
+import com.ranpeak.ProjectX.request.RequestHandler;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.HashMap;

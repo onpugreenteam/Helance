@@ -6,18 +6,18 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.ranpeak.ProjectX.R;
 
-public class IdeasFragment extends AbstractTabFragment {
-    private static final int LAYOUT = R.layout.fragment;
+public class MyTaskFragment extends AbstractTabFragment {
 
-    public static IdeasFragment getInstance(Context context) {
+    private static final int LAYOUT = R.layout.my_task_fragment;
+
+    public static MyTaskFragment getInstance(Context context) {
         Bundle args = new Bundle();
-        IdeasFragment fragment = new IdeasFragment();
+        MyTaskFragment fragment = new MyTaskFragment();
         fragment.setArguments(args);
         fragment.setContext(context);
-        fragment.setTitle(context.getString(R.string.tab_item_ideas));
+        fragment.setTitle(context.getString(R.string.tab_item_my_task));
 
         return fragment;
     }

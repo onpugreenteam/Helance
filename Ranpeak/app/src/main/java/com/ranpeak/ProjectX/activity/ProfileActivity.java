@@ -41,9 +41,9 @@ import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.logIn.LogInActivity;
 import com.ranpeak.ProjectX.activity.settings.SettingsActivity;
 import com.ranpeak.ProjectX.constant.Constants;
-import com.ranpeak.ProjectX.user.data.RequestHandler;
-import com.ranpeak.ProjectX.user.data.SharedPrefManager;
-import com.ranpeak.ProjectX.user.data.VolleyMultipartRequest;
+import com.ranpeak.ProjectX.request.RequestHandler;
+import com.ranpeak.ProjectX.settings.SharedPrefManager;
+import com.ranpeak.ProjectX.request.VolleyMultipartRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;

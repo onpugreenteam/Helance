@@ -12,7 +12,7 @@ import com.ranpeak.ProjectX.dto.TaskDTO;
 
 import java.util.List;
 
-public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.RemindViewHolder>{
+public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskViewHolder>{
 
     private List<TaskDTO> data;
 
@@ -21,14 +21,14 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.Remind
     }
 
     @Override
-    public RemindViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public TaskViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_item, parent, false);
 
-        return new RemindViewHolder(view);
+        return new TaskViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(RemindViewHolder holder, int position) {
+    public void onBindViewHolder(TaskViewHolder holder, int position) {
         TaskDTO item = data.get(position);
         holder.title.setText(item.getText());
     }
@@ -42,11 +42,11 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.Remind
         this.data = data;
     }
 
-    public static class RemindViewHolder extends RecyclerView.ViewHolder {
+    public static class TaskViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
         TextView title;
 
-        public RemindViewHolder(View itemView) {
+        public TaskViewHolder(View itemView) {
             super(itemView);
 
             cardView = itemView.findViewById(R.id.cardView);
