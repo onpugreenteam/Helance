@@ -1,4 +1,4 @@
-package com.ranpeak.ProjectX.adapter;
+package com.ranpeak.ProjectX.activity.lobby.adapter;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
@@ -7,8 +7,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.ranpeak.ProjectX.dto.TaskDTO;
 import com.ranpeak.ProjectX.fragment.AbstractTabFragment;
-import com.ranpeak.ProjectX.fragment.FreeTaskFragment;
-import com.ranpeak.ProjectX.fragment.MyTaskFragment;
+import com.ranpeak.ProjectX.activity.lobby.fragment.FreeTaskFragment;
+import com.ranpeak.ProjectX.activity.lobby.fragment.MyTaskFragment;
 
 import java.util.HashMap;
 import java.util.List;

@@ -32,7 +32,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.ranpeak.ProjectX.R;
-import com.ranpeak.ProjectX.activity.LobbyActivity;
+import com.ranpeak.ProjectX.activity.lobby.LobbyActivity;
 import com.ranpeak.ProjectX.activity.registration.RegistrationActivity1;
 import com.ranpeak.ProjectX.constant.Constants;
 import com.ranpeak.ProjectX.request.RequestHandler;

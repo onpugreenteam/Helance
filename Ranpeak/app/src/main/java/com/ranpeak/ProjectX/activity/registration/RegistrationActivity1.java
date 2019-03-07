@@ -34,18 +34,12 @@ public class RegistrationActivity1 extends AppCompatActivity{
     private TextInputLayout register_email;
     private boolean email_exists = false;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(REGISTRATION_ACTIVITY1);
-
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
         findViewById();
-//        nextButton.setEnabled(false);
         Objects.requireNonNull(register_email.getEditText()).addTextChangedListener(textWatcher);
     }
 
@@ -133,6 +127,15 @@ public class RegistrationActivity1 extends AppCompatActivity{
     }
 
 
+    private boolean isEmailValid(String email){
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+
+    }
+
+
     private void checkEmail() {
         final String email = Objects.requireNonNull(register_email.getEditText()).getText().toString().trim();
 
@@ -173,14 +176,5 @@ public class RegistrationActivity1 extends AppCompatActivity{
         };
 
         RequestHandler.getmInstance(this).addToRequestQueue(stringRequest);
-    }
-
-
-    private boolean isEmailValid(String email){
-        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
-        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
-
     }
 }

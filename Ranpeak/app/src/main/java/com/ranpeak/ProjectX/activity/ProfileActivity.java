@@ -42,15 +42,14 @@ import com.ranpeak.ProjectX.activity.logIn.LogInActivity;
 import com.ranpeak.ProjectX.activity.settings.SettingsActivity;
 import com.ranpeak.ProjectX.constant.Constants;
 import com.ranpeak.ProjectX.request.RequestHandler;
-import com.ranpeak.ProjectX.settings.SharedPrefManager;
 import com.ranpeak.ProjectX.request.VolleyMultipartRequest;
+import com.ranpeak.ProjectX.settings.SharedPrefManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,8 +65,9 @@ public class ProfileActivity extends AppCompatActivity {
     private ImageView image;
     private ImageView camera;
 
+    private final int GALLERY = 1;
+    private RequestQueue rQueue;
     private static final int REQUEST_PERMISSION = 200;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +83,6 @@ public class ProfileActivity extends AppCompatActivity {
 
         findViewById();
         requestMultiplePermissions();
-
         getSaveInfoAboutUser();
 
         // Спрашмвает пользователя разрешение на доступ к галерее(если он его не давал еще)
@@ -109,10 +108,10 @@ public class ProfileActivity extends AppCompatActivity {
         name = findViewById(R.id.name);
         email = findViewById(R.id.email);
         country = findViewById(R.id.country);
-
         image = findViewById(R.id.user_image_view);
         camera = findViewById(R.id.camera_icon);
     }
+
 
     private void getSaveInfoAboutUser(){
         // Записывание данных о пользователе в нужные поля профиля
@@ -132,6 +131,7 @@ public class ProfileActivity extends AppCompatActivity {
             image.setVisibility(View.VISIBLE);
         }
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -183,7 +183,7 @@ public class ProfileActivity extends AppCompatActivity {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), contentURI);
                     image.setImageBitmap(bitmap);
                     image.setVisibility(View.VISIBLE);
-                    SharedPrefManager.getInstance(this).userUpdateImage(encodeTobase64(bitmap));
+                    SharedPrefManager.getInstance(this).userUpdateImage(encodeToBase64(bitmap));
                     uploadImage(bitmap);
 
 
@@ -195,20 +195,16 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
-    public static String encodeTobase64(Bitmap image) {
-        Bitmap immage = image;
+
+    public static String encodeToBase64(Bitmap image) {
+        Bitmap image1 = image;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        immage.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        image1.compress(Bitmap.CompressFormat.PNG, 100, baos);
         byte[] b = baos.toByteArray();
         String imageEncoded = Base64.encodeToString(b, Base64.DEFAULT);
-
         Log.d("Image Log:", imageEncoded);
         return imageEncoded;
     }
-
-    private final int GALLERY = 1;
-    private RequestQueue rQueue;
-    private ArrayList<HashMap<String, String>> arraylist;
 
 
     // Запрос на загрузку, на сервер...
@@ -236,12 +232,6 @@ public class ProfileActivity extends AppCompatActivity {
                     }
                 }) {
 
-            /*
-             * If you want to add more parameters with the image
-             * you can do it here
-             * here we have only one parameter with the image
-             * which is tags
-             * */
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
@@ -249,9 +239,6 @@ public class ProfileActivity extends AppCompatActivity {
                 return params;
             }
 
-            /*
-             *pass files using below method
-             * */
             @Override
             protected Map<String, DataPart> getByteData() {
                 Map<String, DataPart> params = new HashMap<>();

@@ -133,6 +133,7 @@ public class RegistrationActivity4 extends AppCompatActivity {
         }
     }
 
+
     @Override
     public void finish() {
         super.finish();
@@ -181,16 +182,12 @@ public class RegistrationActivity4 extends AppCompatActivity {
                 return params;
             }
         };
-
         RequestHandler.getmInstance(this).addToRequestQueue(stringRequest);
-
     }
 
 
 
     private boolean isLoginValid(String login) {
-        //TODO: Replace this with your own logic
-
         return login.length() > 4;
     }
 

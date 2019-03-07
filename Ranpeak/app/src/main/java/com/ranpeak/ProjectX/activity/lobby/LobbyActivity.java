@@ -1,4 +1,4 @@
-package com.ranpeak.ProjectX.activity;
+package com.ranpeak.ProjectX.activity.lobby;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -8,20 +8,20 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toolbar;
 
 import com.ranpeak.ProjectX.R;
+import com.ranpeak.ProjectX.activity.NotificationsActivity;
+import com.ranpeak.ProjectX.activity.ProfileActivity;
 import com.ranpeak.ProjectX.activity.creatingTask.CreatingTaskActivity;
-import com.ranpeak.ProjectX.adapter.TabsFragmentAdapter;
+import com.ranpeak.ProjectX.activity.lobby.adapter.TabsFragmentAdapter;
 import com.ranpeak.ProjectX.constant.Constants;
 import com.ranpeak.ProjectX.dto.TaskDTO;
 
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -31,13 +31,11 @@ public class LobbyActivity extends AppCompatActivity {
 
    private final static int LOBBY_ACTIVITY = R.layout.activity_lobby;
 
-   private ListView listView;
    private FloatingActionButton fab;
-   private Toolbar toolbar;
    private ImageView imageViewButtonProfile;
    private ImageView imageViewButtonNotifications;
-   TextView textView;
-
+   private TabsFragmentAdapter adapter;
+   private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,76 +68,46 @@ public class LobbyActivity extends AppCompatActivity {
             }
         });
 
-initTabs();
+        initTabs();
     }
 
-    private TabsFragmentAdapter adapter;
-    private ViewPager viewPager;
 
     private void initTabs() {
-        viewPager = findViewById(R.id.viewPager);
         adapter = new TabsFragmentAdapter(getApplicationContext(), getSupportFragmentManager(), new ArrayList<TaskDTO>());
         viewPager.setAdapter(adapter);
-
-//        new RemindMeTask().execute();
-
-        new FirstTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, null);
-
+        new GetFreeTask().execute();
         TabLayout tabLayout = findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
-
-
     }
+
 
     private void findViewById(){
         fab = findViewById(R.id.floatingActionButton);
         imageViewButtonProfile = findViewById(R.id.imageViewProfileButton);
         imageViewButtonNotifications = findViewById(R.id.imageViewNotificationButton);
-
+        viewPager = findViewById(R.id.viewPager);
     }
 
 
-    private class GetFreeTask extends AsyncTask<Void, Void, TaskDTO> {
+    private class GetFreeTask extends AsyncTask<Void, Void, List<TaskDTO>> {
 
         @Override
-        protected TaskDTO doInBackground(Void... params) {
-            RestTemplate template = new RestTemplate();
-            template.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+        protected List<TaskDTO> doInBackground(Void... params) {
+            RestTemplate restTemplate = new RestTemplate();
+            ResponseEntity<List<TaskDTO>> response = restTemplate.exchange(
+                    Constants.URL.GET_ALL_TASK,
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<List<TaskDTO>>(){});
+            List<TaskDTO> taskDTOS = response.getBody();
 
-            return template.getForObject(Constants.URL.GET_ALL_TASK, TaskDTO.class);
+            return taskDTOS;
         }
 
         @Override
-        protected void onPostExecute(TaskDTO remindDTO) {
-            List<TaskDTO> data = new ArrayList<>();
-            data.add(remindDTO);
-
-            adapter.setData(data);
+        protected void onPostExecute(List<TaskDTO> taskDTOS) {
+            adapter.setData(taskDTOS);
         }
-    }
-
-
-    private class FirstTask extends AsyncTask<Void, Void, Void>
-    {
-        @Override
-        protected Void doInBackground(Void... params) {
-
-            new GetFreeTask().execute();
-            try {
-                Thread.currentThread().sleep(1000);
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            Log.e("task","first");
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-
-        }
-
     }
 
 }

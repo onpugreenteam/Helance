@@ -1,4 +1,4 @@
-package com.ranpeak.ProjectX.fragment;
+package com.ranpeak.ProjectX.activity.lobby.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,8 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.ranpeak.ProjectX.R;
-import com.ranpeak.ProjectX.adapter.TaskListAdapter;
+import com.ranpeak.ProjectX.activity.lobby.adapter.TaskListAdapter;
 import com.ranpeak.ProjectX.dto.TaskDTO;
+import com.ranpeak.ProjectX.fragment.AbstractTabFragment;
+
 import java.util.List;
 
 public class FreeTaskFragment extends AbstractTabFragment {
@@ -27,7 +29,7 @@ public class FreeTaskFragment extends AbstractTabFragment {
         fragment.setArguments(args);
         fragment.setContext(context);
         fragment.setData(data);
-        fragment.setTitle(context.getString(R.string.tab_free_task));
+        fragment.setTitle(context.getString(R.string.tab_item_free_task));
 
         return fragment;
     }

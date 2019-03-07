@@ -1,20 +1,18 @@
 package com.ranpeak.ProjectX.dto;
 
-public class Users {
+public class UserDTO {
 
     private String login;
-    private String password;
     private String name;
     private String email;
     private String country;
     private String avatar;
 
-    public Users() {
+    public UserDTO() {
     }
 
-    public Users(String login, String password, String name, String email, String country, String avatar) {
+    public UserDTO(String login, String name, String email, String country, String avatar) {
         this.login = login;
-        this.password = password;
         this.name = name;
         this.email = email;
         this.country = country;
@@ -27,14 +25,6 @@ public class Users {
 
     public void setLogin(String login) {
         this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getName() {

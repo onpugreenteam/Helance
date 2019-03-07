@@ -8,7 +8,7 @@ public class TaskDTO {
 
     @JsonProperty("id")
     private long id;
-    @JsonProperty("headline")
+    @JsonProperty("headLine")
     private String headLine;
     @JsonProperty("text")
     private String text;
@@ -16,9 +16,9 @@ public class TaskDTO {
     private String dateStart;
     @JsonProperty("dataEnd")
     private String dateEnd;
-    @JsonProperty("user_id")
-    private Users customer;
-    @JsonProperty("employe")
+    @JsonProperty("customer")
+    private UserDTO customer;
+    @JsonProperty("employee")
     private String employee;
     @JsonProperty("subject")
     private String subject;
@@ -36,7 +36,7 @@ public class TaskDTO {
     public TaskDTO() {
     }
 
-    public TaskDTO(long id, String headLine, String text, String dateStart, String dateEnd, Users customer, String employee, String subject, float price, String status, String type, String filePath) {
+    public TaskDTO(long id, String headLine, String text, String dateStart, String dateEnd, UserDTO customer, String employee, String subject, float price, String status, String type, String filePath) {
         this.id = id;
         this.headLine = headLine;
         this.text = text;
@@ -91,11 +91,11 @@ public class TaskDTO {
         this.dateEnd = dateEnd;
     }
 
-    public Users getCustomer() {
+    public UserDTO getCustomer() {
         return customer;
     }
 
-    public void setCustomer(Users customer) {
+    public void setCustomer(UserDTO customer) {
         this.customer = customer;
     }
 

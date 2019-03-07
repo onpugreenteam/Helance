@@ -1,4 +1,4 @@
-package com.ranpeak.ProjectX.activity.registration;
+package com.ranpeak.ProjectX.activity.registration.fragment;
 
 import android.app.DialogFragment;
 import android.os.Bundle;
@@ -10,20 +10,22 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 import com.ranpeak.ProjectX.R;
+import com.ranpeak.ProjectX.activity.registration.RegistrationActivity2;
 import com.ranpeak.ProjectX.constant.Constants;
 
-public class CountryListActivity extends DialogFragment {
+public class CountryListFragment extends DialogFragment {
+
+    private static final int COUNTRY_LIST_FRAGMENT = R.layout.activity_country_list;
 
     private SearchView searchView;
     private ListView listView;
     private ArrayAdapter<String> adapter;
 
-
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
 
-        View rootView = inflater.inflate(R.layout.activity_country_list, null);
+        View rootView = inflater.inflate(COUNTRY_LIST_FRAGMENT, null);
 
         getDialog().setTitle("choose country");
 

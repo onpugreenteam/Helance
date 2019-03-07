@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.ranpeak.ProjectX.R;
+import com.ranpeak.ProjectX.activity.registration.fragment.CountryListFragment;
 import com.ranpeak.ProjectX.constant.Constants;
 
 
@@ -38,29 +39,28 @@ public class RegistrationActivity2 extends AppCompatActivity{
         setContentView(REGISTRATION_ACTIVITY2);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         findViewById();
-        nextButton.setEnabled(false);
-    }
-
-    private void findViewById(){
-        // Находим и передаем локальным переменным обьекты activity_registration
-        register_name = findViewById(R.id.register_name);
-        nextButton = findViewById(R.id.registration_button_2);
-        register_country = findViewById(R.id.register_country);
         email = getIntent().getStringExtra("email");
         register_name.addTextChangedListener(textWatcher);
 
         // start fragmentActivity to choose country
         final FragmentManager fm = getFragmentManager();
-        final CountryListActivity  countryListActivity = new CountryListActivity();
+        final CountryListFragment countryListFragment = new CountryListFragment();
 
         register_country.addTextChangedListener(textWatcher);
         register_country.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                countryListActivity.show(fm, "Country lists");
+                countryListFragment.show(fm, "Country lists");
             }
         });
         nextButton.addTextChangedListener(textWatcher);
+        nextButton.setEnabled(false);
+    }
+
+    private void findViewById(){
+        register_name = findViewById(R.id.register_name);
+        nextButton = findViewById(R.id.registration_button_2);
+        register_country = findViewById(R.id.register_country);
     }
 
 
