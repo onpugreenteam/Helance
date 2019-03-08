@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
@@ -36,6 +38,7 @@ public class LobbyActivity extends AppCompatActivity {
    private ImageView imageViewButtonNotifications;
    private TabsFragmentAdapter adapter;
    private ViewPager viewPager;
+   private SwipeRefreshLayout pullToRefresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,7 @@ public class LobbyActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         findViewById();
+        initTabs();
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,7 +72,19 @@ public class LobbyActivity extends AppCompatActivity {
             }
         });
 
-        initTabs();
+        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        new GetFreeTask().execute();
+                        pullToRefresh.setRefreshing(false);
+                    }
+                },4000);
+            }
+        });
+
     }
 
 
@@ -86,6 +102,7 @@ public class LobbyActivity extends AppCompatActivity {
         imageViewButtonProfile = findViewById(R.id.imageViewProfileButton);
         imageViewButtonNotifications = findViewById(R.id.imageViewNotificationButton);
         viewPager = findViewById(R.id.viewPager);
+        pullToRefresh = findViewById(R.id.pullToRefresh);
     }
 
 
