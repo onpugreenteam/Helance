@@ -9,6 +9,7 @@ import android.content.Loader;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,8 +26,10 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -37,12 +40,15 @@ import com.ranpeak.ProjectX.activity.registration.RegistrationActivity1;
 import com.ranpeak.ProjectX.constant.Constants;
 import com.ranpeak.ProjectX.request.RequestHandler;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import static android.Manifest.permission.READ_CONTACTS;
 
 public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
@@ -62,6 +68,8 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
     private TextView textView;
     private Button mEmailSignInButton;
 
+    private AnimationDrawable animationDrawable;
+    private LinearLayout linearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,8 +85,8 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
 
         findViewById();
         populateAutoComplete();
+        animationBackground();
 
-        mPasswordView = findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -104,7 +112,7 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
     private void findViewById(){
-        mEmailView = findViewById(R.id.email);
+        linearLayout = findViewById(R.id.login_activity);
         mEmailView = findViewById(R.id.email);
         mPasswordView = findViewById(R.id.password);
         mEmailSignInButton = findViewById(R.id.email_sign_in_button);
@@ -113,6 +121,13 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
         textView = findViewById(R.id.textView);
     }
 
+
+    private void animationBackground(){
+        animationDrawable = (AnimationDrawable) linearLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(4500);
+        animationDrawable.setExitFadeDuration(4500);
+        animationDrawable.start();
+    }
 
     // Попытка залогинится
     private void attemptLogin() {

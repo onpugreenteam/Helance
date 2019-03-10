@@ -10,6 +10,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.daimajia.androidanimations.library.Techniques;
 import com.ranpeak.ProjectX.R;
+import com.ranpeak.ProjectX.activity.lobby.adapter.TabsFragmentAdapter;
 import com.ranpeak.ProjectX.activity.logIn.LogInActivity;
 import com.ranpeak.ProjectX.constant.Constants;
 import com.ranpeak.ProjectX.request.RequestHandler;
@@ -19,6 +20,7 @@ import com.viksaa.sssplash.lib.model.ConfigSplash;
 
 public class SplashScreen extends AwesomeSplash {
 
+    private TabsFragmentAdapter adapter;
 
     @Override
     public void initSplash(ConfigSplash configSplash) {
@@ -75,4 +77,5 @@ public class SplashScreen extends AwesomeSplash {
         });
         RequestHandler.getmInstance(this).addToRequestQueue(stringRequest);
     }
+
 }

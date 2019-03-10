@@ -12,9 +12,9 @@ public class TaskDTO {
     private String headLine;
     @JsonProperty("text")
     private String text;
-    @JsonProperty("dataStart")
+    @JsonProperty("dateStart")
     private String dateStart;
-    @JsonProperty("dataEnd")
+    @JsonProperty("dateEnd")
     private String dateEnd;
     @JsonProperty("customer")
     private UserDTO customer;
