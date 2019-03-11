@@ -14,4 +14,5 @@ public class TaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(TASK_ACTIVITY);
     }
+
 }
