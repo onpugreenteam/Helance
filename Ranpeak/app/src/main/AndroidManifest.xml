@@ -31,7 +31,9 @@
         <activity android:name=".activity.NotificationsActivity"/>
         <activity
             android:name=".activity.logIn.LogInActivity"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden" >
+
+        </activity>
         <activity
             android:name=".splashscreen.SplashScreen"
             android:noHistory="true">
