@@ -1,5 +1,7 @@
 package com.ranpeak.ProjectX.activity.lobby.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ranpeak.ProjectX.R;
+import com.ranpeak.ProjectX.activity.TaskActivity;
 import com.ranpeak.ProjectX.dto.TaskDTO;
 
 import java.util.List;
@@ -17,6 +20,7 @@ import java.util.List;
 public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskViewHolder>{
 
     private List<TaskDTO> data;
+    private Context mContext;
 
     public TaskListAdapter(List<TaskDTO> data) {
         this.data = data;
@@ -59,17 +63,11 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskVi
             super(itemView);
             findViewById();
 
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Toast.makeText(v.getContext(),"ssadas",Toast.LENGTH_LONG).show();
-//                }
-//            });
-
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(),"ssadas", Toast.LENGTH_LONG).show();
+                    Toast.makeText(v.getContext(),"Open task", Toast.LENGTH_LONG).show();
+                    v.getContext().startActivity(new Intent(v.getContext(), TaskActivity.class));
                 }
             });
         }
