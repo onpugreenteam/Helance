@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.lobby.adapter.TaskListAdapter;
 import com.ranpeak.ProjectX.dto.TaskDTO;

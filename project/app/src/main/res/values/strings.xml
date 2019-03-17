@@ -154,7 +154,13 @@
     <string name="email">Email</string>
     <string name="choose">Choose method</string>
     <string name="tab_item_free_task">Free Task</string>
-    <string name="tab_item_my_task">My Task</string>
+    <string name="tab_item_my_task">Ready answer</string>
+    <string name="item_nav_home">Home</string>
+    <string name="item_nav_main">Main</string>
+    <string name="item_nav_profile">Notifications</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

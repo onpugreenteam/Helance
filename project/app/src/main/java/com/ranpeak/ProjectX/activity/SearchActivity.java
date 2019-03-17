@@ -6,13 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.ranpeak.ProjectX.R;
 
-public class NotificationsActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity {
 
-    private static final int NOTIFICATION_ACTIVITY = R.layout.activity_notifications;
+    private static final int SEARCH_ACTIVITY = R.layout.activity_search;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(NOTIFICATION_ACTIVITY);
+        setContentView(SEARCH_ACTIVITY);
     }
 }

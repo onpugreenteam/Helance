@@ -5,10 +5,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.ranpeak.ProjectX.dto.TaskDTO;
-import com.ranpeak.ProjectX.fragment.AbstractTabFragment;
 import com.ranpeak.ProjectX.activity.lobby.fragment.FreeTaskFragment;
 import com.ranpeak.ProjectX.activity.lobby.fragment.MyTaskFragment;
+import com.ranpeak.ProjectX.dto.TaskDTO;
+import com.ranpeak.ProjectX.fragment.AbstractTabFragment;
 
 import java.util.HashMap;
 import java.util.List;
