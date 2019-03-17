@@ -3,13 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/filn"
+    android:background="@color/colorPrimary"
     android:orientation="vertical"
+    android:layout_gravity="center"
+    android:fillViewport="true"
+    android:gravity="center"
     tools:context=".activity.creatingTask.CreatingTaskActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:orientation="vertical">
 
         <TextView
@@ -64,6 +68,7 @@
             android:id="@+id/choose_image_for_task"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorSecondary"
             android:text="@string/add_files" />
 
         <HorizontalScrollView
@@ -73,9 +78,9 @@
 
             <LinearLayout
                 android:id="@+id/linear_layout_files"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="200dp"
-                android:orientation="horizontal"></LinearLayout>
+                android:orientation="horizontal"/>
 
         </HorizontalScrollView>
 
@@ -92,6 +97,7 @@
                 android:layout_gravity="bottom"
                 android:layout_weight="1"
                 android:text="@string/cancel"
+                android:background="@color/colorSecondary"
                 android:textSize="5pt" />
 
             <Button
@@ -101,6 +107,7 @@
                 android:layout_gravity="bottom"
                 android:layout_weight="1"
                 android:text="@string/create"
+                android:background="@color/colorSecondary"
                 android:textSize="5pt" />
         </LinearLayout>
     </LinearLayout>

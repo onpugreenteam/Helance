@@ -9,7 +9,7 @@
     android:layout_marginBottom="5dp"
     android:layout_marginLeft="12dp"
     android:layout_marginRight="12dp"
-    android:background="#6200EE">
+    android:background="@color/colorPrimaryDark">
 
     <android.support.v7.widget.CardView
         android:id="@+id/cardView"
@@ -17,7 +17,7 @@
         android:layout_height="142dp"
         card:cardElevation="2dp"
         card:cardUseCompatPadding="true"
-        android:background="#6200ee">
+        android:background="@color/colorPrimaryDark">
 
 
         <android.support.constraint.ConstraintLayout
@@ -25,7 +25,7 @@
             android:layout_height="match_parent"
             tools:layout_editor_absoluteX="3dp"
             tools:layout_editor_absoluteY="4dp"
-            android:background="#6200ee">
+            android:background="@color/colorPrimaryDark">
 
             <ImageView
                 android:id="@+id/profile_user"
@@ -46,7 +46,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="headline"
-                android:textColor="#ffffff"
+                android:textColor="@color/colorSecondaryLight"
                 android:textSize="18dp"
                 android:textStyle="italic"
                 card:layout_constraintBottom_toBottomOf="parent"
@@ -64,7 +64,7 @@
                 android:layout_marginEnd="28dp"
                 android:layout_marginBottom="8dp"
                 android:text="price"
-                android:textColor="#03dac5"
+                android:textColor="@color/colorSecondaryLight"
                 android:textSize="27dp"
                 card:layout_constraintBottom_toBottomOf="parent"
                 card:layout_constraintEnd_toEndOf="parent"
@@ -78,7 +78,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:text="subject"
-                android:textColor="#00fff6"
+                android:textColor="@color/colorSecondaryLight"
                 android:textSize="15dp"
                 card:layout_constraintStart_toStartOf="parent"
                 card:layout_constraintTop_toBottomOf="@+id/profile_user" />
@@ -90,7 +90,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="date"
-                android:textColor="#ffffff"
+                android:textColor="@color/colorSecondaryLight"
                 card:layout_constraintStart_toStartOf="parent"
                 card:layout_constraintTop_toBottomOf="@+id/subject" />
         </android.support.constraint.ConstraintLayout>

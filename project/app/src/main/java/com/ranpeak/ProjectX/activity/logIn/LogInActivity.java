@@ -64,8 +64,6 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
-    private View mProgressView;
-    private View mLoginFormView;
     private TextView textView;
     private Button mEmailSignInButton;
 
@@ -117,8 +115,6 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailView = findViewById(R.id.email);
         mPasswordView = findViewById(R.id.password);
         mEmailSignInButton = findViewById(R.id.email_sign_in_button);
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
         textView = findViewById(R.id.textView);
     }
 

@@ -51,8 +51,7 @@
                     android:ems="10"
                     android:hint="@string/name"
                     android:inputType="textPersonName"
-                    android:textColorHint="@color/textOnPrimary"
-                    android:importantForAutofill="no" />
+                    android:textColorHint="@color/textOnPrimary" />
 
                 <!--<EditText-->
                     <!--android:id="@+id/register_age"-->

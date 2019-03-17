@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@color/bg_splash"
+    android:background="@color/colorPrimary"
     android:animateLayoutChanges="true">
 
     <ImageView
         android:id="@+id/splash_image"
-        android:contentDescription="TODO" android:src="@drawable/splashscreen_emblem"
+        android:contentDescription="TODO"
+        app:srcCompat="@drawable/ic_splash_screen_logo"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_gravity="center"/>
@@ -18,6 +20,7 @@
         android:id="@+id/splash_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ProjectX"
+        android:textColor="@color/textOnPrimary"
+        android:text="@string/projectx"
         android:textSize="30sp"/>
 </LinearLayout>

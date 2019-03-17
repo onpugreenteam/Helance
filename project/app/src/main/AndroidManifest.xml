@@ -21,19 +21,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.internetConnection.InternetErrorActivity"></activity>
         <activity android:name=".activity.creatingTask.FullScreenImageActivity" />
         <activity
             android:name=".activity.creatingTask.CreatingTaskActivity"
-            android:theme="@style/ToolBarProfile">
-
-        </activity>
+            android:theme="@style/ToolBarProfile"></activity>
         <activity android:name=".activity.settings.SettingsActivity" />
-        <activity android:name=".activity.SearchActivity"/>
+        <activity android:name=".activity.SearchActivity" />
         <activity
             android:name=".activity.logIn.LogInActivity"
-            android:windowSoftInputMode="stateHidden" >
-
-        </activity>
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity
             android:name=".splashscreen.SplashScreen"
             android:noHistory="true">
@@ -43,7 +40,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.TaskActivity"/>
+        <activity android:name=".activity.TaskActivity" />
         <activity
             android:name=".activity.ProfileActivity"
             android:label="@string/app_name"

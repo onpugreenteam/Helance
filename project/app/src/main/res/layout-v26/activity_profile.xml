@@ -76,8 +76,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/text_small_margin"
-                android:layout_gravity="end"
-                android:gravity="end"
+                android:layout_gravity="right"
+                android:gravity="right"
                 android:text="Andrey"
                 android:layout_weight="1"
                 android:textColor="@color/color_Black"
@@ -94,6 +94,7 @@
                 <TextView
                     android:id="@+id/user_country_text_view"
                     style="@style/TextView"
+                    android:layout_below="@id/user_name_text_view"
                     android:layout_marginTop="@dimen/text_small_margin"
                     android:text="@string/user_country"
                     android:textSize="9pt"
@@ -102,13 +103,14 @@
                     android:id="@+id/country"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/user_name_text_view"
                     android:text="Ukraine"
                     android:textColor="@color/color_Black"
                     android:textSize="11pt"
                     android:textStyle="italic"
                     android:layout_weight="1"
-                    android:layout_gravity="end"
-                    android:gravity="end"/>
+                    android:layout_gravity="right"
+                    android:gravity="right"/>
         </LinearLayout>
     </LinearLayout>
     </LinearLayout>

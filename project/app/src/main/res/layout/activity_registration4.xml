@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/design_default_color_primary_dark"
+    android:background="@color/colorPrimary"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:text="@string/registration_textView_username"
         android:textSize="@dimen/activity_vertical_margin_20"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/textOnPrimary"
         android:layout_marginTop="15dp"/>
 
     <!--<EditText-->
@@ -62,6 +62,7 @@
         android:layout_marginTop="30dp"
         android:text="@string/next"
         android:textStyle="bold"
-        android:onClick="clickRegistration_4"/>
+        android:onClick="clickRegistration_4"
+        android:background="@color/colorSecondary"/>
 
 </LinearLayout>
