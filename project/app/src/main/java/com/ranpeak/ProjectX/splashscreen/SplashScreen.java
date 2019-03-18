@@ -2,14 +2,17 @@ package com.ranpeak.ProjectX.splashscreen;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -20,11 +23,14 @@ import com.ranpeak.ProjectX.activity.logIn.LogInActivity;
 import com.ranpeak.ProjectX.constant.Constants;
 import com.ranpeak.ProjectX.request.RequestHandler;
 
+import java.util.Timer;
+
 public class SplashScreen extends AppCompatActivity/* AwesomeSplash*/ {
 
     private final static int SPLASH_ACTIVITY = R.layout.activity_splash_screen;
     private TextView textView;
     private ImageView imageView;
+    private TextView connectionStatus;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,7 +39,6 @@ public class SplashScreen extends AppCompatActivity/* AwesomeSplash*/ {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         findViewById();
         animate();
-        getAllLogins();
     }
 
     @Override
@@ -42,53 +47,56 @@ public class SplashScreen extends AppCompatActivity/* AwesomeSplash*/ {
         super.finish();
     }
 
-    private void noInternetConnection() {
-        Thread timer = new Thread() {
-            public void run() {
-                try {
-                    sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } finally {
-                    startActivity(new Intent(SplashScreen.this, InternetErrorActivity.class));
-                    end();
-                }
-            }
-        };
-        timer.start();
+    @Override
+    public void onBackPressed() {
+        end();
     }
-    private void end(){
+
+    private void end() {
         super.finish();
     }
 
     private void findViewById() {
         textView = findViewById(R.id.splash_text);
         imageView = findViewById(R.id.splash_image);
+        connectionStatus = findViewById(R.id.splash_textView);
     }
 
     private void animate() {
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.splash_anim);
         textView.startAnimation(animation);
         imageView.startAnimation(animation);
-    }
 
-    private void startLoadData(){
-        Thread timer = new Thread() {
-            public void run() {
-                try {
-                    sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } finally {
-                    finish();
-                }
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
             }
-        };
-        timer.start();
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                connectionStatus.setVisibility(View.VISIBLE);
+                getAllLogins();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
     }
 
-    private void getAllLogins(){
+    private void startLoadData() {
+        finish();
+    }
 
+    private void noInternetConnection() {
+        connectionStatus.setText(getString(R.string.internet_check));
+        connectionStatus.setTextColor(getResources().getColor(R.color.colorAccent));
+    }
+
+    private void getAllLogins() {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, Constants.URL.GET_LOGINS,
                 new Response.Listener<String>() {
                     @Override
@@ -103,7 +111,7 @@ public class SplashScreen extends AppCompatActivity/* AwesomeSplash*/ {
                         Toast.makeText(getApplicationContext(), "Waiting...", Toast.LENGTH_SHORT).show();
                         noInternetConnection();
                     }
-        });
+                });
         RequestHandler.getmInstance(this).addToRequestQueue(stringRequest);
     }
 
