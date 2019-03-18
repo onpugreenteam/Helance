@@ -5,8 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.ranpeak.ProjectX.activity.lobby.fragment.FreeTaskFragment;
-import com.ranpeak.ProjectX.activity.lobby.fragment.MyTaskFragment;
+import com.ranpeak.ProjectX.activity.lobby.navigationFragment.mainNavFragment.tabFragment.FreeTaskFragment;
+import com.ranpeak.ProjectX.activity.lobby.navigationFragment.mainNavFragment.tabFragment.ReadyAnswerFragment;
 import com.ranpeak.ProjectX.dto.TaskDTO;
 import com.ranpeak.ProjectX.fragment.AbstractTabFragment;
 
@@ -49,7 +49,7 @@ public class TabsFragmentAdapter extends FragmentPagerAdapter {
         tabs = new HashMap<>();
         freeTaskFragment = FreeTaskFragment.getInstance(context, data);
         tabs.put(0, freeTaskFragment);
-        tabs.put(1, MyTaskFragment.getInstance(context));
+        tabs.put(1, ReadyAnswerFragment.getInstance(context));
 
     }
 

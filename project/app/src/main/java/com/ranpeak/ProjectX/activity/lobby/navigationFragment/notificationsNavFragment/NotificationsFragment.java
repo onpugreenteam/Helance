@@ -1,4 +1,4 @@
-package com.ranpeak.ProjectX.activity.lobby.fragment.navigation;
+package com.ranpeak.ProjectX.activity.lobby.navigationFragment.notificationsNavFragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 import com.ranpeak.ProjectX.R;
 
 
-public class ProfileFragment extends Fragment {
+public class NotificationsFragment extends Fragment {
 
-    public ProfileFragment() {
+    public NotificationsFragment() {
         // Required empty public constructor
     }
 
@@ -24,7 +24,7 @@ public class ProfileFragment extends Fragment {
     }
 
 
-    public static ProfileFragment newInstance() {
-        return new ProfileFragment();
+    public static NotificationsFragment newInstance() {
+        return new NotificationsFragment();
     }
 }

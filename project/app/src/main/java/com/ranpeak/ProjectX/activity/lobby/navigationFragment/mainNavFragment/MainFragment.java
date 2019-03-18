@@ -1,4 +1,4 @@
-package com.ranpeak.ProjectX.activity.lobby.fragment.navigation;
+package com.ranpeak.ProjectX.activity.lobby.navigationFragment.mainNavFragment;
 
 import android.os.AsyncTask;
 import android.os.Bundle;

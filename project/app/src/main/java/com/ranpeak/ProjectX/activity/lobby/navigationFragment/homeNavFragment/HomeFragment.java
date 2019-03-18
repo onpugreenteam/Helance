@@ -1,4 +1,4 @@
-package com.ranpeak.ProjectX.activity.lobby.fragment.navigation;
+package com.ranpeak.ProjectX.activity.lobby.navigationFragment.homeNavFragment;
 
 import android.content.Intent;
 import android.os.Bundle;

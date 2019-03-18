@@ -1,4 +1,4 @@
-package com.ranpeak.ProjectX.activity.lobby.fragment;
+package com.ranpeak.ProjectX.activity.lobby.navigationFragment.mainNavFragment.tabFragment;
 
 import android.content.Context;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package com.ranpeak.ProjectX.activity.lobby.fragment;
+package com.ranpeak.ProjectX.activity.lobby.navigationFragment.mainNavFragment.tabFragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,13 +10,13 @@ import android.view.ViewGroup;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.fragment.AbstractTabFragment;
 
-public class MyTaskFragment extends AbstractTabFragment {
+public class ReadyAnswerFragment extends AbstractTabFragment {
 
     private static final int LAYOUT = R.layout.my_task_fragment;
 
-    public static MyTaskFragment getInstance(Context context) {
+    public static ReadyAnswerFragment getInstance(Context context) {
         Bundle args = new Bundle();
-        MyTaskFragment fragment = new MyTaskFragment();
+        ReadyAnswerFragment fragment = new ReadyAnswerFragment();
         fragment.setArguments(args);
         fragment.setContext(context);
         fragment.setTitle(context.getString(R.string.tab_item_my_task));
