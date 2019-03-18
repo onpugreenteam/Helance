@@ -75,6 +75,7 @@ public class CreatingTaskActivity extends AppCompatActivity {
         }
     }
 
+
     private void findViewById() {
         // start fragmentActivity to choose lesson
         final FragmentManager fm = getFragmentManager();
@@ -150,6 +151,7 @@ public class CreatingTaskActivity extends AppCompatActivity {
             }
         });
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -230,6 +232,7 @@ public class CreatingTaskActivity extends AppCompatActivity {
         }
     }
 
+
     // Запрашивает у пользователя разрешение на доступ к галерее
     private void requestMultiplePermissions() {
         Dexter.withActivity(this)
@@ -263,9 +266,11 @@ public class CreatingTaskActivity extends AppCompatActivity {
                 .check();
     }
 
+
     public void setLessonPicker(String lesson) {
         this.lessonPicker.setText(lesson);
     }
+
 
     // checking every field
     private void attemptCreatingTask() {
@@ -300,6 +305,7 @@ public class CreatingTaskActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "done", Toast.LENGTH_SHORT).show();
         }
     }
+
 
     // check if selected lesson exists in Constants.Values.LESSONS
     private static boolean stringContainsItemFromList(String inputStr, String[] items) {

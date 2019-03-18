@@ -1,4 +1,4 @@
-package com.ranpeak.ProjectX.activity.lobby.fragment.navigation;
+package com.ranpeak.ProjectX.activity.lobby.navigationFragment.mainNavFragment;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -50,7 +50,7 @@ public class MainFragment extends Fragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-//                        new GetFreeTask().execute();
+                        new GetFreeTask().execute();
                         pullToRefresh.setRefreshing(false);
                     }
                 },4000);
@@ -69,32 +69,32 @@ public class MainFragment extends Fragment {
     private void initTabs() {
         adapter = new TabsFragmentAdapter(getApplicationContext(), getChildFragmentManager(), new ArrayList<TaskDTO>());
         viewPager.setAdapter(adapter);
-//        new GetFreeTask().execute();
+        new GetFreeTask().execute();
         TabLayout tabLayout = view.findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
     }
 
 
-//    public class GetFreeTask extends AsyncTask<Void, Void, List<TaskDTO>> {
-//
-//        @Override
-//        protected List<TaskDTO> doInBackground(Void... params) {
-//            RestTemplate restTemplate = new RestTemplate();
-//            ResponseEntity<List<TaskDTO>> response = restTemplate.exchange(
-//                    Constants.URL.GET_ALL_TASK,
-//                    HttpMethod.GET,
-//                    null,
-//                    new ParameterizedTypeReference<List<TaskDTO>>(){});
-//            List<TaskDTO> taskDTOS = response.getBody();
-//
-//            return taskDTOS;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(List<TaskDTO> taskDTOS) {
-//            adapter.setData(taskDTOS);
-//        }
-//    }
+    public class GetFreeTask extends AsyncTask<Void, Void, List<TaskDTO>> {
+
+        @Override
+        protected List<TaskDTO> doInBackground(Void... params) {
+            RestTemplate restTemplate = new RestTemplate();
+            ResponseEntity<List<TaskDTO>> response = restTemplate.exchange(
+                    Constants.URL.GET_ALL_TASK,
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<List<TaskDTO>>(){});
+            List<TaskDTO> taskDTOS = response.getBody();
+
+            return taskDTOS;
+        }
+
+        @Override
+        protected void onPostExecute(List<TaskDTO> taskDTOS) {
+            adapter.setData(taskDTOS);
+        }
+    }
 
 
     public static MainFragment newInstance() {

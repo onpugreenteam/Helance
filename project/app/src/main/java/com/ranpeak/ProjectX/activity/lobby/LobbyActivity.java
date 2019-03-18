@@ -3,7 +3,6 @@ package com.ranpeak.ProjectX.activity.lobby;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.drawable.AnimationDrawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -21,18 +20,9 @@ import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.ProfileActivity;
 import com.ranpeak.ProjectX.activity.SearchActivity;
 import com.ranpeak.ProjectX.activity.lobby.adapter.TabsFragmentAdapter;
-import com.ranpeak.ProjectX.activity.lobby.fragment.navigation.HomeFragment;
-import com.ranpeak.ProjectX.activity.lobby.fragment.navigation.MainFragment;
-import com.ranpeak.ProjectX.activity.lobby.fragment.navigation.ProfileFragment;
-import com.ranpeak.ProjectX.constant.Constants;
-import com.ranpeak.ProjectX.dto.TaskDTO;
-
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
-
-import java.util.List;
+import com.ranpeak.ProjectX.activity.lobby.navigationFragment.homeNavFragment.HomeFragment;
+import com.ranpeak.ProjectX.activity.lobby.navigationFragment.mainNavFragment.MainFragment;
+import com.ranpeak.ProjectX.activity.lobby.navigationFragment.notificationsNavFragment.NotificationsFragment;
 
 public class LobbyActivity extends AppCompatActivity {
 
@@ -116,28 +106,6 @@ public class LobbyActivity extends AppCompatActivity {
 //    }
 
 
-//    public class GetFreeTask extends AsyncTask<Void, Void, List<TaskDTO>> {
-//
-//        @Override
-//        protected List<TaskDTO> doInBackground(Void... params) {
-//            RestTemplate restTemplate = new RestTemplate();
-//            ResponseEntity<List<TaskDTO>> response = restTemplate.exchange(
-//                    Constants.URL.GET_ALL_TASK,
-//                    HttpMethod.GET,
-//                    null,
-//                    new ParameterizedTypeReference<List<TaskDTO>>(){});
-//            List<TaskDTO> taskDTOS = response.getBody();
-//
-//            return taskDTOS;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(List<TaskDTO> taskDTOS) {
-//            adapter.setData(taskDTOS);
-//        }
-//    }
-
-
     private static class NavFragmentPageAdapter extends FragmentPagerAdapter {
 
         private NavFragmentPageAdapter(FragmentManager fm) {
@@ -152,7 +120,7 @@ public class LobbyActivity extends AppCompatActivity {
                 case 1:
                     return MainFragment.newInstance();
                 case 2:
-                    return ProfileFragment.newInstance();
+                    return NotificationsFragment.newInstance();
             }
             return null;
         }

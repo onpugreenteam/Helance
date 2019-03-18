@@ -1,4 +1,4 @@
-package com.ranpeak.ProjectX.activity.lobby.fragment;
+package com.ranpeak.ProjectX.activity.lobby.navigationFragment.mainNavFragment.tabFragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -54,9 +54,11 @@ public class FreeTaskFragment extends AbstractTabFragment {
         adapter.notifyDataSetChanged();
     }
 
+
     public void setContext(Context context) {
         this.context = context;
     }
+
 
     public void setData(List<TaskDTO> data) {
         this.data = data;
