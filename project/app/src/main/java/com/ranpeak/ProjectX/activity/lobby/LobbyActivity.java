@@ -116,28 +116,6 @@ public class LobbyActivity extends AppCompatActivity {
 //    }
 
 
-//    public class GetFreeTask extends AsyncTask<Void, Void, List<TaskDTO>> {
-//
-//        @Override
-//        protected List<TaskDTO> doInBackground(Void... params) {
-//            RestTemplate restTemplate = new RestTemplate();
-//            ResponseEntity<List<TaskDTO>> response = restTemplate.exchange(
-//                    Constants.URL.GET_ALL_TASK,
-//                    HttpMethod.GET,
-//                    null,
-//                    new ParameterizedTypeReference<List<TaskDTO>>(){});
-//            List<TaskDTO> taskDTOS = response.getBody();
-//
-//            return taskDTOS;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(List<TaskDTO> taskDTOS) {
-//            adapter.setData(taskDTOS);
-//        }
-//    }
-
-
     private static class NavFragmentPageAdapter extends FragmentPagerAdapter {
 
         private NavFragmentPageAdapter(FragmentManager fm) {

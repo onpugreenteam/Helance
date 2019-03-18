@@ -36,6 +36,7 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
+
     private void findViewById(){
         fab = view.findViewById(R.id.floatingActionButton);
     }
