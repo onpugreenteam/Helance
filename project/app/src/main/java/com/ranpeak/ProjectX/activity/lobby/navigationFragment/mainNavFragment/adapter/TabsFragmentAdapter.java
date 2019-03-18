@@ -1,6 +1,7 @@
-package com.ranpeak.ProjectX.activity.lobby.adapter;
+package com.ranpeak.ProjectX.activity.lobby.navigationFragment.mainNavFragment.adapter;
 
 import android.content.Context;
+import android.media.Image;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -10,6 +11,7 @@ import com.ranpeak.ProjectX.activity.lobby.navigationFragment.mainNavFragment.ta
 import com.ranpeak.ProjectX.dto.TaskDTO;
 import com.ranpeak.ProjectX.fragment.AbstractTabFragment;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,14 +20,16 @@ public class TabsFragmentAdapter extends FragmentPagerAdapter {
 
     private Map<Integer, AbstractTabFragment> tabs;
     private Context context;
+    private ArrayList<String> images = new ArrayList<>();
 
     private List<TaskDTO> data;
 
     private FreeTaskFragment freeTaskFragment;
 
-    public TabsFragmentAdapter(Context context, FragmentManager fm, List<TaskDTO> data) {
+    public TabsFragmentAdapter(Context context, FragmentManager fm, List<TaskDTO> data, ArrayList<String> images) {
         super(fm);
         this.data = data;
+        this.images = images;
         this.context = context;
         initTabsMap(context);
     }

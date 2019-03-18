@@ -1,7 +1,11 @@
-package com.ranpeak.ProjectX.activity.lobby.adapter;
+package com.ranpeak.ProjectX.activity.lobby.navigationFragment.mainNavFragment.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.StrictMode;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,22 +19,34 @@ import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.TaskActivity;
 import com.ranpeak.ProjectX.dto.TaskDTO;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskViewHolder>{
 
     private List<TaskDTO> data;
-    private Context mContext;
+    private ArrayList<String> images = new ArrayList<>();
+    private Context context;
 
-    public TaskListAdapter(List<TaskDTO> data) {
+    public TaskListAdapter(List<TaskDTO> data, ArrayList<String> images, Context context) {
         this.data = data;
+        this.images = images;
+        this.context = context;
     }
+
 
     @Override
     public TaskViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_item, parent, false);
 
         return new TaskViewHolder(view);
+    }
+
+    public static String getRandomChestItem(ArrayList<String> images) {
+        return images.get(new Random().nextInt(images.size()));
     }
 
     @Override
@@ -40,6 +56,25 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskVi
         holder.subject.setText(item.getSubject());
         holder.date.setText(item.getDateStart());
         holder.price.setText(String.valueOf(item.getPrice()));
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+
+
+        URL url = null;
+        try {
+            url = new URL(getRandomChestItem(images));
+            Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+            holder.profile_user.setImageBitmap(bmp);
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+        }
+
+//        Glide.with(context)
+//                .asBitmap()
+//                .load(images.get(position))
+//                .into(holder.profile_user);
     }
 
     @Override
@@ -70,6 +105,7 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskVi
                     v.getContext().startActivity(new Intent(v.getContext(), TaskActivity.class));
                 }
             });
+
         }
 
         private void findViewById(){
@@ -81,4 +117,5 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskVi
             price = itemView.findViewById(R.id.price);
         }
     }
+
 }

@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ranpeak.ProjectX.R;
-import com.ranpeak.ProjectX.activity.lobby.adapter.TabsFragmentAdapter;
+import com.ranpeak.ProjectX.activity.lobby.navigationFragment.mainNavFragment.adapter.TabsFragmentAdapter;
 import com.ranpeak.ProjectX.constant.Constants;
 import com.ranpeak.ProjectX.dto.TaskDTO;
 
@@ -32,6 +32,7 @@ public class MainFragment extends Fragment {
     private ViewPager viewPager;
     private View view;
     private SwipeRefreshLayout pullToRefresh;
+
 
     public MainFragment() {
     }
@@ -67,7 +68,7 @@ public class MainFragment extends Fragment {
 
 
     private void initTabs() {
-        adapter = new TabsFragmentAdapter(getApplicationContext(), getChildFragmentManager(), new ArrayList<TaskDTO>());
+        adapter = new TabsFragmentAdapter(getApplicationContext(), getChildFragmentManager(), new ArrayList<TaskDTO>(),new ArrayList<String>());
         viewPager.setAdapter(adapter);
         new GetFreeTask().execute();
         TabLayout tabLayout = view.findViewById(R.id.tabLayout);
@@ -100,4 +101,5 @@ public class MainFragment extends Fragment {
     public static MainFragment newInstance() {
         return new MainFragment();
     }
+
 }

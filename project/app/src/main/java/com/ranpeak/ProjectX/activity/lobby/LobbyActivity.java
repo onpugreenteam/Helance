@@ -19,7 +19,7 @@ import android.widget.TextView;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.ProfileActivity;
 import com.ranpeak.ProjectX.activity.SearchActivity;
-import com.ranpeak.ProjectX.activity.lobby.adapter.TabsFragmentAdapter;
+import com.ranpeak.ProjectX.activity.lobby.navigationFragment.mainNavFragment.adapter.TabsFragmentAdapter;
 import com.ranpeak.ProjectX.activity.lobby.navigationFragment.homeNavFragment.HomeFragment;
 import com.ranpeak.ProjectX.activity.lobby.navigationFragment.mainNavFragment.MainFragment;
 import com.ranpeak.ProjectX.activity.lobby.navigationFragment.notificationsNavFragment.NotificationsFragment;

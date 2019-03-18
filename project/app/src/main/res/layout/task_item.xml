@@ -27,23 +27,23 @@
             tools:layout_editor_absoluteY="4dp"
             android:background="@color/colorPrimaryDark">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_user"
-                android:layout_width="37dp"
-                android:layout_height="41dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
+                android:src="@mipmap/ic_launcher"
                 card:layout_constraintStart_toStartOf="parent"
-                card:layout_constraintTop_toTopOf="parent"
-                card:srcCompat="@drawable/ic_person_black_24dp" />
+                card:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/headline"
-                android:layout_width="264dp"
-                android:layout_height="47dp"
-                android:layout_marginStart="8dp"
+                android:layout_width="255dp"
+                android:layout_height="65dp"
+                android:layout_marginStart="42dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="24dp"
                 android:layout_marginBottom="8dp"
                 android:text="headline"
                 android:textColor="@color/colorSecondaryLight"
@@ -51,7 +51,6 @@
                 android:textStyle="italic"
                 card:layout_constraintBottom_toBottomOf="parent"
                 card:layout_constraintEnd_toEndOf="parent"
-                card:layout_constraintHorizontal_bias="1.0"
                 card:layout_constraintStart_toEndOf="@+id/profile_user"
                 card:layout_constraintTop_toTopOf="parent"
                 card:layout_constraintVertical_bias="0.0" />
@@ -76,7 +75,7 @@
                 android:layout_width="115dp"
                 android:layout_height="19dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="12dp"
                 android:text="subject"
                 android:textColor="@color/colorSecondaryLight"
                 android:textSize="15dp"
@@ -88,7 +87,7 @@
                 android:layout_width="115dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="12dp"
                 android:text="date"
                 android:textColor="@color/colorSecondaryLight"
                 card:layout_constraintStart_toStartOf="parent"
