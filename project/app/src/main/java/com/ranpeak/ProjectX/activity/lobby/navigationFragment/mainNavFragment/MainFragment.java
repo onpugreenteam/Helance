@@ -76,6 +76,11 @@ public class MainFragment extends Fragment {
     }
 
 
+    public static MainFragment newInstance() {
+        return new MainFragment();
+    }
+
+
     public class GetFreeTask extends AsyncTask<Void, Void, List<TaskDTO>> {
 
         @Override
@@ -96,10 +101,4 @@ public class MainFragment extends Fragment {
             adapter.setData(taskDTOS);
         }
     }
-
-
-    public static MainFragment newInstance() {
-        return new MainFragment();
-    }
-
 }
