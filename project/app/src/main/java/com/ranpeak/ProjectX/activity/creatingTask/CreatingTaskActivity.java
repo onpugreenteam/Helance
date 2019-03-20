@@ -3,6 +3,7 @@ package com.ranpeak.ProjectX.activity.creatingTask;
 import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.FragmentManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -13,18 +14,22 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -42,6 +47,7 @@ import java.util.Objects;
 
 public class CreatingTaskActivity extends AppCompatActivity {
 
+    private Toolbar toolbar;
     private EditText typeName;
     private EditText typeDescription;
     private TextView datePicker;
@@ -51,6 +57,7 @@ public class CreatingTaskActivity extends AppCompatActivity {
     private Button selectImages;
     private Button create;
     private Button cancel;
+    private HorizontalScrollView horizontalScrollView;
     private static final int REQUEST_PERMISSION = 200;
     private final int GALLERY = 1;
     private ImageView buffImageView1 = null;
@@ -65,6 +72,7 @@ public class CreatingTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creating_task);
 
+        toolbar();
         findViewById();
         requestMultiplePermissions();
         // Спрашмвает пользователя разрешение на доступ к галерее(если он его не давал еще)
@@ -74,7 +82,6 @@ public class CreatingTaskActivity extends AppCompatActivity {
                     REQUEST_PERMISSION);
         }
     }
-
 
     private void findViewById() {
         // start fragmentActivity to choose lesson
@@ -91,7 +98,7 @@ public class CreatingTaskActivity extends AppCompatActivity {
         typeName = findViewById(R.id.creating_task_type_name);
         typeDescription = findViewById(R.id.creating_task_type_description);
 
-        create = findViewById(R.id.creating_task_create_button);
+        create = findViewById(R.id.creating_task_button);
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,13 +109,6 @@ public class CreatingTaskActivity extends AppCompatActivity {
                     }
                 });
                 /* TODO: Create task and add it to server*/
-            }
-        });
-        cancel = findViewById(R.id.creating_task_cancel_button);
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
             }
         });
         datePicker = findViewById(R.id.date_picker);
@@ -150,9 +150,77 @@ public class CreatingTaskActivity extends AppCompatActivity {
 
             }
         });
+        horizontalScrollView = findViewById(R.id.scroll_view_files);
     }
 
+    private void toolbar() {
+        // Toolbar
+//        getSupportActionBar().setTitle(getString(R.string.app_name));
+//        toolbar = findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(getString(R.string.app_name));
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // todo: goto back activity from here
+
+//                Intent intent = new Intent(CreatingTaskActivity.this, LobbyActivity.class);
+////                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(intent);
+//                finish();
+
+                // если пустых полей нет, то открывается диалог с потверждение закрытия окна
+                if (!allFieldsEmpty()) {
+                    openDialog();
+                }
+                // если ни одно из полей не заполнено, то окно закрывается без открытия диалога
+                else finish();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    // если нажата кнопка назад на устройстве
+    @Override
+    public void onBackPressed() {
+        // если пустых полей нет, то открывается диалог с потверждение закрытия окна
+        if (!allFieldsEmpty()) {
+            openDialog();
+        }
+        // если ни одно из полей не заполнено, то окно закрывается без открытия диалога
+        else super.onBackPressed();
+    }
+
+    // открытие подтверждающего диалога перед закрытием окна
+    private void openDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false)
+                .setTitle(getString(R.string.confirm_exit))
+                .setMessage(getString(R.string.cancel_creating))
+                .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    // устанавливаем изображения в LinearLayout
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -161,72 +229,98 @@ public class CreatingTaskActivity extends AppCompatActivity {
         }
         if (requestCode == GALLERY) {
             if (data != null) {
+                horizontalScrollView.setVisibility(View.VISIBLE);
                 final Uri contentURI = data.getData();
-                try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), contentURI);
-                    ImageView image = new ImageView(CreatingTaskActivity.this);
-
-                    image.setLayoutParams(new android.view.ViewGroup.LayoutParams(350, 350));
-                    image.setMaxHeight(350);
-                    image.setMaxWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
-
-                    image.setImageBitmap(bitmap);
-                    image.setVisibility(View.VISIBLE);
-                    linearLayout.addView(image);
-                    if (buffImageView1 == null) {
-                        buffImageView1 = image;
-                        buffImageView1.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent fullScreenIntent = new Intent(CreatingTaskActivity.this, FullScreenImageActivity.class);
-                                fullScreenIntent.setData(contentURI);
-                                startActivity(fullScreenIntent);
-                            }
-                        });
-                    } else if (buffImageView2 == null) {
-                        buffImageView2 = image;
-                        buffImageView2.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent fullScreenIntent = new Intent(CreatingTaskActivity.this, FullScreenImageActivity.class);
-                                fullScreenIntent.setData(contentURI);
-                                startActivity(fullScreenIntent);
-                            }
-                        });
-                    } else if (buffImageView3 == null) {
-                        buffImageView3 = image;
-                        buffImageView3.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent fullScreenIntent = new Intent(CreatingTaskActivity.this, FullScreenImageActivity.class);
-                                fullScreenIntent.setData(contentURI);
-                                startActivity(fullScreenIntent);
-                            }
-                        });
-                    } else if (buffImageView4 == null) {
-                        buffImageView4 = image;
-                        buffImageView4.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent fullScreenIntent = new Intent(CreatingTaskActivity.this, FullScreenImageActivity.class);
-                                fullScreenIntent.setData(contentURI);
-                                startActivity(fullScreenIntent);
-                            }
-                        });
-                    } else if (buffImageView5 == null) {
-                        buffImageView5 = image;
-                        buffImageView5.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent fullScreenIntent = new Intent(CreatingTaskActivity.this, FullScreenImageActivity.class);
-                                fullScreenIntent.setData(contentURI);
-                                startActivity(fullScreenIntent);
-                            }
-                        });
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Toast.makeText(CreatingTaskActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
+                if (buffImageView1 == null) {
+                    buffImageView1 = new ImageView(CreatingTaskActivity.this);
+                    buffImageView1.setLayoutParams(new android.view.ViewGroup.LayoutParams(350, 350));
+                    buffImageView1.setMaxHeight(350);
+                    buffImageView1.setMaxWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
+                    Glide.with(this)
+                            .load(contentURI)
+                            .into(buffImageView1);
+                    linearLayout.addView(buffImageView1);
+                    buffImageView1.setVisibility(View.VISIBLE);
+                    buffImageView1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent fullScreenIntent = new Intent(CreatingTaskActivity.this, FullScreenImageActivity.class);
+                            fullScreenIntent.setData(contentURI);
+                            startActivity(fullScreenIntent);
+                        }
+                    });
+                } else if (buffImageView2 == null) {
+                    buffImageView2 = new ImageView(CreatingTaskActivity.this);
+                    buffImageView2.setLayoutParams(new android.view.ViewGroup.LayoutParams(350, 350));
+                    buffImageView2.setMaxHeight(350);
+                    buffImageView2.setMaxWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
+                    Glide.with(this)
+                            .load(contentURI)
+                            .into(buffImageView2);
+                    linearLayout.addView(buffImageView2);
+                    buffImageView2.setVisibility(View.VISIBLE);
+                    buffImageView2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent fullScreenIntent = new Intent(CreatingTaskActivity.this, FullScreenImageActivity.class);
+                            fullScreenIntent.setData(contentURI);
+                            startActivity(fullScreenIntent);
+                        }
+                    });
+                } else if (buffImageView3 == null) {
+                    buffImageView3 = new ImageView(CreatingTaskActivity.this);
+                    buffImageView3.setLayoutParams(new android.view.ViewGroup.LayoutParams(350, 350));
+                    buffImageView3.setMaxHeight(350);
+                    buffImageView3.setMaxWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
+                    Glide.with(this)
+                            .load(contentURI)
+                            .into(buffImageView3);
+                    linearLayout.addView(buffImageView3);
+                    buffImageView3.setVisibility(View.VISIBLE);
+                    buffImageView3.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent fullScreenIntent = new Intent(CreatingTaskActivity.this, FullScreenImageActivity.class);
+                            fullScreenIntent.setData(contentURI);
+                            startActivity(fullScreenIntent);
+                        }
+                    });
+                } else if (buffImageView4 == null) {
+                    buffImageView4 = new ImageView(CreatingTaskActivity.this);
+                    buffImageView4.setLayoutParams(new android.view.ViewGroup.LayoutParams(350, 350));
+                    buffImageView4.setMaxHeight(350);
+                    buffImageView4.setMaxWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
+                    Glide.with(this)
+                            .load(contentURI)
+                            .into(buffImageView4);
+                    linearLayout.addView(buffImageView4);
+                    buffImageView4.setVisibility(View.VISIBLE);
+                    buffImageView4.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent fullScreenIntent = new Intent(CreatingTaskActivity.this, FullScreenImageActivity.class);
+                            fullScreenIntent.setData(contentURI);
+                            startActivity(fullScreenIntent);
+                        }
+                    });
+                } else if (buffImageView5 == null) {
+                    buffImageView5 = new ImageView(CreatingTaskActivity.this);
+                    buffImageView5.setLayoutParams(new android.view.ViewGroup.LayoutParams(350, 350));
+                    buffImageView5.setMaxHeight(350);
+                    buffImageView5.setMaxWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
+                    Glide.with(this)
+                            .load(contentURI)
+                            .into(buffImageView5);
+                    linearLayout.addView(buffImageView4);
+                    buffImageView5.setVisibility(View.VISIBLE);
+                    buffImageView5.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent fullScreenIntent = new Intent(CreatingTaskActivity.this, FullScreenImageActivity.class);
+                            fullScreenIntent.setData(contentURI);
+                            startActivity(fullScreenIntent);
+                        }
+                    });
                 }
             }
         }
@@ -267,11 +361,13 @@ public class CreatingTaskActivity extends AppCompatActivity {
     }
 
 
+    // устанавливает в поле LessonPicker выбранный пользователем предмет
     public void setLessonPicker(String lesson) {
         this.lessonPicker.setText(lesson);
     }
 
 
+    // проверка всех полей на правильность
     // checking every field
     private void attemptCreatingTask() {
         // Reset errors.
@@ -297,7 +393,7 @@ public class CreatingTaskActivity extends AppCompatActivity {
 
         if (cancel) {
             Toast.makeText(getApplicationContext(), "feel all required fields", Toast.LENGTH_SHORT).show();
-            if (focusView!=null) {
+            if (focusView != null) {
                 focusView.requestFocus();
             }
         } else {
@@ -306,7 +402,15 @@ public class CreatingTaskActivity extends AppCompatActivity {
         }
     }
 
+    // если все поля не тронуты(ни одно из них не заполнено), то возвращает true
+    private boolean allFieldsEmpty() {
+        return typeName.getText().toString().isEmpty()
+                && typeDescription.getText().toString().isEmpty()
+                && !stringContainsItemFromList(lessonPicker.getText().toString(), Constants.Values.LESSONS)
+                && datePicker.getText().toString().equals(getString(R.string.select_date));
+    }
 
+    //проверяет входит ли какое-либо значение в какой-либо указанный массив
     // check if selected lesson exists in Constants.Values.LESSONS
     private static boolean stringContainsItemFromList(String inputStr, String[] items) {
         for (int i = 0; i < items.length; i++) {

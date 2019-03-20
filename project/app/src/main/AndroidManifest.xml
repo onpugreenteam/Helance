@@ -25,7 +25,7 @@
         <activity android:name=".activity.creatingTask.FullScreenImageActivity" />
         <activity
             android:name=".activity.creatingTask.CreatingTaskActivity"
-            android:theme="@style/ToolBarProfile" />
+            android:theme="@style/ToolBarProfile"/>
         <activity android:name=".activity.settings.SettingsActivity" />
         <activity android:name=".activity.SearchActivity" />
         <activity
