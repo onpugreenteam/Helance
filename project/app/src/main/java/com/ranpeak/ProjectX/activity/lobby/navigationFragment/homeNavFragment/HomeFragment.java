@@ -21,7 +21,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
-
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class HomeFragment extends Fragment {
@@ -48,7 +47,6 @@ public class HomeFragment extends Fragment {
         });
         return view;
     }
-
 
     private void findViewById(){
         fab = view.findViewById(R.id.floatingActionButton);
