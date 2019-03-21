@@ -21,6 +21,7 @@ public class Constants {
        public static final String GET_AVATAR = HOST + "aaa/";
        public static final String GET_ALL_TASK = HOST + "getAllTasks";
        public static final String GET_ALL_TASK_WHEN_USER_COSTUMER = HOST +"getAllTasks/for/customer/";
+       public static final String ADD_TASK = HOST + "addTask";
    }
 
 

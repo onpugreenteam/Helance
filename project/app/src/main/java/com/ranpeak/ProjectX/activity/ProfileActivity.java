@@ -304,7 +304,7 @@ public class ProfileActivity extends AppCompatActivity {
     public void getAvatar(){
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                Constants.URL.GET_AVATAR+ String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()),
+                Constants.URL.GET_AVATAR + String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()),
                 new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

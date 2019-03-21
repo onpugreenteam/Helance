@@ -6,18 +6,17 @@ import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.provider.MediaStore;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -28,7 +27,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -38,11 +40,16 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.PermissionRequestErrorListener;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.ranpeak.ProjectX.R;
+import com.ranpeak.ProjectX.activity.creatingTask.fragment.LessonListFragment;
 import com.ranpeak.ProjectX.constant.Constants;
-
-import java.io.IOException;
+import com.ranpeak.ProjectX.request.RequestHandler;
+import com.ranpeak.ProjectX.settings.SharedPrefManager;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class CreatingTaskActivity extends AppCompatActivity {
@@ -86,12 +93,12 @@ public class CreatingTaskActivity extends AppCompatActivity {
     private void findViewById() {
         // start fragmentActivity to choose lesson
         final FragmentManager fm = getFragmentManager();
-        final LessonListActivity lessonListActivity = new LessonListActivity();
+        final LessonListFragment lessonListFragment = new LessonListFragment();
         lessonPicker = findViewById(R.id.lesson_picker);
         lessonPicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                lessonListActivity.show(fm, "Country lists");
+                lessonListFragment.show(fm, "Country lists");
             }
         });
 
@@ -397,8 +404,9 @@ public class CreatingTaskActivity extends AppCompatActivity {
                 focusView.requestFocus();
             }
         } else {
-            /* TODO: create new task */
+            postTask();
             Toast.makeText(getApplicationContext(), "done", Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
 
@@ -419,5 +427,59 @@ public class CreatingTaskActivity extends AppCompatActivity {
             }
         }
         return false;
+    }
+
+
+    private void postTask(){
+
+        final String headline = typeName.getText().toString().trim();
+        final String text = typeDescription.getText().toString().trim();
+        final String dateEnd = datePicker.getText().toString().trim();
+        final String typeLesson = lessonPicker.getText().toString().trim();
+        final String price = "50";
+
+
+        DateFormat df = new SimpleDateFormat("d MMM yyyy");
+        final String dateStart = df.format(Calendar.getInstance().getTime());
+
+        Log.d("DateStart", dateStart);
+        Log.d("DateStart", headline);
+        Log.d("DateStart", text);
+        Log.d("DateStart", typeLesson);
+        Log.d("DateStart", dateEnd);
+
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                Constants.URL.ADD_TASK,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Toast.makeText(getApplicationContext(),"Registration successful", Toast.LENGTH_LONG).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(),"Please on Internet", Toast.LENGTH_LONG).show();
+                    }
+                }){
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("headLine", headline);
+                params.put("text", text);
+                params.put("dateStart", dateStart);
+                params.put("dateEnd", dateEnd);
+                params.put("employee", String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()));
+                params.put("subject", typeLesson);
+                params.put("price", price);
+                params.put("status", "Free");
+                params.put("type", "Laba");
+                return params;
+            }
+
+        };
+        RequestHandler.getmInstance(this).addToRequestQueue(stringRequest);
     }
 }

@@ -1,4 +1,4 @@
-package com.ranpeak.ProjectX.activity.creatingTask;
+package com.ranpeak.ProjectX.activity.creatingTask.fragment;
 
 import android.app.DialogFragment;
 import android.os.Bundle;
@@ -11,9 +11,10 @@ import android.widget.ListView;
 import android.widget.SearchView;
 
 import com.ranpeak.ProjectX.R;
+import com.ranpeak.ProjectX.activity.creatingTask.CreatingTaskActivity;
 import com.ranpeak.ProjectX.constant.Constants;
 
-public class LessonListActivity extends DialogFragment {
+public class LessonListFragment extends DialogFragment {
 
     private SearchView searchView;
     private ListView listView;
