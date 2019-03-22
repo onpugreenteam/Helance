@@ -96,6 +96,7 @@ public class Constants {
                 "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "US Virgin Islands", "Uzbekistan", "Vanuatu", "Venezuela", "Vietnam",
 
                 "Wallis and Futuna", "West Bank", "Yemen", "Zambia", "Zimbabwe"};
+
         private static final Pattern PASSWORD_PATTERN =
                 Pattern.compile("^" +
                         "(?=.*[0-9])" +         //at least 1 digit
@@ -110,6 +111,7 @@ public class Constants {
         public static Pattern getPasswordPattern() {
             return PASSWORD_PATTERN;
         }
+
         public static final String[] LESSONS = new String[]{"Maths", "Physics"};
     }
 }
