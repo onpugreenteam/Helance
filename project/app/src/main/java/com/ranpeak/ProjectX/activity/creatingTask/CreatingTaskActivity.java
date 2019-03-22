@@ -108,7 +108,6 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
 
         datePicker = findViewById(R.id.date_picker);
 
-
         linearLayout = findViewById(R.id.linear_layout_files);
         selectImages = findViewById(R.id.choose_image_for_task);
         horizontalScrollView = findViewById(R.id.scroll_view_files);
@@ -131,7 +130,6 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
                         attemptCreatingTask();
                     }
                 });
-                /* TODO: Create task and add it to server*/
             }
         });
         datePicker.setOnClickListener(new View.OnClickListener() {
@@ -171,6 +169,8 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
             }
         };
     }
+
+
     private void toolbar() {
         // Toolbar
 //        getSupportActionBar().setTitle(getString(R.string.app_name));
@@ -180,6 +180,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(getString(R.string.app_name));
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -216,6 +217,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
         else super.onBackPressed();
     }
 
+
     // открытие подтверждающего диалога перед закрытием окна
     private void openDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -237,6 +239,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
+
 
     // устанавливаем изображения в LinearLayout
     @Override
@@ -421,6 +424,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
         }
     }
 
+
     // если все поля не тронуты(ни одно из них не заполнено), то возвращает true
     private boolean allFieldsEmpty() {
         return typeName.getText().toString().isEmpty()
@@ -428,6 +432,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
                 && !stringContainsItemFromList(lessonPicker.getText().toString(), Constants.Values.LESSONS)
                 && datePicker.getText().toString().equals(getString(R.string.select_date));
     }
+
 
     //проверяет входит ли какое-либо значение в какой-либо указанный массив
     // check if selected lesson exists in Constants.Values.LESSONS
@@ -465,7 +470,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(getApplicationContext(), "Registration successful", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Successful", Toast.LENGTH_LONG).show();
                     }
                 },
                 new Response.ErrorListener() {

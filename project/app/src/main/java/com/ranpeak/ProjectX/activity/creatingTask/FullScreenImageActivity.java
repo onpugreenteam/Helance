@@ -30,6 +30,7 @@ public class FullScreenImageActivity extends AppCompatActivity {
         }
     }
 
+
     private void findViewById() {
         fullScreenImageView = findViewById(R.id.fullScreenImageView);
     }

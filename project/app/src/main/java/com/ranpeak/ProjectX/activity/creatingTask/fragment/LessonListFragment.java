@@ -28,13 +28,11 @@ public class LessonListFragment extends DialogFragment implements Activity {
                              Bundle savedInstanceState){
 
         rootView = inflater.inflate(R.layout.activity_lesson_list, null);
-
         getDialog().setTitle("choose lesson");
 
+        findViewById();
         //clickListener
         onListener();
-        findViewById();
-        // listView properties
 
         adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1,
                 Constants.Values.LESSONS);
@@ -76,7 +74,6 @@ public class LessonListFragment extends DialogFragment implements Activity {
     @Override
     public void findViewById(){
         searchView = rootView.findViewById(R.id.search_lessons);
-
         listView = rootView.findViewById(R.id.lesson_list);
     }
 }
