@@ -17,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.ranpeak.ProjectX.R;
+import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.logIn.LogInActivity;
 import com.ranpeak.ProjectX.constant.Constants;
 import com.ranpeak.ProjectX.request.RequestHandler;
@@ -26,7 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class RegistrationActivity4 extends AppCompatActivity {
+public class RegistrationActivity4 extends AppCompatActivity implements Activity {
 
     private final static int REGISTRATION_ACTIVITY4 = R.layout.activity_registration4;
 
@@ -53,25 +54,30 @@ public class RegistrationActivity4 extends AppCompatActivity {
         password = getIntent().getStringExtra("password");
 
         findViewById();
+        onListener();
 
         Objects.requireNonNull(registration_username.getEditText()).addTextChangedListener(textWatcher);
+
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please wait...");
+    }
+
+    @Override
+    public void findViewById(){
+        registration_username = findViewById(R.id.registration_username);
+        nextButton = findViewById(R.id.registration_button_4);
+    }
+
+    @Override
+    public void onListener(){
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptRegistration();
             }
         });
-
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Please wait...");
     }
-
-
-    private void findViewById(){
-        registration_username = findViewById(R.id.registration_username);
-        nextButton = findViewById(R.id.registration_button_4);
-    }
-
 
     private TextWatcher textWatcher = new TextWatcher() {
         @Override

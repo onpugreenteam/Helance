@@ -77,6 +77,26 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="20dp"
+            android:text="@string/task_price"
+            android:textSize="12sp"
+            android:textColor="@color/textOnPrimary"
+            android:gravity="bottom"/>
+
+        <EditText
+            android:id="@+id/creating_task_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/type_here"
+            android:textSize="18sp"
+            android:textColor="@color/textOnPrimary"
+            android:gravity="bottom"
+            android:digits="0123456789,"
+            android:inputType="numberDecimal"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
             android:text="@string/select_date_below"
             android:textSize="12sp"
             android:textColor="@color/textOnPrimary"

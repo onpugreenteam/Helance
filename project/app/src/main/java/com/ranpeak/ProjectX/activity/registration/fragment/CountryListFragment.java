@@ -10,30 +10,53 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 import com.ranpeak.ProjectX.R;
+import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.registration.RegistrationActivity2;
 import com.ranpeak.ProjectX.constant.Constants;
 
-public class CountryListFragment extends DialogFragment {
+public class CountryListFragment extends DialogFragment implements Activity {
 
     private static final int COUNTRY_LIST_FRAGMENT = R.layout.activity_country_list;
 
     private SearchView searchView;
     private ListView listView;
     private ArrayAdapter<String> adapter;
+    private View rootView;
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
 
-        View rootView = inflater.inflate(COUNTRY_LIST_FRAGMENT, null);
+        findViewById();
+        onListener();
+
+
+        rootView = inflater.inflate(COUNTRY_LIST_FRAGMENT, null);
 
         getDialog().setTitle("choose country");
 
         // listView properties
-        listView = rootView.findViewById(R.id.country_list);
         adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1,
                 Constants.Values.COUNTRIES);
         listView.setAdapter(adapter);
+
+
+        // search view properties
+
+        searchView.setQueryHint("Search...");
+
+
+        return rootView;
+    }
+
+    @Override
+    public void findViewById() {
+        listView = rootView.findViewById(R.id.country_list);
+        searchView = rootView.findViewById(R.id.search_countries);
+    }
+
+    @Override
+    public void onListener() {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -47,9 +70,6 @@ public class CountryListFragment extends DialogFragment {
             }
         });
 
-        // search view properties
-        searchView = rootView.findViewById(R.id.search_countries);
-        searchView.setQueryHint("Search...");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String txt) {
@@ -62,7 +82,5 @@ public class CountryListFragment extends DialogFragment {
                 return false;
             }
         });
-
-        return rootView;
     }
 }

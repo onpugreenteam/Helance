@@ -59,13 +59,12 @@
     <Button
         android:id="@+id/registration_button_1"
         style="?android:textAppearanceSmall"
-        android:background="@color/colorSecondary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:background="@color/colorSecondary"
         android:text="@string/next"
-        android:textStyle="bold"
-        android:onClick="clickRegistration_1"/>
+        android:textStyle="bold" />
 
 
 </LinearLayout>

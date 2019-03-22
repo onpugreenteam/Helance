@@ -16,6 +16,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.ranpeak.ProjectX.R;
+import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.constant.Constants;
 import com.ranpeak.ProjectX.request.RequestHandler;
 import org.json.JSONException;
@@ -26,7 +27,7 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class RegistrationActivity1 extends AppCompatActivity{
+public class RegistrationActivity1 extends AppCompatActivity implements Activity {
 
     private final static int REGISTRATION_ACTIVITY1 = R.layout.activity_registration1;
 
@@ -40,15 +41,25 @@ public class RegistrationActivity1 extends AppCompatActivity{
         setContentView(REGISTRATION_ACTIVITY1);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         findViewById();
-        Objects.requireNonNull(register_email.getEditText()).addTextChangedListener(textWatcher);
+
     }
 
-
-    private void findViewById(){
+    @Override
+    public void findViewById(){
         register_email = findViewById(R.id.registration_email);
         nextButton = findViewById(R.id.registration_button_1);
     }
 
+    @Override
+    public void onListener(){
+        Objects.requireNonNull(register_email.getEditText()).addTextChangedListener(textWatcher);
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                attemptRegistration();
+            }
+        });
+    }
 
     private TextWatcher textWatcher = new TextWatcher() {
         @Override
@@ -77,12 +88,6 @@ public class RegistrationActivity1 extends AppCompatActivity{
             }
         }
     };
-
-
-    public void clickRegistration_1(View view){
-        attemptRegistration();
-    }
-
 
     private void attemptRegistration() {
 

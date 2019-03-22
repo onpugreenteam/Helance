@@ -85,7 +85,6 @@
                     android:textSize="@dimen/activity_vertical_margin_20" />
 
 
-
                 <Button
                     android:id="@+id/registration_button_2"
                     style="?android:textAppearanceSmall"
@@ -95,10 +94,9 @@
                     android:layout_alignEnd="@+id/register_country"
                     android:layout_alignParentStart="true"
                     android:layout_marginTop="40dp"
-                    android:onClick="clickRegistration_2"
+                    android:background="@color/colorSecondary"
                     android:text="@string/next"
-                    android:textStyle="bold"
-                    android:background="@color/colorSecondary"/>
+                    android:textStyle="bold" />
 
             </RelativeLayout>
         </LinearLayout>

@@ -60,6 +60,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
     private Toolbar toolbar;
     private EditText typeName;
     private EditText typeDescription;
+    private EditText taskPrice;
     private TextView datePicker;
     private TextView lessonPicker;
     private DatePickerDialog.OnDateSetListener dateSetListener;
@@ -103,6 +104,8 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
 
         typeName = findViewById(R.id.creating_task_type_name);
         typeDescription = findViewById(R.id.creating_task_type_description);
+
+        taskPrice = findViewById(R.id.creating_task_price);
 
         create = findViewById(R.id.creating_task_button);
 
@@ -332,7 +335,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
                     Glide.with(this)
                             .load(contentURI)
                             .into(buffImageView5);
-                    linearLayout.addView(buffImageView4);
+                    linearLayout.addView(buffImageView5);
                     buffImageView5.setVisibility(View.VISIBLE);
                     buffImageView5.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -408,6 +411,10 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
             cancel = true;
             focusView = typeDescription;
             typeDescription.setError(getString(R.string.error_field_required));
+        } else if (taskPrice.getText().toString().isEmpty()) {
+            cancel = true;
+            focusView = taskPrice;
+            taskPrice.setError(getString(R.string.error_field_required));
         } else if (datePicker.getText().toString().equals(getString(R.string.select_date))) {
             cancel = true;
         }
@@ -429,6 +436,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
     private boolean allFieldsEmpty() {
         return typeName.getText().toString().isEmpty()
                 && typeDescription.getText().toString().isEmpty()
+                && taskPrice.getText().toString().isEmpty()
                 && !stringContainsItemFromList(lessonPicker.getText().toString(), Constants.Values.LESSONS)
                 && datePicker.getText().toString().equals(getString(R.string.select_date));
     }

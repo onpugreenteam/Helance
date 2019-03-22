@@ -62,7 +62,6 @@
         android:layout_marginTop="30dp"
         android:text="@string/next"
         android:textStyle="bold"
-        android:onClick="clickRegistration_4"
         android:background="@color/colorSecondary"/>
 
 </LinearLayout>

@@ -14,11 +14,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.ranpeak.ProjectX.R;
+import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.registration.fragment.CountryListFragment;
 import com.ranpeak.ProjectX.constant.Constants;
 
 
-public class RegistrationActivity2 extends AppCompatActivity{
+public class RegistrationActivity2 extends AppCompatActivity implements Activity {
 
     private final static int REGISTRATION_ACTIVITY2 = R.layout.activity_registration2;
 
@@ -26,6 +27,9 @@ public class RegistrationActivity2 extends AppCompatActivity{
     private TextView register_country;
     private static String email;
     private Button nextButton;
+    private final FragmentManager fm = getFragmentManager();
+    private final CountryListFragment countryListFragment = new CountryListFragment();
+
 
     public void setCountry(String country) {
         this.register_country.setText(country);
@@ -39,13 +43,26 @@ public class RegistrationActivity2 extends AppCompatActivity{
         setContentView(REGISTRATION_ACTIVITY2);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         findViewById();
+        onListener();
         email = getIntent().getStringExtra("email");
-        register_name.addTextChangedListener(textWatcher);
+
 
         // start fragmentActivity to choose country
-        final FragmentManager fm = getFragmentManager();
-        final CountryListFragment countryListFragment = new CountryListFragment();
 
+
+        nextButton.setEnabled(false);
+    }
+
+    @Override
+    public void findViewById(){
+        register_name = findViewById(R.id.register_name);
+        nextButton = findViewById(R.id.registration_button_2);
+        register_country = findViewById(R.id.register_country);
+    }
+
+    @Override
+    public void onListener(){
+        register_name.addTextChangedListener(textWatcher);
         register_country.addTextChangedListener(textWatcher);
         register_country.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,15 +71,7 @@ public class RegistrationActivity2 extends AppCompatActivity{
             }
         });
         nextButton.addTextChangedListener(textWatcher);
-        nextButton.setEnabled(false);
     }
-
-    private void findViewById(){
-        register_name = findViewById(R.id.register_name);
-        nextButton = findViewById(R.id.registration_button_2);
-        register_country = findViewById(R.id.register_country);
-    }
-
 
     private TextWatcher textWatcher = new TextWatcher() {
         @Override

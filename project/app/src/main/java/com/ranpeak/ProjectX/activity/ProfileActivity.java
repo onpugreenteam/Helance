@@ -38,6 +38,7 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.PermissionRequestErrorListener;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.ranpeak.ProjectX.R;
+import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.logIn.LogInActivity;
 import com.ranpeak.ProjectX.activity.settings.SettingsActivity;
 import com.ranpeak.ProjectX.constant.Constants;
@@ -54,7 +55,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity implements Activity {
 
     private final static int PROFILE_ACTIVITY = R.layout.activity_profile;
 
@@ -76,7 +77,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        if(!SharedPrefManager.getInstance(this).isLoggedIn()){
+        if (!SharedPrefManager.getInstance(this).isLoggedIn()) {
             finish();
             startActivity(new Intent(this, LogInActivity.class));
         }
@@ -86,24 +87,15 @@ public class ProfileActivity extends AppCompatActivity {
         getSaveInfoAboutUser();
 
         // Спрашмвает пользователя разрешение на доступ к галерее(если он его не давал еще)
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
-                PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE},
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
+                PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     REQUEST_PERMISSION);
         }
-
-        camera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivityForResult(new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI), GALLERY);
-            }
-        });
-
     }
 
-
-    private void findViewById(){
+    @Override
+    public void findViewById() {
         login = findViewById(R.id.login);
         name = findViewById(R.id.name);
         email = findViewById(R.id.email);
@@ -112,8 +104,19 @@ public class ProfileActivity extends AppCompatActivity {
         camera = findViewById(R.id.camera_icon);
     }
 
+    @Override
+    public void onListener() {
+        camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI), GALLERY);
+            }
+        });
+    }
 
-    private void getSaveInfoAboutUser(){
+
+    private void getSaveInfoAboutUser() {
         // Записывание данных о пользователе в нужные поля профиля
         login.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserLogin()));
         name.setText(String.valueOf(SharedPrefManager.getInstance(this).getUserName()));
@@ -123,11 +126,11 @@ public class ProfileActivity extends AppCompatActivity {
         Log.d("Aaaaaaa", String.valueOf(SharedPrefManager.getInstance(this).getUserAvatar() != null));
         Log.d("Aaaaaaa", String.valueOf(SharedPrefManager.getInstance(this).getUserAvatar()));
 
-        if(!SharedPrefManager.getInstance(this).getUserAvatar().equals("nullk")){
+        if (!SharedPrefManager.getInstance(this).getUserAvatar().equals("nullk")) {
             byte[] decodedString = Base64.decode(String.valueOf(SharedPrefManager.getInstance(this).getUserAvatar()), Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             image.setImageBitmap(decodedByte);
-        }else{
+        } else {
             image.setVisibility(View.VISIBLE);
         }
     }
@@ -142,17 +145,17 @@ public class ProfileActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case  R.id.menu_about:
-                Toast.makeText(this,"You clicked about button",
+        switch (item.getItemId()) {
+            case R.id.menu_about:
+                Toast.makeText(this, "You clicked about button",
                         Toast.LENGTH_LONG).show();
                 break;
-            case  R.id.menu_settings:
-                Toast.makeText(this,"You clicked settings",
+            case R.id.menu_settings:
+                Toast.makeText(this, "You clicked settings",
                         Toast.LENGTH_LONG).show();
                 startActivity(new Intent(this, SettingsActivity.class));
                 break;
-            case  R.id.menu_logout:
+            case R.id.menu_logout:
                 SharedPrefManager.getInstance(this).logout();
                 Intent intent = new Intent(this, LogInActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -208,13 +211,13 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     // Запрос на загрузку, на сервер...
-    private void uploadImage(final Bitmap bitmap){
+    private void uploadImage(final Bitmap bitmap) {
 
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, Constants.URL.UPLOAD_AVATAR,
                 new Response.Listener<NetworkResponse>() {
                     @Override
                     public void onResponse(NetworkResponse response) {
-                        Log.d("ressssssoo",new String(response.data));
+                        Log.d("ressssssoo", new String(response.data));
                         rQueue.getCache().clear();
 
                         try {
@@ -266,7 +269,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     // Запрашивает у пользователя разрешение на доступ к галерее
-    private void  requestMultiplePermissions(){
+    private void requestMultiplePermissions() {
         Dexter.withActivity(this)
                 .withPermissions(
                         Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -301,33 +304,34 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
 
-    public void getAvatar(){
+    public void getAvatar() {
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
                 Constants.URL.GET_AVATAR + String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()),
                 new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
+                    @Override
+                    public void onResponse(String response) {
 
-                byte[] decodedString = Base64.decode(response, Base64.DEFAULT);
-                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                image.setImageBitmap(decodedByte);
-                image.setVisibility(View.VISIBLE);
-                Toast.makeText(getApplicationContext(), "ok", Toast.LENGTH_SHORT).show();
-            }
-        }, new Response.ErrorListener() {
+                        byte[] decodedString = Base64.decode(response, Base64.DEFAULT);
+                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                        image.setImageBitmap(decodedByte);
+                        image.setVisibility(View.VISIBLE);
+                        Toast.makeText(getApplicationContext(), "ok", Toast.LENGTH_SHORT).show();
+                    }
+                }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getApplicationContext(), "Please on Internet", Toast.LENGTH_SHORT).show();
             }
-        }){
+        }) {
 
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("login", String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()));
                 return params;
-            }};
+            }
+        };
 
         RequestHandler.getmInstance(this).addToRequestQueue(stringRequest);
     }
