@@ -12,28 +12,42 @@ import android.widget.SearchView;
 
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.creatingTask.CreatingTaskActivity;
+import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.constant.Constants;
 
-public class LessonListFragment extends DialogFragment {
+public class LessonListFragment extends DialogFragment implements Activity {
 
     private SearchView searchView;
     private ListView listView;
     private ArrayAdapter<String> adapter;
+    private View rootView;
 
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
 
-        View rootView = inflater.inflate(R.layout.activity_lesson_list, null);
+        rootView = inflater.inflate(R.layout.activity_lesson_list, null);
 
         getDialog().setTitle("choose lesson");
 
+        //clickListener
+        onListener();
+        findViewById();
         // listView properties
-        listView = rootView.findViewById(R.id.lesson_list);
+
         adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1,
                 Constants.Values.LESSONS);
         listView.setAdapter(adapter);
+
+        // search view properties
+        searchView.setQueryHint("Search...");
+
+        return rootView;
+    }
+
+    @Override
+    public void onListener(){
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -45,10 +59,6 @@ public class LessonListFragment extends DialogFragment {
                 getDialog().dismiss();
             }
         });
-
-        // search view properties
-        searchView = rootView.findViewById(R.id.search_lessons);
-        searchView.setQueryHint("Search...");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String txt) {
@@ -61,7 +71,12 @@ public class LessonListFragment extends DialogFragment {
                 return false;
             }
         });
+    }
 
-        return rootView;
+    @Override
+    public void findViewById(){
+        searchView = rootView.findViewById(R.id.search_lessons);
+
+        listView = rootView.findViewById(R.id.lesson_list);
     }
 }

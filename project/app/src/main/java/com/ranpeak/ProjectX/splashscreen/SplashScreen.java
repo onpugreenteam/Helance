@@ -18,12 +18,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.ranpeak.ProjectX.R;
-import com.ranpeak.ProjectX.activity.internetConnection.InternetErrorActivity;
 import com.ranpeak.ProjectX.activity.logIn.LogInActivity;
 import com.ranpeak.ProjectX.constant.Constants;
 import com.ranpeak.ProjectX.request.RequestHandler;
-
-import java.util.Timer;
 
 public class SplashScreen extends AppCompatActivity/* AwesomeSplash*/ {
 

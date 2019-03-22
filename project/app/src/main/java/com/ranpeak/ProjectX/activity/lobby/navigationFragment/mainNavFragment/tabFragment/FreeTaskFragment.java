@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ranpeak.ProjectX.R;
+import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.navigationFragment.mainNavFragment.adapter.TaskListAdapter;
 import com.ranpeak.ProjectX.dto.TaskDTO;
 import com.ranpeak.ProjectX.fragment.AbstractTabFragment;
@@ -17,13 +18,13 @@ import com.ranpeak.ProjectX.fragment.AbstractTabFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FreeTaskFragment extends AbstractTabFragment {
+public class FreeTaskFragment extends AbstractTabFragment implements Activity {
 
     private static final int LAYOUT = R.layout.free_task_fragment;
 
     private List<TaskDTO> data;
     private ArrayList<String> imageUrls = new ArrayList<>();
-
+    private RecyclerView rv;
     private TaskListAdapter adapter;
 
     public static FreeTaskFragment getInstance(Context context, List<TaskDTO> data) {
@@ -42,13 +43,24 @@ public class FreeTaskFragment extends AbstractTabFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(LAYOUT, container, false);
         initImageBitmaps();
-        RecyclerView rv = view.findViewById(R.id.recycleView);
+        findViewById();
         rv.setLayoutManager(new LinearLayoutManager(context));
 
-        adapter = new TaskListAdapter(data,imageUrls,context);
+        adapter = new TaskListAdapter(data, imageUrls, context);
         rv.setAdapter(adapter);
 
         return view;
+    }
+
+    @Override
+    public void findViewById() {
+        rv = view.findViewById(R.id.recycleView);
+
+    }
+
+    @Override
+    public void onListener() {
+
     }
 
     public void refreshList(List<TaskDTO> data) {
@@ -66,7 +78,7 @@ public class FreeTaskFragment extends AbstractTabFragment {
         this.data = data;
     }
 
-    private void initImageBitmaps(){
+    private void initImageBitmaps() {
         imageUrls.add("https://cdn.fishki.net/upload/post/2017/03/19/2245758/01-beautiful-white-cat-imagescar-wallpaper.jpg");
         imageUrls.add("https://usionline.com/wp-content/uploads/2016/02/12-4.jpg");
         imageUrls.add("http://bm.img.com.ua/nxs/img/prikol/images/large/1/2/308321_879390.jpg");

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ranpeak.ProjectX.R;
+import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.navigationFragment.mainNavFragment.adapter.TabsFragmentAdapter;
 import com.ranpeak.ProjectX.constant.Constants;
 import com.ranpeak.ProjectX.dto.TaskDTO;
@@ -26,7 +27,7 @@ import java.util.List;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment implements Activity {
 
     private TabsFragmentAdapter adapter;
     private ViewPager viewPager;
@@ -43,8 +44,21 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_main, container, false);
         findViewById();
+        onListener();
         initTabs();
 
+
+        return view;
+    }
+
+    @Override
+    public void findViewById(){
+        pullToRefresh = view.findViewById(R.id.pullToRefresh);
+        viewPager = view.findViewById(R.id.viewPager1);
+    }
+
+    @Override
+    public void onListener(){
         pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -57,15 +71,7 @@ public class MainFragment extends Fragment {
                 },4000);
             }
         });
-        return view;
     }
-
-
-    private void findViewById(){
-        pullToRefresh = view.findViewById(R.id.pullToRefresh);
-        viewPager = view.findViewById(R.id.viewPager1);
-    }
-
 
     private void initTabs() {
         adapter = new TabsFragmentAdapter(getApplicationContext(), getChildFragmentManager(), new ArrayList<TaskDTO>(),new ArrayList<String>());

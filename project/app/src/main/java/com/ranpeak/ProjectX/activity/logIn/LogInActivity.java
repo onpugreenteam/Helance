@@ -36,6 +36,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.ranpeak.ProjectX.R;
+import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.LobbyActivity;
 import com.ranpeak.ProjectX.activity.registration.RegistrationActivity1;
 import com.ranpeak.ProjectX.constant.Constants;
@@ -52,7 +53,7 @@ import java.util.Map;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
-public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<Cursor>, Activity {
 
    private final static int LOGIN_ACTIVITY = R.layout.activity_login;
     /**
@@ -86,6 +87,23 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
         populateAutoComplete();
 //        animationBackground();
 
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please wait...");
+
+    }
+
+    @Override
+    public void findViewById(){
+        linearLayout = findViewById(R.id.login_activity);
+        mEmailView = findViewById(R.id.email);
+        mPasswordView = findViewById(R.id.password);
+        mEmailSignInButton = findViewById(R.id.email_sign_in_button);
+        textView = findViewById(R.id.textView);
+    }
+
+    @Override
+    public void onListener(){
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -104,20 +122,7 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Please wait...");
-
     }
-
-
-    private void findViewById(){
-        linearLayout = findViewById(R.id.login_activity);
-        mEmailView = findViewById(R.id.email);
-        mPasswordView = findViewById(R.id.password);
-        mEmailSignInButton = findViewById(R.id.email_sign_in_button);
-        textView = findViewById(R.id.textView);
-    }
-
 
     private void animationBackground(){
         animationDrawable = (AnimationDrawable) linearLayout.getBackground();

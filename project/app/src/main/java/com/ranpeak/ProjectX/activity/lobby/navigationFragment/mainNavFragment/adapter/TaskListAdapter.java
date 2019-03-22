@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.TaskActivity;
+import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.dto.TaskDTO;
 
 import java.net.MalformedURLException;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskViewHolder>{
+public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskViewHolder> {
 
     private List<TaskDTO> data;
     private ArrayList<String> images = new ArrayList<>();
@@ -41,11 +42,10 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskVi
     @Override
     public TaskViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_item, parent, false);
-
         return new TaskViewHolder(view);
     }
 
-    public static String getRandomChestItem(ArrayList<String> images) {
+    private static String getRandomChestItem(ArrayList<String> images) {
         return images.get(new Random().nextInt(images.size()));
     }
 
@@ -59,7 +59,6 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskVi
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-
 
 
         URL url = null;
@@ -86,7 +85,7 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskVi
         this.data = data;
     }
 
-    public static class TaskViewHolder extends RecyclerView.ViewHolder {
+    public static class TaskViewHolder extends RecyclerView.ViewHolder implements Activity {
         CardView cardView;
         TextView headline;
         TextView date;
@@ -97,24 +96,30 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskVi
         public TaskViewHolder(View itemView) {
             super(itemView);
             findViewById();
-
-            cardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(v.getContext(),"Open task", Toast.LENGTH_LONG).show();
-                    v.getContext().startActivity(new Intent(v.getContext(), TaskActivity.class));
-                }
-            });
+            onListener();
 
         }
 
-        private void findViewById(){
+        @Override
+        public void findViewById() {
             cardView = itemView.findViewById(R.id.cardView);
             headline = itemView.findViewById(R.id.headline);
             subject = itemView.findViewById(R.id.subject);
             date = itemView.findViewById(R.id.date);
             profile_user = itemView.findViewById(R.id.profile_user);
             price = itemView.findViewById(R.id.price);
+        }
+
+        @Override
+        public void onListener() {
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(v.getContext(), "Open task", Toast.LENGTH_LONG).show();
+                    v.getContext().startActivity(new Intent(v.getContext(), TaskActivity.class));
+                }
+            });
+
         }
     }
 

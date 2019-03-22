@@ -27,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -41,9 +42,11 @@ import com.karumi.dexter.listener.PermissionRequestErrorListener;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.creatingTask.fragment.LessonListFragment;
+import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.constant.Constants;
 import com.ranpeak.ProjectX.request.RequestHandler;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -52,7 +55,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class CreatingTaskActivity extends AppCompatActivity {
+public class CreatingTaskActivity extends AppCompatActivity implements Activity {
 
     private Toolbar toolbar;
     private EditText typeName;
@@ -72,6 +75,8 @@ public class CreatingTaskActivity extends AppCompatActivity {
     private ImageView buffImageView3 = null;
     private ImageView buffImageView4 = null;
     private ImageView buffImageView5 = null;
+    private final FragmentManager fm = getFragmentManager();
+    private final LessonListFragment lessonListFragment = new LessonListFragment();
 
 
     @Override
@@ -81,6 +86,7 @@ public class CreatingTaskActivity extends AppCompatActivity {
 
         toolbar();
         findViewById();
+        onListener();
         requestMultiplePermissions();
         // Спрашмвает пользователя разрешение на доступ к галерее(если он его не давал еще)
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
@@ -90,22 +96,32 @@ public class CreatingTaskActivity extends AppCompatActivity {
         }
     }
 
-    private void findViewById() {
+    @Override
+    public void findViewById() {
         // start fragmentActivity to choose lesson
-        final FragmentManager fm = getFragmentManager();
-        final LessonListFragment lessonListFragment = new LessonListFragment();
         lessonPicker = findViewById(R.id.lesson_picker);
+
+        typeName = findViewById(R.id.creating_task_type_name);
+        typeDescription = findViewById(R.id.creating_task_type_description);
+
+        create = findViewById(R.id.creating_task_button);
+
+        datePicker = findViewById(R.id.date_picker);
+
+
+        linearLayout = findViewById(R.id.linear_layout_files);
+        selectImages = findViewById(R.id.choose_image_for_task);
+        horizontalScrollView = findViewById(R.id.scroll_view_files);
+    }
+
+    @Override
+    public void onListener(){
         lessonPicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 lessonListFragment.show(fm, "Country lists");
             }
         });
-
-        typeName = findViewById(R.id.creating_task_type_name);
-        typeDescription = findViewById(R.id.creating_task_type_description);
-
-        create = findViewById(R.id.creating_task_button);
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,7 +134,6 @@ public class CreatingTaskActivity extends AppCompatActivity {
                 /* TODO: Create task and add it to server*/
             }
         });
-        datePicker = findViewById(R.id.date_picker);
         datePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,16 +150,6 @@ public class CreatingTaskActivity extends AppCompatActivity {
 
             }
         });
-        dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                month = month + 1;
-                String date = dayOfMonth + "." + month + "." + year;
-                datePicker.setText(date);
-            }
-        };
-        linearLayout = findViewById(R.id.linear_layout_files);
-        selectImages = findViewById(R.id.choose_image_for_task);
         selectImages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,9 +162,15 @@ public class CreatingTaskActivity extends AppCompatActivity {
 
             }
         });
-        horizontalScrollView = findViewById(R.id.scroll_view_files);
+        dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month = month + 1;
+                String date = dayOfMonth + "." + month + "." + year;
+                datePicker.setText(date);
+            }
+        };
     }
-
     private void toolbar() {
         // Toolbar
 //        getSupportActionBar().setTitle(getString(R.string.app_name));
@@ -430,7 +441,7 @@ public class CreatingTaskActivity extends AppCompatActivity {
     }
 
 
-    private void postTask(){
+    private void postTask() {
 
         final String headline = typeName.getText().toString().trim();
         final String text = typeDescription.getText().toString().trim();
@@ -454,15 +465,15 @@ public class CreatingTaskActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(getApplicationContext(),"Registration successful", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Registration successful", Toast.LENGTH_LONG).show();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(),"Please on Internet", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Please on Internet", Toast.LENGTH_LONG).show();
                     }
-                }){
+                }) {
 
             @Override
             protected Map<String, String> getParams() {

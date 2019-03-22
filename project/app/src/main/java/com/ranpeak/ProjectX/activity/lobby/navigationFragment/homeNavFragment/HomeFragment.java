@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.creatingTask.CreatingTaskActivity;
+import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.constant.Constants;
 import com.ranpeak.ProjectX.dto.TaskDTO;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
@@ -21,9 +22,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+
 import static com.facebook.FacebookSdk.getApplicationContext;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements Activity {
 
     private FloatingActionButton fab;
     private View view;
@@ -38,20 +40,25 @@ public class HomeFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_home, container, false);
         findViewById();
+        onListener();
 
+        return view;
+    }
+
+    @Override
+    public void findViewById() {
+        fab = view.findViewById(R.id.floatingActionButton);
+    }
+
+    @Override
+    public void onListener() {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(v.getContext(), CreatingTaskActivity.class));
             }
         });
-        return view;
     }
-
-    private void findViewById(){
-        fab = view.findViewById(R.id.floatingActionButton);
-    }
-
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -66,7 +73,8 @@ public class HomeFragment extends Fragment {
                     Constants.URL.GET_ALL_TASK_WHEN_USER_COSTUMER + String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()),
                     HttpMethod.GET,
                     null,
-                    new ParameterizedTypeReference<List<TaskDTO>>(){});
+                    new ParameterizedTypeReference<List<TaskDTO>>() {
+                    });
             List<TaskDTO> taskDTOS = response.getBody();
 
             return taskDTOS;

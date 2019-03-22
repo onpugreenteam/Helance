@@ -19,12 +19,13 @@ import android.widget.TextView;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.ProfileActivity;
 import com.ranpeak.ProjectX.activity.SearchActivity;
+import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.navigationFragment.mainNavFragment.adapter.TabsFragmentAdapter;
 import com.ranpeak.ProjectX.activity.lobby.navigationFragment.homeNavFragment.HomeFragment;
 import com.ranpeak.ProjectX.activity.lobby.navigationFragment.mainNavFragment.MainFragment;
 import com.ranpeak.ProjectX.activity.lobby.navigationFragment.notificationsNavFragment.NotificationsFragment;
 
-public class LobbyActivity extends AppCompatActivity {
+public class LobbyActivity extends AppCompatActivity implements Activity {
 
    private final static int LOBBY_ACTIVITY = R.layout.activity_lobby;
 
@@ -43,12 +44,27 @@ public class LobbyActivity extends AppCompatActivity {
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         findViewById();
+        onListener();
         initTitle();
 
         NavFragmentPageAdapter adapter = new NavFragmentPageAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
         viewPager.beginFakeDrag();
 
+
+    }
+
+    @Override
+    public void findViewById(){
+        bottomNavigationView = findViewById(R.id.bottomNavigationView2);
+        imageViewButtonProfile = findViewById(R.id.imageViewProfileButton);
+        imageViewButtonSearch = findViewById(R.id.imageViewSearchButton);
+        viewPager = findViewById(R.id.viewPager12);
+        textView = findViewById(R.id.textView2);
+    }
+
+    @Override
+    public void onListener(){
         imageViewButtonProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,14 +99,6 @@ public class LobbyActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    private void findViewById(){
-        bottomNavigationView = findViewById(R.id.bottomNavigationView2);
-        imageViewButtonProfile = findViewById(R.id.imageViewProfileButton);
-        imageViewButtonSearch = findViewById(R.id.imageViewSearchButton);
-        viewPager = findViewById(R.id.viewPager12);
-        textView = findViewById(R.id.textView2);
     }
 
     private void initTitle() {

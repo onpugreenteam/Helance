@@ -54,7 +54,6 @@ public class TabsFragmentAdapter extends FragmentPagerAdapter {
         freeTaskFragment = FreeTaskFragment.getInstance(context, data);
         tabs.put(0, freeTaskFragment);
         tabs.put(1, ReadyAnswerFragment.getInstance(context));
-
     }
 
     public void setData(List<TaskDTO> data) {
