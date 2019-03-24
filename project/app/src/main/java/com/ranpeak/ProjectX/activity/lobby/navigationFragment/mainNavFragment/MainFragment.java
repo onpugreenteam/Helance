@@ -68,7 +68,7 @@ public class MainFragment extends Fragment implements Activity {
                         new GetFreeTask().execute();
                         pullToRefresh.setRefreshing(false);
                     }
-                },4000);
+                },2500);
             }
         });
     }

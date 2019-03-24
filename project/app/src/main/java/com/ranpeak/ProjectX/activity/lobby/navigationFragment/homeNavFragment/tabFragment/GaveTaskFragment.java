@@ -1,6 +1,7 @@
-package com.ranpeak.ProjectX.activity.lobby.navigationFragment.mainNavFragment.tabFragment;
+package com.ranpeak.ProjectX.activity.lobby.navigationFragment.homeNavFragment.tabFragment;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,29 +12,39 @@ import android.view.ViewGroup;
 
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
-import com.ranpeak.ProjectX.activity.lobby.navigationFragment.mainNavFragment.adapter.TaskListAdapter;
+import com.ranpeak.ProjectX.activity.lobby.navigationFragment.homeNavFragment.HomeFragment;
+import com.ranpeak.ProjectX.activity.lobby.navigationFragment.homeNavFragment.adapter.TaskListAdapter1;
+import com.ranpeak.ProjectX.constant.Constants;
 import com.ranpeak.ProjectX.dto.TaskDTO;
 import com.ranpeak.ProjectX.fragment.AbstractTabFragment;
+import com.ranpeak.ProjectX.settings.SharedPrefManager;
+
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FreeTaskFragment extends AbstractTabFragment implements Activity {
+import static com.facebook.FacebookSdk.getApplicationContext;
 
-    private static final int LAYOUT = R.layout.free_task_fragment;
+public class GaveTaskFragment extends AbstractTabFragment implements Activity {
+
+    private static final int LAYOUT = R.layout.gave_task_fragment;
 
     private List<TaskDTO> data;
     private ArrayList<String> imageUrls = new ArrayList<>();
     private RecyclerView rv;
-    private TaskListAdapter adapter;
+    private TaskListAdapter1 adapter;
 
-    public static FreeTaskFragment getInstance(Context context, List<TaskDTO> data) {
+    public static GaveTaskFragment getInstance(Context context, List<TaskDTO> data) {
         Bundle args = new Bundle();
-        FreeTaskFragment fragment = new FreeTaskFragment();
+        GaveTaskFragment fragment = new GaveTaskFragment();
         fragment.setArguments(args);
         fragment.setContext(context);
         fragment.setData(data);
-        fragment.setTitle(context.getString(R.string.tab_item_free_task));
+        fragment.setTitle(context.getString(R.string.tab_item_my_gave_task));
 
         return fragment;
     }
@@ -44,9 +55,10 @@ public class FreeTaskFragment extends AbstractTabFragment implements Activity {
         view = inflater.inflate(LAYOUT, container, false);
         initImageBitmaps();
         findViewById();
-        rv.setLayoutManager(new LinearLayoutManager(context));
 
-        adapter = new TaskListAdapter(data, imageUrls, context);
+        rv.setLayoutManager(new LinearLayoutManager(context));
+        rv.setHasFixedSize(true);
+        adapter = new TaskListAdapter1(data, imageUrls, context);
         rv.setAdapter(adapter);
 
         return view;
@@ -54,7 +66,7 @@ public class FreeTaskFragment extends AbstractTabFragment implements Activity {
 
     @Override
     public void findViewById() {
-        rv = view.findViewById(R.id.recycleView_free_task);
+        rv = view.findViewById(R.id.recycleView_gave_task);
 
     }
 
@@ -97,4 +109,8 @@ public class FreeTaskFragment extends AbstractTabFragment implements Activity {
         imageUrls.add("https://www.vokrug.tv/pic/person/b/3/6/d/b36d3d2f4c263fc18eba1a464eb942d2.jpeg");
         imageUrls.add("https://i.mycdn.me/image?id=877079192648&t=35&plc=WEB&tkn=*85PLfcQAXU8Glv9V8-xzIyJxZF4");
     }
+
+
+
+
 }

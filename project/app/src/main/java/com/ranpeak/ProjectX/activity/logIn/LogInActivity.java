@@ -84,6 +84,7 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
         }
 
         findViewById();
+        onListener();
         populateAutoComplete();
 //        animationBackground();
 

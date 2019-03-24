@@ -160,6 +160,10 @@
     <string name="choose">Choose method</string>
     <string name="tab_item_free_task">Free Task</string>
     <string name="tab_item_my_task">Ready answer</string>
+    <string name="tab_item_my_took_task">Took</string>
+    <string name="tab_item_my_gave_task">Gave</string>
+    <string name="tab_item_my_ready_answer">Ready answer</string>
+
     <string name="item_nav_home">Home</string>
     <string name="item_nav_main">Main</string>
     <string name="item_nav_profile">Notifications</string>

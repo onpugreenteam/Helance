@@ -9,10 +9,12 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,21 +22,23 @@ import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.ProfileActivity;
 import com.ranpeak.ProjectX.activity.SearchActivity;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
+import com.ranpeak.ProjectX.activity.lobby.navigationFragment.homeNavFragment.adapter.TabsHomeFragmentAdapter;
 import com.ranpeak.ProjectX.activity.lobby.navigationFragment.mainNavFragment.adapter.TabsFragmentAdapter;
 import com.ranpeak.ProjectX.activity.lobby.navigationFragment.homeNavFragment.HomeFragment;
 import com.ranpeak.ProjectX.activity.lobby.navigationFragment.mainNavFragment.MainFragment;
 import com.ranpeak.ProjectX.activity.lobby.navigationFragment.notificationsNavFragment.NotificationsFragment;
 
-public class LobbyActivity extends AppCompatActivity implements Activity {
+import java.util.ArrayList;
+import java.util.List;
+
+public class LobbyActivity extends AppCompatActivity implements Activity,BottomNavigationView.OnNavigationItemSelectedListener {
 
    private final static int LOBBY_ACTIVITY = R.layout.activity_lobby;
 
    private ImageView imageViewButtonProfile;
    private ImageView imageViewButtonSearch;
-   private TabsFragmentAdapter adapter;
    private ViewPager viewPager;
    private AnimationDrawable animationDrawable;
-   private BottomNavigationView bottomNavigationView;
    private TextView textView;
 
     @Override
@@ -45,18 +49,36 @@ public class LobbyActivity extends AppCompatActivity implements Activity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         findViewById();
         onListener();
-        initTitle();
 
+        final BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView2);
         NavFragmentPageAdapter adapter = new NavFragmentPageAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
-        viewPager.beginFakeDrag();
 
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
+        textView.setText(bottomNavigationView.getMenu().getItem(0).getTitle());
+//        viewPager.beginFakeDrag();
+        viewPager.setCurrentItem(0);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            public void onPageScrollStateChanged(int state) {
+            }
+
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            public void onPageSelected(int position) {
+                bottomNavigationView.getMenu().getItem(position).setChecked(true);
+                textView.setText(bottomNavigationView.getMenu().getItem(position).getTitle());
+            }
+        });
+
+        if (savedInstanceState == null) {
+            onNavigationItemSelected(bottomNavigationView.getMenu().findItem(R.id.nav_home));
+        }
 
     }
 
     @Override
     public void findViewById(){
-        bottomNavigationView = findViewById(R.id.bottomNavigationView2);
         imageViewButtonProfile = findViewById(R.id.imageViewProfileButton);
         imageViewButtonSearch = findViewById(R.id.imageViewSearchButton);
         viewPager = findViewById(R.id.viewPager12);
@@ -78,31 +100,27 @@ public class LobbyActivity extends AppCompatActivity implements Activity {
                 startActivity(new Intent(getApplicationContext(), SearchActivity.class));
             }
         });
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                textView.setText(menuItem.getTitle());
-                switch (menuItem.getItemId()){
-                    case R.id.nav_home:
-                        viewPager.setCurrentItem(0);
-                        return true;
-                    case R.id.nav_main:
-                        viewPager.setCurrentItem(1);
-                        return true;
-                    case R.id.nav_profile:
-                        viewPager.setCurrentItem(2);
-                        return true;
-                    default:
-                        return false;
-                }
-            }
-        });
-
     }
 
-    private void initTitle() {
-        textView.setText(bottomNavigationView.getMenu().getItem(0).getTitle());
+
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        textView.setText(menuItem.getTitle());
+        switch (menuItem.getItemId()){
+            case R.id.nav_home:
+                viewPager.setCurrentItem(0);
+                return true;
+            case R.id.nav_main:
+                viewPager.setCurrentItem(1);
+                return true;
+            case R.id.nav_profile:
+                viewPager.setCurrentItem(2);
+                return true;
+            default:
+                return false;
+        }
+
     }
 
 
@@ -129,14 +147,22 @@ public class LobbyActivity extends AppCompatActivity implements Activity {
                     return MainFragment.newInstance();
                 case 2:
                     return NotificationsFragment.newInstance();
+                default:
+                    return null;
             }
-            return null;
         }
 
         @Override
         public int getCount() {
             return 3;
         }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            super.destroyItem(container, position, object);
+        }
     }
+
+
 
 }
