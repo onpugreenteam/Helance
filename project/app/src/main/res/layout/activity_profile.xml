@@ -35,15 +35,16 @@
         android:textStyle="italic" />
 
 
-    <ImageView
-        android:id="@+id/user_image_view"
-        style="@style/TextView"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center_horizontal"
-        android:contentDescription="TODO" android:scaleType="fitXY"
-        android:layout_marginVertical="5pt"
-        android:src="@mipmap/ic_launcher" />
+        <ImageView
+            android:id="@+id/user_image_view"
+            style="@style/TextView"
+            android:layout_width="167dp"
+            android:layout_height="157dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginVertical="5pt"
+            android:contentDescription="TODO"
+            android:scaleType="fitXY"
+            android:src="@mipmap/ic_launcher" />
 
     <ImageView
         android:id="@+id/camera_icon"

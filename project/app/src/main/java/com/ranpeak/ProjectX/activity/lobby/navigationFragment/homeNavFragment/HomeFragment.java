@@ -118,7 +118,6 @@ public class HomeFragment extends Fragment implements Activity {
         @Override
         protected void onPostExecute(List<TaskDTO> taskDTOS) {
             adapter.setData(taskDTOS);
-
         }
     }
 }
