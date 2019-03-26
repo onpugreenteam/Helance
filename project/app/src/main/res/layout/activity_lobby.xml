@@ -23,46 +23,52 @@
 
     <ImageView
         android:id="@+id/imageViewProfileButton"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:clickable="true"
         android:contentDescription="TODO"
+        android:cropToPadding="true"
+        android:padding="12dp"
+        android:background="?android:selectableItemBackground"
         app:layout_constraintEnd_toEndOf="@+id/toolbar"
-        app:layout_constraintHorizontal_bias="0.021"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/toolbar"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_account_circle_black_36dp" />
 
     <ImageView
-        android:id="@+id/imageViewSearchButton"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:id="@+id/imageViewSettingsButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:clickable="true"
+        android:background="?android:selectableItemBackground"
+        android:padding="12dp"
         app:layout_constraintEnd_toEndOf="@+id/toolbar"
-        app:layout_constraintHorizontal_bias="0.956"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/toolbar"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_search_black_24dp" />
+        app:srcCompat="@drawable/ic_settings_white_24dp" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:text="FreeTasks"
         android:textColor="#FFFFFF"
         android:textSize="28dp"
-        app:layout_constraintEnd_toStartOf="@+id/imageViewSearchButton"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewSettingsButton"
         app:layout_constraintStart_toEndOf="@+id/imageViewProfileButton"
         app:layout_constraintTop_toTopOf="@+id/toolbar" />
 
     <android.support.design.widget.BottomNavigationView
-        android:id="@+id/bottomNavigationView2"
+        android:id="@+id/bottomNavigationView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:itemBackground="@color/colorPrimary"
@@ -79,24 +85,22 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView2"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewPager12"
+
+        <FrameLayout
+            android:id="@+id/navigation_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="0dp"
-            android:layout_marginBottom="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
+        </FrameLayout>
     </android.support.constraint.ConstraintLayout>
 
 

@@ -167,6 +167,7 @@
     <string name="item_nav_home">Home</string>
     <string name="item_nav_main">Main</string>
     <string name="item_nav_addTask">Add</string>
+    <string name="item_nav_search">Search</string>
     <string name="item_nav_profile">Notifications</string>
 
     <!-- TODO: Remove or change this placeholder text -->
