@@ -67,8 +67,6 @@ public class MainFragment extends Fragment implements Activity {
                         public void run() {
                             data.remove(data.size()-1);
                             adapter.notifyItemRemoved(data.size());
-
-
                             adapter.notifyDataSetChanged();
                             adapter.setLoaded();
 
@@ -79,8 +77,6 @@ public class MainFragment extends Fragment implements Activity {
                 }
             }
         });
-
-
 
         return view;
     }
@@ -127,30 +123,15 @@ public class MainFragment extends Fragment implements Activity {
     }
 
 
-//    private void initTabs() {
-//        adapter = new TabsFragmentAdapter(getApplicationContext(), getChildFragmentManager(), new ArrayList<TaskDTO>(),new ArrayList<String>());
-//        viewPager.setAdapter(adapter);
-//        new GetFreeTask().execute();
-//        TabLayout tabLayout = view.findViewById(R.id.tabLayout);
-//        tabLayout.setupWithViewPager(viewPager);
-//    }
-
-
     public static MainFragment newInstance() {
         return new MainFragment();
     }
 
 
-    public void refreshList(List<TaskDTO> data) {
-        adapter.setData(data);
-        adapter.notifyDataSetChanged();
-    }
-
-
-
     public void setData(List<TaskDTO> data) {
         this.data = data;
     }
+
 
     public class GetFreeTask extends AsyncTask<Void, Void, List<TaskDTO>> {
 
