@@ -18,11 +18,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.TaskActivity;
+import com.ranpeak.ProjectX.activity.lobby.LobbyActivity;
 import com.ranpeak.ProjectX.activity.lobby.navigationFragment.mainNavFragment.ILoadMore;
 import com.ranpeak.ProjectX.dto.TaskDTO;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -109,34 +112,14 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
 
-
-            URL url = null;
-            try {
-                url = new URL(getRandomChestItem(images));
-                Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-                viewHolder.profile_user.setImageBitmap(bmp);
-            } catch (java.io.IOException e) {
-                e.printStackTrace();
-            }
+            Glide.with(activity).load(getRandomChestItem(images)).into(viewHolder.profile_user);
 
         }else if(holder instanceof LoadingViewHolder){
             LoadingViewHolder loadingViewHolder = (LoadingViewHolder) holder;
             loadingViewHolder.progressBar.setIndeterminate(true);
         }
-
-//        TaskDTO item = data.get(position);
-//        holder.headline.setText(item.getHeadLine());
-//        holder.subject.setText(item.getSubject());
-//        holder.date.setText(item.getDateStart());
-//        holder.price.setText(String.valueOf(item.getPrice()));
-
-
-
-//        Glide.with(context)
-//                .asBitmap()
-//                .load(images.get(position))
-//                .into(holder.profile_user);
     }
+
 
     @Override
     public int getItemCount() {
