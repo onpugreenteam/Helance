@@ -138,7 +138,6 @@ public class LobbyActivity extends AppCompatActivity implements Activity {
         });
     }
 
-
 //    private void animationBackground(){
 //        animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
 //        animationDrawable.setEnterFadeDuration(4500);
