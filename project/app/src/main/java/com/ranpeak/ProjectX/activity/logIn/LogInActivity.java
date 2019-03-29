@@ -39,6 +39,7 @@ import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.LobbyActivity;
 import com.ranpeak.ProjectX.activity.registration.RegistrationActivity1;
+import com.ranpeak.ProjectX.activity.registration.RegistrationActivity5;
 import com.ranpeak.ProjectX.constant.Constants;
 import com.ranpeak.ProjectX.request.RequestHandler;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
@@ -55,7 +56,7 @@ import static android.Manifest.permission.READ_CONTACTS;
 
 public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<Cursor>, Activity {
 
-   private final static int LOGIN_ACTIVITY = R.layout.activity_login;
+    private final static int LOGIN_ACTIVITY = R.layout.activity_login;
     /**
      * Id to identity READ_CONTACTS permission request.
      */
@@ -78,7 +79,7 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        if(SharedPrefManager.getInstance(this).isLoggedIn()){
+        if (SharedPrefManager.getInstance(this).isLoggedIn()) {
             finish();
             startActivity(new Intent(this, LobbyActivity.class));
         }
@@ -95,7 +96,7 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     @Override
-    public void findViewById(){
+    public void findViewById() {
         linearLayout = findViewById(R.id.login_activity);
         mEmailView = findViewById(R.id.email);
         mPasswordView = findViewById(R.id.password);
@@ -104,7 +105,7 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     @Override
-    public void onListener(){
+    public void onListener() {
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -125,7 +126,7 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
 
     }
 
-    private void animationBackground(){
+    private void animationBackground() {
         animationDrawable = (AnimationDrawable) linearLayout.getBackground();
         animationDrawable.setEnterFadeDuration(4500);
         animationDrawable.setExitFadeDuration(4500);
@@ -150,7 +151,7 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
             mPasswordView.setError(getString(R.string.error_field_required));
             focusView = mPasswordView;
             cancel = true;
-        }else if (!isPasswordValid(password)) {
+        } else if (!isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
@@ -291,7 +292,7 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
 
-    public void clickRegistration(View view){
+    public void clickRegistration(View view) {
         Intent intent = new Intent(getApplicationContext(), RegistrationActivity1.class);
         startActivity(intent);
     }
@@ -313,8 +314,22 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
                         try {
                             JSONObject jsonObject = new JSONObject(response);
 
-                            if(jsonObject.getString("login").equals(login) ||
-                                    jsonObject.getString("email").equals(login)){
+                            // если аккаунт не активирован, то открывается активность где надо ввести код
+                            if ((jsonObject.getString("login").equals(login)
+                                    || jsonObject.getString("email").equals(login))
+                                    && jsonObject.getString("active").equals("false")) {
+                                Intent intent = new Intent(getApplicationContext(), RegistrationActivity5.class);
+                                intent.putExtra("registration_username", jsonObject.getString("login"));
+                                intent.putExtra("password", jsonObject.getString("password"));
+                                intent.putExtra("name", jsonObject.getString("name"));
+                                intent.putExtra("email", jsonObject.getString("email"));
+                                intent.putExtra("country", jsonObject.getString("country"));
+                                intent.putExtra("avatar", jsonObject.getString("avatar"));
+                                intent.putExtra("aboutMyself", jsonObject.getString("aboutMyself"));
+                                startActivity(intent);
+                            } else if ((jsonObject.getString("login").equals(login)
+                                    || jsonObject.getString("email").equals(login))
+                                    && jsonObject.getString("active").equals("true")) {
 
                                 SharedPrefManager.getInstance(getApplicationContext())
                                         .userLogin(
@@ -327,13 +342,14 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
                                 startActivity(new Intent(getApplicationContext(), LobbyActivity.class));
                                 finish();
 
-                            }else if(jsonObject.getString("message").equals("error")){
+                            } else if (jsonObject.getString("message").equals("error")) {
                                 mEmailView.getText().clear();
                                 mPasswordView.getText().clear();
 
                                 textView.setTextColor(getResources().getColor(R.color.colorAccent));
                                 textView.setText(getText(R.string.invalidEmailOrPassword));
                             }
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -343,16 +359,16 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.hide();
-                        Toast.makeText(getApplicationContext(),"Please on Internet",
+                        Toast.makeText(getApplicationContext(), "Please on Internet",
                                 Toast.LENGTH_LONG).show();
                     }
-                }){
+                }) {
 
             @Override
-            protected Map<String, String> getParams(){
-                Map<String,String> params = new HashMap<>();
-                params.put("login",login);
-                params.put("password",password);
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("login", login);
+                params.put("password", password);
                 return params;
             }
         };

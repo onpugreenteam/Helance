@@ -30,13 +30,15 @@ public class TaskDTO {
     private String type;
     @JsonProperty("file_path")
     private String filePath;
+    @JsonProperty("correspondence")
+    private String correspondence;
 
 //    private Correspondence correspondence;
 
     public TaskDTO() {
     }
 
-    public TaskDTO(long id, String headLine, String text, String dateStart, String dateEnd, UserDTO customer, String employee, String subject, float price, String status, String type, String filePath) {
+    public TaskDTO(long id, String headLine, String text, String dateStart, String dateEnd, UserDTO customer, String employee, String subject, float price, String status, String type, String filePath, String correspondence) {
         this.id = id;
         this.headLine = headLine;
         this.text = text;
@@ -49,6 +51,15 @@ public class TaskDTO {
         this.status = status;
         this.type = type;
         this.filePath = filePath;
+        this.correspondence = correspondence;
+    }
+
+    public String getCorrespondence() {
+        return correspondence;
+    }
+
+    public void setCorrespondence(String correspondence) {
+        this.correspondence = correspondence;
     }
 
     public long getId() {

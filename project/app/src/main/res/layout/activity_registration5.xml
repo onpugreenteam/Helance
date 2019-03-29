@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimary"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/IconInRegister"
+        android:layout_width="80pt"
+        android:layout_height="40pt"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginVertical="15pt"
+        android:contentDescription="TODO"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/registration_activate_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/registration_textView_activation_code"
+        android:textSize="@dimen/activity_vertical_margin_20"
+        android:textColor="@color/textOnPrimary"
+        android:layout_marginTop="15dp"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/activation_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        app:errorEnabled="true">
+
+        <android.support.design.widget.TextInputEditText
+            android:hint="@string/activation_code"
+            android:imeActionLabel="@string/action_sign_in_short"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:layout_marginTop="40dp"
+            android:inputType="number"
+            android:digits="1234567890"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent" />
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/registration_button_5"
+        style="?android:textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/next"
+        android:textStyle="bold"
+        android:background="@color/colorSecondary"/>
+
+</LinearLayout>

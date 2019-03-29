@@ -426,7 +426,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
             }
         } else {
             postTask();
-            Toast.makeText(getApplicationContext(), "done", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getApplicationContext(), "done", Toast.LENGTH_SHORT).show();
             finish();
         }
     }
@@ -460,7 +460,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
         final String text = typeDescription.getText().toString().trim();
         final String dateEnd = datePicker.getText().toString().trim();
         final String typeLesson = lessonPicker.getText().toString().trim();
-        final String price = "50";
+        final String price = taskPrice.getText().toString().trim();
 
 
         DateFormat df = new SimpleDateFormat("d MMM yyyy");

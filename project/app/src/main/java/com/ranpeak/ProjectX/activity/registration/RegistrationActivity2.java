@@ -63,14 +63,27 @@ public class RegistrationActivity2 extends AppCompatActivity implements Activity
     @Override
     public void onListener(){
         register_name.addTextChangedListener(textWatcher);
-        register_country.addTextChangedListener(textWatcher);
-        register_country.setOnClickListener(new View.OnClickListener() {
+//        register_country.addTextChangedListener(textWatcher);
+//        register_country.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                countryListFragment.show(fm, "Country lists");
+//            }
+//        });
+        nextButton.addTextChangedListener(textWatcher);
+        nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                countryListFragment.show(fm, "Country lists");
+                Intent intent = new Intent(getApplicationContext(), RegistrationActivity3.class);
+                intent.putExtra("email", email);
+                intent.putExtra("name", register_name.getText().toString().trim());
+//        intent.putExtra("country", register_country.getText().toString().trim());
+                intent.putExtra("country", "Nigeria");
+                startActivity(intent);
+
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
-        nextButton.addTextChangedListener(textWatcher);
     }
 
     private TextWatcher textWatcher = new TextWatcher() {
@@ -83,8 +96,8 @@ public class RegistrationActivity2 extends AppCompatActivity implements Activity
         public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             nextButton.setEnabled(!register_name.getText().toString().trim().isEmpty()
-                    && stringContainsItemFromList(register_country.getText().toString(),
-                    Constants.Values.COUNTRIES)
+//                    && stringContainsItemFromList(register_country.getText().toString(),
+//                    Constants.Values.COUNTRIES)
             );
         }
 
@@ -93,18 +106,6 @@ public class RegistrationActivity2 extends AppCompatActivity implements Activity
 
         }
     };
-
-
-    public void clickRegistration_2(View view){
-        Intent intent = new Intent(getApplicationContext(), RegistrationActivity3.class);
-        intent.putExtra("email", email);
-        intent.putExtra("name", register_name.getText().toString().trim());
-        intent.putExtra("country", register_country.getText().toString().trim());
-        startActivity(intent);
-
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-    }
-
 
     @Override
     public void finish() {

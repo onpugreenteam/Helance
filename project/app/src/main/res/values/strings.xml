@@ -19,6 +19,7 @@
     <string name="user_login">login</string>
     <string name="user_password">password</string>
     <string name="user_username">username</string>
+    <string name="activation_code">code</string>
 
     <string name="registration">registration</string>
     <string name="title_activity_login2">Sign in</string>
@@ -63,6 +64,7 @@
     <string name="registration_textView_password">Create password:</string>
     <string name="registration_textView_username">Create yor username:</string>
     <string name="registration_textView_profile_info">This info will be shown on your profile:</string>
+    <string name="registration_textView_activation_code">Enter your activation code:</string>
     <string name="error_password_doesnt_match">This password doesn\'t match</string>
     <string name="error_country_incorrect">Country is not correct</string>
     <string name="task_name">Type name of your task</string>

@@ -12,6 +12,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -21,8 +22,10 @@ import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.logIn.LogInActivity;
 import com.ranpeak.ProjectX.constant.Constants;
 import com.ranpeak.ProjectX.request.RequestHandler;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -56,7 +59,7 @@ public class RegistrationActivity4 extends AppCompatActivity implements Activity
         findViewById();
         onListener();
 
-        Objects.requireNonNull(registration_username.getEditText()).addTextChangedListener(textWatcher);
+//        Objects.requireNonNull(registration_username.getEditText()).addTextChangedListener(textWatcher);
 
 
         progressDialog = new ProgressDialog(this);
@@ -64,13 +67,13 @@ public class RegistrationActivity4 extends AppCompatActivity implements Activity
     }
 
     @Override
-    public void findViewById(){
+    public void findViewById() {
         registration_username = findViewById(R.id.registration_username);
         nextButton = findViewById(R.id.registration_button_4);
     }
 
     @Override
-    public void onListener(){
+    public void onListener() {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,9 +124,9 @@ public class RegistrationActivity4 extends AppCompatActivity implements Activity
             registration_username.setError(getString(R.string.error_invalid_login));
             focusView = registration_username;
             cancel = true;
-        } else if(!TextUtils.isEmpty(login) && isLoginValid(login)){
+        } else if (!TextUtils.isEmpty(login) && isLoginValid(login)) {
             checkLogin();
-            if(login_exists){
+            if (login_exists) {
                 registration_username.setError(getString(R.string.error_exist_login));
                 focusView = registration_username;
                 cancel = true;
@@ -135,6 +138,7 @@ public class RegistrationActivity4 extends AppCompatActivity implements Activity
             // form field with an error.
             focusView.requestFocus();
         } else {
+//            next();
             registerUser();
         }
     }
@@ -147,7 +151,7 @@ public class RegistrationActivity4 extends AppCompatActivity implements Activity
     }
 
 
-    private void checkLogin(){
+    private void checkLogin() {
         final String login = Objects.requireNonNull(registration_username.getEditText()).getText().toString().trim();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
@@ -159,12 +163,12 @@ public class RegistrationActivity4 extends AppCompatActivity implements Activity
 
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-                            if(jsonObject.getString("message").equals("no")){
-                                Toast.makeText(getApplicationContext(),"This login already registered",Toast.LENGTH_LONG).show();
+                            if (jsonObject.getString("message").equals("no")) {
+                                Toast.makeText(getApplicationContext(), "This login already registered", Toast.LENGTH_LONG).show();
                                 registration_username.setError(getString(R.string.error_exist_login));
                                 login_exists = true;
 
-                            }else if(jsonObject.getString("message").equals("ok")){
+                            } else if (jsonObject.getString("message").equals("ok")) {
                                 registration_username.setError(null);
                                 login_exists = false;
                             }
@@ -177,14 +181,13 @@ public class RegistrationActivity4 extends AppCompatActivity implements Activity
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.hide();
-                        Toast.makeText(getApplicationContext(),"Please on Internet", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Please on Internet", Toast.LENGTH_LONG).show();
                     }
-                }){
-
+                }) {
             @Override
-            protected Map<String, String> getParams(){
-                Map<String,String> params = new HashMap<>();
-                params.put("login",login);
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("login", login);
                 return params;
             }
         };
@@ -192,13 +195,21 @@ public class RegistrationActivity4 extends AppCompatActivity implements Activity
     }
 
 
-
     private boolean isLoginValid(String login) {
         return login.length() > 4;
     }
 
-
-    private void registerUser(){
+    private void next(){
+        Intent intent = new Intent(getApplicationContext(), RegistrationActivity5.class);
+        intent.putExtra("email", email);
+        intent.putExtra("name", name);
+        intent.putExtra("country", country);
+        intent.putExtra("password", password);
+        intent.putExtra("registration_username", registration_username.getEditText().getText().toString().trim());
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+    private void registerUser() {
 
         final String login = Objects.requireNonNull(registration_username.getEditText()).getText().toString().trim();
         final String password = this.password;
@@ -215,13 +226,15 @@ public class RegistrationActivity4 extends AppCompatActivity implements Activity
                     public void onResponse(String response) {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-                            if(jsonObject.getString("message").equals("Registered")){
-                            Intent intent = new Intent(getApplicationContext(), LogInActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);
-                            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-                            Toast.makeText(getApplicationContext(),"Registration successful", Toast.LENGTH_LONG).show();
-                            progressDialog.dismiss();
+                            if (jsonObject.getString("message").equals("Registered")) {
+                                Intent intent = new Intent(getApplicationContext(), RegistrationActivity5.class);
+                                intent.putExtra("email", email);
+                                intent.putExtra("name", name);
+                                intent.putExtra("country", country);
+                                intent.putExtra("password", password);
+                                intent.putExtra("registration_username", registration_username.getEditText().getText().toString().trim());
+                                startActivity(intent);
+                                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -233,17 +246,17 @@ public class RegistrationActivity4 extends AppCompatActivity implements Activity
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.hide();
-                        Toast.makeText(getApplicationContext(),"Please on Internet", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Please on Internet", Toast.LENGTH_LONG).show();
                     }
-                }){
+                }) {
 
             @Override
-            protected Map<String, String> getParams(){
-                Map<String,String> params = new HashMap<>();
-                params.put("login",login);
-                params.put("password",password);
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("login", login);
+                params.put("password", password);
                 params.put("name", name);
-                params.put("email",email);
+                params.put("email", email);
                 params.put("country", country);
                 return params;
             }

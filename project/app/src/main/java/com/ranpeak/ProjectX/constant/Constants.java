@@ -7,23 +7,24 @@ public class Constants {
     /**Запросы который которые принимает сервер**/
    public static class URL {
 
-       private static final String HOST = "https://projectx174.herokuapp.com/";
+//       private static final String HOST = "https://projectx174.herokuapp.com/";
 
-//       private static final String HOST = "http://192.168.0.103:8080/";
+       private static final String HOST = "http://192.168.0.113:8080/";
 
        public static final String GET_USER = HOST + "getallusers";
        public static final String GET_LOGINS = HOST + "getalllogins";
        public static final String POST_USER = HOST + "add/registered";
+       public static final String ACTIVATE_USER = HOST + "activateAccount";
        public static final String LOGIN_USER = HOST + "login";
        public static final String CHECK_LOGIN = HOST + "checkLogin";
        public static final String CHECK_EMAIL = HOST + "checkEmail";
        public static final String UPLOAD_AVATAR = HOST + "upload/avatar";
        public static final String GET_AVATAR = HOST + "aaa/";
        public static final String GET_ALL_TASK = HOST + "getAllTasks";
+       public static final String GET_ALL_TASK_WHEN_USER_NOT_CUCTOMER = HOST + "getAllTasks/for/noncustomer/";
        public static final String GET_ALL_TASK_WHEN_USER_COSTUMER = HOST +"getAllTasks/for/customer/";
        public static final String ADD_TASK = HOST + "addTask";
    }
-
 
     public static class Values {
         // country list

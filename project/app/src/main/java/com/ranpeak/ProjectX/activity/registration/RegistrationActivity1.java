@@ -41,7 +41,7 @@ public class RegistrationActivity1 extends AppCompatActivity implements Activity
         setContentView(REGISTRATION_ACTIVITY1);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         findViewById();
-
+        onListener();
     }
 
     @Override
@@ -52,12 +52,19 @@ public class RegistrationActivity1 extends AppCompatActivity implements Activity
 
     @Override
     public void onListener(){
-        Objects.requireNonNull(register_email.getEditText()).addTextChangedListener(textWatcher);
+//        Objects.requireNonNull(register_email.getEditText()).addTextChangedListener(textWatcher);
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                attemptRegistration();
+//                attemptRegistration();
+                Intent intent = new Intent(getApplicationContext(), RegistrationActivity2.class);
+                intent.putExtra("email",register_email.getEditText().getText().toString().trim());
+                startActivity(intent);
+
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
+
+
         });
     }
 

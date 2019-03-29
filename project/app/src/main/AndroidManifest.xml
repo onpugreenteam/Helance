@@ -21,10 +21,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.registration.RegistrationActivity5"></activity>
         <activity android:name=".activity.creatingTask.FullScreenImageActivity" />
         <activity
             android:name=".activity.creatingTask.CreatingTaskActivity"
-            android:theme="@style/ToolBarProfile"/>
+            android:theme="@style/ToolBarProfile" />
         <activity android:name=".activity.settings.SettingsActivity" />
         <activity
             android:name=".activity.logIn.LogInActivity"
