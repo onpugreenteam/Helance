@@ -64,17 +64,18 @@ public class LobbyActivity extends AppCompatActivity implements Activity {
         setContentView(LOBBY_ACTIVITY);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-//        createFragment();
         findViewById();
         onListener();
 
-        new GetFreeTask().execute();
+//        Intent i = getIntent();
+//        data = (List<TaskDTO>) i.getSerializableExtra("data");
+
         fm.beginTransaction().add(R.id.navigation_container,fragment4,"4").hide(fragment4).commit();
         fm.beginTransaction().add(R.id.navigation_container,fragment2,"2").hide(fragment2).commit();
         fm.beginTransaction().add(R.id.navigation_container,fragment1,"1").hide(fragment1).commit();
         fm.beginTransaction().add(R.id.navigation_container,fragment3,"3").commit();
 
-//        loadFragment(searchFragment);
+
         bottomNavigationView.setSelectedItemId(R.id.nav_search);
         textView.setText(bottomNavigationView.getMenu().getItem(2).getTitle());
 
@@ -112,12 +113,10 @@ public class LobbyActivity extends AppCompatActivity implements Activity {
                 textView.setText(menuItem.getTitle());
                 switch (menuItem.getItemId()){
                     case R.id.nav_home:
-//                        loadFragment(homeFragment);
                         fm.beginTransaction().hide(active).show(fragment1).commit();
                         active = fragment1;
                         return true;
                     case R.id.nav_main:
-//                        loadFragment(mainFragment);
                         fm.beginTransaction().hide(active).show(fragment2).commit();
                         active = fragment2;
                         return true;
@@ -125,12 +124,10 @@ public class LobbyActivity extends AppCompatActivity implements Activity {
                         startActivity(new Intent(getApplicationContext(), CreatingTaskActivity.class));
                         return true;
                     case R.id.nav_search:
-//                        loadFragment(searchFragment);
                         fm.beginTransaction().hide(active).show(fragment3).commit();
                         active = fragment3;
                         return true;
                     case R.id.nav_notification:
-//                        loadFragment(homeFragment);
                         fm.beginTransaction().hide(active).show(fragment4).commit();
                         active = fragment4;
                         return true;
@@ -139,20 +136,6 @@ public class LobbyActivity extends AppCompatActivity implements Activity {
                 }
             }
         });
-    }
-
-
-//    private void createFragment(){
-//        mainFragment = MainFragment.newInstance();
-//        homeFragment = HomeFragment.newInstance();
-//        notificationsFragment = NotificationsFragment.newInstance();
-//        searchFragment = SearchFragment.newInstance();
-//    }
-
-    private void loadFragment(Fragment fragment){
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.navigation_container,fragment);
-        fragmentTransaction.commit();
     }
 
 
@@ -183,6 +166,7 @@ public class LobbyActivity extends AppCompatActivity implements Activity {
         protected void onPostExecute(List<TaskDTO> taskDTOS) {
             data = taskDTOS;
             Log.d("Data Size", String.valueOf(data.size()));
+
         }
     }
 

@@ -3,9 +3,12 @@ package com.ranpeak.ProjectX.splashscreen;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.wifi.p2p.WifiP2pManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -18,16 +21,28 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.ranpeak.ProjectX.R;
+import com.ranpeak.ProjectX.activity.lobby.LobbyActivity;
 import com.ranpeak.ProjectX.activity.logIn.LogInActivity;
 import com.ranpeak.ProjectX.constant.Constants;
+import com.ranpeak.ProjectX.dto.TaskDTO;
 import com.ranpeak.ProjectX.request.RequestHandler;
 
-public class SplashScreen extends AppCompatActivity/* AwesomeSplash*/ {
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+public class SplashScreen extends AppCompatActivity {
 
     private final static int SPLASH_ACTIVITY = R.layout.activity_splash_screen;
     private TextView textView;
     private ImageView imageView;
     private TextView connectionStatus;
+    private List<TaskDTO> data = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,6 +56,9 @@ public class SplashScreen extends AppCompatActivity/* AwesomeSplash*/ {
     @Override
     public void finish() {
         startActivity(new Intent(SplashScreen.this, LogInActivity.class));
+//        Intent i = new Intent(this, LobbyActivity.class);
+//        i.putExtra("data", (Serializable) data);
+
         super.finish();
     }
 
@@ -88,10 +106,12 @@ public class SplashScreen extends AppCompatActivity/* AwesomeSplash*/ {
         finish();
     }
 
+
     private void noInternetConnection() {
         connectionStatus.setText(getString(R.string.internet_check));
         connectionStatus.setTextColor(getResources().getColor(R.color.colorAccent));
     }
+
 
     private void getAllLogins() {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, Constants.URL.GET_LOGINS,
@@ -112,4 +132,31 @@ public class SplashScreen extends AppCompatActivity/* AwesomeSplash*/ {
         RequestHandler.getmInstance(this).addToRequestQueue(stringRequest);
     }
 
+
+
+    public class GetFreeTask extends AsyncTask<Void, Void, List<TaskDTO>> {
+
+        @Override
+        protected List<TaskDTO> doInBackground(Void... params) {
+            RestTemplate restTemplate = new RestTemplate();
+            ResponseEntity<List<TaskDTO>> response = restTemplate.exchange(
+                    Constants.URL.GET_ALL_TASK,
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<List<TaskDTO>>() {
+                    });
+            List<TaskDTO> taskDTOS = response.getBody();
+
+            return taskDTOS;
+        }
+
+        @Override
+        protected void onPostExecute(List<TaskDTO> taskDTOS) {
+            data = taskDTOS;
+            Log.d("Data Size", String.valueOf(data.size()));
+
+        }
+
+
+    }
 }

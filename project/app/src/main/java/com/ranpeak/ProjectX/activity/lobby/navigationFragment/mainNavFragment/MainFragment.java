@@ -1,5 +1,6 @@
 package com.ranpeak.ProjectX.activity.lobby.navigationFragment.mainNavFragment;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -7,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
+import com.ranpeak.ProjectX.activity.lobby.LobbyActivity;
 import com.ranpeak.ProjectX.activity.lobby.navigationFragment.mainNavFragment.adapter.TaskListAdapter;
 import com.ranpeak.ProjectX.constant.Constants;
 import com.ranpeak.ProjectX.dto.TaskDTO;
@@ -36,6 +39,7 @@ public class MainFragment extends Fragment implements Activity {
     private ArrayList<String> imageUrls = new ArrayList<>();
     private RecyclerView recyclerView;
     private TaskListAdapter adapter;
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     public MainFragment() {
     }
@@ -56,30 +60,31 @@ public class MainFragment extends Fragment implements Activity {
         recyclerView.setAdapter(adapter);
 
 
-        adapter.setLoadMore(new ILoadMore() {
-            @Override
-            public void onLoadMore() {
-                if(data.size() <= 5){
-                    data.add(null);
-                    adapter.notifyItemInserted(data.size()-1);
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            data.remove(data.size()-1);
-                            adapter.notifyItemRemoved(data.size());
-                            adapter.notifyDataSetChanged();
-                            adapter.setLoaded();
-
-                        }
-                    },4000);
-                }else {
-                    Toast.makeText(getApplicationContext(),"Completed",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+//        adapter.setLoadMore(new ILoadMore() {
+//            @Override
+//            public void onLoadMore() {
+//                if (data.size() <= 5) {
+//                    data.add(null);
+//                    adapter.notifyItemInserted(data.size() - 1);
+//                    new Handler().postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            data.remove(data.size() - 1);
+//                            adapter.notifyItemRemoved(data.size());
+//                            adapter.notifyDataSetChanged();
+//                            adapter.setLoaded();
+//
+//                        }
+//                    }, 4000);
+//                } else {
+//                    Toast.makeText(getApplicationContext(), "Completed", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
 
         return view;
     }
+
 
     private void initImageBitmaps() {
         imageUrls.add("https://cdn.fishki.net/upload/post/2017/03/19/2245758/01-beautiful-white-cat-imagescar-wallpaper.jpg");
@@ -103,13 +108,21 @@ public class MainFragment extends Fragment implements Activity {
 
 
     @Override
-    public void findViewById(){
+    public void findViewById() {
         recyclerView = view.findViewById(R.id.recycleView_main);
+        mSwipeRefreshLayout = view.findViewById(R.id.swipeRefresh);
     }
 
-    @Override
-    public void onListener(){
 
+    @Override
+    public void onListener() {
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new GetFreeTask().execute();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
     }
 
 
@@ -142,7 +155,8 @@ public class MainFragment extends Fragment implements Activity {
                     Constants.URL.GET_ALL_TASK,
                     HttpMethod.GET,
                     null,
-                    new ParameterizedTypeReference<List<TaskDTO>>(){});
+                    new ParameterizedTypeReference<List<TaskDTO>>() {
+                    });
             List<TaskDTO> taskDTOS = response.getBody();
 
             return taskDTOS;
@@ -151,9 +165,10 @@ public class MainFragment extends Fragment implements Activity {
         @Override
         protected void onPostExecute(List<TaskDTO> taskDTOS) {
             data = taskDTOS;
-
+            Log.d("Data Size", String.valueOf(data.size()));
             adapter = new TaskListAdapter(data, imageUrls, recyclerView, getActivity());
             recyclerView.setAdapter(adapter);
         }
     }
+
 }
