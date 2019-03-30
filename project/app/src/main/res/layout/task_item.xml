@@ -6,25 +6,25 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="12dp"
-    android:layout_marginTop="5dp"
+    android:layout_marginTop="8dp"
     android:layout_marginRight="12dp"
-    android:layout_marginBottom="5dp"
-    android:background="@color/colorPrimaryDark"
+    android:layout_marginBottom="2dp"
+    android:background="#ffffff"
     android:orientation="vertical">
 
     <android.support.v7.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="142dp"
+        android:layout_height="140dp"
         android:background="@color/colorPrimaryDark"
-        card:cardElevation="2dp"
-        card:cardUseCompatPadding="true">
+        card:cardElevation="0dp"
+        card:cardUseCompatPadding="false">
 
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimaryDark"
+            android:background="@drawable/card_bg"
             tools:layout_editor_absoluteX="3dp"
             tools:layout_editor_absoluteY="4dp">
 
@@ -45,14 +45,16 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 android:text="headline"
                 android:textColor="@color/colorSecondaryLight"
                 android:textSize="18dp"
                 android:textStyle="italic"
-                card:layout_constraintBottom_toTopOf="@+id/cardView"
+                card:layout_constraintBottom_toBottomOf="parent"
                 card:layout_constraintEnd_toEndOf="parent"
                 card:layout_constraintStart_toEndOf="@+id/profile_user"
-                card:layout_constraintTop_toBottomOf="@+id/task_author" />
+                card:layout_constraintTop_toBottomOf="@+id/task_author"
+                card:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/price"

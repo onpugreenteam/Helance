@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -104,6 +105,8 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if(holder instanceof TaskViewHolder){
             TaskDTO item = data.get(position);
             TaskViewHolder viewHolder = (TaskViewHolder) holder;
+
+            viewHolder.cardView.setAnimation(AnimationUtils.loadAnimation(activity,R.anim.anim_card_view));
 
             viewHolder.author.setText(item.getEmployee());
             viewHolder.headline.setText(item.getHeadLine());

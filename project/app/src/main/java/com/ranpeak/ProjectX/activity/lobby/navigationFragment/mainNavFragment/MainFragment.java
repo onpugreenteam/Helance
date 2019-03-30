@@ -73,7 +73,6 @@ public class MainFragment extends Fragment implements Activity {
 //                            adapter.notifyItemRemoved(data.size());
 //                            adapter.notifyDataSetChanged();
 //                            adapter.setLoaded();
-//
 //                        }
 //                    }, 4000);
 //                } else {
