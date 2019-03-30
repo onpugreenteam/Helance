@@ -27,11 +27,13 @@ public class CountryListFragment extends DialogFragment implements Activity {
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
 
+        rootView = inflater.inflate(COUNTRY_LIST_FRAGMENT, null);
+
         findViewById();
         onListener();
 
 
-        rootView = inflater.inflate(COUNTRY_LIST_FRAGMENT, null);
+
 
         getDialog().setTitle("choose country");
 

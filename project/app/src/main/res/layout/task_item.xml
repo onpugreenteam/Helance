@@ -2,30 +2,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="5dp"
-    android:layout_marginBottom="5dp"
     android:layout_marginLeft="12dp"
+    android:layout_marginTop="5dp"
     android:layout_marginRight="12dp"
-    android:background="@color/colorPrimaryDark">
+    android:layout_marginBottom="5dp"
+    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical">
 
     <android.support.v7.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="142dp"
+        android:background="@color/colorPrimaryDark"
         card:cardElevation="2dp"
-        card:cardUseCompatPadding="true"
-        android:background="@color/colorPrimaryDark">
+        card:cardUseCompatPadding="true">
 
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/colorPrimaryDark"
             tools:layout_editor_absoluteX="3dp"
-            tools:layout_editor_absoluteY="4dp"
-            android:background="@color/colorPrimaryDark">
+            tools:layout_editor_absoluteY="4dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_user"
@@ -39,26 +40,24 @@
 
             <TextView
                 android:id="@+id/headline"
-                android:layout_width="255dp"
-                android:layout_height="65dp"
-                android:layout_marginStart="42dp"
+                android:layout_width="238dp"
+                android:layout_height="46dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
                 android:text="headline"
                 android:textColor="@color/colorSecondaryLight"
                 android:textSize="18dp"
                 android:textStyle="italic"
-                card:layout_constraintBottom_toBottomOf="parent"
+                card:layout_constraintBottom_toTopOf="@+id/cardView"
                 card:layout_constraintEnd_toEndOf="parent"
                 card:layout_constraintStart_toEndOf="@+id/profile_user"
-                card:layout_constraintTop_toTopOf="parent"
-                card:layout_constraintVertical_bias="0.0" />
+                card:layout_constraintTop_toBottomOf="@+id/task_author" />
 
             <TextView
                 android:id="@+id/price"
                 android:layout_width="64dp"
-                android:layout_height="37dp"
+                android:layout_height="33dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="28dp"
                 android:layout_marginBottom="8dp"
@@ -72,26 +71,44 @@
 
             <TextView
                 android:id="@+id/subject"
-                android:layout_width="115dp"
-                android:layout_height="19dp"
+                android:layout_width="81dp"
+                android:layout_height="20dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
+                android:layout_marginEnd="8dp"
                 android:text="subject"
                 android:textColor="@color/colorSecondaryLight"
                 android:textSize="15dp"
+                card:layout_constraintEnd_toStartOf="@+id/headline"
                 card:layout_constraintStart_toStartOf="parent"
                 card:layout_constraintTop_toBottomOf="@+id/profile_user" />
 
             <TextView
                 android:id="@+id/date"
-                android:layout_width="115dp"
-                android:layout_height="wrap_content"
+                android:layout_width="81dp"
+                android:layout_height="20dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 android:text="date"
                 android:textColor="@color/colorSecondaryLight"
+                card:layout_constraintEnd_toStartOf="@+id/headline"
                 card:layout_constraintStart_toStartOf="parent"
                 card:layout_constraintTop_toBottomOf="@+id/subject" />
+
+            <TextView
+                android:id="@+id/task_author"
+                android:layout_width="238dp"
+                android:layout_height="29dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="author"
+                android:textColor="@color/colorSecondaryLight"
+                android:textSize="18dp"
+                card:layout_constraintEnd_toEndOf="parent"
+                card:layout_constraintStart_toEndOf="@+id/profile_user"
+                card:layout_constraintTop_toTopOf="parent" />
         </android.support.constraint.ConstraintLayout>
 
 

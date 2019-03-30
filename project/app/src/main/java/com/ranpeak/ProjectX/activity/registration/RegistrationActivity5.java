@@ -19,6 +19,7 @@ import com.ranpeak.ProjectX.activity.lobby.LobbyActivity;
 import com.ranpeak.ProjectX.activity.logIn.LogInActivity;
 import com.ranpeak.ProjectX.constant.Constants;
 import com.ranpeak.ProjectX.request.RequestHandler;
+import com.ranpeak.ProjectX.settings.SharedPrefManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -153,9 +154,17 @@ public class RegistrationActivity5 extends AppCompatActivity implements Activity
                     public void onResponse(String response) {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-                            if (jsonObject.getString("message").equals("yes")) {
+                            if (jsonObject.getString("message").equals("ok")) {
                                 Intent intent = new Intent(getApplicationContext(), LobbyActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                SharedPrefManager.getInstance(getApplicationContext())
+                                        .userLogin(
+                                                login,
+                                                name,
+                                                email,
+                                                country,
+                                                "nullk"
+                                        );
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
                                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                                 Toast.makeText(getApplicationContext(), "Activation successful", Toast.LENGTH_LONG).show();

@@ -105,6 +105,7 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             TaskDTO item = data.get(position);
             TaskViewHolder viewHolder = (TaskViewHolder) holder;
 
+            viewHolder.author.setText(item.getEmployee());
             viewHolder.headline.setText(item.getHeadLine());
             viewHolder.subject.setText(item.getSubject());
             viewHolder.date.setText(item.getDateStart());
@@ -138,6 +139,7 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public class TaskViewHolder extends RecyclerView.ViewHolder implements com.ranpeak.ProjectX.activity.interfaces.Activity {
         CardView cardView;
+        TextView author;
         TextView headline;
         TextView date;
         TextView subject;
@@ -154,6 +156,7 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         @Override
         public void findViewById() {
             cardView = itemView.findViewById(R.id.cardView);
+            author = itemView.findViewById(R.id.task_author);
             headline = itemView.findViewById(R.id.headline);
             subject = itemView.findViewById(R.id.subject);
             date = itemView.findViewById(R.id.date);

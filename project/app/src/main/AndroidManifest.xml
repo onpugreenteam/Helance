@@ -21,7 +21,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.registration.RegistrationActivity5"></activity>
+        <activity android:name=".activity.registration.RegistrationActivity5"/>
         <activity android:name=".activity.creatingTask.FullScreenImageActivity" />
         <activity
             android:name=".activity.creatingTask.CreatingTaskActivity"

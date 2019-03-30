@@ -158,7 +158,7 @@ public class ProfileActivity extends AppCompatActivity implements Activity {
             case R.id.menu_logout:
                 SharedPrefManager.getInstance(this).logout();
                 Intent intent = new Intent(this, LogInActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 //                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();

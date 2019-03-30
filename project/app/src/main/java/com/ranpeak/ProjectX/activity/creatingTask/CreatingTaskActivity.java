@@ -43,6 +43,7 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.creatingTask.fragment.LessonListFragment;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
+import com.ranpeak.ProjectX.activity.lobby.LobbyActivity;
 import com.ranpeak.ProjectX.constant.Constants;
 import com.ranpeak.ProjectX.request.RequestHandler;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
@@ -427,7 +428,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
         } else {
             postTask();
 //            Toast.makeText(getApplicationContext(), "done", Toast.LENGTH_SHORT).show();
-            finish();
+//            finish();
         }
     }
 
@@ -479,6 +480,10 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
                     @Override
                     public void onResponse(String response) {
                         Toast.makeText(getApplicationContext(), "Successful", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(getApplicationContext(), LobbyActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        finish();
                     }
                 },
                 new Response.ErrorListener() {

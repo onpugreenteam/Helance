@@ -54,22 +54,22 @@ public class RegistrationActivity2 extends AppCompatActivity implements Activity
     }
 
     @Override
-    public void findViewById(){
+    public void findViewById() {
         register_name = findViewById(R.id.register_name);
         nextButton = findViewById(R.id.registration_button_2);
         register_country = findViewById(R.id.register_country);
     }
 
     @Override
-    public void onListener(){
+    public void onListener() {
         register_name.addTextChangedListener(textWatcher);
-//        register_country.addTextChangedListener(textWatcher);
-//        register_country.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                countryListFragment.show(fm, "Country lists");
-//            }
-//        });
+        register_country.addTextChangedListener(textWatcher);
+        register_country.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                countryListFragment.show(fm, "Country lists");
+            }
+        });
         nextButton.addTextChangedListener(textWatcher);
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,8 +77,8 @@ public class RegistrationActivity2 extends AppCompatActivity implements Activity
                 Intent intent = new Intent(getApplicationContext(), RegistrationActivity3.class);
                 intent.putExtra("email", email);
                 intent.putExtra("name", register_name.getText().toString().trim());
-//        intent.putExtra("country", register_country.getText().toString().trim());
-                intent.putExtra("country", "Nigeria");
+                intent.putExtra("country", register_country.getText().toString().trim());
+//                intent.putExtra("country", "Nigeria");
                 startActivity(intent);
 
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -96,8 +96,8 @@ public class RegistrationActivity2 extends AppCompatActivity implements Activity
         public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             nextButton.setEnabled(!register_name.getText().toString().trim().isEmpty()
-//                    && stringContainsItemFromList(register_country.getText().toString(),
-//                    Constants.Values.COUNTRIES)
+                    && stringContainsItemFromList(register_country.getText().toString(),
+                    Constants.Values.COUNTRIES)
             );
         }
 
@@ -115,10 +115,8 @@ public class RegistrationActivity2 extends AppCompatActivity implements Activity
 
 
     private static boolean stringContainsItemFromList(String inputStr, String[] items) {
-        for(int i =0; i < items.length; i++)
-        {
-            if(inputStr.contains(items[i]))
-            {
+        for (int i = 0; i < items.length; i++) {
+            if (inputStr.contains(items[i])) {
                 return true;
             }
         }

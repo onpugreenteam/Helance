@@ -317,7 +317,7 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
                             // если аккаунт не активирован, то открывается активность где надо ввести код
                             if ((jsonObject.getString("login").equals(login)
                                     || jsonObject.getString("email").equals(login))
-                                    && jsonObject.getString("active").equals("false")) {
+                                    && !jsonObject.getBoolean("active")) {
                                 Intent intent = new Intent(getApplicationContext(), RegistrationActivity5.class);
                                 intent.putExtra("registration_username", jsonObject.getString("login"));
                                 intent.putExtra("password", jsonObject.getString("password"));
@@ -329,7 +329,7 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
                                 startActivity(intent);
                             } else if ((jsonObject.getString("login").equals(login)
                                     || jsonObject.getString("email").equals(login))
-                                    && jsonObject.getString("active").equals("true")) {
+                                    && jsonObject.getBoolean("active")) {
 
                                 SharedPrefManager.getInstance(getApplicationContext())
                                         .userLogin(

@@ -112,14 +112,6 @@ public class TaskDTO implements Serializable {
         this.customer = customer;
     }
 
-    public String getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(String employee) {
-        this.employee = employee;
-    }
-
     public String getSubject() {
         return subject;
     }
@@ -158,5 +150,13 @@ public class TaskDTO implements Serializable {
 
     public void setFilePath(String filePath) {
         this.filePath = filePath;
+    }
+
+    public String getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(String author) {
+        this.employee = author;
     }
 }
