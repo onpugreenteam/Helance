@@ -1,50 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout"
+    android:id="@+id/cardView"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="12dp"
-    android:layout_marginTop="8dp"
-    android:layout_marginRight="12dp"
-    android:layout_marginBottom="2dp"
-    android:background="#ffffff"
-    android:orientation="vertical">
-
-    <android.support.v7.widget.CardView
-        android:id="@+id/cardView"
+    android:layout_height="140dp"
+    android:background="@color/colorPrimaryDark"
+    card:cardElevation="0dp"
+    card:cardUseCompatPadding="false"
+    card:contentPadding="2dp"
+    android:layout_marginTop="2dp">
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="140dp"
-        android:background="@color/colorPrimaryDark"
-        card:cardElevation="0dp"
-        card:cardUseCompatPadding="false">
-
+        android:layout_height="wrap_content">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="4dp"
             android:background="@drawable/card_bg"
-            tools:layout_editor_absoluteX="3dp"
-            tools:layout_editor_absoluteY="4dp">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profile_user"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:src="@mipmap/ic_launcher"
-                card:layout_constraintStart_toStartOf="parent"
-                card:layout_constraintTop_toTopOf="parent" />
+            card:layout_constraintBottom_toBottomOf="parent"
+            card:layout_constraintEnd_toEndOf="parent"
+            card:layout_constraintStart_toStartOf="parent"
+            card:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/headline"
-                android:layout_width="238dp"
+                android:layout_width="277dp"
                 android:layout_height="46dp"
-                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
                 android:text="headline"
                 android:textColor="@color/colorSecondaryLight"
@@ -52,9 +38,8 @@
                 android:textStyle="italic"
                 card:layout_constraintBottom_toBottomOf="parent"
                 card:layout_constraintEnd_toEndOf="parent"
-                card:layout_constraintStart_toEndOf="@+id/profile_user"
-                card:layout_constraintTop_toBottomOf="@+id/task_author"
-                card:layout_constraintVertical_bias="0.0" />
+                card:layout_constraintStart_toStartOf="@+id/task_author"
+                card:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/price"
@@ -75,45 +60,56 @@
                 android:id="@+id/subject"
                 android:layout_width="81dp"
                 android:layout_height="20dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 android:text="subject"
                 android:textColor="@color/colorSecondaryLight"
                 android:textSize="15dp"
-                card:layout_constraintEnd_toStartOf="@+id/headline"
+                card:layout_constraintBottom_toBottomOf="parent"
+                card:layout_constraintEnd_toStartOf="@+id/price"
+                card:layout_constraintHorizontal_bias="0.041"
                 card:layout_constraintStart_toStartOf="parent"
-                card:layout_constraintTop_toBottomOf="@+id/profile_user" />
+                card:layout_constraintTop_toBottomOf="@+id/headline"
+                card:layout_constraintVertical_bias="0.111" />
 
             <TextView
                 android:id="@+id/date"
-                android:layout_width="81dp"
+                android:layout_width="82dp"
                 android:layout_height="20dp"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:text="date"
                 android:textColor="@color/colorSecondaryLight"
-                card:layout_constraintEnd_toStartOf="@+id/headline"
-                card:layout_constraintStart_toStartOf="parent"
-                card:layout_constraintTop_toBottomOf="@+id/subject" />
+                card:layout_constraintEnd_toEndOf="parent"
+                card:layout_constraintHorizontal_bias="0.818"
+                card:layout_constraintStart_toEndOf="@+id/task_author"
+                card:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/task_author"
-                android:layout_width="238dp"
+                android:layout_width="120dp"
                 android:layout_height="29dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="56dp"
+                android:layout_marginTop="4dp"
                 android:text="author"
                 android:textColor="@color/colorSecondaryLight"
                 android:textSize="18dp"
-                card:layout_constraintEnd_toEndOf="parent"
-                card:layout_constraintStart_toEndOf="@+id/profile_user"
+                card:layout_constraintStart_toStartOf="parent"
                 card:layout_constraintTop_toTopOf="parent" />
         </android.support.constraint.ConstraintLayout>
 
 
-    </android.support.v7.widget.CardView>
-
-</LinearLayout>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_user"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="14dp"
+            android:src="@mipmap/ic_launcher"
+            card:layout_constraintStart_toStartOf="parent"
+            card:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>

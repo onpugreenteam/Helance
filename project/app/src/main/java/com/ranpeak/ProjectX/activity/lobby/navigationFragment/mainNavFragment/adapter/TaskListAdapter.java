@@ -106,6 +106,7 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             TaskDTO item = data.get(position);
             TaskViewHolder viewHolder = (TaskViewHolder) holder;
 
+            viewHolder.profile_user.setAnimation(AnimationUtils.loadAnimation(activity,R.anim.anim_for_image));
             viewHolder.cardView.setAnimation(AnimationUtils.loadAnimation(activity,R.anim.anim_card_view));
 
             viewHolder.author.setText(item.getEmployee());
@@ -113,6 +114,7 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             viewHolder.subject.setText(item.getSubject());
             viewHolder.date.setText(item.getDateStart());
             viewHolder.price.setText(String.valueOf(item.getPrice()));
+
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
 
