@@ -76,7 +76,7 @@ public class LobbyActivity extends AppCompatActivity implements Activity {
         fm.beginTransaction().add(R.id.navigation_container,fragment3,"3").commit();
 
 
-        bottomNavigationView.setSelectedItemId(R.id.nav_search);
+        bottomNavigationView.setSelectedItemId(R.id.nav_recom);
         textView.setText(bottomNavigationView.getMenu().getItem(2).getTitle());
 
     }
@@ -112,18 +112,15 @@ public class LobbyActivity extends AppCompatActivity implements Activity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 textView.setText(menuItem.getTitle());
                 switch (menuItem.getItemId()){
-                    case R.id.nav_home:
+                    case R.id.nav_resumes:
                         fm.beginTransaction().hide(active).show(fragment1).commit();
                         active = fragment1;
                         return true;
-                    case R.id.nav_main:
+                    case R.id.nav_tasks:
                         fm.beginTransaction().hide(active).show(fragment2).commit();
                         active = fragment2;
                         return true;
-                    case R.id.nav_addTask:
-                        startActivity(new Intent(getApplicationContext(), CreatingTaskActivity.class));
-                        return true;
-                    case R.id.nav_search:
+                    case R.id.nav_recom:
                         fm.beginTransaction().hide(active).show(fragment3).commit();
                         active = fragment3;
                         return true;
