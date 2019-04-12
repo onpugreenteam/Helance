@@ -17,6 +17,7 @@ import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -66,12 +67,8 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
-    private TextView textView;
+    private TextView textViewError;
     private Button mEmailSignInButton;
-
-    private AnimationDrawable animationDrawable;
-    private LinearLayout linearLayout;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,40 +94,24 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
 
     @Override
     public void findViewById() {
-        linearLayout = findViewById(R.id.login_activity);
-        mEmailView = findViewById(R.id.email);
-        mPasswordView = findViewById(R.id.password);
-        mEmailSignInButton = findViewById(R.id.email_sign_in_button);
-        textView = findViewById(R.id.textView);
+        mEmailView = findViewById(R.id.login_activity_email);
+        mPasswordView = findViewById(R.id.login_activity_password);
+        mEmailSignInButton = findViewById(R.id.login_activity_login_button);
+        textViewError = findViewById(R.id.login_activity_text_view_error);
     }
 
     @Override
     public void onListener() {
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
-                    return true;
-                }
-                return false;
-            }
-        });
-
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        mPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
+            if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
                 attemptLogin();
+                return true;
             }
+            return false;
         });
 
-    }
+        mEmailSignInButton.setOnClickListener(view -> attemptLogin());
 
-    private void animationBackground() {
-        animationDrawable = (AnimationDrawable) linearLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(4500);
-        animationDrawable.setExitFadeDuration(4500);
-        animationDrawable.start();
     }
 
     // Попытка залогинится
@@ -206,13 +187,7 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
         }
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
             Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(android.R.string.ok, new View.OnClickListener() {
-                        @Override
-                        @TargetApi(Build.VERSION_CODES.M)
-                        public void onClick(View v) {
-                            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
-                        }
-                    });
+                    .setAction(android.R.string.ok, v -> requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS));
         } else {
             requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
         }
@@ -291,13 +266,6 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
         int IS_PRIMARY = 1;
     }
 
-
-    public void clickRegistration(View view) {
-        Intent intent = new Intent(getApplicationContext(), RegistrationActivity1.class);
-        startActivity(intent);
-    }
-
-
     // Запрос на аунтификацию по (логину или почте) с паролем
     private void loginUser() {
 
@@ -307,61 +275,55 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 Constants.URL.LOGIN_USER,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        progressDialog.dismiss();
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
+                response -> {
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
 
-                            // если аккаунт не активирован, то открывается активность где надо ввести код
-                            if ((jsonObject.getString("login").equals(login)
-                                    || jsonObject.getString("email").equals(login))
-                                    && !jsonObject.getBoolean("active")) {
-                                Intent intent = new Intent(getApplicationContext(), RegistrationActivity5.class);
-                                intent.putExtra("registration_username", jsonObject.getString("login"));
-                                intent.putExtra("password", jsonObject.getString("password"));
-                                intent.putExtra("name", jsonObject.getString("name"));
-                                intent.putExtra("email", jsonObject.getString("email"));
-                                intent.putExtra("country", jsonObject.getString("country"));
-                                intent.putExtra("avatar", jsonObject.getString("avatar"));
-                                intent.putExtra("aboutMyself", jsonObject.getString("aboutMyself"));
-                                startActivity(intent);
-                            } else if ((jsonObject.getString("login").equals(login)
-                                    || jsonObject.getString("email").equals(login))
-                                    && jsonObject.getBoolean("active")) {
+                        // если аккаунт не активирован, то открывается активность где надо ввести код
+                        if ((jsonObject.getString("login").equals(login)
+                                || jsonObject.getString("email").equals(login))
+                                && !jsonObject.getBoolean("active")) {
+                            Intent intent = new Intent(getApplicationContext(), RegistrationActivity5.class);
+                            intent.putExtra("registration_username", jsonObject.getString("login"));
+                            intent.putExtra("password", jsonObject.getString("password"));
+                            intent.putExtra("name", jsonObject.getString("name"));
+                            intent.putExtra("email", jsonObject.getString("email"));
+                            intent.putExtra("country", jsonObject.getString("country"));
+                            intent.putExtra("avatar", jsonObject.getString("avatar"));
+                            intent.putExtra("aboutMyself", jsonObject.getString("aboutMyself"));
+                            startActivity(intent);
+                        } else if ((jsonObject.getString("login").equals(login)
+                                || jsonObject.getString("email").equals(login))
+                                && jsonObject.getBoolean("active")) {
 
-                                SharedPrefManager.getInstance(getApplicationContext())
-                                        .userLogin(
-                                                jsonObject.getString("login"),
-                                                jsonObject.getString("name"),
-                                                jsonObject.getString("email"),
-                                                jsonObject.getString("country"),
-                                                jsonObject.getString("avatar")
-                                        );
-                                startActivity(new Intent(getApplicationContext(), LobbyActivity.class));
-                                finish();
+                            SharedPrefManager.getInstance(getApplicationContext())
+                                    .userLogin(
+                                            jsonObject.getString("login"),
+                                            jsonObject.getString("name"),
+                                            jsonObject.getString("email"),
+                                            jsonObject.getString("country"),
+                                            jsonObject.getString("avatar")
+                                    );
+                            startActivity(new Intent(getApplicationContext(), LobbyActivity.class));
+                            finish();
 
-                            } else if (jsonObject.getString("message").equals("error")) {
-                                mEmailView.getText().clear();
-                                mPasswordView.getText().clear();
+                        } else if (jsonObject.getString("message").equals("error")) {
+                            mEmailView.getText().clear();
+                            mPasswordView.getText().clear();
 
-                                textView.setTextColor(getResources().getColor(R.color.colorAccent));
-                                textView.setText(getText(R.string.invalidEmailOrPassword));
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                            textViewError.setVisibility(View.VISIBLE);
+                            textViewError.setText(getText(R.string.invalidEmailOrPassword));
                         }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        progressDialog.hide();
-                        Toast.makeText(getApplicationContext(), "Please on Internet",
-                                Toast.LENGTH_LONG).show();
-                    }
+                error -> {
+                    progressDialog.hide();
+                    Toast.makeText(getApplicationContext(), "Please on Internet",
+                            Toast.LENGTH_LONG).show();
                 }) {
 
             @Override

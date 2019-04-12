@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp"
-    android:background="@color/colorPrimaryLight"
-    android:orientation="vertical"
     android:layout_gravity="center"
+    android:background="@color/colorSecondaryLight"
     android:fillViewport="true"
     android:gravity="center"
+    android:orientation="vertical"
+    android:padding="8dp"
     tools:context=".activity.creatingTask.CreatingTaskActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
         android:paddingTop="8dp">
@@ -21,120 +22,179 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="20dp"
+            android:gravity="bottom"
             android:text="@string/lesson"
-            android:textSize="12sp"
-            android:textColor="@color/textOnPrimary"
-            android:gravity="bottom"/>
+            android:textColor="@color/darkText"
+            android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/lesson_picker"
+            android:id="@+id/creating_task_lesson_picker"
             android:layout_width="match_parent"
             android:layout_height="36dp"
+            android:layout_marginBottom="20dp"
             android:clickable="true"
             android:focusable="true"
+            android:gravity="bottom"
             android:text="@string/select_lesson"
-            android:textSize="18sp"
             android:textColor="@color/textOnPrimary"
-            android:layout_marginBottom="8dp"
-            android:gravity="bottom"/>
+            android:textSize="18sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="20dp"
+            android:gravity="bottom"
             android:text="@string/task_name"
-            android:textSize="12sp"
-            android:textColor="@color/textOnPrimary"
-            android:gravity="bottom"/>
+            android:textColor="@color/darkText"
+            android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/creating_task_type_name"
+            android:id="@+id/creating_task_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/type_here"
-            android:textSize="18sp"
-            android:textColor="@color/textOnPrimary"
+            android:layout_marginBottom="20dp"
             android:gravity="bottom"
-            android:layout_marginBottom="8dp"/>
+            android:hint="@string/type_here"
+            android:textColor="@color/textOnPrimary"
+            android:textSize="18sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="20dp"
+            android:gravity="bottom"
             android:text="@string/task_description"
-            android:textSize="12sp"
-            android:textColor="@color/textOnPrimary"
-            android:gravity="bottom"/>
+            android:textColor="@color/darkText"
+            android:textSize="18sp" />
 
-        <EditText
-            android:id="@+id/creating_task_type_description"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/type_here"
-            android:textSize="18sp"
-            android:textColor="@color/textOnPrimary"
-            android:gravity="bottom"
-            android:layout_marginBottom="8dp"/>
+            android:layout_gravity="start"
+            android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:text="@string/task_price"
-            android:textSize="12sp"
-            android:textColor="@color/textOnPrimary"
-            android:gravity="bottom"/>
+            <EditText
+                android:id="@+id/creating_task_description"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:gravity="top"
+                android:hint="@string/type_here"
+                android:inputType="textCapSentences|textNoSuggestions|textMultiLine"
+                android:maxLines="6"
+                android:minLines="3"
+                android:textColor="@color/textOnPrimary"
+                android:textSize="18sp" />
 
-        <EditText
-            android:id="@+id/creating_task_price"
-            android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/creating_task_choose_image_for_task"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="bottom"
+                app:srcCompat="@drawable/ic_add_black_24dp"
+                android:clickable="true"
+                android:focusable="true" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:hint="@string/type_here"
-            android:textSize="18sp"
-            android:textColor="@color/textOnPrimary"
-            android:gravity="bottom"
-            android:digits="0123456789,"
-            android:inputType="numberDecimal"
-            android:layout_marginBottom="8dp"/>
+            android:layout_gravity="start"
+            android:gravity="end"
+            android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:text="@string/select_date_below"
-            android:textSize="12sp"
-            android:textColor="@color/textOnPrimary"
-            android:gravity="bottom" />
+            <TextView
+                android:id="@+id/creating_task_description_length"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="0/"
+                android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/date_picker"
-            android:layout_width="match_parent"
-            android:layout_height="36dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:text="@string/select_date"
-            android:textSize="18sp"
-            android:textColor="@color/textOnPrimary"
-            android:layout_marginBottom="8dp"
-            android:gravity="bottom"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:gravity="end"
+                android:text="@string/creating_task_task_description_length"
+                android:textColor="@color/textOnPrimary"
+                android:textSize="12sp" />
 
-        <Button
-            android:id="@+id/choose_image_for_task"
-            android:layout_width="154dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/add_picture_button_pressed"
-            android:text="@string/add_files"
-            android:layout_marginBottom="8dp"/>
+        </LinearLayout>
 
         <HorizontalScrollView
-            android:id="@+id/scroll_view_files"
+            android:id="@+id/creating_task_scroll_view_files"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="150dp"
+            android:layout_marginBottom="20dp"
             android:visibility="gone">
 
             <LinearLayout
-                android:id="@+id/linear_layout_files"
+                android:id="@+id/creating_task_linear_layout_files"
                 android:layout_width="wrap_content"
-                android:layout_height="200dp"
-                android:orientation="horizontal"/>
+                android:layout_height="150dp"
+                android:orientation="horizontal" />
 
         </HorizontalScrollView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:gravity="bottom"
+            android:text="@string/select_date_below"
+            android:textColor="@color/darkText"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/date_picker"
+            android:layout_width="200dp"
+            android:layout_height="36dp"
+            android:layout_gravity="start"
+            android:layout_marginBottom="20dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="bottom"
+            android:text="@string/select_date"
+            android:textColor="@color/textOnPrimary"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:gravity="bottom"
+            android:text="@string/task_price"
+            android:textColor="@color/darkText"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start">
+
+            <EditText
+                android:id="@+id/creating_task_price"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:digits="0123456789,"
+                android:gravity="bottom"
+                android:hint="@string/type_here"
+                android:inputType="numberDecimal"
+                android:textColor="@color/darkText"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/dollar" />
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/creating_task_check_box"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginBottom="20dp"
+            android:text="@string/creating_task_contractual_price"
+            android:textSize="18sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -148,8 +208,8 @@
                 android:layout_width="130dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:text="@string/create"
                 android:background="@drawable/create_task_button_pressed"
+                android:text="@string/create"
                 android:textSize="5pt" />
         </LinearLayout>
     </LinearLayout>

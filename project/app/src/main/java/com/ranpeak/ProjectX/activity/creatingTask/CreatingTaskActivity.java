@@ -3,7 +3,6 @@ package com.ranpeak.ProjectX.activity.creatingTask;
 import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.FragmentManager;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -15,12 +14,12 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
@@ -29,54 +28,50 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
+import com.github.chrisbanes.photoview.PhotoView;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.DexterError;
 import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.PermissionRequestErrorListener;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.creatingTask.fragment.LessonListFragment;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
-import com.ranpeak.ProjectX.activity.lobby.LobbyActivity;
 import com.ranpeak.ProjectX.constant.Constants;
 import com.ranpeak.ProjectX.request.RequestHandler;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import timber.log.Timber;
+
 public class CreatingTaskActivity extends AppCompatActivity implements Activity {
 
-    private Toolbar toolbar;
     private EditText typeName;
-    private EditText typeDescription;
+    private EditText taskDescription;
+    private TextView textViewDescriptionLength;
+    private int descriptionLength = 0;
     private EditText taskPrice;
     private TextView datePicker;
     private TextView lessonPicker;
+    private CheckBox checkBox;
     private DatePickerDialog.OnDateSetListener dateSetListener;
     private LinearLayout linearLayout;
-    private Button selectImages;
+    private ImageView selectImages;
     private Button create;
-    private Button cancel;
     private HorizontalScrollView horizontalScrollView;
     private static final int REQUEST_PERMISSION = 200;
     private final int GALLERY = 1;
-    private ImageView buffImageView1 = null;
-    private ImageView buffImageView2 = null;
-    private ImageView buffImageView3 = null;
-    private ImageView buffImageView4 = null;
-    private ImageView buffImageView5 = null;
+    private List<ImageView> imageViewList = new ArrayList<>();
     private final FragmentManager fm = getFragmentManager();
     private final LessonListFragment lessonListFragment = new LessonListFragment();
 
@@ -101,90 +96,83 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
     @Override
     public void findViewById() {
         // start fragmentActivity to choose lesson
-        lessonPicker = findViewById(R.id.lesson_picker);
+        lessonPicker = findViewById(R.id.creating_task_lesson_picker);
 
-        typeName = findViewById(R.id.creating_task_type_name);
-        typeDescription = findViewById(R.id.creating_task_type_description);
+        typeName = findViewById(R.id.creating_task_name);
+        taskDescription = findViewById(R.id.creating_task_description);
+        textViewDescriptionLength = findViewById(R.id.creating_task_description_length);
 
         taskPrice = findViewById(R.id.creating_task_price);
+        checkBox = findViewById(R.id.creating_task_check_box);
 
         create = findViewById(R.id.creating_task_button);
 
         datePicker = findViewById(R.id.date_picker);
 
-        linearLayout = findViewById(R.id.linear_layout_files);
-        selectImages = findViewById(R.id.choose_image_for_task);
-        horizontalScrollView = findViewById(R.id.scroll_view_files);
+        linearLayout = findViewById(R.id.creating_task_linear_layout_files);
+        selectImages = findViewById(R.id.creating_task_choose_image_for_task);
+        horizontalScrollView = findViewById(R.id.creating_task_scroll_view_files);
     }
 
     @Override
-    public void onListener(){
-        lessonPicker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                lessonListFragment.show(fm, "Country lists");
-            }
-        });
-        create.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                create.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        attemptCreatingTask();
-                    }
-                });
-            }
-        });
-        datePicker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar calendar = Calendar.getInstance();
-                int year = calendar.get(Calendar.YEAR);
-                int month = calendar.get(Calendar.MONTH);
-                int day = calendar.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog dialog = new DatePickerDialog(CreatingTaskActivity.this,
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                        dateSetListener,
-                        year, month, day);
-                Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
+    public void onListener() {
+        lessonPicker.setOnClickListener(v -> lessonListFragment.show(fm, "Country lists"));
+        create.setOnClickListener(v -> create.setOnClickListener(view -> attemptCreatingTask()));
+        datePicker.setOnClickListener(v -> {
+            Calendar calendar = Calendar.getInstance();
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+            DatePickerDialog dialog = new DatePickerDialog(CreatingTaskActivity.this,
+                    android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                    dateSetListener,
+                    year, month, day);
+            Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.show();
 
-            }
         });
-        selectImages.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (buffImageView5 == null) {
-                    startActivityForResult(new Intent(Intent.ACTION_PICK,
-                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI), GALLERY);
-                } else {
-                    Toast.makeText(getApplicationContext(), "It's only 5 pictures available", Toast.LENGTH_SHORT).show();
-                }
-
-            }
+        selectImages.setOnClickListener(v -> {
+            startActivityForResult(new Intent(Intent.ACTION_PICK,
+                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI), GALLERY);
         });
-        dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                month = month + 1;
-                String date = dayOfMonth + "." + month + "." + year;
-                datePicker.setText(date);
-            }
+        dateSetListener = (view, year, month, dayOfMonth) -> {
+            month = month + 1;
+            String date = dayOfMonth + "." + month + "." + year;
+            datePicker.setText(date);
+            datePicker.setTextColor(ContextCompat.getColor(this, R.color.darkText));
         };
+        checkBox.setOnClickListener(v -> {
+            if (checkBox.isChecked()) {
+                taskPrice.setTextColor(ContextCompat.getColor(this, R.color.textOnPrimary));
+                taskPrice.setEnabled(false);
+            } else {
+                taskPrice.setTextColor(ContextCompat.getColor(this, R.color.darkText));
+                taskPrice.setEnabled(true);
+            }
+        });
+        taskDescription.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                textViewDescriptionLength.setText(taskDescription.getText().length() + "/");
+            }
+        });
     }
 
-
     private void toolbar() {
-        // Toolbar
-//        getSupportActionBar().setTitle(getString(R.string.app_name));
-//        toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(getString(R.string.app_name));
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -228,18 +216,8 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
         builder.setCancelable(false)
                 .setTitle(getString(R.string.confirm_exit))
                 .setMessage(getString(R.string.cancel_creating))
-                .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                })
-                .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
+                .setPositiveButton(getString(R.string.yes), (dialog, which) -> finish())
+                .setNegativeButton(getString(R.string.no), (dialog, which) -> dialog.cancel());
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
@@ -256,97 +234,27 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
             if (data != null) {
                 horizontalScrollView.setVisibility(View.VISIBLE);
                 final Uri contentURI = data.getData();
-                if (buffImageView1 == null) {
-                    buffImageView1 = new ImageView(CreatingTaskActivity.this);
-                    buffImageView1.setLayoutParams(new android.view.ViewGroup.LayoutParams(350, 350));
-                    buffImageView1.setMaxHeight(350);
-                    buffImageView1.setMaxWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
+                ImageView buffImageView = new ImageView(CreatingTaskActivity.this);
+                buffImageView.setLayoutParams(new android.view.ViewGroup.LayoutParams(350, 350));
+                buffImageView.setMaxHeight(350);
+                buffImageView.setMaxWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
+                Glide.with(this)
+                        .load(contentURI)
+                        .into(buffImageView);
+                imageViewList.add(buffImageView);
+                linearLayout.addView(buffImageView);
+                buffImageView.setVisibility(View.VISIBLE);
+                buffImageView.setOnClickListener(v -> {
+                    AlertDialog.Builder mBuilder = new AlertDialog.Builder(CreatingTaskActivity.this);
+                    View mView = getLayoutInflater().inflate(R.layout.activity_full_screen_image, null);
+                    PhotoView photoView = mView.findViewById(R.id.fullScreenImageView);
                     Glide.with(this)
                             .load(contentURI)
-                            .into(buffImageView1);
-                    linearLayout.addView(buffImageView1);
-                    buffImageView1.setVisibility(View.VISIBLE);
-                    buffImageView1.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent fullScreenIntent = new Intent(CreatingTaskActivity.this, FullScreenImageActivity.class);
-                            fullScreenIntent.setData(contentURI);
-                            startActivity(fullScreenIntent);
-                        }
-                    });
-                } else if (buffImageView2 == null) {
-                    buffImageView2 = new ImageView(CreatingTaskActivity.this);
-                    buffImageView2.setLayoutParams(new android.view.ViewGroup.LayoutParams(350, 350));
-                    buffImageView2.setMaxHeight(350);
-                    buffImageView2.setMaxWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
-                    Glide.with(this)
-                            .load(contentURI)
-                            .into(buffImageView2);
-                    linearLayout.addView(buffImageView2);
-                    buffImageView2.setVisibility(View.VISIBLE);
-                    buffImageView2.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent fullScreenIntent = new Intent(CreatingTaskActivity.this, FullScreenImageActivity.class);
-                            fullScreenIntent.setData(contentURI);
-                            startActivity(fullScreenIntent);
-                        }
-                    });
-                } else if (buffImageView3 == null) {
-                    buffImageView3 = new ImageView(CreatingTaskActivity.this);
-                    buffImageView3.setLayoutParams(new android.view.ViewGroup.LayoutParams(350, 350));
-                    buffImageView3.setMaxHeight(350);
-                    buffImageView3.setMaxWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
-                    Glide.with(this)
-                            .load(contentURI)
-                            .into(buffImageView3);
-                    linearLayout.addView(buffImageView3);
-                    buffImageView3.setVisibility(View.VISIBLE);
-                    buffImageView3.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent fullScreenIntent = new Intent(CreatingTaskActivity.this, FullScreenImageActivity.class);
-                            fullScreenIntent.setData(contentURI);
-                            startActivity(fullScreenIntent);
-                        }
-                    });
-                } else if (buffImageView4 == null) {
-                    buffImageView4 = new ImageView(CreatingTaskActivity.this);
-                    buffImageView4.setLayoutParams(new android.view.ViewGroup.LayoutParams(350, 350));
-                    buffImageView4.setMaxHeight(350);
-                    buffImageView4.setMaxWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
-                    Glide.with(this)
-                            .load(contentURI)
-                            .into(buffImageView4);
-                    linearLayout.addView(buffImageView4);
-                    buffImageView4.setVisibility(View.VISIBLE);
-                    buffImageView4.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent fullScreenIntent = new Intent(CreatingTaskActivity.this, FullScreenImageActivity.class);
-                            fullScreenIntent.setData(contentURI);
-                            startActivity(fullScreenIntent);
-                        }
-                    });
-                } else if (buffImageView5 == null) {
-                    buffImageView5 = new ImageView(CreatingTaskActivity.this);
-                    buffImageView5.setLayoutParams(new android.view.ViewGroup.LayoutParams(350, 350));
-                    buffImageView5.setMaxHeight(350);
-                    buffImageView5.setMaxWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
-                    Glide.with(this)
-                            .load(contentURI)
-                            .into(buffImageView5);
-                    linearLayout.addView(buffImageView5);
-                    buffImageView5.setVisibility(View.VISIBLE);
-                    buffImageView5.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent fullScreenIntent = new Intent(CreatingTaskActivity.this, FullScreenImageActivity.class);
-                            fullScreenIntent.setData(contentURI);
-                            startActivity(fullScreenIntent);
-                        }
-                    });
-                }
+                            .into(photoView);
+                    mBuilder.setView(mView);
+                    AlertDialog mDialog = mBuilder.create();
+                    mDialog.show();
+                });
             }
         }
     }
@@ -375,12 +283,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
                         token.continuePermissionRequest();
                     }
                 }).
-                withErrorListener(new PermissionRequestErrorListener() {
-                    @Override
-                    public void onError(DexterError error) {
-                        Toast.makeText(getApplicationContext(), "Some Error! ", Toast.LENGTH_SHORT).show();
-                    }
-                })
+                withErrorListener(error -> Toast.makeText(getApplicationContext(), "Some Error! ", Toast.LENGTH_SHORT).show())
                 .onSameThread()
                 .check();
     }
@@ -397,7 +300,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
     private void attemptCreatingTask() {
         // Reset errors.
         typeName.setError(null);
-        typeDescription.setError(null);
+        taskDescription.setError(null);
 
         boolean cancel = false;
         View focusView = null;
@@ -408,10 +311,10 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
             cancel = true;
             focusView = typeName;
             typeName.setError(getString(R.string.error_field_required));
-        } else if (typeDescription.getText().toString().isEmpty()) {
+        } else if (taskDescription.getText().toString().isEmpty()) {
             cancel = true;
-            focusView = typeDescription;
-            typeDescription.setError(getString(R.string.error_field_required));
+            focusView = taskDescription;
+            taskDescription.setError(getString(R.string.error_field_required));
         } else if (taskPrice.getText().toString().isEmpty()) {
             cancel = true;
             focusView = taskPrice;
@@ -436,7 +339,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
     // если все поля не тронуты(ни одно из них не заполнено), то возвращает true
     private boolean allFieldsEmpty() {
         return typeName.getText().toString().isEmpty()
-                && typeDescription.getText().toString().isEmpty()
+                && taskDescription.getText().toString().isEmpty()
                 && taskPrice.getText().toString().isEmpty()
                 && !stringContainsItemFromList(lessonPicker.getText().toString(), Constants.Values.LESSONS)
                 && datePicker.getText().toString().equals(getString(R.string.select_date));
@@ -458,7 +361,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
     private void postTask() {
 
         final String headline = typeName.getText().toString().trim();
-        final String text = typeDescription.getText().toString().trim();
+        final String text = taskDescription.getText().toString().trim();
         final String dateEnd = datePicker.getText().toString().trim();
         final String typeLesson = lessonPicker.getText().toString().trim();
         final String price = taskPrice.getText().toString().trim();
@@ -467,31 +370,23 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
         DateFormat df = new SimpleDateFormat("d MMM yyyy");
         final String dateStart = df.format(Calendar.getInstance().getTime());
 
-        Log.d("DateStart", dateStart);
-        Log.d("DateStart", headline);
-        Log.d("DateStart", text);
-        Log.d("DateStart", typeLesson);
-        Log.d("DateStart", dateEnd);
+        Timber.d(dateStart);
+        Timber.d(headline);
+        Timber.d(text);
+        Timber.d(typeLesson);
+        Timber.d(dateEnd);
 
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 Constants.URL.ADD_TASK,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Toast.makeText(getApplicationContext(), "Successful", Toast.LENGTH_LONG).show();
+                response -> {
+                    Toast.makeText(getApplicationContext(), "Successful", Toast.LENGTH_LONG).show();
 //                        Intent intent = new Intent(getApplicationContext(), LobbyActivity.class);
 //                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 //                        startActivity(intent);
-                        finish();
-                    }
+                    finish();
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "Please on Internet", Toast.LENGTH_LONG).show();
-                    }
-                }) {
+                error -> Toast.makeText(getApplicationContext(), "Please on Internet", Toast.LENGTH_LONG).show()) {
 
             @Override
             protected Map<String, String> getParams() {
