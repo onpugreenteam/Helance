@@ -17,12 +17,14 @@
 
     <application
         android:allowBackup="true"
+        android:name=".dataBase.App"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.registration.RegistrationActivity5"/>
         <activity android:name=".activity.creatingTask.FullScreenImageActivity" />
+        <activity android:name=".activity.creatingResume.CreatingResumeActivity"/>
         <activity
             android:name=".activity.creatingTask.CreatingTaskActivity"
             android:theme="@style/ToolBarProfile" />
@@ -47,6 +49,7 @@
         <activity android:name=".activity.lobby.LobbyActivity" />
         <activity android:name=".activity.registration.RegistrationActivity3" />
         <activity android:name=".activity.registration.RegistrationActivity2" />
+        <activity android:name=".activity.SearchActivity"/>
         <activity
             android:name=".activity.registration.RegistrationActivity1"
             android:label="@string/title_activity_registration" />
@@ -81,6 +84,7 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

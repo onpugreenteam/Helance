@@ -1,12 +1,9 @@
-package com.ranpeak.ProjectX.activity.lobby.navigationFragment.mainNavFragment.adapter;
+package com.ranpeak.ProjectX.activity.lobby.navigationFragment.tasksNavFragment.adapter;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.StrictMode;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,12 +19,9 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.TaskActivity;
-import com.ranpeak.ProjectX.activity.lobby.LobbyActivity;
-import com.ranpeak.ProjectX.activity.lobby.navigationFragment.mainNavFragment.ILoadMore;
+import com.ranpeak.ProjectX.activity.lobby.navigationFragment.tasksNavFragment.ILoadMore;
 import com.ranpeak.ProjectX.dto.TaskDTO;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;

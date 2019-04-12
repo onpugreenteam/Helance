@@ -1,9 +1,9 @@
-package com.ranpeak.ProjectX.activity.lobby.navigationFragment.mainNavFragment;
+package com.ranpeak.ProjectX.activity.lobby.navigationFragment.tasksNavFragment;
 
-import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,15 +12,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.ranpeak.ProjectX.R;
+import com.ranpeak.ProjectX.activity.creatingTask.CreatingTaskActivity;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
-import com.ranpeak.ProjectX.activity.lobby.LobbyActivity;
-import com.ranpeak.ProjectX.activity.lobby.navigationFragment.mainNavFragment.adapter.TaskListAdapter;
+import com.ranpeak.ProjectX.activity.lobby.navigationFragment.tasksNavFragment.adapter.TaskListAdapter;
 import com.ranpeak.ProjectX.constant.Constants;
+import com.ranpeak.ProjectX.dataBase.App;
+import com.ranpeak.ProjectX.dataBase.local.LocalDB;
+import com.ranpeak.ProjectX.dataBase.local.dao.TaskDAO;
+
 import com.ranpeak.ProjectX.dto.TaskDTO;
 
+import org.reactivestreams.Subscription;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -29,9 +33,19 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subscribers.DefaultSubscriber;
+import timber.log.Timber;
+
 import static com.facebook.FacebookSdk.getApplicationContext;
 
-public class MainFragment extends Fragment implements Activity {
+public class TasksFragment extends Fragment implements Activity {
 
 
     private View view;
@@ -40,25 +54,41 @@ public class MainFragment extends Fragment implements Activity {
     private RecyclerView recyclerView;
     private TaskListAdapter adapter;
     SwipeRefreshLayout mSwipeRefreshLayout;
+    private LocalDB localDB;
+    private TaskDAO taskDAO;
+    private FloatingActionButton fab;
 
-    public MainFragment() {
+    public TasksFragment() {
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_main, container, false);
+        view = inflater.inflate(R.layout.fragment_tasks, container, false);
         findViewById();
         onListener();
         initImageBitmaps();
 
+        localDB = App.getInstance().getLocalDB();
+        taskDAO = localDB.taskDao();
+
+
         new GetFreeTask().execute();
+//
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         adapter = new TaskListAdapter(data, imageUrls, recyclerView, getActivity());
         recyclerView.setAdapter(adapter);
 
+        taskDAO.getAllTasks()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<List<TaskDTO>>() {
+                    @Override
+                    public void accept(List<TaskDTO> taskDTOS) throws Exception {
+                        Log.d("Data size in LocalDB", String.valueOf(taskDTOS.size()));
+                    }
+                });
 
 //        adapter.setLoadMore(new ILoadMore() {
 //            @Override
@@ -94,7 +124,6 @@ public class MainFragment extends Fragment implements Activity {
         imageUrls.add("http://v.img.com.ua/b/1100x999999/1/fc/409a3eebc81a4d8dc4a2437cbe07afc1.jpg");
         imageUrls.add("http://ztb.kz/media/imperavi/59cb70c479d20.jpg");
         imageUrls.add("https://bryansktoday.ru/uploads/common/dcbf021231e742e6_XL.jpg");
-        imageUrls.add("http://cn15.nevsedoma.com.ua/photo/12/1217/300_files/devushka-s-potryasayushhim-cvetom-kozhi-stala-samoj-yark_004.jpg");
         imageUrls.add("https://ki.ill.in.ua/m/670x450/24227758.jpg");
         imageUrls.add("https://cs9.pikabu.ru/post_img/2017/10/06/7/1507289738144386744.jpg");
         imageUrls.add("https://placepic.ru/uploads/posts/2014-03/1396234652_podborka-realnyh-pacanov-2.jpg");
@@ -110,6 +139,7 @@ public class MainFragment extends Fragment implements Activity {
     public void findViewById() {
         recyclerView = view.findViewById(R.id.recycleView_main);
         mSwipeRefreshLayout = view.findViewById(R.id.swipeRefresh);
+        fab = view.findViewById(R.id.floatingActionButton);
     }
 
 
@@ -122,12 +152,20 @@ public class MainFragment extends Fragment implements Activity {
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), CreatingTaskActivity.class));
+            }
+        });
+
     }
 
 
-    public static MainFragment getInstance(List<TaskDTO> data) {
+    public static TasksFragment getInstance(List<TaskDTO> data) {
         Bundle args = new Bundle();
-        MainFragment fragment = new MainFragment();
+        TasksFragment fragment = new TasksFragment();
         fragment.setArguments(args);
         fragment.setData(data);
 
@@ -135,8 +173,8 @@ public class MainFragment extends Fragment implements Activity {
     }
 
 
-    public static MainFragment newInstance() {
-        return new MainFragment();
+    public static TasksFragment newInstance() {
+        return new TasksFragment();
     }
 
 
@@ -165,9 +203,70 @@ public class MainFragment extends Fragment implements Activity {
         protected void onPostExecute(List<TaskDTO> taskDTOS) {
             data = taskDTOS;
             Log.d("Data Size", String.valueOf(data.size()));
+            addTasksToLocalDB(data);
             adapter = new TaskListAdapter(data, imageUrls, recyclerView, getActivity());
             recyclerView.setAdapter(adapter);
         }
     }
 
+
+    public void addTasksToLocalDB(List<TaskDTO> tasksDTOS) {
+        Observable.fromCallable(() -> localDB.taskDao().insertAll(tasksDTOS))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultSubscriber<List<Long>>(){
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        super.onSubscribe(d);
+                    }
+
+                    @Override
+                    public void onNext(@NonNull List<Long> longs) {
+                        super.onNext(longs);
+                        Timber.d("insert countries transaction complete");
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        super.onError(e);
+                        Timber.d("error storing countries in db"+e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Timber.d("insert countries transaction complete");
+                    }
+                });
+    }
+
+    public class DefaultSubscriber<T> implements Observer<T> {
+
+        Disposable disposable;
+
+        @Override
+        public void onSubscribe(@NonNull Disposable d) {
+            disposable = d;
+        }
+
+        @Override
+        public void onNext(@NonNull T t) {
+
+        }
+
+        @Override
+        public void onError(@NonNull Throwable e) {
+            Timber.e(e);
+        }
+
+        @Override
+        public void onComplete() {
+
+        }
+
+        public void unsubscribe(){
+            if(disposable!=null && !disposable.isDisposed()){
+                disposable.dispose();
+            }
+        }
+    }
 }

@@ -1,13 +1,15 @@
-package com.ranpeak.ProjectX.activity.lobby.navigationFragment.homeNavFragment;
+package com.ranpeak.ProjectX.activity.lobby.navigationFragment.resumesNavFragment;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.ranpeak.ProjectX.R;
+import com.ranpeak.ProjectX.activity.creatingResume.CreatingResumeActivity;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.constant.Constants;
 import com.ranpeak.ProjectX.dto.TaskDTO;
@@ -20,14 +22,15 @@ import java.util.List;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
-public class HomeFragment extends Fragment implements Activity {
+public class ResumesFragment extends Fragment implements Activity {
 
 
     private View view;
+    private FloatingActionButton fab;
 
 
 
-    public HomeFragment() {
+    public ResumesFragment() {
         // Required empty public constructor
     }
 
@@ -35,7 +38,7 @@ public class HomeFragment extends Fragment implements Activity {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_home, container, false);
+        view = inflater.inflate(R.layout.fragment_resumes, container, false);
         findViewById();
         onListener();
 
@@ -45,18 +48,22 @@ public class HomeFragment extends Fragment implements Activity {
 
     @Override
     public void findViewById() {
-
+        fab = view.findViewById(R.id.floatingActionButton2);
     }
 
     @Override
     public void onListener() {
-
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), CreatingResumeActivity.class));
+            }
+        });
     }
 
 
-
-    public static HomeFragment newInstance() {
-        return new HomeFragment();
+    public static ResumesFragment newInstance() {
+        return new ResumesFragment();
     }
 
     public class GetTaskWhenUserCostumer extends AsyncTask<Void, Void, List<TaskDTO>> {

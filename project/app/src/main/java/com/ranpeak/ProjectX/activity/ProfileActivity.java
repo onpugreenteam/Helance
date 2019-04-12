@@ -83,6 +83,7 @@ public class ProfileActivity extends AppCompatActivity implements Activity {
         }
 
         findViewById();
+        onListener();
         requestMultiplePermissions();
         getSaveInfoAboutUser();
 

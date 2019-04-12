@@ -3,77 +3,71 @@ package com.ranpeak.ProjectX.activity.lobby;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.drawable.AnimationDrawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.ProfileActivity;
-import com.ranpeak.ProjectX.activity.creatingTask.CreatingTaskActivity;
+import com.ranpeak.ProjectX.activity.SearchActivity;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
-import com.ranpeak.ProjectX.activity.lobby.navigationFragment.homeNavFragment.HomeFragment;
-import com.ranpeak.ProjectX.activity.lobby.navigationFragment.mainNavFragment.MainFragment;
-import com.ranpeak.ProjectX.activity.lobby.navigationFragment.mainNavFragment.adapter.TaskListAdapter;
+import com.ranpeak.ProjectX.activity.lobby.navigationFragment.resumesNavFragment.ResumesFragment;
+import com.ranpeak.ProjectX.activity.lobby.navigationFragment.tasksNavFragment.TasksFragment;
+import com.ranpeak.ProjectX.activity.lobby.navigationFragment.tasksNavFragment.adapter.TaskListAdapter;
 import com.ranpeak.ProjectX.activity.lobby.navigationFragment.notificationsNavFragment.NotificationsFragment;
-import com.ranpeak.ProjectX.activity.lobby.navigationFragment.searchNavFragment.SearchFragment;
-import com.ranpeak.ProjectX.activity.settings.SettingsActivity;
-import com.ranpeak.ProjectX.constant.Constants;
-import com.ranpeak.ProjectX.dto.TaskDTO;
+import com.ranpeak.ProjectX.activity.lobby.navigationFragment.forYouNavFragment.ForYouFragment;
+import com.ranpeak.ProjectX.dataBase.App;
+import com.ranpeak.ProjectX.dataBase.local.LocalDB;
+import com.ranpeak.ProjectX.dataBase.local.dao.TaskDAO;
 
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class LobbyActivity extends AppCompatActivity implements Activity {
 
    private final static int LOBBY_ACTIVITY = R.layout.activity_lobby;
 
    private ImageView imageViewButtonProfile;
-   private ImageView imageViewButtonSettings;
+   private ImageView imageViewButtonSearch;
    private AnimationDrawable animationDrawable;
    private TextView textView;
    private BottomNavigationView bottomNavigationView;
-   final Fragment fragment1 = new HomeFragment();
-   final Fragment fragment2 = new MainFragment();
-   final Fragment fragment3 = new SearchFragment();
-   final Fragment fragment4 = new NotificationsFragment();
+   final Fragment resumes = new ResumesFragment();
+   final Fragment tasks = new TasksFragment();
+   final Fragment forYou = new ForYouFragment();
+   final Fragment notifications = new NotificationsFragment();
    final FragmentManager fm = getSupportFragmentManager();
    private TaskListAdapter adapter;
 
-   private List<TaskDTO> data;
 
-   Fragment active = fragment3;
+
+   Fragment active = forYou;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(LOBBY_ACTIVITY);
 
+        LocalDB localDB = App.getInstance().getLocalDB();
+
+        TaskDAO taskDAO = localDB.taskDao();
+
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         findViewById();
         onListener();
 
 //        Intent i = getIntent();
-//        data = (List<TaskDTO>) i.getSerializableExtra("data");
+//        data = (List<TaskEntity>) i.getSerializableExtra("data");
 
-        fm.beginTransaction().add(R.id.navigation_container,fragment4,"4").hide(fragment4).commit();
-        fm.beginTransaction().add(R.id.navigation_container,fragment2,"2").hide(fragment2).commit();
-        fm.beginTransaction().add(R.id.navigation_container,fragment1,"1").hide(fragment1).commit();
-        fm.beginTransaction().add(R.id.navigation_container,fragment3,"3").commit();
+        fm.beginTransaction().add(R.id.navigation_container,notifications,"4").hide(notifications).commit();
+        fm.beginTransaction().add(R.id.navigation_container,tasks,"2").hide(tasks).commit();
+        fm.beginTransaction().add(R.id.navigation_container,resumes,"1").hide(resumes).commit();
+        fm.beginTransaction().add(R.id.navigation_container,forYou,"3").commit();
 
 
         bottomNavigationView.setSelectedItemId(R.id.nav_recom);
@@ -87,7 +81,7 @@ public class LobbyActivity extends AppCompatActivity implements Activity {
         imageViewButtonProfile = findViewById(R.id.imageViewProfileButton);
         textView = findViewById(R.id.textView2);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        imageViewButtonSettings = findViewById(R.id.imageViewSettingsButton);
+        imageViewButtonSearch = findViewById(R.id.imageViewSettingsButton);
     }
 
 
@@ -100,10 +94,10 @@ public class LobbyActivity extends AppCompatActivity implements Activity {
             }
         });
 
-        imageViewButtonSettings.setOnClickListener(new View.OnClickListener() {
+        imageViewButtonSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                startActivity(new Intent(getApplicationContext(), SearchActivity.class));
             }
         });
 
@@ -113,20 +107,20 @@ public class LobbyActivity extends AppCompatActivity implements Activity {
                 textView.setText(menuItem.getTitle());
                 switch (menuItem.getItemId()){
                     case R.id.nav_resumes:
-                        fm.beginTransaction().hide(active).show(fragment1).commit();
-                        active = fragment1;
+                        fm.beginTransaction().hide(active).show(resumes).commit();
+                        active = resumes;
                         return true;
                     case R.id.nav_tasks:
-                        fm.beginTransaction().hide(active).show(fragment2).commit();
-                        active = fragment2;
+                        fm.beginTransaction().hide(active).show(tasks).commit();
+                        active = tasks;
                         return true;
                     case R.id.nav_recom:
-                        fm.beginTransaction().hide(active).show(fragment3).commit();
-                        active = fragment3;
+                        fm.beginTransaction().hide(active).show(forYou).commit();
+                        active = forYou;
                         return true;
                     case R.id.nav_notification:
-                        fm.beginTransaction().hide(active).show(fragment4).commit();
-                        active = fragment4;
+                        fm.beginTransaction().hide(active).show(notifications).commit();
+                        active = notifications;
                         return true;
                     default:
                         return false;
@@ -142,28 +136,54 @@ public class LobbyActivity extends AppCompatActivity implements Activity {
 //        animationDrawable.start();
 //    }
 
+//
+//    public class GetFreeTask extends AsyncTask<Void, Void, List<TaskDTO>> {
+//
+//        @Override
+//        protected List<TaskDTO> doInBackground(Void... params) {
+//            RestTemplate restTemplate = new RestTemplate();
+//            ResponseEntity<List<TaskDTO>> response = restTemplate.exchange(
+//                    Constants.URL.GET_ALL_TASK,
+//                    HttpMethod.GET,
+//                    null,
+//                    new ParameterizedTypeReference<List<TaskDTO>>(){});
+//            List<TaskDTO> taskDTOS = response.getBody();
+//
+//            return taskDTOS;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(List<TaskDTO> taskDTOS) {
+//            data = taskDTOS;
+//            Log.d("Data Size", String.valueOf(data.size()));
+//
+//        }
+//    }
 
-    public class GetFreeTask extends AsyncTask<Void, Void, List<TaskDTO>> {
+    float x1,x2,y1,y2;
 
-        @Override
-        protected List<TaskDTO> doInBackground(Void... params) {
-            RestTemplate restTemplate = new RestTemplate();
-            ResponseEntity<List<TaskDTO>> response = restTemplate.exchange(
-                    Constants.URL.GET_ALL_TASK,
-                    HttpMethod.GET,
-                    null,
-                    new ParameterizedTypeReference<List<TaskDTO>>(){});
-            List<TaskDTO> taskDTOS = response.getBody();
-
-            return taskDTOS;
+    public boolean onTouchEvent(MotionEvent touchEvent){
+        switch(touchEvent.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                x1 = touchEvent.getX();
+                y1 = touchEvent.getY();
+                break;
+            case MotionEvent.ACTION_UP:
+                x2 = touchEvent.getX();
+                y2 = touchEvent.getY();
+                if(x1 < x2){
+                Intent i = new Intent(LobbyActivity.this, ProfileActivity.class);
+                startActivity(i);
+            }
+// else if(x1 > x2){
+//                Intent i = new Intent(MainActivity.this, SwipeRight.class);
+//                startActivity(i);
+//            }
+//            break;
         }
-
-        @Override
-        protected void onPostExecute(List<TaskDTO> taskDTOS) {
-            data = taskDTOS;
-            Log.d("Data Size", String.valueOf(data.size()));
-
-        }
+        return false;
     }
+
+
 
 }
