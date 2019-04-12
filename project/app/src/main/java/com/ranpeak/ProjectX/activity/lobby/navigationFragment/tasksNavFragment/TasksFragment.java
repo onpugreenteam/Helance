@@ -43,7 +43,7 @@ import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subscribers.DefaultSubscriber;
 import timber.log.Timber;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
+
 
 public class TasksFragment extends Fragment implements Activity {
 
@@ -77,7 +77,7 @@ public class TasksFragment extends Fragment implements Activity {
         new GetFreeTask().execute();
 //
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new TaskListAdapter(data, imageUrls, recyclerView, getActivity());
         recyclerView.setAdapter(adapter);
 
@@ -156,7 +156,7 @@ public class TasksFragment extends Fragment implements Activity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), CreatingTaskActivity.class));
+                startActivity(new Intent(getContext(), CreatingTaskActivity.class));
             }
         });
 

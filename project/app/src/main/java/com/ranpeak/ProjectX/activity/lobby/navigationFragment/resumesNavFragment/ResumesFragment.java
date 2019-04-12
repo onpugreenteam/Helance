@@ -20,7 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
+
 
 public class ResumesFragment extends Fragment implements Activity {
 
@@ -56,7 +56,7 @@ public class ResumesFragment extends Fragment implements Activity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), CreatingResumeActivity.class));
+                startActivity(new Intent(getContext(), CreatingResumeActivity.class));
             }
         });
     }
@@ -72,7 +72,7 @@ public class ResumesFragment extends Fragment implements Activity {
         protected List<TaskDTO> doInBackground(Void... params) {
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<List<TaskDTO>> response = restTemplate.exchange(
-                    Constants.URL.GET_ALL_TASK_WHEN_USER_COSTUMER + String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()),
+                    Constants.URL.GET_ALL_TASK_WHEN_USER_COSTUMER + String.valueOf(SharedPrefManager.getInstance(getContext()).getUserLogin()),
                     HttpMethod.GET,
                     null,
                     new ParameterizedTypeReference<List<TaskDTO>>() {

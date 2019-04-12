@@ -3,12 +3,14 @@
     <color name="colorPrimary">#2196f3</color>
     <color name="colorPrimaryDark">#1976d2</color>
     <color name="colorPrimaryLight">#2196f3</color>
-    <color name="textOnPrimary">#11204c</color>
+    <color name="textOnPrimary">#808080</color>
 
     <color name="colorSecondary">#e0beda</color>
     <color name="colorSecondaryDark">#ae8ea8</color>
     <color name="colorSecondaryLight">#fff1ff</color>
     <color name="textOnSecondary">#546e7a</color>
+
+    <color name="color_cardView_background">#808080</color>
 
     <color name="colorAccent">#D33434</color>
     <color name="color_Gray">#95FFFFFF</color>
