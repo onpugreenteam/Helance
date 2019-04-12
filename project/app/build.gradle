@@ -2,10 +2,10 @@ apply plugin: 'com.android.application'
 
 
 android {
+    compileSdkVersion 28
     defaultConfig {
         vectorDrawables.useSupportLibrary = true
     }
-    compileSdkVersion 28
     defaultConfig {
         applicationId "com.ranpeak.ProjectX"
         minSdkVersion 19
@@ -52,6 +52,8 @@ ext {
 }
 
 dependencies {
+    // for drawableLeft function in edittext
+    implementation 'androidx.appcompat:appcompat:1.1.0-alpha04'
     // photo viewer
     implementation 'com.github.chrisbanes:PhotoView:2.1.3'
 

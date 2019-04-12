@@ -1,6 +1,5 @@
 package com.ranpeak.ProjectX.activity.logIn;
 
-import android.annotation.TargetApi;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.app.ProgressDialog;
 import android.content.CursorLoader;
@@ -9,7 +8,6 @@ import android.content.Loader;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,27 +17,20 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.LobbyActivity;
-import com.ranpeak.ProjectX.activity.registration.RegistrationActivity1;
 import com.ranpeak.ProjectX.activity.registration.RegistrationActivity5;
 import com.ranpeak.ProjectX.constant.Constants;
 import com.ranpeak.ProjectX.request.RequestHandler;
@@ -68,10 +59,15 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
     private TextView textViewError;
-    private Button mEmailSignInButton;
+    private Button loginButton;
+    private Button facebook;
+    private Button google;
+    private TextView registrationButton;
+    private TextView forgotPassword;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         setContentView(LOGIN_ACTIVITY);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -96,8 +92,12 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
     public void findViewById() {
         mEmailView = findViewById(R.id.login_activity_email);
         mPasswordView = findViewById(R.id.login_activity_password);
-        mEmailSignInButton = findViewById(R.id.login_activity_login_button);
+        loginButton = findViewById(R.id.login_activity_login_button);
+        registrationButton = findViewById(R.id.login_activity_registration_button);
         textViewError = findViewById(R.id.login_activity_text_view_error);
+        forgotPassword = findViewById(R.id.login_activity_forgot_password);
+        facebook = findViewById(R.id.login_activity_registration_facebook);
+        google = findViewById(R.id.login_activity_registration_google);
     }
 
     @Override
@@ -110,8 +110,19 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
             return false;
         });
 
-        mEmailSignInButton.setOnClickListener(view -> attemptLogin());
+        loginButton.setOnClickListener(view -> attemptLogin());
+        registrationButton.setOnClickListener( view -> {
 
+        });
+        forgotPassword.setOnClickListener( view -> {
+
+        });
+        google.setOnClickListener( view -> {
+
+        });
+        facebook.setOnClickListener( view -> {
+
+        });
     }
 
     // Попытка залогинится

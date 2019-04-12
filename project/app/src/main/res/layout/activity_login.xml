@@ -46,14 +46,10 @@
             android:maxLines="1"
             android:paddingStart="15dp"
             android:singleLine="true"
+
             android:textColorHint="@color/colorSecondaryLight"
             android:textCursorDrawable="@drawable/custom_edit_text_cursor_color"
-            android:theme="@style/CustomColorAccent"
-
-            android:shadowRadius="2"
-            android:shadowColor="#0000ff"
-            android:shadowDx="2"
-            android:shadowDy="4" />
+            android:theme="@style/CustomColorAccent" />
 
         <EditText
             android:id="@+id/login_activity_password"
@@ -68,23 +64,21 @@
             android:inputType="textPassword"
             android:maxLines="1"
             android:paddingStart="15dp"
+            android:drawableStart="@drawable/drawable_left_password"
+            android:drawablePadding="10dp"
             android:singleLine="true"
             android:textColorHint="@color/colorSecondaryLight"
             android:textCursorDrawable="@drawable/custom_edit_text_cursor_color"
-            android:theme="@style/CustomColorAccent"
-
-            android:shadowRadius="2"
-            android:shadowColor="#0000ff"
-            android:shadowDx="2"
-            android:shadowDy="4" />
+            android:theme="@style/CustomColorAccent" />
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/login_activity_forgot_password"
+            android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_marginTop="5dp"
             android:clickable="true"
             android:focusable="true"
-            android:gravity="right"
+            android:layout_gravity="end"
             android:text="@string/forgot_password"
             android:textColor="@color/colorSecondaryLight"
             android:textSize="14sp" />
