@@ -44,8 +44,6 @@ public class LobbyActivity extends AppCompatActivity implements Activity {
    final FragmentManager fm = getSupportFragmentManager();
    private TaskListAdapter adapter;
 
-
-
    Fragment active = forYou;
 
     @Override
@@ -135,29 +133,4 @@ public class LobbyActivity extends AppCompatActivity implements Activity {
 //        animationDrawable.setExitFadeDuration(4500);
 //        animationDrawable.start();
 //    }
-
-//
-//    public class GetFreeTask extends AsyncTask<Void, Void, List<TaskDTO>> {
-//
-//        @Override
-//        protected List<TaskDTO> doInBackground(Void... params) {
-//            RestTemplate restTemplate = new RestTemplate();
-//            ResponseEntity<List<TaskDTO>> response = restTemplate.exchange(
-//                    Constants.URL.GET_ALL_TASK,
-//                    HttpMethod.GET,
-//                    null,
-//                    new ParameterizedTypeReference<List<TaskDTO>>(){});
-//            List<TaskDTO> taskDTOS = response.getBody();
-//
-//            return taskDTOS;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(List<TaskDTO> taskDTOS) {
-//            data = taskDTOS;
-//            Log.d("Data Size", String.valueOf(data.size()));
-//
-//        }
-//    }
-
 }

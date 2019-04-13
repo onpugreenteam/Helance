@@ -75,7 +75,6 @@ public class TasksFragment extends Fragment implements Activity {
 
 
         new GetFreeTask().execute();
-//
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new TaskListAdapter(data, imageUrls, recyclerView, getActivity());
@@ -160,6 +159,17 @@ public class TasksFragment extends Fragment implements Activity {
             }
         });
 
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 0 && fab.getVisibility() == View.VISIBLE) {
+                    fab.hide();
+                } else if (dy < 0 && fab.getVisibility() != View.VISIBLE) {
+                    fab.show();
+                }
+            }
+        });
     }
 
 
@@ -239,7 +249,7 @@ public class TasksFragment extends Fragment implements Activity {
                 });
     }
 
-    public class DefaultSubscriber<T> implements Observer<T> {
+    public static class DefaultSubscriber<T> implements Observer<T> {
 
         Disposable disposable;
 
