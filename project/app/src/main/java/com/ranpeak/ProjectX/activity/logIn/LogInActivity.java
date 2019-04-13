@@ -15,7 +15,6 @@ import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -31,7 +30,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.LobbyActivity;
-import com.ranpeak.ProjectX.activity.registration.RegistrationActivity5;
+import com.ranpeak.ProjectX.activity.registration.RegistrationActivity1;
+import com.ranpeak.ProjectX.activity.registration.RegistrationActivity2;
 import com.ranpeak.ProjectX.constant.Constants;
 import com.ranpeak.ProjectX.request.RequestHandler;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
@@ -81,7 +81,6 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
         populateAutoComplete();
 //        animationBackground();
 
-
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please wait...");
 
@@ -111,7 +110,8 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
 
         loginButton.setOnClickListener(view -> attemptLogin());
         registrationButton.setOnClickListener( view -> {
-
+            startActivity(new Intent(LogInActivity.this, RegistrationActivity1.class));
+            finish();
         });
         forgotPassword.setOnClickListener( view -> {
 
@@ -294,7 +294,7 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
                         if ((jsonObject.getString("login").equals(login)
                                 || jsonObject.getString("email").equals(login))
                                 && !jsonObject.getBoolean("active")) {
-                            Intent intent = new Intent(getApplicationContext(), RegistrationActivity5.class);
+                            Intent intent = new Intent(getApplicationContext(), RegistrationActivity2.class);
                             intent.putExtra("registration_username", jsonObject.getString("login"));
                             intent.putExtra("password", jsonObject.getString("password"));
                             intent.putExtra("name", jsonObject.getString("name"));

@@ -29,7 +29,21 @@
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme"
         android:fullBackupContent="@xml/backup_descriptor">
-        <activity android:name=".activity.registration.RegistrationActivity5"/>
+        <activity
+            android:name=".activity.registration.RegistrationActivity1"
+            android:label="@string/title_activity_registration"
+            android:theme="@style/ToolBarProfile" >
+        </activity>
+        <activity android:name=".activity.registration.RegistrationActivity2"
+            android:theme="@style/ToolBarProfile"/>
+        <activity android:name=".activity.registration.RegistrationActivity3"
+            android:theme="@style/ToolBarProfile" >
+
+        </activity>
+        <activity android:name=".activity.SearchActivity"/>
+        <activity android:name=".activity.registration.RegistrationActivity4"
+            android:theme="@style/ToolBarProfile" >
+        </activity>
         <activity android:name=".activity.creatingTask.FullScreenImageActivity" />
         <activity android:name=".activity.creatingResume.CreatingResumeActivity"/>
         <activity
@@ -41,15 +55,14 @@
         <activity
             android:name=".activity.logIn.LogInActivity"
             android:windowSoftInputMode="stateHidden" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".splashscreen.SplashScreen"
             android:noHistory="true">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".activity.TaskActivity" />
         <activity
@@ -58,13 +71,6 @@
             android:theme="@style/ToolBarProfile" />
         <activity android:name=".activity.ResumeActivity"/>
         <activity android:name=".activity.lobby.LobbyActivity" />
-        <activity android:name=".activity.registration.RegistrationActivity3" />
-        <activity android:name=".activity.registration.RegistrationActivity2" />
-        <activity android:name=".activity.SearchActivity"/>
-        <activity
-            android:name=".activity.registration.RegistrationActivity1"
-            android:label="@string/title_activity_registration" />
-        <activity android:name=".activity.registration.RegistrationActivity4" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

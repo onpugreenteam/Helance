@@ -5,13 +5,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
-import com.ranpeak.ProjectX.activity.registration.RegistrationActivity2;
+import com.ranpeak.ProjectX.activity.registration.RegistrationActivity1;
 import com.ranpeak.ProjectX.constant.Constants;
 
 public class CountryListFragment extends DialogFragment implements Activity {
@@ -59,17 +58,14 @@ public class CountryListFragment extends DialogFragment implements Activity {
 
     @Override
     public void onListener() {
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String selectedFromList =(listView.getItemAtPosition(position).toString());
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            String selectedFromList =(listView.getItemAtPosition(position).toString());
 
-                // not best choice how to set country but it's working good
-                if(!selectedFromList.equals("")){
-                    ((RegistrationActivity2) getActivity()).setCountry(selectedFromList);
-                }
-                getDialog().dismiss();
+            // not best choice how to set country but it's working good
+            if(!selectedFromList.equals("")){
+                ((RegistrationActivity1) getActivity()).setCountry(selectedFromList);
             }
+            getDialog().dismiss();
         });
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

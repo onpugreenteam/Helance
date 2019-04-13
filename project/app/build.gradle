@@ -49,6 +49,11 @@ ext {
 }
 
 dependencies {
+    // phone number mask for edittext
+    implementation 'com.github.reinaldoarrosi:maskededittext:1.1.0'
+    // country picker
+    implementation 'com.hbb20:ccp:2.2.7'
+
     // photo viewer
     implementation 'com.github.chrisbanes:PhotoView:2.1.3'
 

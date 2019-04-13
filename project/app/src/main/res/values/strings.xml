@@ -28,7 +28,10 @@
     <string name="action_sign_in">Sign in</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_login">This login is too short</string>
+    <string name="error_invalid_name">This name is invalid</string>
+    <string name="error_invalid_login_short">This login is too short</string>
+    <string name="error_invalid_login_long">This login is too long</string>
+    <string name="error_invalid_password_short">This password is too short</string>
     <string name="error_exist_login">This login is used</string>
     <string name="error_exist_email">This email is used</string>
 
@@ -58,12 +61,22 @@
     <string name="registration_surname">Your surname</string>
     <string name="registration_email">Your email</string>
     <string name="registration_textView_name">Type your name:</string>
+    <string name="registration_textView_country">Type your country:</string>
     <string name="registration_textView_surname">Type your surname:</string>
     <string name="registration_textView_email">Type your email address:</string>
     <string name="registration_textView_password">Create password:</string>
     <string name="registration_textView_username">Create yor username:</string>
+    <string name="registration_textView_login">Create yor login:</string>
     <string name="registration_textView_profile_info">This info will be shown on your profile:</string>
     <string name="registration_textView_activation_code">Enter your activation code:</string>
+    <string name="registration_textView_phone_number">Type your phone number:</string>
+    <string name="registration_textView_social_networks">Type your social networks:</string>
+    <string name="registration_textView_telegram">Telegram:</string>
+    <string name="registration_textView_instagram">Instagram:</string>
+    <string name="registration_textView_facebook">Facebook:</string>
+    <string name="registration_link_telegram">example</string>
+    <string name="registration_link_instagram">example</string>
+    <string name="registration_link_facebook">example</string>
     <string name="error_password_doesnt_match">This password doesn\'t match</string>
     <string name="error_country_incorrect">Country is not correct</string>
     <string name="task_name">Type name of your task</string>
@@ -172,7 +185,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="connecting">Connecting...</string>
+    <string name="connecting">Connecting…</string>
     <string name="confirm_exit">Confirm exit</string>
     <string name="cancel_creating">You want to cancel creating new task?</string>
     <string name="yes">Yes</string>
@@ -183,6 +196,7 @@
     <string name="login_with">Login with</string>
     <string name="or">- OR -</string>
     <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="registration_phone_number">(999) 999–9999</string>
 
 
 </resources>
