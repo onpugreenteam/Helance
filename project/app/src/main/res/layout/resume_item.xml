@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
-    android:id="@+id/cardView"
+    android:id="@+id/cardView11"
     android:layout_width="match_parent"
     android:layout_height="120dp"
     android:layout_marginStart="6dp"
@@ -33,61 +33,35 @@
             card:layout_constraintVertical_bias="0.0">
 
             <TextView
-                android:id="@+id/headline"
+                android:id="@+id/text"
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
-                android:layout_marginStart="76dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
-                android:text="headline"
+                android:layout_marginEnd="8dp"
+                android:text="text"
                 android:textColor="@color/textOnPrimary"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 card:layout_constraintBottom_toBottomOf="parent"
                 card:layout_constraintEnd_toEndOf="parent"
-                card:layout_constraintHorizontal_bias="1.0"
-                card:layout_constraintStart_toStartOf="@+id/task_author"
-                card:layout_constraintTop_toTopOf="parent"
-                card:layout_constraintVertical_bias="0.462" />
+                card:layout_constraintStart_toStartOf="parent"
+                card:layout_constraintTop_toBottomOf="@+id/subject1" />
 
             <TextView
-                android:id="@+id/price"
-                android:layout_width="64dp"
-                android:layout_height="33dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
-                android:text="price"
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="24sp"
-                card:layout_constraintBottom_toBottomOf="parent"
-                card:layout_constraintEnd_toEndOf="parent"
-                card:layout_constraintTop_toBottomOf="@+id/headline"
-                card:layout_constraintVertical_bias="0.666" />
-
-            <TextView
-                android:id="@+id/subject"
-                android:layout_width="81dp"
+                android:id="@+id/subject1"
+                android:layout_width="120dp"
                 android:layout_height="20dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginTop="4dp"
                 android:text="subject"
-                android:textStyle="italic"
                 android:textColor="@color/textOnPrimary"
                 android:textSize="15sp"
-                card:layout_constraintBottom_toBottomOf="parent"
-                card:layout_constraintEnd_toStartOf="@+id/price"
-                card:layout_constraintHorizontal_bias="0.041"
-                card:layout_constraintStart_toStartOf="parent"
-                card:layout_constraintTop_toBottomOf="@+id/headline"
-                card:layout_constraintVertical_bias="0.111" />
+                android:textStyle="italic"
+                card:layout_constraintStart_toStartOf="@+id/resume_author"
+                card:layout_constraintTop_toBottomOf="@+id/resume_author" />
 
             <TextView
-                android:id="@+id/date"
+                android:id="@+id/dateStart"
                 android:layout_width="82dp"
                 android:layout_height="20dp"
                 android:layout_marginStart="8dp"
@@ -97,30 +71,29 @@
                 android:text="date"
                 android:textColor="@color/textOnPrimary"
                 android:textSize="14sp"
-                card:layout_constraintBottom_toTopOf="@+id/headline"
+                card:layout_constraintBottom_toTopOf="@+id/text"
                 card:layout_constraintEnd_toEndOf="parent"
-                card:layout_constraintHorizontal_bias="0.92"
-                card:layout_constraintStart_toEndOf="@+id/task_author"
-                card:layout_constraintTop_toTopOf="parent" />
+                card:layout_constraintHorizontal_bias="0.923"
+                card:layout_constraintStart_toEndOf="@+id/resume_author"
+                card:layout_constraintTop_toTopOf="parent"
+                card:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:id="@+id/task_author"
+                android:id="@+id/resume_author"
                 android:layout_width="120dp"
-                android:layout_height="29dp"
-                android:layout_marginStart="76dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="72dp"
                 android:layout_marginTop="4dp"
-                android:layout_marginBottom="2dp"
                 android:text="author"
                 android:textColor="@color/colorPrimaryLight"
                 android:textSize="16sp"
-                card:layout_constraintBottom_toTopOf="@+id/headline"
                 card:layout_constraintStart_toStartOf="parent"
                 card:layout_constraintTop_toTopOf="parent" />
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profile_user"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:id="@+id/profile1_user"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
@@ -131,7 +104,7 @@
                 card:layout_constraintHorizontal_bias="0.0"
                 card:layout_constraintStart_toStartOf="parent"
                 card:layout_constraintTop_toTopOf="parent"
-                card:layout_constraintVertical_bias="0.2" />
+                card:layout_constraintVertical_bias="0.0" />
         </android.support.constraint.ConstraintLayout>
 
 

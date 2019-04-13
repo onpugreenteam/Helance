@@ -3,7 +3,11 @@ package com.ranpeak.ProjectX.dataBase;
 import android.app.Application;
 import android.arch.persistence.room.Room;
 import android.content.Context;
+import android.support.annotation.RequiresApi;
 import android.support.multidex.MultiDex;
+import android.support.v4.view.ViewCompat;
+import android.view.KeyEvent;
+import android.view.View;
 
 import com.ranpeak.ProjectX.dataBase.local.LocalDB;
 
@@ -35,4 +39,5 @@ public class App extends Application {
     public LocalDB getLocalDB() {
         return localDB;
     }
+
 }
