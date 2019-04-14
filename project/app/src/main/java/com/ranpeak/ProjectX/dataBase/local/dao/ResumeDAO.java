@@ -12,6 +12,7 @@ import com.ranpeak.ProjectX.dto.TaskDTO;
 import java.util.List;
 
 import io.reactivex.Flowable;
+import retrofit2.http.GET;
 
 @Dao
 public interface ResumeDAO {
@@ -27,7 +28,6 @@ public interface ResumeDAO {
 
     @Query("DELETE FROM ResumeEntity")
     void deleteAllResumes();
-
 
     @Query("SELECT * FROM ResumeEntity")
     Flowable<List<ResumeDTO>> getAllResumes();
