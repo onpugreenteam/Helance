@@ -330,8 +330,8 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
             }
         } else {
             postTask();
-//            Toast.makeText(getApplicationContext(), "done", Toast.LENGTH_SHORT).show();
-//            finish();
+            Toast.makeText(getApplicationContext(), "done", Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
 
