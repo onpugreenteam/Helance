@@ -61,18 +61,13 @@ public class ForYouFragment extends Fragment implements Activity {
 
         taskDAO.getAllTasksForYou(subject)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<List<TaskDTO>>() {
-                    @Override
-                    public void accept(List<TaskDTO> taskDTOS) throws Exception {
-                        data = taskDTOS;
-                        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                        adapter = new ForYouListAdapter(data, imageUrls, recyclerView, getActivity());
-                        recyclerView.setAdapter(adapter);
-                        Log.d("Data size ForYou", String.valueOf(taskDTOS.size()));
-                    }
+                .subscribe(taskDTOS -> {
+                    data = taskDTOS;
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                    adapter = new ForYouListAdapter(data, imageUrls, recyclerView, getActivity());
+                    recyclerView.setAdapter(adapter);
+                    Log.d("Data size ForYou", String.valueOf(taskDTOS.size()));
                 });
-
-
         return view;
     }
 
