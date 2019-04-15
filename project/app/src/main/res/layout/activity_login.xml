@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -6,12 +6,14 @@
     android:background="@color/colorPrimary"
     android:fillViewport="true"
     android:gravity="center"
-    android:orientation="vertical"
-    tools:context="com.ranpeak.ProjectX.activity.logIn.LogInActivity"
+    tools:context="com.ranpeak.ProjectX.activity.logIn.LogInActivity">
 
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin">
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin">
 
         <ImageView
             android:id="@+id/login_activity_splash_image"
@@ -28,7 +30,7 @@
             android:layout_marginBottom="10dp"
             android:gravity="start"
             android:textColor="@color/colorAccent"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <AutoCompleteTextView
             android:id="@+id/login_activity_email"
@@ -68,10 +70,10 @@
             android:id="@+id/login_activity_forgot_password"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
+            android:layout_gravity="end"
             android:layout_marginTop="5dp"
             android:clickable="true"
             android:focusable="true"
-            android:layout_gravity="end"
             android:text="@string/forgot_password"
             android:textColor="@color/colorSecondaryLight"
             android:textSize="14sp" />
@@ -142,8 +144,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/don_t_have_an_account"
                 android:layout_gravity="bottom"
+                android:text="@string/don_t_have_an_account"
                 android:textColor="@color/colorSecondaryLight"
                 android:textStyle="bold" />
 
@@ -152,11 +154,12 @@
                 style="?android:textAppearanceSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="30dp"
-                android:paddingStart="10dp"
                 android:layout_gravity="bottom"
+                android:paddingStart="10dp"
+                android:paddingTop="30dp"
                 android:text="@string/registration_button"
                 android:textColor="@color/colorSecondaryLight"
                 android:textStyle="bold" />
         </LinearLayout>
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>
