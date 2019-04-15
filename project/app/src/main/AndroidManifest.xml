@@ -52,6 +52,9 @@
 
         </activity>
         <activity android:name=".activity.settings.SettingsActivity" />
+        <activity android:name=".activity.SettingsActivity1"
+            android:theme="@style/ToolBarProfile" />
+
         <activity
             android:name=".activity.logIn.LogInActivity"
             android:windowSoftInputMode="stateHidden" >
