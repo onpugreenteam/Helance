@@ -48,17 +48,17 @@ public class EditResumeActivity extends AppCompatActivity implements Activity {
     }
 
     //Что то другое прописать
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case android.R.id.home:
-//                // todo: goto back activity from here
-//                finish();
-//                return true;
-//
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // todo: goto back activity from here
+                finish();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
 }
