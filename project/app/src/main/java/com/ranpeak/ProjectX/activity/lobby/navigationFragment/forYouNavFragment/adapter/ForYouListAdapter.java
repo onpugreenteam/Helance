@@ -100,8 +100,8 @@ public class ForYouListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             TaskDTO item = data.get(position);
             TaskViewHolder viewHolder = (TaskViewHolder) holder;
 
-            viewHolder.profile_user.setAnimation(AnimationUtils.loadAnimation(activity,R.anim.anim_for_image));
-            viewHolder.cardView.setAnimation(AnimationUtils.loadAnimation(activity,R.anim.anim_card_view));
+//            viewHolder.profile_user.setAnimation(AnimationUtils.loadAnimation(activity,R.anim.anim_for_image));
+//            viewHolder.cardView.setAnimation(AnimationUtils.loadAnimation(activity,R.anim.anim_card_view));
 
             viewHolder.author.setText(item.getEmployee());
             viewHolder.headline.setText(item.getHeadLine());
