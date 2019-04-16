@@ -118,7 +118,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
     @Override
     public void onListener() {
         lessonPicker.setOnClickListener(v -> lessonListFragment.show(fm, "Country lists"));
-        create.setOnClickListener(v -> create.setOnClickListener(view -> attemptCreatingTask()));
+        create.setOnClickListener(view -> attemptCreatingTask());
         datePicker.setOnClickListener(v -> {
             Calendar calendar = Calendar.getInstance();
             int year = calendar.get(Calendar.YEAR);

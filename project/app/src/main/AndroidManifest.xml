@@ -45,7 +45,8 @@
             android:theme="@style/ToolBarProfile" >
         </activity>
         <activity android:name=".activity.creatingTask.FullScreenImageActivity" />
-        <activity android:name=".activity.creatingResume.CreatingResumeActivity"/>
+        <activity android:name=".activity.creatingResume.CreatingResumeActivity"
+            android:theme="@style/ToolBarProfile"/>
         <activity
             android:name=".activity.creatingTask.CreatingTaskActivity"
             android:theme="@style/ToolBarProfile" >
