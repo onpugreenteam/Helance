@@ -1,4 +1,4 @@
-package com.ranpeak.ProjectX.constant;
+package com.ranpeak.ProjectX.networking;
 
 import java.util.regex.Pattern;
 

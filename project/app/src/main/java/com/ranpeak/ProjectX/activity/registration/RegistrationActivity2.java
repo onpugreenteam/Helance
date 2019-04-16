@@ -2,7 +2,6 @@ package com.ranpeak.ProjectX.activity.registration;
 
 import android.content.Intent;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -15,10 +14,8 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
-import com.ranpeak.ProjectX.activity.lobby.LobbyActivity;
-import com.ranpeak.ProjectX.constant.Constants;
+import com.ranpeak.ProjectX.networking.Constants;
 import com.ranpeak.ProjectX.request.RequestHandler;
-import com.ranpeak.ProjectX.settings.SharedPrefManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;

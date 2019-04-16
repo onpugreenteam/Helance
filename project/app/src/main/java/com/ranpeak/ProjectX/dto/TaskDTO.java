@@ -7,6 +7,8 @@ import android.arch.persistence.room.PrimaryKey;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
@@ -14,45 +16,71 @@ import java.io.Serializable;
 @Entity(tableName = "TaskEntity")
 public class TaskDTO implements Serializable {
 
-    @JsonProperty("id")
+    @SerializedName("id")
     @PrimaryKey(autoGenerate = true)
+    @Expose
     private long id;
-    @JsonProperty("headLine")
+
+    @SerializedName("headLine")
     @ColumnInfo(name = "headline")
+    @Expose
     private String headLine;
-    @JsonProperty("text")
+
+    @SerializedName("text")
     @ColumnInfo (name = "text")
+    @Expose
     private String text;
-    @JsonProperty("dateStart")
+
+    @SerializedName("dateStart")
     @ColumnInfo (name = "dateStart")
+    @Expose
     private String dateStart;
-    @JsonProperty("dateEnd")
+
+    @SerializedName("dateEnd")
     @ColumnInfo (name = "dateEnd")
+    @Expose
     private String dateEnd;
-    @JsonProperty("customer")
+
+    @SerializedName("customer")
     @ColumnInfo (name = "customer")
+    @Expose
     private String customer;
-    @JsonProperty("employee")
+
+    @SerializedName("employee")
     @ColumnInfo (name = "employee")
+    @Expose
     private String employee;
-    @JsonProperty("subject")
+
+    @SerializedName("subject")
     @ColumnInfo (name = "subject")
+    @Expose
     private String subject;
-    @JsonProperty("price")
+
+    @SerializedName("price")
     @ColumnInfo (name = "price")
+    @Expose
     private float price;
-    @JsonProperty("status")
+
+    @SerializedName("status")
     @ColumnInfo (name = "status")
+    @Expose
     private String status;
-    @JsonProperty("type")
+
+    @SerializedName("type")
     @ColumnInfo (name = "type")
+    @Expose
     private String type;
-    @JsonProperty("file_path")
+
+    @SerializedName("file_path")
     @ColumnInfo (name = "file_path")
+    @Expose
     private String filePath;
-    @JsonProperty("correspondence")
+
+    @SerializedName("correspondence")
     @ColumnInfo (name = "correspondence")
+    @Expose
     private String correspondence;
+
 
     public TaskDTO() {
     }

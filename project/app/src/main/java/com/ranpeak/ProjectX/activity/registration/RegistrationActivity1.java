@@ -19,7 +19,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.hbb20.CountryCodePicker;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
-import com.ranpeak.ProjectX.constant.Constants;
+import com.ranpeak.ProjectX.networking.Constants;
 import com.ranpeak.ProjectX.request.RequestHandler;
 
 import org.json.JSONException;

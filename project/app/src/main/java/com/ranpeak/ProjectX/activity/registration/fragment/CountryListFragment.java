@@ -11,7 +11,7 @@ import android.widget.SearchView;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.registration.RegistrationActivity1;
-import com.ranpeak.ProjectX.constant.Constants;
+import com.ranpeak.ProjectX.networking.Constants;
 
 public class CountryListFragment extends DialogFragment implements Activity {
 

@@ -76,47 +76,41 @@ public class LobbyActivity extends AppCompatActivity implements Activity {
 
     @Override
     public void findViewById(){
-
+        imageViewButtonProfile = findViewById(R.id.imageViewProfileButton);
         textView = findViewById(R.id.textView2);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        imageViewButtonSearch = findViewById(R.id.imageViewSettingsButton);
+        imageViewButtonSearch = findViewById(R.id.imageViewSearchButton);
     }
 
 
     @Override
     public void onListener(){
 
-        imageViewButtonSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), SearchActivity.class));
-            }
-        });
+        imageViewButtonSearch.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), SearchActivity.class)));
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                textView.setText(menuItem.getTitle());
-                switch (menuItem.getItemId()){
-                    case R.id.nav_resumes:
-                        fm.beginTransaction().hide(active).show(resumes).commit();
-                        active = resumes;
-                        return true;
-                    case R.id.nav_tasks:
-                        fm.beginTransaction().hide(active).show(tasks).commit();
-                        active = tasks;
-                        return true;
-                    case R.id.nav_recom:
-                        fm.beginTransaction().hide(active).show(forYou).commit();
-                        active = forYou;
-                        return true;
-                    case R.id.nav_notification:
-                        fm.beginTransaction().hide(active).show(notifications).commit();
-                        active = notifications;
-                        return true;
-                    default:
-                        return false;
-                }
+        imageViewButtonProfile.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), ProfileActivity.class)));
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
+            textView.setText(menuItem.getTitle());
+            switch (menuItem.getItemId()){
+                case R.id.nav_resumes:
+                    fm.beginTransaction().hide(active).show(resumes).commit();
+                    active = resumes;
+                    return true;
+                case R.id.nav_tasks:
+                    fm.beginTransaction().hide(active).show(tasks).commit();
+                    active = tasks;
+                    return true;
+                case R.id.nav_recom:
+                    fm.beginTransaction().hide(active).show(forYou).commit();
+                    active = forYou;
+                    return true;
+                case R.id.nav_notification:
+                    fm.beginTransaction().hide(active).show(notifications).commit();
+                    active = notifications;
+                    return true;
+                default:
+                    return false;
             }
         });
     }
