@@ -131,6 +131,12 @@
     <string name="settings_name_button">Apply</string>
     <string name="toolbar_name">Settings</string>
 
+
+    <string name="category_name">Category</string>
+    <string name="description_name">Description of your capabilities</string>
+    <string name="save_button">Save</string>
+    <string name="edit_resume_toolbar_name">Edit Resume</string>
+
     <!-- Example settings for Data & Sync -->
     <string name="pref_header_data_sync">Data &amp; sync</string>
 

@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:text="@string/settings_language"
-        android:textSize="12sp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/settings_activity_search_text"
@@ -22,7 +22,8 @@
         android:layout_below="@+id/settings_activity_language_text"
         android:clickable="true"
         android:text="@string/default_language"
-        android:focusable="true" />
+        android:focusable="true"
+        android:textSize="18sp"/>
 
     <View
         android:id="@+id/settings_activity_view"
@@ -45,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:text="@string/settings_receive_notification"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
 
         <CheckBox
             android:id="@+id/settings_activity_checkBox_1"
@@ -71,7 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:text="@string/settings_receive_email_notifications"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
 
         <CheckBox
             android:id="@+id/settings_activity_checkBox_2"
@@ -89,11 +90,11 @@
         android:id="@+id/settings_activity_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/settings_activity_relative_layout2"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="280dp"
-        android:layout_marginTop="250dp"
-        android:background="@color/colorPrimary"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/rectangle_rounded_button"
         android:text="@string/settings_name_button"
         android:textColor="@color/brightBackgroundColor" />
 
