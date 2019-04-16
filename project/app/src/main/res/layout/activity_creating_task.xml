@@ -55,7 +55,10 @@
             android:gravity="bottom"
             android:hint="@string/type_here"
             android:textColor="@color/textOnPrimary"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:maxLines="1"
+            android:inputType="textPersonName"
+            android:maxLength="50"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -82,7 +85,8 @@
                 android:maxLines="6"
                 android:minLines="3"
                 android:textColor="@color/textOnPrimary"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:maxLength="150"/>
 
             <ImageView
                 android:id="@+id/creating_task_choose_image_for_task"

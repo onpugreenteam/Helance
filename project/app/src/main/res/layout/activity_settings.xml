@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/brightBackgroundColor"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/settings_activity_language_text"
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:text="@string/settings_language"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/settings_activity_search_text"
+        style="@style/TextView.Primary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/settings_activity_language_text"
+        android:clickable="true"
+        android:text="@string/default_language"
+        android:focusable="true" />
+
+    <View
+        android:id="@+id/settings_activity_view"
+        android:layout_below="@+id/settings_activity_search_text"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/color_Black"/>
+
+    <RelativeLayout
+        android:id="@+id/settings_activity_relative_layout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/settings_activity_view">
+
+        <TextView
+            android:id="@+id/settings_activity_receive_notification_text"
+            style="@style/TextView.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="@string/settings_receive_notification"
+            android:textSize="18sp" />
+
+        <CheckBox
+            android:id="@+id/settings_activity_checkBox_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/settings_activity_receive_notification_text"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="40dp"
+            android:checked="true" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/settings_activity_relative_layout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/settings_activity_relative_layout1">
+
+        <TextView
+            android:id="@+id/settings_activity_receive_email_notifications_text"
+            style="@style/TextView.Primary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="@string/settings_receive_email_notifications"
+            android:textSize="18sp" />
+
+        <CheckBox
+            android:id="@+id/settings_activity_checkBox_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/settings_activity_receive_email_notifications_text"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="147dp"
+            android:layout_marginTop="40dp"
+            android:checked="true" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/settings_activity_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/settings_activity_relative_layout2"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="280dp"
+        android:layout_marginTop="250dp"
+        android:background="@color/colorPrimary"
+        android:text="@string/settings_name_button"
+        android:textColor="@color/brightBackgroundColor" />
+
+
+</RelativeLayout>

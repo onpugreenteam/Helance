@@ -45,13 +45,17 @@
             android:theme="@style/ToolBarProfile" >
         </activity>
         <activity android:name=".activity.creatingTask.FullScreenImageActivity" />
-        <activity android:name=".activity.creatingResume.CreatingResumeActivity"/>
+        <activity android:name=".activity.creatingResume.CreatingResumeActivity"
+            android:theme="@style/ToolBarProfile"/>
         <activity
             android:name=".activity.creatingTask.CreatingTaskActivity"
             android:theme="@style/ToolBarProfile" >
 
         </activity>
         <activity android:name=".activity.settings.SettingsActivity" />
+        <activity android:name=".activity.SettingsActivity1"
+            android:theme="@style/ToolBarProfile" />
+
         <activity
             android:name=".activity.logIn.LogInActivity"
             android:windowSoftInputMode="stateHidden" >

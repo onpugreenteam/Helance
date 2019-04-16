@@ -39,6 +39,7 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.creatingTask.fragment.LessonListFragment;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
+import com.ranpeak.ProjectX.activity.lobby.LobbyActivity;
 import com.ranpeak.ProjectX.constant.Constants;
 import com.ranpeak.ProjectX.request.RequestHandler;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
@@ -117,7 +118,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
     @Override
     public void onListener() {
         lessonPicker.setOnClickListener(v -> lessonListFragment.show(fm, "Country lists"));
-        create.setOnClickListener(v -> create.setOnClickListener(view -> attemptCreatingTask()));
+        create.setOnClickListener(view -> attemptCreatingTask());
         datePicker.setOnClickListener(v -> {
             Calendar calendar = Calendar.getInstance();
             int year = calendar.get(Calendar.YEAR);
@@ -329,9 +330,16 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
                 focusView.requestFocus();
             }
         } else {
-            postTask();
-            Toast.makeText(getApplicationContext(), "done", Toast.LENGTH_SHORT).show();
-            finish();
+            /** Использовать это для создания задания*/
+//            postTask();
+
+            /** Убрать это когда добавление задания готово*/
+            Intent intent = new Intent(getApplicationContext(), LobbyActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+
+//            Toast.makeText(getApplicationContext(), "done", Toast.LENGTH_SHORT).show();
+//            finish();
         }
     }
 

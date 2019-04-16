@@ -46,16 +46,13 @@ public class LessonListFragment extends DialogFragment implements Activity {
 
     @Override
     public void onListener(){
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String selectedFromList =(listView.getItemAtPosition(position).toString());
-                // not best choice how to set country but it's working good
-                if(!selectedFromList.equals("")){
-                    ((CreatingTaskActivity) getActivity()).setLessonPicker(selectedFromList);
-                }
-                getDialog().dismiss();
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            String selectedFromList =(listView.getItemAtPosition(position).toString());
+            // not best choice how to set country but it's working good
+            if(!selectedFromList.equals("")){
+                ((CreatingTaskActivity) getActivity()).setLessonPicker(selectedFromList);
             }
+            getDialog().dismiss();
         });
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

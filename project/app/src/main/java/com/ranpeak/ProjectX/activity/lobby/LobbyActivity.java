@@ -76,7 +76,7 @@ public class LobbyActivity extends AppCompatActivity implements Activity {
 
     @Override
     public void findViewById(){
-        imageViewButtonProfile = findViewById(R.id.imageViewProfileButton);
+
         textView = findViewById(R.id.textView2);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         imageViewButtonSearch = findViewById(R.id.imageViewSettingsButton);
@@ -85,12 +85,6 @@ public class LobbyActivity extends AppCompatActivity implements Activity {
 
     @Override
     public void onListener(){
-        imageViewButtonProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
-            }
-        });
 
         imageViewButtonSearch.setOnClickListener(new View.OnClickListener() {
             @Override
