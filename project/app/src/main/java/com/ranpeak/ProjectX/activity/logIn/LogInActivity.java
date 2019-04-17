@@ -30,7 +30,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.LobbyActivity;
-import com.ranpeak.ProjectX.activity.passwordRecoveryActivity.PasswordRecovery1;
+import com.ranpeak.ProjectX.activity.passwordRecovery.PassRecoveryActivity1;
 import com.ranpeak.ProjectX.activity.registration.RegistrationActivity1;
 import com.ranpeak.ProjectX.activity.registration.RegistrationActivity2;
 import com.ranpeak.ProjectX.networking.Constants;
@@ -115,7 +115,7 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
 //            finish();
         });
         forgotPassword.setOnClickListener( view -> {
-            startActivity(new Intent(LogInActivity.this, PasswordRecovery1.class));
+            startActivity(new Intent(LogInActivity.this, PassRecoveryActivity1.class));
 //            finish();
         });
         google.setOnClickListener( view -> {

@@ -18,8 +18,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.ranpeak.ProjectX.R;
-import com.ranpeak.ProjectX.activity.TaskActivity;
-import com.ranpeak.ProjectX.activity.lobby.navigationFragment.tasksNavFragment.ILoadMore;
+import com.ranpeak.ProjectX.activity.ViewTaskActivity;
+import com.ranpeak.ProjectX.activity.lobby.navigationFragment.ILoadMore;
 import com.ranpeak.ProjectX.dto.TaskDTO;
 
 import java.util.ArrayList;
@@ -169,7 +169,7 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(v.getContext(), "Open task", Toast.LENGTH_LONG).show();
-                    v.getContext().startActivity(new Intent(v.getContext(), TaskActivity.class));
+                    v.getContext().startActivity(new Intent(v.getContext(), ViewTaskActivity.class));
                 }
             });
 

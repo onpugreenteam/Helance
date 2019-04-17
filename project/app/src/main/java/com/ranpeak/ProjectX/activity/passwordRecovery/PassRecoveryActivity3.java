@@ -1,4 +1,4 @@
-package com.ranpeak.ProjectX.activity.passwordRecoveryActivity;
+package com.ranpeak.ProjectX.activity.passwordRecovery;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -15,7 +15,7 @@ import com.ranpeak.ProjectX.activity.interfaces.Activity;
 
 import java.util.Objects;
 
-public class PasswordRecovery3 extends AppCompatActivity implements Activity {
+public class PassRecoveryActivity3 extends AppCompatActivity implements Activity {
 
     private TextView textView;
     private TextInputLayout newPassword;

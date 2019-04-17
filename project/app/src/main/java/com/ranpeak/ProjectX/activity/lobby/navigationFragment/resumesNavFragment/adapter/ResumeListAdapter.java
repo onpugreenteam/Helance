@@ -18,11 +18,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.ranpeak.ProjectX.R;
-import com.ranpeak.ProjectX.activity.ResumeActivity;
-import com.ranpeak.ProjectX.activity.TaskActivity;
-import com.ranpeak.ProjectX.activity.lobby.navigationFragment.tasksNavFragment.ILoadMore;
+import com.ranpeak.ProjectX.activity.ViewResumeActivity;
+import com.ranpeak.ProjectX.activity.lobby.navigationFragment.ILoadMore;
 import com.ranpeak.ProjectX.dto.ResumeDTO;
-import com.ranpeak.ProjectX.dto.TaskDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -166,7 +164,7 @@ public class ResumeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         public void onListener() {
             cardView.setOnClickListener(v -> {
                 Toast.makeText(v.getContext(), "Open resume", Toast.LENGTH_LONG).show();
-                v.getContext().startActivity(new Intent(v.getContext(), ResumeActivity.class));
+                v.getContext().startActivity(new Intent(v.getContext(), ViewResumeActivity.class));
             });
 
         }

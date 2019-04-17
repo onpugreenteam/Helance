@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -18,8 +17,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.ranpeak.ProjectX.R;
-import com.ranpeak.ProjectX.activity.TaskActivity;
-import com.ranpeak.ProjectX.activity.lobby.navigationFragment.tasksNavFragment.ILoadMore;
+import com.ranpeak.ProjectX.activity.ViewTaskActivity;
+import com.ranpeak.ProjectX.activity.lobby.navigationFragment.ILoadMore;
 import com.ranpeak.ProjectX.dto.TaskDTO;
 
 import java.util.ArrayList;
@@ -169,7 +168,7 @@ public class ForYouListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(v.getContext(), "Open task", Toast.LENGTH_LONG).show();
-                    v.getContext().startActivity(new Intent(v.getContext(), TaskActivity.class));
+                    v.getContext().startActivity(new Intent(v.getContext(), ViewTaskActivity.class));
                 }
             });
 
