@@ -108,7 +108,7 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
             }
             return false;
         });
-
+//drg
         loginButton.setOnClickListener(view -> attemptLogin());
         registrationButton.setOnClickListener( view -> {
             startActivity(new Intent(LogInActivity.this, RegistrationActivity1.class));
