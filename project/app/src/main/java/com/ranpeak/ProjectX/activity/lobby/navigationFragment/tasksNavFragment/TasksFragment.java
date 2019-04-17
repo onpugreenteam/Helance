@@ -1,5 +1,6 @@
 package com.ranpeak.ProjectX.activity.lobby.navigationFragment.tasksNavFragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,14 +18,15 @@ import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.creatingTask.CreatingTaskActivity;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.navigationFragment.tasksNavFragment.adapter.TaskListAdapter;
-import com.ranpeak.ProjectX.constant.Constants;
+import com.ranpeak.ProjectX.networking.ApiService;
+import com.ranpeak.ProjectX.networking.Constants;
 import com.ranpeak.ProjectX.dataBase.App;
 import com.ranpeak.ProjectX.dataBase.local.LocalDB;
 import com.ranpeak.ProjectX.dataBase.local.dao.TaskDAO;
 
 import com.ranpeak.ProjectX.dto.TaskDTO;
+import com.ranpeak.ProjectX.networking.RetrofitClient;
 
-import org.reactivestreams.Subscription;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -39,8 +41,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
-import io.reactivex.subscribers.DefaultSubscriber;
 import timber.log.Timber;
 
 
@@ -58,10 +60,15 @@ public class TasksFragment extends Fragment implements Activity {
     private TaskDAO taskDAO;
     private FloatingActionButton fab;
 
+    private ApiService apiService = RetrofitClient.getInstance()
+            .create(ApiService.class);
+
+
     public TasksFragment() {
     }
 
 
+    @SuppressLint("CheckResult")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -73,13 +80,6 @@ public class TasksFragment extends Fragment implements Activity {
         localDB = App.getInstance().getLocalDB();
         taskDAO = localDB.taskDao();
 
-
-        new GetFreeTask().execute();
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new TaskListAdapter(data, imageUrls, recyclerView, getActivity());
-        recyclerView.setAdapter(adapter);
-
         taskDAO.getAllTasks()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<List<TaskDTO>>() {
@@ -88,6 +88,14 @@ public class TasksFragment extends Fragment implements Activity {
                         Log.d("Data size in LocalDB", String.valueOf(taskDTOS.size()));
                     }
                 });
+
+//        new GetFreeTask().execute();
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter = new TaskListAdapter(data, imageUrls, recyclerView, getActivity());
+        recyclerView.setAdapter(adapter);
+
+        getTasksFromServer();
 
 //        adapter.setLoadMore(new ILoadMore() {
 //            @Override
@@ -147,7 +155,7 @@ public class TasksFragment extends Fragment implements Activity {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                new GetFreeTask().execute();
+                getTasksFromServer();
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -217,6 +225,37 @@ public class TasksFragment extends Fragment implements Activity {
             adapter = new TaskListAdapter(data, imageUrls, recyclerView, getActivity());
             recyclerView.setAdapter(adapter);
         }
+    }
+
+
+    @SuppressLint("CheckResult")
+    private void  getTasksFromServer(){
+
+        apiService.getAllTask()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableObserver<List<TaskDTO>>() {
+                    @Override
+                    public void onNext(List<TaskDTO> taskDTOS) {
+                        data.clear();
+                        data.addAll(taskDTOS);
+                        addTasksToLocalDB(data);
+                        adapter.notifyDataSetChanged();
+                        Log.d("Data size from server", String.valueOf(taskDTOS.size()));
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        // Network error
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        // Received all notes
+
+                    }
+                });
     }
 
 
