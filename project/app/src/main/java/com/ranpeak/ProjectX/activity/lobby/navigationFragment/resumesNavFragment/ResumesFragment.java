@@ -162,8 +162,8 @@ public class ResumesFragment extends Fragment implements Activity {
 
     @Override
     public void findViewById() {
-        fab = view.findViewById(R.id.floatingActionButton2);
-        recyclerView = view.findViewById(R.id.recycleView_resume);
+        fab = view.findViewById(R.id.fragment_resumes_floatingActionButton2);
+        recyclerView = view.findViewById(R.id.fragment_resumes_recycleView);
     }
 
     @Override

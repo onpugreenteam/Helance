@@ -82,12 +82,8 @@ public class TasksFragment extends Fragment implements Activity {
 
         taskDAO.getAllTasks()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<List<TaskDTO>>() {
-                    @Override
-                    public void accept(List<TaskDTO> taskDTOS) throws Exception {
-                        Log.d("Data size in LocalDB", String.valueOf(taskDTOS.size()));
-                    }
-                });
+                .subscribe(taskDTOS ->
+                        Log.d("Data size in LocalDB", String.valueOf(taskDTOS.size())));
 
 //        new GetFreeTask().execute();
 
@@ -144,9 +140,9 @@ public class TasksFragment extends Fragment implements Activity {
 
     @Override
     public void findViewById() {
-        recyclerView = view.findViewById(R.id.recycleView_main);
-        mSwipeRefreshLayout = view.findViewById(R.id.swipeRefresh);
-        fab = view.findViewById(R.id.floatingActionButton);
+        recyclerView = view.findViewById(R.id.fragment_tasks_recycleView_tasks);
+        mSwipeRefreshLayout = view.findViewById(R.id.fragment_tasks_swipeRefresh);
+        fab = view.findViewById(R.id.fragment_tasks_floatingActionButton);
     }
 
 

@@ -1,48 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".activity.lobby.navigationFragment.profileNavFragment.ProfileFragment">
 
-    <android.support.v7.widget.Toolbar
+    <android.support.design.widget.CollapsingToolbarLayout
         android:id="@+id/fragment_profile_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="100dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="0dp"
         android:background="@color/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_scrollFlags="scroll" />
 
     <ImageView
         android:id="@+id/fragment_profile_edit_profile"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginTop="6dp"
         android:layout_marginStart="6dp"
-        app:layout_constraintStart_toStartOf="@+id/fragment_profile_toolbar"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="6dp"
         android:background="?android:selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
         android:padding="12dp"
+        app:layout_constraintStart_toStartOf="@+id/fragment_profile_toolbar"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_edit_white_24dp" />
 
     <ImageView
         android:id="@+id/fragment_profile_settings"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginEnd="6dp"
         android:layout_marginTop="6dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="6dp"
         android:background="?android:selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
         android:padding="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_settings_white_24dp" />
 
     <android.support.design.widget.BottomNavigationView
@@ -53,7 +54,7 @@
         android:layout_gravity="bottom"
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
-        app:itemBackground="@color/colorPrimary"
+        app:itemBackground="@color/colorPrimaryLight"
         app:itemIconTint="@color/nav_item_colors"
         app:itemTextColor="@color/nav_item_colors"
         app:labelVisibilityMode="unlabeled"

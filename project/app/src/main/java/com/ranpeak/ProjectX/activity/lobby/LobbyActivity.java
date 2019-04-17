@@ -28,10 +28,10 @@ public class LobbyActivity extends AppCompatActivity implements Activity {
 
    private final static int LOBBY_ACTIVITY = R.layout.activity_lobby;
 
-   private ImageView imageViewButtonProfile;
-   private ImageView imageViewButtonSearch;
-   private AnimationDrawable animationDrawable;
-   private TextView textView;
+//   private ImageView imageViewButtonProfile;
+//   private ImageView imageViewButtonSearch;
+//   private AnimationDrawable animationDrawable;
+//   private TextView textView;
    private BottomNavigationView bottomNavigationView;
    final Fragment resumes = new ResumesFragment();
    final Fragment tasks = new TasksFragment();
@@ -65,29 +65,28 @@ public class LobbyActivity extends AppCompatActivity implements Activity {
 
 
         bottomNavigationView.setSelectedItemId(R.id.nav_recom);
-        textView.setText(bottomNavigationView.getMenu().getItem(2).getTitle());
+//        textView.setText(bottomNavigationView.getMenu().getItem(2).getTitle());
 
     }
 
 
     @Override
     public void findViewById(){
-        imageViewButtonProfile = findViewById(R.id.imageViewProfileButton);
-        textView = findViewById(R.id.textView2);
+//        imageViewButtonProfile = findViewById(R.id.imageViewProfileButton);
+//        imageViewButtonSearch = findViewById(R.id.imageViewSearchButton);
+//        textView = findViewById(R.id.textView2);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        imageViewButtonSearch = findViewById(R.id.imageViewSearchButton);
     }
 
 
     @Override
     public void onListener(){
 
-        imageViewButtonSearch.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), SearchActivity.class)));
-
-        imageViewButtonProfile.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), ProfileActivity.class)));
+//        imageViewButtonSearch.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), SearchActivity.class)));
+//        imageViewButtonProfile.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), ProfileActivity.class)));
 
         bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
-            textView.setText(menuItem.getTitle());
+//            textView.setText(menuItem.getTitle());
             switch (menuItem.getItemId()){
                 case R.id.nav_resumes:
                     fm.beginTransaction().hide(active).show(resumes).commit();
