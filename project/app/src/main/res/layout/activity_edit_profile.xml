@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorSecondaryLight"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorSecondaryLight"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/edit_profile_name_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/name"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edit_profile_name_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/name"
+            android:inputType="textPersonName"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColorHint="@color/color_Black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/edit_profile_country_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/country"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edit_profile_country_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:hint="@string/country"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColorHint="@color/color_Black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/edit_profile_email_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/email"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edit_profile_email_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="20dp"
+            android:hint="@string/email"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColorHint="@color/color_Black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/edit_profile_telephone_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/telephone"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edit_profile_telephone_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="20dp"
+            android:hint="@string/telephone"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColorHint="@color/color_Black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/edit_profile_social_network_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/socialNetworks"
+            android:textColor="@color/darkText"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/edit_profile_social_network_telegramm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/telegram"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edit_profile_social_network_telegramm_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="20dp"
+            android:hint="@string/telegram"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColorHint="@color/color_Black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/edit_profile_social_network_instagramm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/instagramm"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edit_profile_social_network_instagramm_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="20dp"
+            android:hint="@string/instagramm"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColorHint="@color/color_Black"
+            android:textSize="20sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/edit_profile_password_button"
+                style="?android:textAppearanceSmall"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:background="@color/colorPrimary"
+                android:text="@string/password"
+                android:textColor="@color/colorSecondaryLight"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/edit_profile_save_button"
+                style="?android:textAppearanceSmall"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="0dp"
+                android:background="@color/colorPrimary"
+                android:text="@string/save"
+                android:textColor="@color/colorSecondaryLight"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </LinearLayout>
+</ScrollView>

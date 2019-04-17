@@ -59,6 +59,13 @@
         <activity android:name=".activity.SettingsActivity1"
             android:theme="@style/ToolBarProfile" />
 
+        <activity android:name=".activity.passwordRecoveryActivity.PasswordRecovery1"
+            android:theme="@style/ToolBarProfile" />
+        <activity android:name=".activity.passwordRecoveryActivity.PasswordRecovery2"
+            android:theme="@style/ToolBarProfile" />
+        <activity android:name=".activity.passwordRecoveryActivity.PasswordRecovery3"
+            android:theme="@style/ToolBarProfile" />
+
         <activity
             android:name=".activity.logIn.LogInActivity"
             android:windowSoftInputMode="stateHidden" >

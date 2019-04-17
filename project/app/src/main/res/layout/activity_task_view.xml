@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,7 +10,7 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/activity_resume_view_subject"
+        android:id="@+id/activity_task_view_subject"
         style="@style/TextView.Primary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,38 +22,40 @@
         tools:layout_editor_absoluteX="0dp" />
 
     <TextView
-        android:id="@+id/activity_resume_view_date"
+        android:id="@+id/activity_task_view_header"
         style="@style/TextView.Primary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/date"
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@+id/activity_resume_view_subject"
+        android:text="@string/header"
+        android:textSize="30sp"
+        app:layout_constraintTop_toBottomOf="@id/activity_task_view_subject"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp" />
+        tools:layout_editor_absoluteX="3dp"
+        tools:layout_editor_absoluteY="87dp" />
 
     <TextView
-        android:id="@+id/activity_resume_view_description"
+        android:id="@+id/activity_task_view_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/description"
         android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@+id/activity_resume_view_date"
+        app:layout_constraintTop_toBottomOf="@+id/activity_task_view_header"
         tools:layout_editor_absoluteX="3dp" />
 
     <View
         android:id="@+id/settings_activity_view"
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_below="@+id/activity_task_view_description"
         android:layout_marginTop="4dp"
         android:background="@color/color_Black"
-        app:layout_constraintTop_toBottomOf="@+id/activity_resume_view_description"
+        app:layout_constraintTop_toBottomOf="@+id/activity_task_view_description"
         tools:layout_editor_absoluteX="22dp" />
 
     <LinearLayout
-        android:id="@+id/resume_view_activity_linearLayout"
+        android:id="@+id/task_view_activity_linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -63,7 +66,7 @@
         tools:ignore="MissingConstraints">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/resume_profile_image_view"
+            android:id="@+id/profile_image_view"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:src="@mipmap/ic_launcher"
@@ -80,7 +83,7 @@
             app:layout_constraintTop_toBottomOf="@+id/settings_activity_view">
 
             <TextView
-                android:id="@+id/activity_resume_view_name"
+                android:id="@+id/activity_task_view_name"
                 style="@style/TextView.Primary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -91,7 +94,7 @@
                 tools:layout_editor_absoluteY="175dp" />
 
             <TextView
-                android:id="@+id/activity_resume_view_email"
+                android:id="@+id/activity_task_view_email"
                 style="@style/TextView.Primary"
                 android:layout_width="wrap_content"
                 android:layout_marginTop="5dp"
@@ -101,7 +104,7 @@
                 tools:layout_editor_absoluteX="92dp" />
 
             <TextView
-                android:id="@+id/activity_resume_view_country"
+                android:id="@+id/activity_task_view_country"
                 style="@style/TextView.Primary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -114,7 +117,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/activity_resume_view_button"
+        android:id="@+id/activity_task_view_button"
         style="?android:textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
