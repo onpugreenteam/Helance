@@ -89,13 +89,12 @@
         android:id="@+id/settings_activity_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/settings_activity_relative_layout2"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="280dp"
-        android:layout_marginTop="250dp"
+        android:layout_alignParentBottom="true"
         android:background="@color/colorPrimary"
         android:text="@string/settings_name_button"
-        android:textColor="@color/brightBackgroundColor" />
+        android:textColor="@color/brightBackgroundColor"
+        />
 
 
 </RelativeLayout>

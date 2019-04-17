@@ -86,7 +86,8 @@
                 android:minLines="3"
                 android:textColor="@color/textOnPrimary"
                 android:textSize="18sp"
-                android:maxLength="150"/>
+                android:maxLength="150"
+                />
 
             <ImageView
                 android:id="@+id/creating_task_choose_image_for_task"

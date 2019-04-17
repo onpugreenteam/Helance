@@ -34,6 +34,7 @@
     <string name="error_invalid_password_short">This password is too short</string>
     <string name="error_exist_login">This login is used</string>
     <string name="error_exist_email">This email is used</string>
+    <string name="passwordStars">********</string>
 
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
@@ -51,12 +52,28 @@
     <string name="name">Name</string>
     <string name="register">Register</string>
     <string name="country">Country</string>
+    <string name="telephone">Telephone</string>
+    <string name="telegram">Telegram</string>
+    <string name="instagramm">Instagramm</string>
     <string name="country_picker">Click to select your country</string>
     <string name="log_out">Log out</string>
     <string name="splashscreenText">Ranpeak</string>
     <string name="choosedWrongCoutry">Choosed wrong country</string>
     <string name="invalidEmailOrPassword">Invalid email or password</string>
     <string name="next">Next</string>
+    <string name="save">Save</string>
+    <string name="date">Date</string>
+    <string name="connect">Connect</string>
+    <string name="newPassword">New Password</string>
+    <string name="confirmPassword">Confirm Password</string>
+    <string name="oldPassword">Old Password</string>
+    <string name="yourEmail">Your email</string>
+    <string name="subject">Subject</string>
+    <string name="description">Description</string>
+    <string name="header">Header</string>
+    <string name="enterEmail">Enter email</string>
+    <string name="yourCode">Your code</string>
+    <string name="code">12345</string>
     <string name="registration_name">Your name</string>
     <string name="registration_surname">Your surname</string>
     <string name="registration_email">Your email</string>
@@ -83,6 +100,7 @@
     <string name="task_description">Type description of your task</string>
     <string name="type_here">Type here</string>
     <string name="add_files">Add pictures</string>
+    <string name="socialNetworks">Social networks:</string>
     <string name="select_date">Click to set a deadline</string>
     <string name="select_date_below">Select deadline</string>
     <string name="select_lesson">Click to choose a lesson</string>
@@ -204,6 +222,7 @@
     <string name="or">- OR -</string>
     <string name="don_t_have_an_account">Don\'t have an account?</string>
     <string name="registration_phone_number">(999) 999–9999</string>
+    <string name="contact">Contact</string>
 
 
 </resources>
