@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -18,8 +17,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.ranpeak.ProjectX.R;
-import com.ranpeak.ProjectX.activity.TaskActivity;
-import com.ranpeak.ProjectX.activity.lobby.navigationFragment.tasksNavFragment.ILoadMore;
+import com.ranpeak.ProjectX.activity.ViewTaskActivity;
+import com.ranpeak.ProjectX.activity.lobby.navigationFragment.ILoadMore;
 import com.ranpeak.ProjectX.dto.TaskDTO;
 
 import java.util.ArrayList;
@@ -96,6 +95,8 @@ public class ForYouListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
+
+
         if(holder instanceof TaskViewHolder){
             TaskDTO item = data.get(position);
             TaskViewHolder viewHolder = (TaskViewHolder) holder;
@@ -113,6 +114,15 @@ public class ForYouListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             StrictMode.setThreadPolicy(policy);
 
             Glide.with(activity).load(getRandomChestItem(images)).into(viewHolder.profile_user);
+
+            viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(),ViewTaskActivity.class);
+                    intent.putExtra("TaskObject", item);
+                    v.getContext().startActivity(intent);
+                }
+            });
 
         }else if(holder instanceof LoadingViewHolder){
             LoadingViewHolder loadingViewHolder = (LoadingViewHolder) holder;
@@ -165,13 +175,15 @@ public class ForYouListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         @Override
         public void onListener() {
-            cardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(v.getContext(), "Open task", Toast.LENGTH_LONG).show();
-                    v.getContext().startActivity(new Intent(v.getContext(), TaskActivity.class));
-                }
-            });
+//            cardView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Toast.makeText(v.getContext(), "Open task", Toast.LENGTH_LONG).show();
+////                    v.getContext().startActivity(new Intent(v.getContext(), ViewTaskActivity.class));
+//                    Intent intent = new Intent();
+//                    intent.putExtra()
+//                }
+//            });
 
         }
     }

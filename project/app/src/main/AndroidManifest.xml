@@ -63,11 +63,11 @@
         <activity android:name=".activity.SettingsActivity1"
             android:theme="@style/ToolBarProfile" />
 
-        <activity android:name=".activity.passwordRecoveryActivity.PasswordRecovery1"
+        <activity android:name=".activity.passwordRecovery.PassRecoveryActivity1"
             android:theme="@style/ToolBarProfile" />
-        <activity android:name=".activity.passwordRecoveryActivity.PasswordRecovery2"
+        <activity android:name=".activity.passwordRecovery.PassRecoveryActivity2"
             android:theme="@style/ToolBarProfile" />
-        <activity android:name=".activity.passwordRecoveryActivity.PasswordRecovery3"
+        <activity android:name=".activity.passwordRecovery.PassRecoveryActivity3"
             android:theme="@style/ToolBarProfile" />
 
         <activity
@@ -82,13 +82,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.TaskActivity" />
         <activity
             android:name=".activity.ProfileActivity"
             android:label="@string/app_name"
             android:theme="@style/ToolBarProfile" />
         <activity android:name=".activity.ResumeActivity"/>
         <activity android:name=".activity.lobby.LobbyActivity" />
+        <activity android:name=".activity.ViewResumeActivity"/>
+        <activity android:name=".activity.ViewTaskActivity"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

@@ -1,5 +1,6 @@
-package com.ranpeak.ProjectX.activity.creatingResume;
+package com.ranpeak.ProjectX.activity;
 
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,8 @@ import android.widget.TextView;
 
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
+import com.ranpeak.ProjectX.dto.ResumeDTO;
+import com.ranpeak.ProjectX.dto.TaskDTO;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -29,6 +32,7 @@ public class ViewResumeActivity extends AppCompatActivity implements Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_resume);
         findViewById();
+        setData();
     }
 
     @Override
@@ -42,6 +46,15 @@ public class ViewResumeActivity extends AppCompatActivity implements Activity {
         country = findViewById(R.id.activity_resume_view_country);
         email= findViewById(R.id.activity_resume_view_email);
         connect = findViewById(R.id.activity_resume_view_button);
+    }
+
+    private void setData(){
+        Intent intent = getIntent();
+        ResumeDTO resumeDTO = (ResumeDTO) intent.getSerializableExtra("ResumeObject");
+
+        subject.setText(resumeDTO.getSubject());
+        description.setText(resumeDTO.getText());
+        name.setText(resumeDTO.getEmployee());
     }
 
     @Override

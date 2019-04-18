@@ -1,4 +1,4 @@
-package com.ranpeak.ProjectX.activity.passwordRecoveryActivity;
+package com.ranpeak.ProjectX.activity.passwordRecovery;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -18,7 +18,7 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class PasswordRecovery1 extends AppCompatActivity implements Activity {
+public class PassRecoveryActivity1 extends AppCompatActivity implements Activity {
 
     private TextView emailTextView;
     private EditText emailEditText;
@@ -73,7 +73,7 @@ public class PasswordRecovery1 extends AppCompatActivity implements Activity {
                 requestFocus.requestFocus();
             }
         } else {
-            Intent intent = new Intent(PasswordRecovery1.this, PasswordRecovery2.class);
+            Intent intent = new Intent(PassRecoveryActivity1.this, PassRecoveryActivity2.class);
             intent.putExtra("email", emailEditText.getText().toString());
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
