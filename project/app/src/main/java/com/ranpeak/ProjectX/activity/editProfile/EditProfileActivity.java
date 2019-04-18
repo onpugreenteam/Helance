@@ -46,7 +46,12 @@ public class EditProfileActivity extends AppCompatActivity implements Activity {
 
     @Override
     public void onListener() {
+        password.setOnClickListener( v-> {
 
+        });
+        save.setOnClickListener( v-> {
+
+        });
     }
 
 
