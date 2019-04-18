@@ -1,5 +1,6 @@
 package com.ranpeak.ProjectX.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
+import com.ranpeak.ProjectX.dto.TaskDTO;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -30,6 +32,7 @@ public class ViewTaskActivity extends AppCompatActivity implements Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_view);
         findViewById();
+        setData();
     }
 
     @Override
@@ -43,6 +46,17 @@ public class ViewTaskActivity extends AppCompatActivity implements Activity {
         country = findViewById(R.id.activity_task_view_country);
         email= findViewById(R.id.activity_task_view_email);
         connect = findViewById(R.id.activity_task_view_button);
+    }
+
+
+    private void setData(){
+        Intent intent = getIntent();
+        TaskDTO taskDTO = (TaskDTO) intent.getSerializableExtra("TaskObject");
+
+        subject.setText(taskDTO.getSubject());
+        header.setText(taskDTO.getHeadLine());
+        description.setText(taskDTO.getText());
+        name.setText(taskDTO.getEmployee());
     }
 
     @Override

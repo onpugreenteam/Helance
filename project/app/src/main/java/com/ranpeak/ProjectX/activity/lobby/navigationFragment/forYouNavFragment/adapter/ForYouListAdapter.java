@@ -95,6 +95,8 @@ public class ForYouListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
+
+
         if(holder instanceof TaskViewHolder){
             TaskDTO item = data.get(position);
             TaskViewHolder viewHolder = (TaskViewHolder) holder;
@@ -112,6 +114,15 @@ public class ForYouListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             StrictMode.setThreadPolicy(policy);
 
             Glide.with(activity).load(getRandomChestItem(images)).into(viewHolder.profile_user);
+
+            viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(),ViewTaskActivity.class);
+                    intent.putExtra("TaskObject", item);
+                    v.getContext().startActivity(intent);
+                }
+            });
 
         }else if(holder instanceof LoadingViewHolder){
             LoadingViewHolder loadingViewHolder = (LoadingViewHolder) holder;
@@ -164,13 +175,15 @@ public class ForYouListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         @Override
         public void onListener() {
-            cardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(v.getContext(), "Open task", Toast.LENGTH_LONG).show();
-                    v.getContext().startActivity(new Intent(v.getContext(), ViewTaskActivity.class));
-                }
-            });
+//            cardView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Toast.makeText(v.getContext(), "Open task", Toast.LENGTH_LONG).show();
+////                    v.getContext().startActivity(new Intent(v.getContext(), ViewTaskActivity.class));
+//                    Intent intent = new Intent();
+//                    intent.putExtra()
+//                }
+//            });
 
         }
     }

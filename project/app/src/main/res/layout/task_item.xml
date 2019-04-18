@@ -9,6 +9,7 @@
     card:cardElevation="3dp"
     android:background="@color/color_cardView_background"
     android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
     card:cardCornerRadius="20dp"
     card:cardUseCompatPadding="false"
     card:contentPadding="2dp"

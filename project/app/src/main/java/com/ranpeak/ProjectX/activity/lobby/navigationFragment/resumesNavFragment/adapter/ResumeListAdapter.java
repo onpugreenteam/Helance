@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.ViewResumeActivity;
+import com.ranpeak.ProjectX.activity.ViewTaskActivity;
 import com.ranpeak.ProjectX.activity.lobby.navigationFragment.ILoadMore;
 import com.ranpeak.ProjectX.dto.ResumeDTO;
 
@@ -113,6 +114,13 @@ public class ResumeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             Glide.with(activity).load(getRandomChestItem(images)).into(viewHolder.profile_user);
 
+            viewHolder.cardView.setOnClickListener(v -> {
+                Toast.makeText(v.getContext(), "Open resume", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(v.getContext(), ViewResumeActivity.class);
+                intent.putExtra("ResumeObject", item);
+                v.getContext().startActivity(intent);
+            });
+
         }else if(holder instanceof LoadingViewHolder){
             LoadingViewHolder loadingViewHolder = (LoadingViewHolder) holder;
             loadingViewHolder.progressBar.setIndeterminate(true);
@@ -162,10 +170,6 @@ public class ResumeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         @Override
         public void onListener() {
-            cardView.setOnClickListener(v -> {
-                Toast.makeText(v.getContext(), "Open resume", Toast.LENGTH_LONG).show();
-                v.getContext().startActivity(new Intent(v.getContext(), ViewResumeActivity.class));
-            });
 
         }
     }

@@ -79,10 +79,6 @@ public class ResumesFragment extends Fragment implements Activity {
                     }
                 });
 
-
-
-
-
         return view;
     }
 
