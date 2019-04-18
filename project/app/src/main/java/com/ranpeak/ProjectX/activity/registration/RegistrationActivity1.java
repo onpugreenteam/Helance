@@ -103,7 +103,7 @@ public class RegistrationActivity1 extends AppCompatActivity implements Activity
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(false)
                 .setTitle(getString(R.string.confirm_exit))
-                .setMessage(getString(R.string.cancel_creating))
+                .setMessage(getString(R.string.cancel_registration))
                 .setPositiveButton(getString(R.string.yes), (dialog, which) -> finish())
                 .setNegativeButton(getString(R.string.no), (dialog, which) -> dialog.cancel());
         AlertDialog alertDialog = builder.create();
@@ -125,7 +125,6 @@ public class RegistrationActivity1 extends AppCompatActivity implements Activity
         register_login.addTextChangedListener(textWatcher);
         register_email.addTextChangedListener(textWatcher);
         register_name.addTextChangedListener(textWatcher);
-//        register_country.setOnClickListener(v -> countryListFragment.show(fm, "Country lists"));
     }
 
     private TextWatcher textWatcher = new TextWatcher() {

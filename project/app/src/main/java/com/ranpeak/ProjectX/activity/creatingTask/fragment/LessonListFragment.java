@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.SearchView;
 
 import com.ranpeak.ProjectX.R;
+import com.ranpeak.ProjectX.activity.creatingResume.CreatingResumeActivity;
 import com.ranpeak.ProjectX.activity.creatingTask.CreatingTaskActivity;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.networking.Constants;
@@ -21,16 +22,14 @@ public class LessonListFragment extends DialogFragment implements Activity {
     private ArrayAdapter<String> adapter;
     private View rootView;
 
-
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
 
         rootView = inflater.inflate(R.layout.activity_lesson_list, null);
-        getDialog().setTitle("choose lesson");
+        getDialog().setTitle(R.string.choose_lesson);
 
         findViewById();
-        //clickListener
         onListener();
 
         adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1,
@@ -49,7 +48,11 @@ public class LessonListFragment extends DialogFragment implements Activity {
             String selectedFromList =(listView.getItemAtPosition(position).toString());
             // not best choice how to set country but it's working good
             if(!selectedFromList.equals("")){
-                ((CreatingTaskActivity) getActivity()).setLessonPicker(selectedFromList);
+                if (getActivity().getClass().getSimpleName().equals(CreatingTaskActivity.class.getSimpleName())) {
+                    ((CreatingTaskActivity) getActivity()).setLessonPicker(selectedFromList);
+                } else if (getActivity().getClass().getSimpleName().equals(CreatingResumeActivity.class.getSimpleName())) {
+                    ((CreatingResumeActivity) getActivity()).setLessonPicker(selectedFromList);
+                }
             }
             getDialog().dismiss();
         });

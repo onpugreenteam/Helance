@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
     <item
         android:id="@+id/nav_resumes"
         android:icon="@drawable/resume_nav"
@@ -15,8 +15,10 @@
         android:id="@+id/nav_recom"
         android:icon="@drawable/ic_thumb_up_black_24dp"
         android:title="@string/item_nav_recom" />
+
     <item
-        android:id="@+id/nav_notification"
-        android:icon="@drawable/ic_notifications_none_black_36dp"
+        android:id="@+id/nav_profile"
+        android:icon="@drawable/ic_person_white_24dp"
         android:title="@string/item_nav_profile" />
+
 </menu>

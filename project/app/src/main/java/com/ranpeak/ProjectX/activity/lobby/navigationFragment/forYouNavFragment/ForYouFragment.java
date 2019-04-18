@@ -2,28 +2,23 @@ package com.ranpeak.ProjectX.activity.lobby.navigationFragment.forYouNavFragment
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import java.util.ArrayList;
+import java.util.List;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.navigationFragment.forYouNavFragment.adapter.ForYouListAdapter;
-import com.ranpeak.ProjectX.activity.lobby.navigationFragment.tasksNavFragment.adapter.TaskListAdapter;
 import com.ranpeak.ProjectX.dataBase.App;
 import com.ranpeak.ProjectX.dataBase.local.LocalDB;
 import com.ranpeak.ProjectX.dataBase.local.dao.TaskDAO;
 import com.ranpeak.ProjectX.dto.TaskDTO;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 
 public class ForYouFragment extends Fragment implements Activity {
 
@@ -90,10 +85,9 @@ public class ForYouFragment extends Fragment implements Activity {
         imageUrls.add("https://i.mycdn.me/image?id=877079192648&t=35&plc=WEB&tkn=*85PLfcQAXU8Glv9V8-xzIyJxZF4");
     }
 
-
     @Override
     public void findViewById() {
-        recyclerView = view.findViewById(R.id.recycleView_for_you);
+        recyclerView = view.findViewById(R.id.fragment_for_you_recycleView);
     }
 
     @Override
@@ -102,11 +96,8 @@ public class ForYouFragment extends Fragment implements Activity {
 
     }
 
-
-
     public static ForYouFragment newInstance() {
         return new ForYouFragment();
     }
-
 
 }

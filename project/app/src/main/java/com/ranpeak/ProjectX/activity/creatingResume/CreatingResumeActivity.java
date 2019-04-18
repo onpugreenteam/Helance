@@ -3,7 +3,11 @@ package com.ranpeak.ProjectX.activity.creatingResume;
 import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -12,6 +16,7 @@ import android.widget.Toast;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.creatingTask.fragment.LessonListFragment;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
+import com.ranpeak.ProjectX.networking.Constants;
 
 import java.util.Objects;
 
@@ -19,11 +24,8 @@ public class CreatingResumeActivity extends AppCompatActivity implements Activit
 
     private final static int CREATING_RESUME_ACTIVITY = R.layout.activity_creating_resume;
 
-    private TextView lesson;
     private EditText description;
     private TextView descriptionLength;
-    private int descriptionLengthResume = 0;
-    private TextView textViewDescriptionLength;
     private TextView lessonPicker;
     private final FragmentManager fm = getFragmentManager();
     private final LessonListFragment lessonListFragment = new LessonListFragment();
@@ -39,10 +41,9 @@ public class CreatingResumeActivity extends AppCompatActivity implements Activit
         toolbar();
     }
 
-
     @Override
     public void findViewById() {
-        lessonPicker = findViewById(R.id.lesson_list_in_resume);
+        lessonPicker = findViewById(R.id.creating_resume_lesson_list_in_resume);
         description = findViewById(R.id.creating_resume_description);
         descriptionLength = findViewById(R.id.creating_resume_description_length);
         create = findViewById(R.id.creating_resume_button);
@@ -52,7 +53,22 @@ public class CreatingResumeActivity extends AppCompatActivity implements Activit
     public void onListener() {
         lessonPicker.setOnClickListener(v -> lessonListFragment.show(fm, "Country lists"));
         create.setOnClickListener(view -> Toast.makeText(getApplicationContext(),"created",Toast.LENGTH_LONG).show());
+        description.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                descriptionLength.setText(description.getText().toString().length() + "/");
+            }
+        });
     }
 
     private void toolbar() {
@@ -61,5 +77,56 @@ public class CreatingResumeActivity extends AppCompatActivity implements Activit
         getSupportActionBar().setTitle(getString(R.string.app_name));
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // todo: goto back activity from here
 
+                // если пустых полей нет, то открывается диалог с потверждение закрытия окна
+                if (!allFieldsEmpty()) {
+                    openDialog();
+                }
+                // если ни одно из полей не заполнено, то окно закрывается без открытия диалога
+                else finish();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    // открытие подтверждающего диалога перед закрытием окна
+    private void openDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false)
+                .setTitle(getString(R.string.confirm_exit))
+                .setMessage(getString(R.string.cancel_creating_resume))
+                .setPositiveButton(getString(R.string.yes), (dialog, which) -> finish())
+                .setNegativeButton(getString(R.string.no), (dialog, which) -> dialog.cancel());
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    // если все поля не тронуты(ни одно из них не заполнено), то возвращает true
+    private boolean allFieldsEmpty() {
+        return !stringContainsItemFromList(lessonPicker.getText().toString(), Constants.Values.LESSONS)
+                && description.getText().toString().isEmpty();
+    }
+
+    //проверяет входит ли какое-либо значение в какой-либо указанный массив
+    // check if selected lesson exists in Constants.Values.LESSONS
+    private static boolean stringContainsItemFromList(String inputStr, String[] items) {
+        for (String item : items) {
+            if (inputStr.contains(item)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // устанавливает в поле LessonPicker выбранный пользователем предмет
+    public void setLessonPicker(String lesson) {
+        this.lessonPicker.setText(lesson);
+    }
 }

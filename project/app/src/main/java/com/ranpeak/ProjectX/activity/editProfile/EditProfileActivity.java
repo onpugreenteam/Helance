@@ -3,11 +3,14 @@ package com.ranpeak.ProjectX.activity.editProfile;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
+
+import java.util.Objects;
 
 public class EditProfileActivity extends AppCompatActivity implements Activity {
 
@@ -25,6 +28,8 @@ public class EditProfileActivity extends AppCompatActivity implements Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
         findViewById();
+        onListener();
+        toolbar();
     }
 
     @Override
@@ -41,6 +46,29 @@ public class EditProfileActivity extends AppCompatActivity implements Activity {
 
     @Override
     public void onListener() {
+        password.setOnClickListener( v-> {
 
+        });
+        save.setOnClickListener( v-> {
+
+        });
+    }
+
+
+    private void toolbar() {
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(getString(R.string.app_name));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home: finish();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
