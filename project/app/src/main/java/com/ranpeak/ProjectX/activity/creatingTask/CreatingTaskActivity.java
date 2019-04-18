@@ -216,7 +216,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(false)
                 .setTitle(getString(R.string.confirm_exit))
-                .setMessage(getString(R.string.cancel_creating))
+                .setMessage(getString(R.string.cancel_creating_task))
                 .setPositiveButton(getString(R.string.yes), (dialog, which) -> finish())
                 .setNegativeButton(getString(R.string.no), (dialog, which) -> dialog.cancel());
         AlertDialog alertDialog = builder.create();
@@ -289,12 +289,10 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
                 .check();
     }
 
-
     // устанавливает в поле LessonPicker выбранный пользователем предмет
     public void setLessonPicker(String lesson) {
         this.lessonPicker.setText(lesson);
     }
-
 
     // проверка всех полей на правильность
     // checking every field
@@ -353,21 +351,18 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
                 && datePicker.getText().toString().equals(getString(R.string.select_date));
     }
 
-
     //проверяет входит ли какое-либо значение в какой-либо указанный массив
     // check if selected lesson exists in Constants.Values.LESSONS
     private static boolean stringContainsItemFromList(String inputStr, String[] items) {
-        for (int i = 0; i < items.length; i++) {
-            if (inputStr.contains(items[i])) {
+        for (String item : items) {
+            if (inputStr.contains(item)) {
                 return true;
             }
         }
         return false;
     }
 
-
     private void postTask() {
-
         final String headline = typeName.getText().toString().trim();
         final String text = taskDescription.getText().toString().trim();
         final String dateEnd = datePicker.getText().toString().trim();

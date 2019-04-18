@@ -219,7 +219,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="connecting">Connecting…</string>
     <string name="confirm_exit">Confirm exit</string>
-    <string name="cancel_creating">You want to cancel creating new task?</string>
+    <string name="cancel_creating_task">You want to cancel creating new task?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="creating_task_contractual_price">Contractual price</string>
@@ -233,6 +233,9 @@
     <string name="item_nav_my_resumes">My resumes</string>
     <string name="item_nav_my_tasks">My tasks</string>
     <string name="item_nav_my_profile">My profile</string>
+    <string name="cancel_creating_resume">You want to cancel creating new resume?</string>
+    <string name="choose_lesson">Choose lesson</string>
+    <string name="cancel_registration">You want to cancel registration?</string>
 
 
 </resources>
