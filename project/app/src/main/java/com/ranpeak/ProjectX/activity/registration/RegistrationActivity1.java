@@ -125,7 +125,6 @@ public class RegistrationActivity1 extends AppCompatActivity implements Activity
         register_login.addTextChangedListener(textWatcher);
         register_email.addTextChangedListener(textWatcher);
         register_name.addTextChangedListener(textWatcher);
-//        register_country.setOnClickListener(v -> countryListFragment.show(fm, "Country lists"));
     }
 
     private TextWatcher textWatcher = new TextWatcher() {
