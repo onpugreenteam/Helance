@@ -1,4 +1,4 @@
-package com.ranpeak.ProjectX.activity.lobby.navigationFragment.resumesNavFragment.adapter;
+package com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.tasksNavFragment.adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -18,28 +18,27 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.ranpeak.ProjectX.R;
-import com.ranpeak.ProjectX.activity.ViewResumeActivity;
 import com.ranpeak.ProjectX.activity.ViewTaskActivity;
-import com.ranpeak.ProjectX.activity.lobby.navigationFragment.ILoadMore;
-import com.ranpeak.ProjectX.dto.ResumeDTO;
+import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.ILoadMore;
+import com.ranpeak.ProjectX.dto.TaskDTO;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class ResumeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final int VIEW_TYPE_ITEM = 0, VIEW_TYPE_LOADING = 1;
     private ILoadMore loadMore;
     private boolean isLoading;
     private int visibleThreshold = 5;
     private int lastVisibleItem, totalItemCount;
-    private List<ResumeDTO> data;
+    private List<TaskDTO> data;
     private ArrayList<String> images = new ArrayList<>();
     private Context context;
     private Activity activity;
 
-    public ResumeListAdapter(List<ResumeDTO> data, ArrayList<String> images, RecyclerView recyclerView, Activity activity) {
+    public TaskListAdapter(List<TaskDTO> data, ArrayList<String> images, RecyclerView recyclerView, Activity activity) {
         this.data = data;
         this.images = images;
         this.activity = activity;
@@ -78,8 +77,8 @@ public class ResumeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         RecyclerView.ViewHolder rv = null;
 
         if(viewType == VIEW_TYPE_ITEM){
-            View view = LayoutInflater.from(activity).inflate(R.layout.resume_item, parent, false);
-            rv = new ResumeViewHolder(view);
+            View view = LayoutInflater.from(activity).inflate(R.layout.task_item, parent, false);
+            rv = new TaskViewHolder(view);
         }else if(viewType == VIEW_TYPE_LOADING){
             View view = LayoutInflater.from(activity).inflate(R.layout.item_loading, parent, false);
             rv = new LoadingViewHolder(view);
@@ -97,28 +96,32 @@ public class ResumeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-        if(holder instanceof ResumeViewHolder){
-            ResumeDTO item = data.get(position);
-            ResumeViewHolder viewHolder = (ResumeViewHolder) holder;
+        if(holder instanceof TaskViewHolder){
+            TaskDTO item = data.get(position);
+            TaskViewHolder viewHolder = (TaskViewHolder) holder;
 
             viewHolder.profile_user.setAnimation(AnimationUtils.loadAnimation(activity,R.anim.anim_for_image));
             viewHolder.cardView.setAnimation(AnimationUtils.loadAnimation(activity,R.anim.anim_card_view));
 
             viewHolder.author.setText(item.getEmployee());
-            viewHolder.text.setText(item.getText());
+            viewHolder.headline.setText(item.getHeadLine());
             viewHolder.subject.setText(item.getSubject());
             viewHolder.date.setText(item.getDateStart());
+            viewHolder.price.setText(String.valueOf(item.getPrice()));
 
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
 
             Glide.with(activity).load(getRandomChestItem(images)).into(viewHolder.profile_user);
 
-            viewHolder.cardView.setOnClickListener(v -> {
-                Toast.makeText(v.getContext(), "Open resume", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(v.getContext(), ViewResumeActivity.class);
-                intent.putExtra("ResumeObject", item);
-                v.getContext().startActivity(intent);
+            viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(v.getContext(), "Open task", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(v.getContext(),ViewTaskActivity.class);
+                    intent.putExtra("TaskObject", item);
+                    v.getContext().startActivity(intent);
+                }
             });
 
         }else if(holder instanceof LoadingViewHolder){
@@ -137,21 +140,22 @@ public class ResumeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         isLoading = false;
     }
 
-    public void setData(List<ResumeDTO> data) {
+    public void setData(List<TaskDTO> data) {
         this.data = data;
     }
 
 
 
-    public class ResumeViewHolder extends RecyclerView.ViewHolder implements com.ranpeak.ProjectX.activity.interfaces.Activity {
+    public class TaskViewHolder extends RecyclerView.ViewHolder implements com.ranpeak.ProjectX.activity.interfaces.Activity {
         CardView cardView;
         TextView author;
-        TextView text;
+        TextView headline;
         TextView date;
         TextView subject;
         ImageView profile_user;
+        TextView price;
 
-        public ResumeViewHolder(View itemView) {
+        public TaskViewHolder(View itemView) {
             super(itemView);
             findViewById();
             onListener();
@@ -160,12 +164,13 @@ public class ResumeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         @Override
         public void findViewById() {
-            cardView = itemView.findViewById(R.id.cardView11);
-            author = itemView.findViewById(R.id.resume_author);
-            text = itemView.findViewById(R.id.text);
-            subject = itemView.findViewById(R.id.subject1);
-            date = itemView.findViewById(R.id.dateStart);
-            profile_user = itemView.findViewById(R.id.profile1_user);
+            cardView = itemView.findViewById(R.id.cardView);
+            author = itemView.findViewById(R.id.task_author);
+            headline = itemView.findViewById(R.id.headline);
+            subject = itemView.findViewById(R.id.subject);
+            date = itemView.findViewById(R.id.date);
+            profile_user = itemView.findViewById(R.id.profile_user);
+            price = itemView.findViewById(R.id.price);
         }
 
         @Override

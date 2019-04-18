@@ -1,4 +1,4 @@
-package com.ranpeak.ProjectX.activity.lobby.navigationFragment.forYouNavFragment.adapter;
+package com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.forYouNavFragment.adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,12 +13,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.ViewTaskActivity;
-import com.ranpeak.ProjectX.activity.lobby.navigationFragment.ILoadMore;
+import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.ILoadMore;
 import com.ranpeak.ProjectX.dto.TaskDTO;
 
 import java.util.ArrayList;

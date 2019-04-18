@@ -1,4 +1,4 @@
-package com.ranpeak.ProjectX.activity.lobby.navigationFragment.tasksNavFragment;
+package com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.tasksNavFragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.creatingTask.CreatingTaskActivity;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
-import com.ranpeak.ProjectX.activity.lobby.navigationFragment.tasksNavFragment.adapter.TaskListAdapter;
+import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.tasksNavFragment.adapter.TaskListAdapter;
 import com.ranpeak.ProjectX.networking.ApiService;
 import com.ranpeak.ProjectX.networking.Constants;
 import com.ranpeak.ProjectX.dataBase.App;
@@ -40,7 +40,6 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;

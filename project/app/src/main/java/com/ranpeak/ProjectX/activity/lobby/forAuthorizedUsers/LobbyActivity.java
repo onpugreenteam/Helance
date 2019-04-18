@@ -1,24 +1,19 @@
-package com.ranpeak.ProjectX.activity.lobby;
+package com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers;
 
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ImageView;
-import android.widget.TextView;
+
 import com.ranpeak.ProjectX.R;
-import com.ranpeak.ProjectX.activity.ProfileActivity;
-import com.ranpeak.ProjectX.activity.SearchActivity;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
-import com.ranpeak.ProjectX.activity.lobby.navigationFragment.resumesNavFragment.ResumesFragment;
-import com.ranpeak.ProjectX.activity.lobby.navigationFragment.tasksNavFragment.TasksFragment;
-import com.ranpeak.ProjectX.activity.lobby.navigationFragment.tasksNavFragment.adapter.TaskListAdapter;
-import com.ranpeak.ProjectX.activity.lobby.navigationFragment.profileNavFragment.ProfileFragment;
-import com.ranpeak.ProjectX.activity.lobby.navigationFragment.forYouNavFragment.ForYouFragment;
+import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.resumesNavFragment.ResumesFragment;
+import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.tasksNavFragment.TasksFragment;
+import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.tasksNavFragment.adapter.TaskListAdapter;
+import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.ProfileFragment;
+import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.forYouNavFragment.ForYouFragment;
 import com.ranpeak.ProjectX.dataBase.App;
 import com.ranpeak.ProjectX.dataBase.local.LocalDB;
 import com.ranpeak.ProjectX.dataBase.local.dao.TaskDAO;

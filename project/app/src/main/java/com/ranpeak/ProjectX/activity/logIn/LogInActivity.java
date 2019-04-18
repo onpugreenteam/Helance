@@ -29,7 +29,7 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
-import com.ranpeak.ProjectX.activity.lobby.LobbyActivity;
+import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.LobbyActivity;
 import com.ranpeak.ProjectX.activity.passwordRecovery.PassRecoveryActivity1;
 import com.ranpeak.ProjectX.activity.registration.RegistrationActivity1;
 import com.ranpeak.ProjectX.activity.registration.RegistrationActivity2;

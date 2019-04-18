@@ -1,4 +1,4 @@
-package com.ranpeak.ProjectX.activity.lobby.navigationFragment.resumesNavFragment;
+package com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.resumesNavFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,8 +13,8 @@ import android.view.ViewGroup;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.creatingResume.CreatingResumeActivity;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
-import com.ranpeak.ProjectX.activity.lobby.navigationFragment.resumesNavFragment.adapter.ResumeListAdapter;
-import com.ranpeak.ProjectX.activity.lobby.navigationFragment.tasksNavFragment.TasksFragment;
+import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.resumesNavFragment.adapter.ResumeListAdapter;
+import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.tasksNavFragment.TasksFragment;
 import com.ranpeak.ProjectX.dataBase.App;
 import com.ranpeak.ProjectX.dataBase.local.LocalDB;
 import com.ranpeak.ProjectX.dataBase.local.dao.ResumeDAO;

@@ -18,7 +18,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.github.reinaldoarrosi.maskededittext.MaskedEditText;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
-import com.ranpeak.ProjectX.activity.lobby.LobbyActivity;
+import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.LobbyActivity;
 import com.ranpeak.ProjectX.networking.Constants;
 import com.ranpeak.ProjectX.request.RequestHandler;
 

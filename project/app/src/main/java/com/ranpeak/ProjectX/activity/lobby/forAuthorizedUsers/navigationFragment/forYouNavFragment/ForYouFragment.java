@@ -1,4 +1,4 @@
-package com.ranpeak.ProjectX.activity.lobby.navigationFragment.forYouNavFragment;
+package com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.forYouNavFragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,7 +14,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
-import com.ranpeak.ProjectX.activity.lobby.navigationFragment.forYouNavFragment.adapter.ForYouListAdapter;
+import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.forYouNavFragment.adapter.ForYouListAdapter;
 import com.ranpeak.ProjectX.dataBase.App;
 import com.ranpeak.ProjectX.dataBase.local.LocalDB;
 import com.ranpeak.ProjectX.dataBase.local.dao.TaskDAO;
