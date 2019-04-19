@@ -11,6 +11,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Entity(tableName = "TaskEntity")
@@ -26,30 +27,25 @@ public class TaskDTO implements Serializable {
     @Expose
     private String headLine;
 
-    @SerializedName("text")
-    @ColumnInfo (name = "text")
+    @SerializedName("description")
+    @ColumnInfo (name = "description")
     @Expose
-    private String text;
+    private String description;
 
     @SerializedName("dateStart")
     @ColumnInfo (name = "dateStart")
     @Expose
     private String dateStart;
 
-    @SerializedName("dateEnd")
-    @ColumnInfo (name = "dateEnd")
+    @SerializedName("deadline")
+    @ColumnInfo (name = "deadline")
     @Expose
-    private String dateEnd;
+    private String deadline;
 
-    @SerializedName("customer")
-    @ColumnInfo (name = "customer")
+    @SerializedName("author")
+    @ColumnInfo (name = "author")
     @Expose
-    private String customer;
-
-    @SerializedName("employee")
-    @ColumnInfo (name = "employee")
-    @Expose
-    private String employee;
+    private String author;
 
     @SerializedName("subject")
     @ColumnInfo (name = "subject")
@@ -66,40 +62,30 @@ public class TaskDTO implements Serializable {
     @Expose
     private String status;
 
-    @SerializedName("type")
-    @ColumnInfo (name = "type")
+    @SerializedName("fileTasks")
+    @ColumnInfo (name = "fileTasks")
     @Expose
-    private String type;
-
-    @SerializedName("file_path")
-    @ColumnInfo (name = "file_path")
-    @Expose
-    private String filePath;
-
-    @SerializedName("correspondence")
-    @ColumnInfo (name = "correspondence")
-    @Expose
-    private String correspondence;
+    private String fileTasks;
 
 
     public TaskDTO() {
     }
 
+
     @Ignore
-    public TaskDTO(String headLine, String text, String dateStart, String dateEnd, String customer, String employee, String subject, float price, String status, String type, String filePath, String correspondence) {
+    public TaskDTO(long id, String headLine, String description, String dateStart, String deadline, String author, String subject, float price, String status, String fileTasks) {
+        this.id = id;
         this.headLine = headLine;
-        this.text = text;
+        this.description = description;
         this.dateStart = dateStart;
-        this.dateEnd = dateEnd;
-        this.customer = customer;
-        this.employee = employee;
+        this.deadline = deadline;
+        this.author = author;
         this.subject = subject;
         this.price = price;
         this.status = status;
-        this.type = type;
-        this.filePath = filePath;
-        this.correspondence = correspondence;
+        this.fileTasks = fileTasks;
     }
+
 
     public long getId() {
         return id;
@@ -117,12 +103,12 @@ public class TaskDTO implements Serializable {
         this.headLine = headLine;
     }
 
-    public String getText() {
-        return text;
+    public String getDescription() {
+        return description;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getDateStart() {
@@ -133,28 +119,20 @@ public class TaskDTO implements Serializable {
         this.dateStart = dateStart;
     }
 
-    public String getDateEnd() {
-        return dateEnd;
+    public String getDeadline() {
+        return deadline;
     }
 
-    public void setDateEnd(String dateEnd) {
-        this.dateEnd = dateEnd;
+    public void setDeadline(String deadline) {
+        this.deadline = deadline;
     }
 
-    public String getCustomer() {
-        return customer;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setCustomer(String customer) {
-        this.customer = customer;
-    }
-
-    public String getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(String employee) {
-        this.employee = employee;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public String getSubject() {
@@ -181,27 +159,11 @@ public class TaskDTO implements Serializable {
         this.status = status;
     }
 
-    public String getType() {
-        return type;
+    public String getFileTasks() {
+        return fileTasks;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getFilePath() {
-        return filePath;
-    }
-
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
-    }
-
-    public String getCorrespondence() {
-        return correspondence;
-    }
-
-    public void setCorrespondence(String correspondence) {
-        this.correspondence = correspondence;
+    public void setFileTasks(String fileTasks) {
+        this.fileTasks = fileTasks;
     }
 }

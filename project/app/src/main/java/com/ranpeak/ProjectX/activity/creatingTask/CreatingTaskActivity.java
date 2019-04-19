@@ -329,7 +329,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
             }
         } else {
             /** Использовать это для создания задания*/
-//            postTask();
+            postTask();
 
             /** Убрать это когда добавление задания готово*/
             Intent intent = new Intent(getApplicationContext(), LobbyActivity.class);
@@ -395,14 +395,13 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("headLine", headline);
-                params.put("text", text);
+                params.put("description", text);
                 params.put("dateStart", dateStart);
-                params.put("dateEnd", dateEnd);
-                params.put("employee", String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()));
+                params.put("deadline", dateEnd);
+                params.put("author", String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()));
                 params.put("subject", typeLesson);
                 params.put("price", price);
-                params.put("status", "Free");
-                params.put("type", "Laba");
+                params.put("status", "Active");
                 return params;
             }
 

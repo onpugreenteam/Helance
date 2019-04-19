@@ -97,7 +97,7 @@ public class SplashScreen extends AppCompatActivity {
 
 
     private void getAllLogins() {
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, Constants.URL.GET_LOGINS,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Constants.URL.GET_USER,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

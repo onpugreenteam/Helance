@@ -103,7 +103,7 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             viewHolder.profile_user.setAnimation(AnimationUtils.loadAnimation(activity,R.anim.anim_for_image));
             viewHolder.cardView.setAnimation(AnimationUtils.loadAnimation(activity,R.anim.anim_card_view));
 
-            viewHolder.author.setText(item.getEmployee());
+            viewHolder.author.setText(item.getAuthor());
             viewHolder.headline.setText(item.getHeadLine());
             viewHolder.subject.setText(item.getSubject());
             viewHolder.date.setText(item.getDateStart());
