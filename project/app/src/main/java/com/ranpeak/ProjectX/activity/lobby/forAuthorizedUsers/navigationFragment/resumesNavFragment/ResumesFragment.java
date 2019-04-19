@@ -73,16 +73,13 @@ public class ResumesFragment extends Fragment implements Activity {
 
         resumeDAO.getAllResumes()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<List<ResumeDTO>>() {
-                    @Override
-                    public void accept(List<ResumeDTO> resumeDTOS) throws Exception {
-                        Log.d("Data size re in LocalDB", String.valueOf(resumeDTOS.size()));
-                        data = resumeDTOS;
+                .subscribe(resumeDTOS -> {
+                    Log.d("Data size re in LocalDB", String.valueOf(resumeDTOS.size()));
+                    data = resumeDTOS;
 
-                        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                        resumeListAdapter = new ResumeListAdapter(data, imageUrls, recyclerView, getActivity());
-                        recyclerView.setAdapter(resumeListAdapter);
-                    }
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                    resumeListAdapter = new ResumeListAdapter(data, imageUrls, recyclerView, getActivity());
+                    recyclerView.setAdapter(resumeListAdapter);
                 });
 
         return view;

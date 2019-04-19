@@ -46,10 +46,7 @@ import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
-
-
 public class TasksFragment extends Fragment implements Activity {
-
 
     private View view;
     private List<TaskDTO> data = new ArrayList<>();
@@ -84,8 +81,12 @@ public class TasksFragment extends Fragment implements Activity {
 
         taskDAO.getAllTasks()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(taskDTOS ->
-                        Log.d("Data size in LocalDB", String.valueOf(taskDTOS.size())));
+                .subscribe(taskDTOS -> {
+                            data = taskDTOS;
+                            adapter = new TaskListAdapter(data, imageUrls, recyclerView, getActivity());
+                            recyclerView.setAdapter(adapter);
+                            Log.d("Data size in LocalDB", String.valueOf(taskDTOS.size()));
+                });
 
 //        new GetFreeTask().execute();
 
@@ -93,7 +94,7 @@ public class TasksFragment extends Fragment implements Activity {
         adapter = new TaskListAdapter(data, imageUrls, recyclerView, getActivity());
         recyclerView.setAdapter(adapter);
 
-        getTasksFromServer();
+//        getTasksFromServer();
 
 //        adapter.setLoadMore(new ILoadMore() {
 //            @Override
@@ -318,10 +319,5 @@ public class TasksFragment extends Fragment implements Activity {
 
         }
 
-        public void unsubscribe(){
-            if(disposable!=null && !disposable.isDisposed()){
-                disposable.dispose();
-            }
-        }
     }
 }

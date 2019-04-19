@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.ranpeak.ProjectX.R;
-import com.ranpeak.ProjectX.activity.SettingsActivity1;
+import com.ranpeak.ProjectX.activity.SettingsActivity;
 import com.ranpeak.ProjectX.activity.editProfile.EditProfileActivity;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 
@@ -51,7 +51,7 @@ public class ProfileFragment extends Fragment implements Activity {
     @Override
     public void onListener() {
         settings.setOnClickListener(v-> {
-            startActivity(new Intent(getActivity(), SettingsActivity1.class));
+            startActivity(new Intent(getActivity(), SettingsActivity.class));
         });
         editProfile.setOnClickListener(v -> {
             startActivity(new Intent(getActivity(), EditProfileActivity.class));

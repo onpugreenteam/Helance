@@ -12,7 +12,7 @@ import com.ranpeak.ProjectX.R;
 
 import java.util.Objects;
 
-public class SettingsActivity1 extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity {
 
     private TextView searchText;
     private TextView receiveNotification;
