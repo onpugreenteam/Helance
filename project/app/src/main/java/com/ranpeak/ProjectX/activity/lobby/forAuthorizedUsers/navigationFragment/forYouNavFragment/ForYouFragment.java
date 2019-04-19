@@ -1,5 +1,6 @@
 package com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.forYouNavFragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,11 +9,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
 import java.util.ArrayList;
 import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 import com.ranpeak.ProjectX.R;
+import com.ranpeak.ProjectX.activity.SearchTaskAlertDialog;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.forYouNavFragment.adapter.ForYouListAdapter;
 import com.ranpeak.ProjectX.dataBase.App;
@@ -31,6 +35,7 @@ public class ForYouFragment extends Fragment implements Activity {
     private RecyclerView recyclerView;
     private ForYouListAdapter adapter;
     final String subject = "Maths";
+    private ImageView search;
 
 
     public ForYouFragment() {
@@ -63,6 +68,7 @@ public class ForYouFragment extends Fragment implements Activity {
                     recyclerView.setAdapter(adapter);
                     Log.d("Data size ForYou", String.valueOf(taskDTOS.size()));
                 });
+
         return view;
     }
 
@@ -88,11 +94,17 @@ public class ForYouFragment extends Fragment implements Activity {
     @Override
     public void findViewById() {
         recyclerView = view.findViewById(R.id.fragment_for_you_recycleView);
+        search = view.findViewById(R.id.fragment_for_you_search);
     }
 
     @Override
     public void onListener() {
-
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), SearchTaskAlertDialog.class));
+            }
+        });
 
     }
 

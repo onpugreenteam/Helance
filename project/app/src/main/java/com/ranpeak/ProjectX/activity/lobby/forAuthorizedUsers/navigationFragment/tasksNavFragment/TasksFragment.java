@@ -13,8 +13,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.ranpeak.ProjectX.R;
+import com.ranpeak.ProjectX.activity.SearchTaskAlertDialog;
 import com.ranpeak.ProjectX.activity.creatingTask.CreatingTaskActivity;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.tasksNavFragment.adapter.TaskListAdapter;
@@ -57,6 +59,7 @@ public class TasksFragment extends Fragment implements Activity {
     SwipeRefreshLayout mSwipeRefreshLayout;
     private LocalDB localDB;
     private TaskDAO taskDAO;
+    private ImageView search;
     private FloatingActionButton fab;
 
     private ApiService apiService = RetrofitClient.getInstance()
@@ -142,6 +145,7 @@ public class TasksFragment extends Fragment implements Activity {
         recyclerView = view.findViewById(R.id.fragment_tasks_recycleView_tasks);
         mSwipeRefreshLayout = view.findViewById(R.id.fragment_tasks_swipeRefresh);
         fab = view.findViewById(R.id.fragment_tasks_floatingActionButton);
+        search = view.findViewById(R.id.fragment_tasks_search);
     }
 
 
@@ -159,6 +163,13 @@ public class TasksFragment extends Fragment implements Activity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getContext(), CreatingTaskActivity.class));
+            }
+        });
+
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), SearchTaskAlertDialog.class));
             }
         });
 

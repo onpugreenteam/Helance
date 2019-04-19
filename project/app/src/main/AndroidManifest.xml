@@ -47,7 +47,7 @@
         <activity
             android:name=".activity.editProfile.EditProfileActivity"
             android:theme="@style/ToolBarProfile" />
-        <activity android:name=".activity.SearchActivity" />
+        <activity android:name=".activity.SearchTaskAlertDialog" />
         <activity
             android:name=".activity.registration.RegistrationActivity4"
             android:theme="@style/ToolBarProfile"></activity>
@@ -74,6 +74,8 @@
         <activity
             android:name=".activity.logIn.LogInActivity"
             android:windowSoftInputMode="stateHidden"></activity>
+
+        <activity android:name=".activity.SearchResumeAlertDialog"/>
         <activity
             android:name=".splashscreen.SplashScreen"
             android:noHistory="true">
@@ -87,7 +89,6 @@
             android:name=".activity.ProfileActivity"
             android:label="@string/app_name"
             android:theme="@style/ToolBarProfile" />
-        <activity android:name=".activity.ResumeActivity" />
         <activity android:name=".activity.lobby.forAuthorizedUsers.LobbyActivity" />
         <activity android:name=".activity.ViewResumeActivity" />
         <activity android:name=".activity.ViewTaskActivity" />

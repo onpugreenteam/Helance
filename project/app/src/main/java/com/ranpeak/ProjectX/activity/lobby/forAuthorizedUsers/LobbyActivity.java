@@ -77,7 +77,7 @@ public class LobbyActivity extends AppCompatActivity implements Activity {
     @Override
     public void onListener(){
 
-//        imageViewButtonSearch.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), SearchActivity.class)));
+//        imageViewButtonSearch.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), SearchTaskAlertDialog.class)));
 //        imageViewButtonProfile.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), ProfileActivity.class)));
 
         bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {

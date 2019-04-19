@@ -10,7 +10,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+
 import com.ranpeak.ProjectX.R;
+import com.ranpeak.ProjectX.activity.SearchResumeAlertDialog;
 import com.ranpeak.ProjectX.activity.creatingResume.CreatingResumeActivity;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.resumesNavFragment.adapter.ResumeListAdapter;
@@ -42,6 +47,7 @@ public class ResumesFragment extends Fragment implements Activity {
     private ResumeListAdapter resumeListAdapter;
     private List<ResumeDTO> data = new ArrayList<>();
     private ArrayList<String> imageUrls = new ArrayList<>();
+    private ImageView search;
 
     public ResumesFragment() {
         // Required empty public constructor
@@ -63,7 +69,7 @@ public class ResumesFragment extends Fragment implements Activity {
         resumeListAdapter = new ResumeListAdapter(data, imageUrls, recyclerView, getActivity());
         recyclerView.setAdapter(resumeListAdapter);
 
-//        addResumesToLocalDB(mockResumes());
+        addResumesToLocalDB(mockResumes());
 
         resumeDAO.getAllResumes()
                 .observeOn(AndroidSchedulers.mainThread())
@@ -78,6 +84,7 @@ public class ResumesFragment extends Fragment implements Activity {
                         recyclerView.setAdapter(resumeListAdapter);
                     }
                 });
+
         return view;
     }
 
@@ -167,6 +174,8 @@ public class ResumesFragment extends Fragment implements Activity {
     public void findViewById() {
         fab = view.findViewById(R.id.fragment_resumes_floatingActionButton2);
         recyclerView = view.findViewById(R.id.fragment_resumes_recycleView);
+        search = view.findViewById(R.id.fragment_resumes_search);
+
     }
 
     @Override
@@ -189,6 +198,14 @@ public class ResumesFragment extends Fragment implements Activity {
                 }
             }
         });
+
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), SearchResumeAlertDialog.class));
+            }
+        });
+
     }
 
     private void initImageBitmaps() {
