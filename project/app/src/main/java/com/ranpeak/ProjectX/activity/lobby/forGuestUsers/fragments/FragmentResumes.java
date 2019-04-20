@@ -33,7 +33,7 @@ import timber.log.Timber;
 
 public class FragmentResumes extends Fragment implements Activity {
 
-    View view;
+    private View view;
     private RecyclerView recyclerView;
     private ResumeListAdapter resumeListAdapter;
     private List<ResumeDTO> data = new ArrayList<>();
