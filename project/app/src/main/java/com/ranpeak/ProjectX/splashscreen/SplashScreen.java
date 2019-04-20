@@ -17,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.ranpeak.ProjectX.R;
+import com.ranpeak.ProjectX.activity.lobby.forGuestUsers.LobbyForGuestActivity;
 import com.ranpeak.ProjectX.activity.logIn.LogInActivity;
 import com.ranpeak.ProjectX.networking.Constants;
 import com.ranpeak.ProjectX.request.RequestHandler;
@@ -40,7 +41,7 @@ public class SplashScreen extends AppCompatActivity {
 
     @Override
     public void finish() {
-        startActivity(new Intent(SplashScreen.this, LogInActivity.class));
+        startActivity(new Intent(SplashScreen.this, LobbyForGuestActivity.class));
 
         super.finish();
     }
@@ -97,7 +98,7 @@ public class SplashScreen extends AppCompatActivity {
 
 
     private void getAllLogins() {
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, Constants.URL.GET_LOGINS,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Constants.URL.GET_USER,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

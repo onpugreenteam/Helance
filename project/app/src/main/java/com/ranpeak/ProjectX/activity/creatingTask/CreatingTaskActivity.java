@@ -329,8 +329,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
             }
         } else {
             /** Использовать это для создания задания*/
-//            postTask();
-
+           postTask();
             /** Убрать это когда добавление задания готово*/
             Intent intent = new Intent(getApplicationContext(), LobbyActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
