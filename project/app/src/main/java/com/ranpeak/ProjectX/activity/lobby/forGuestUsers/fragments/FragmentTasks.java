@@ -6,40 +6,79 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
+import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.tasksNavFragment.TasksFragment;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.tasksNavFragment.adapter.TaskListAdapter;
+import com.ranpeak.ProjectX.dataBase.App;
+import com.ranpeak.ProjectX.dataBase.local.LocalDB;
+import com.ranpeak.ProjectX.dataBase.local.dao.TaskDAO;
 import com.ranpeak.ProjectX.dto.TaskDTO;
+import com.ranpeak.ProjectX.networking.ApiService;
+import com.ranpeak.ProjectX.networking.RetrofitClient;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
+
 public class FragmentTasks extends Fragment implements Activity {
 
      View view;
-
      private RecyclerView recyclerView;
      private TaskListAdapter taskListAdapter;
-     private List<TaskDTO> taskDTOS = new ArrayList<>();
+     private List<TaskDTO> data = new ArrayList<>();
      private ArrayList<String> imageUrls = new ArrayList<>();
+     private LocalDB localDB;
+     private TaskDAO taskDAO;
 
+    private ApiService apiService = RetrofitClient.getInstance()
+            .create(ApiService.class);
 
-    public FragmentTasks() {
-    }
+     public FragmentTasks() {
+     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fargment_lobby_list_tasks, container, false);
+
+         view = inflater.inflate(R.layout.fargment_lobby_list_tasks, container, false);
+        localDB = App.getInstance().getLocalDB();
+        taskDAO = localDB.taskDao();
+        mockTasks();
+        addTasksToLocalDB(data);
+
+        taskDAO.getAllTasks()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(taskDTOS -> {
+                    data = taskDTOS;
+//                    taskListAdapter = new TaskListAdapter(data, imageUrls, recyclerView, getActivity());
+//                    recyclerView.setAdapter(taskListAdapter);
+                    Log.d("Data size in LocalDB", String.valueOf(taskDTOS.size()));
+                });
+
+
+//        getTasksFromServer();
         findViewById();
         initImageBitmaps();
-        taskListAdapter = new TaskListAdapter(taskDTOS,imageUrls,recyclerView,getActivity());
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        taskListAdapter = new TaskListAdapter(data,imageUrls,recyclerView,getActivity());
         recyclerView.setAdapter(taskListAdapter);
+
+
+
 
         return view;
     }
@@ -72,6 +111,81 @@ public class FragmentTasks extends Fragment implements Activity {
     @Override
     public void onListener() {
 
+    }
+
+    private void mockTasks(){
+        TaskDTO taskDTO = new TaskDTO(1,"dsad","sdasdas","sadasd","sadsad","saddsa","sdsdds",21f,"sada","sd");
+        TaskDTO taskDTO1 = new TaskDTO(2,"dsad","sdasdas","sadasd","sadsad","saddsa","sdsdds",21f,"sada","sd");
+        TaskDTO taskDTO2 = new TaskDTO(3,"dsad","sdasdas","sadasd","sadsad","saddsa","sdsdds",21f,"sada","sd");
+        TaskDTO taskDTO3 = new TaskDTO(4,"dsad","sdasdas","sadasd","sadsad","saddsa","sdsdds",21f,"sada","sd");
+        TaskDTO taskDTO4 = new TaskDTO(5,"dsad","sdasdas","sadasd","sadsad","saddsa","sdsdds",21f,"sada","sd");
+        TaskDTO taskDTO5 = new TaskDTO(6,"dsad","sdasdas","sadasd","sadsad","saddsa","sdsdds",21f,"sada","sd");
+        data.add(taskDTO);
+        data.add(taskDTO1);
+        data.add(taskDTO2);
+        data.add(taskDTO3);
+        data.add(taskDTO4);
+        data.add(taskDTO5);
+    }
+
+
+    private void getTasksFromServer(){
+
+        apiService.getAllTask()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableObserver<List<TaskDTO>>() {
+                    @Override
+                    public void onNext(List<TaskDTO> taskDTOS) {
+//                        data.clear();
+                        data.addAll(taskDTOS);
+                        addTasksToLocalDB(data);
+                        taskListAdapter.notifyDataSetChanged();
+                        Log.d("Data size from server", String.valueOf(taskDTOS.size()));
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d("Error", e.getMessage());
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        // Received all notes
+
+                    }
+                });
+    }
+
+
+    public void addTasksToLocalDB(List<TaskDTO> tasksDTOS) {
+        Observable.fromCallable(() -> localDB.taskDao().insertAll(tasksDTOS))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new TasksFragment.DefaultSubscriber<List<Long>>(){
+                    @Override
+                    public void onSubscribe(@io.reactivex.annotations.NonNull Disposable d) {
+                        super.onSubscribe(d);
+                    }
+
+                    @Override
+                    public void onNext(@io.reactivex.annotations.NonNull List<Long> longs) {
+                        super.onNext(longs);
+                        Timber.d("insert countries transaction complete");
+                    }
+
+                    @Override
+                    public void onError(@io.reactivex.annotations.NonNull Throwable e) {
+                        super.onError(e);
+                        Timber.d("error storing countries in db"+e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Timber.d("insert countries transaction complete");
+                    }
+                });
     }
 }
 

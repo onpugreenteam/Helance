@@ -42,23 +42,23 @@ public class ResumeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         this.data = data;
         this.images = images;
         this.activity = activity;
-
-        final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                totalItemCount = linearLayoutManager.getItemCount();
-                lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
-                if (!isLoading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
-                    if (loadMore != null) {
-                        loadMore.onLoadMore();
-                        isLoading = true;
-                    }
-
-                }
-            }
-        });
+//
+//        final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+//        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+//                totalItemCount = linearLayoutManager.getItemCount();
+//                lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
+//                if (!isLoading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
+//                    if (loadMore != null) {
+//                        loadMore.onLoadMore();
+//                        isLoading = true;
+//                    }
+//
+//                }
+//            }
+//        });
     }
 
 

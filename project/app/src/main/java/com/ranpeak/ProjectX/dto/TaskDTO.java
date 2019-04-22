@@ -42,8 +42,8 @@ public class TaskDTO implements Serializable {
     @Expose
     private String deadline;
 
-    @SerializedName("author")
-    @ColumnInfo (name = "author")
+    @SerializedName("user")
+    @ColumnInfo (name = "user")
     @Expose
     private String author;
 

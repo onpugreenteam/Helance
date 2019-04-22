@@ -397,7 +397,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
                 params.put("description", text);
                 params.put("dateStart", dateStart);
                 params.put("deadline", dateEnd);
-                params.put("author", String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()));
+                params.put("user", String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()));
                 params.put("subject", typeLesson);
                 params.put("price", price);
                 params.put("status", "Active");

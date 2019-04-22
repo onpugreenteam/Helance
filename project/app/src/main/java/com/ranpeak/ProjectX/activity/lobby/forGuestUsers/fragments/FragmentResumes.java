@@ -48,26 +48,30 @@ public class FragmentResumes extends Fragment implements Activity {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fargment_lobby_list_resume,container,false);
-        findViewById();
-        initImageBitmaps();
-
         localDB = App.getInstance().getLocalDB();
         resumeDAO = localDB.resumeDAO();
+
+        mockResumes();
+
+//        resumeDAO.getAllResumes()
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(resumeDTOS -> {
+//                    Log.d("Data size re in LocalDB", String.valueOf(resumeDTOS.size()));
+//                    data = resumeDTOS;
+//
+////                    resumeListAdapter.notifyDataSetChanged();
+//                });
+        findViewById();
+        initImageBitmaps();
+        Log.d("Data size", String.valueOf(data.size()));
+
 
         resumeListAdapter = new ResumeListAdapter(data,imageUrls,recyclerView,getActivity());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(resumeListAdapter);
 
-        addResumesToLocalDB(mockResumes());
+//        addResumesToLocalDB(mockResumes());
 
-        resumeDAO.getAllResumes()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(resumeDTOS -> {
-                    Log.d("Data size re in LocalDB", String.valueOf(resumeDTOS.size()));
-                    data = resumeDTOS;
-
-                    resumeListAdapter.notifyDataSetChanged();
-                });
 
         return view;
     }
@@ -102,56 +106,19 @@ public class FragmentResumes extends Fragment implements Activity {
 
     }
 
-    private List<ResumeDTO> mockResumes() {
-        List<ResumeDTO> resumeDTOS = new ArrayList<>();
+    private void mockResumes() {
 
-        ResumeDTO resumeDTO1 = new ResumeDTO();
-        resumeDTO1.setId(1);
-        resumeDTO1.setText("Gjitk yf[ ns fjelpdifqebnwifunqweo eoqfnweuiofh qef uqweif nqewiuf  iuqef iwuefbn weiuf iqeuf qiuewf qnieuwf qeiwf nq");
-        resumeDTO1.setDateStart("21.08.19");
-        resumeDTO1.setStatus("Active");
-        resumeDTO1.setEmployee("Fantastic");
-        resumeDTO1.setSubject("Programming");
+        ResumeDTO resumeDTO5 = new ResumeDTO("asd","sd","sadasd","sdsd","sdadasd");
+        ResumeDTO resumeDTO1 = new ResumeDTO("asd","sd","sadasd","sdsd","sdadasd");
+        ResumeDTO resumeDTO2 = new ResumeDTO("asd","sd","sadasd","sdsd","sdadasd");
+        ResumeDTO resumeDTO3 = new ResumeDTO("asd","sd","sadasd","sdsd","sdadasd");
+        ResumeDTO resumeDTO4 = new ResumeDTO("asd","sd","sadasd","sdsd","sdadasd");
+        data.add(resumeDTO1);
+        data.add(resumeDTO2);
+        data.add(resumeDTO3);
+        data.add(resumeDTO4);
+        data.add(resumeDTO5);
 
-        ResumeDTO resumeDTO2 = new ResumeDTO();
-        resumeDTO1.setId(2);
-        resumeDTO2.setText("Gjitk yf[ ns fjelpdifqebnwifunqweo eoqfnweuiofh qef uqweif nqewiuf  iuqef iwuefbn weiuf iqeuf qiuewf qnieuwf qeiwf nq");
-        resumeDTO2.setDateStart("21.10.19");
-        resumeDTO2.setStatus("Active");
-        resumeDTO2.setEmployee("Jenia12CM");
-        resumeDTO2.setSubject("Programming");
-
-        ResumeDTO resumeDTO3 = new ResumeDTO();
-        resumeDTO1.setId(3);
-        resumeDTO3.setText("Gjitk yf[ ns fjelpdifqebnwifunqweo eoqfnweuiofh qef uqw  sa d sa asd eif nqewiuf  iuqef iwuefbn weiuf iqeuf qiuewf qnieuwf qeiwf nq");
-        resumeDTO3.setDateStart("21.10.19");
-        resumeDTO3.setStatus("Active");
-        resumeDTO3.setEmployee("Fantastic");
-        resumeDTO3.setSubject("Programming");
-
-        ResumeDTO resumeDTO4 = new ResumeDTO();
-        resumeDTO1.setId(4);
-        resumeDTO4.setText("Gjitk yf[ ns fjelpdifqebnwifunqweo eoqfAS DASD ASD d asnweuiofh qef uqweif nqewiuf  iuqef iwuefbn weiuf iqeuf qiuewf qnieuwf qeiwf nq");
-        resumeDTO4.setDateStart("21.10.19");
-        resumeDTO4.setStatus("Active");
-        resumeDTO4.setEmployee("Azik13");
-        resumeDTO4.setSubject("Programming");
-
-        ResumeDTO resumeDTO5 = new ResumeDTO();
-        resumeDTO1.setId(5);
-        resumeDTO5.setText("Gjitk yf[ ns fsadas sad asd as d asd ASjelpdifqebnwifunqweo eoqfnweuiofh qef uqweif nqewiuf  iuqef iwuefbn weiuf iqeuf qiuewf qnieuwf qeiwf nq");
-        resumeDTO5.setDateStart("21.11.19");
-        resumeDTO5.setStatus("Active");
-        resumeDTO5.setEmployee("Andrey21CM");
-        resumeDTO5.setSubject("Programming");
-
-        resumeDTOS.add(resumeDTO1);
-        resumeDTOS.add(resumeDTO2);
-        resumeDTOS.add(resumeDTO3);
-        resumeDTOS.add(resumeDTO4);
-        resumeDTOS.add(resumeDTO5);
-
-        return resumeDTOS;
     }
 
 
