@@ -41,10 +41,10 @@ public class ProfileFragment extends Fragment implements Activity {
     private TextView name;
     private TextView login;
 
+
     public ProfileFragment() {
 
     }
-
 
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
