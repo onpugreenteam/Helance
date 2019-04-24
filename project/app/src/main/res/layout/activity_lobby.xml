@@ -106,7 +106,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-
         app:elevation="8dp"
         app:itemBackground="@color/colorPrimary"
         app:itemIconTint="@color/nav_item_colors"

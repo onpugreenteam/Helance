@@ -35,7 +35,6 @@ public class RegistrationActivity4 extends AppCompatActivity implements Activity
 
     private TextInputLayout registration_username;
     private Button nextButton;
-    private ProgressDialog progressDialog;
     //    private EditText registration_phoneNumber;
     private MaskedEditText registration_phoneNumber;
     private EditText registration_telegram;
@@ -172,8 +171,6 @@ public class RegistrationActivity4 extends AppCompatActivity implements Activity
         final String email = this.email;
         final String country = this.country;
 
-        progressDialog.setMessage("Registering user...");
-        progressDialog.show();
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 Constants.URL.POST_USER,
                 response -> {
@@ -195,7 +192,6 @@ public class RegistrationActivity4 extends AppCompatActivity implements Activity
 
                 },
                 error -> {
-                    progressDialog.hide();
                     Toast.makeText(getApplicationContext(), "Please on Internet", Toast.LENGTH_LONG).show();
                 }) {
 
