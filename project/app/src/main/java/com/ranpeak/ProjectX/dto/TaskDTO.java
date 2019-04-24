@@ -22,6 +22,11 @@ public class TaskDTO implements Serializable {
     @Expose
     private long id;
 
+    @SerializedName("subject")
+    @ColumnInfo (name = "subject")
+    @Expose
+    private String subject;
+
     @SerializedName("headLine")
     @ColumnInfo(name = "headline")
     @Expose
@@ -37,30 +42,45 @@ public class TaskDTO implements Serializable {
     @Expose
     private String dateStart;
 
-    @SerializedName("deadline")
-    @ColumnInfo (name = "deadline")
-    @Expose
-    private String deadline;
-
-    @SerializedName("user")
-    @ColumnInfo (name = "user")
-    @Expose
-    private String author;
-
-    @SerializedName("subject")
-    @ColumnInfo (name = "subject")
-    @Expose
-    private String subject;
-
     @SerializedName("price")
     @ColumnInfo (name = "price")
     @Expose
     private float price;
 
+    @SerializedName("deadline")
+    @ColumnInfo (name = "deadline")
+    @Expose
+    private String deadline;
+
     @SerializedName("status")
     @ColumnInfo (name = "status")
     @Expose
     private String status;
+
+    @SerializedName("userLogin")
+    @ColumnInfo (name = "userLogin")
+    @Expose
+    private String userLogin;
+
+    @SerializedName("userEmail")
+    @ColumnInfo (name = "userEmail")
+    @Expose
+    private String userEmail;
+
+    @SerializedName("userName")
+    @ColumnInfo (name = "userName")
+    @Expose
+    private String userName;
+
+    @SerializedName("userAvatar")
+    @ColumnInfo (name = "userAvatar")
+    @Expose
+    private String userAvatar;
+
+    @SerializedName("userCountry")
+    @ColumnInfo (name = "userCountry")
+    @Expose
+    private String userCountry;
 
     @SerializedName("fileTasks")
     @ColumnInfo (name = "fileTasks")
@@ -71,18 +91,21 @@ public class TaskDTO implements Serializable {
     public TaskDTO() {
     }
 
-
     @Ignore
-    public TaskDTO(long id, String headLine, String description, String dateStart, String deadline, String author, String subject, float price, String status, String fileTasks) {
+    public TaskDTO(long id, String subject, String headLine, String description, String dateStart, float price, String deadline, String status, String userLogin, String userEmail, String userName, String userAvatar, String userCountry, String fileTasks) {
         this.id = id;
+        this.subject = subject;
         this.headLine = headLine;
         this.description = description;
         this.dateStart = dateStart;
-        this.deadline = deadline;
-        this.author = author;
-        this.subject = subject;
         this.price = price;
+        this.deadline = deadline;
         this.status = status;
+        this.userLogin = userLogin;
+        this.userEmail = userEmail;
+        this.userName = userName;
+        this.userAvatar = userAvatar;
+        this.userCountry = userCountry;
         this.fileTasks = fileTasks;
     }
 
@@ -127,14 +150,6 @@ public class TaskDTO implements Serializable {
         this.deadline = deadline;
     }
 
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
     public String getSubject() {
         return subject;
     }
@@ -165,5 +180,45 @@ public class TaskDTO implements Serializable {
 
     public void setFileTasks(String fileTasks) {
         this.fileTasks = fileTasks;
+    }
+
+    public String getUserLogin() {
+        return userLogin;
+    }
+
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserAvatar() {
+        return userAvatar;
+    }
+
+    public void setUserAvatar(String userAvatar) {
+        this.userAvatar = userAvatar;
+    }
+
+    public String getUserCountry() {
+        return userCountry;
+    }
+
+    public void setUserCountry(String userCountry) {
+        this.userCountry = userCountry;
     }
 }

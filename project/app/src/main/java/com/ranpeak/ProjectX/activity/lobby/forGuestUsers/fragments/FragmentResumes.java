@@ -98,7 +98,6 @@ public class FragmentResumes extends Fragment implements Activity {
     @Override
     public void findViewById() {
         recyclerView = view.findViewById(R.id.recycler_resumes);
-
     }
 
     @Override
@@ -107,7 +106,6 @@ public class FragmentResumes extends Fragment implements Activity {
     }
 
     private void mockResumes() {
-
         ResumeDTO resumeDTO5 = new ResumeDTO("asd","sd","sadasd","sdsd","sdadasd");
         ResumeDTO resumeDTO1 = new ResumeDTO("asd","sd","sadasd","sdsd","sdadasd");
         ResumeDTO resumeDTO2 = new ResumeDTO("asd","sd","sadasd","sdsd","sdadasd");
@@ -118,7 +116,6 @@ public class FragmentResumes extends Fragment implements Activity {
         data.add(resumeDTO3);
         data.add(resumeDTO4);
         data.add(resumeDTO5);
-
     }
 
 

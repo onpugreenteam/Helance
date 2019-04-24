@@ -101,7 +101,7 @@
         android:layout_marginBottom="24dp"
         app:fabIcon="@drawable/ic_add_black_24dp"
         app:fabSizes="mini"
-        app:fabElevation="6dp"
+        app:fabElevation="4dp"
         android:clickable="true"
         app:fabText="Add task"
         app:fabType="circle"

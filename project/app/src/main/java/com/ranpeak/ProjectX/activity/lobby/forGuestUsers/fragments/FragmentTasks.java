@@ -1,5 +1,6 @@
 package com.ranpeak.ProjectX.activity.lobby.forGuestUsers.fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -51,34 +52,18 @@ public class FragmentTasks extends Fragment implements Activity {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
          view = inflater.inflate(R.layout.fargment_lobby_list_tasks, container, false);
+
         localDB = App.getInstance().getLocalDB();
         taskDAO = localDB.taskDao();
-        mockTasks();
-        addTasksToLocalDB(data);
-
-        taskDAO.getAllTasks()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(taskDTOS -> {
-                    data = taskDTOS;
-//                    taskListAdapter = new TaskListAdapter(data, imageUrls, recyclerView, getActivity());
-//                    recyclerView.setAdapter(taskListAdapter);
-                    Log.d("Data size in LocalDB", String.valueOf(taskDTOS.size()));
-                });
-
-
-//        getTasksFromServer();
         findViewById();
         initImageBitmaps();
-
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         taskListAdapter = new TaskListAdapter(data,imageUrls,recyclerView,getActivity());
         recyclerView.setAdapter(taskListAdapter);
 
-
-
+        getTasksFromServer();
 
         return view;
     }
@@ -113,31 +98,14 @@ public class FragmentTasks extends Fragment implements Activity {
 
     }
 
-    private void mockTasks(){
-        TaskDTO taskDTO = new TaskDTO(1,"dsad","sdasdas","sadasd","sadsad","saddsa","sdsdds",21f,"sada","sd");
-        TaskDTO taskDTO1 = new TaskDTO(2,"dsad","sdasdas","sadasd","sadsad","saddsa","sdsdds",21f,"sada","sd");
-        TaskDTO taskDTO2 = new TaskDTO(3,"dsad","sdasdas","sadasd","sadsad","saddsa","sdsdds",21f,"sada","sd");
-        TaskDTO taskDTO3 = new TaskDTO(4,"dsad","sdasdas","sadasd","sadsad","saddsa","sdsdds",21f,"sada","sd");
-        TaskDTO taskDTO4 = new TaskDTO(5,"dsad","sdasdas","sadasd","sadsad","saddsa","sdsdds",21f,"sada","sd");
-        TaskDTO taskDTO5 = new TaskDTO(6,"dsad","sdasdas","sadasd","sadsad","saddsa","sdsdds",21f,"sada","sd");
-        data.add(taskDTO);
-        data.add(taskDTO1);
-        data.add(taskDTO2);
-        data.add(taskDTO3);
-        data.add(taskDTO4);
-        data.add(taskDTO5);
-    }
-
-
+    @SuppressLint("CheckResult")
     private void getTasksFromServer(){
-
         apiService.getAllTask()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableObserver<List<TaskDTO>>() {
                     @Override
                     public void onNext(List<TaskDTO> taskDTOS) {
-//                        data.clear();
                         data.addAll(taskDTOS);
                         addTasksToLocalDB(data);
                         taskListAdapter.notifyDataSetChanged();
@@ -155,6 +123,19 @@ public class FragmentTasks extends Fragment implements Activity {
                         // Received all notes
 
                     }
+                });
+    }
+
+
+    @SuppressLint("CheckResult")
+    private void getTasksFromLocalDB(){
+        taskDAO.getAllTasks()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(taskDTOS -> {
+                    data = taskDTOS;
+                    taskListAdapter = new TaskListAdapter(data, imageUrls, recyclerView, getActivity());
+                    recyclerView.setAdapter(taskListAdapter);
+                    Log.d("Data size in LocalDB", String.valueOf(taskDTOS.size()));
                 });
     }
 

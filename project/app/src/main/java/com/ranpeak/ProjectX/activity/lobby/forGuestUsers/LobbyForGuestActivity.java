@@ -5,15 +5,10 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
-import android.view.View;
 import android.widget.ImageView;
-
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.SearchTaskAlertDialog;
-
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
-
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.LobbyActivity;
 import com.ranpeak.ProjectX.activity.lobby.forGuestUsers.adapter.ViewPagerAdapter;
 import com.ranpeak.ProjectX.activity.lobby.forGuestUsers.fragments.FragmentResumes;
@@ -38,7 +33,6 @@ public class LobbyForGuestActivity extends AppCompatActivity implements Activity
         super.onCreate(savedInstanceState);
         setContentView(LOBBY_FOR_GUEST_ACTIVITY);
 
-
         if (SharedPrefManager.getInstance(this).isLoggedIn()) {
             finish();
             startActivity(new Intent(this, LobbyActivity.class));
@@ -47,10 +41,7 @@ public class LobbyForGuestActivity extends AppCompatActivity implements Activity
         findViewById();
         onListener();
 
-
-
         setupViewPager(viewPager);
-
         tabLayout.setupWithViewPager(viewPager);
     }
 
@@ -63,23 +54,16 @@ public class LobbyForGuestActivity extends AppCompatActivity implements Activity
         floatingLayout = findViewById(R.id.custom_fab);
     }
 
+
     @Override
     public void onListener() {
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), SearchTaskAlertDialog.class));
-            }
-        });
+        imageView.setOnClickListener(v ->
+                startActivity(new Intent(getApplicationContext(), SearchTaskAlertDialog.class)));
 
-        floatingLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), LogInActivity.class));
-            }
-        });
-
+        floatingLayout.setOnClickListener(v ->
+                startActivity(new Intent(getApplicationContext(), LogInActivity.class)));
     }
+
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());

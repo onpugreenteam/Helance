@@ -340,16 +340,6 @@ public class RegistrationActivity1 extends AppCompatActivity implements Activity
         return name.length() > 5;
     }
 
-    private static boolean stringContainsItemFromList(String inputStr) {
-        String[] items = Constants.Values.COUNTRIES;
-        for (String item : items) {
-            if (item.equals(inputStr)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     private boolean allFieldsEmpty() {
         return TextUtils.isEmpty(register_name.getText().toString())
                 && TextUtils.isEmpty(register_email.getText().toString())

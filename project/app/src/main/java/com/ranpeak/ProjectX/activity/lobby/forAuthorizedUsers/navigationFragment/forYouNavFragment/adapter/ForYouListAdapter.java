@@ -103,7 +103,7 @@ public class ForYouListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 //            viewHolder.profile_user.setAnimation(AnimationUtils.loadAnimation(activity,R.anim.anim_for_image));
 //            viewHolder.cardView.setAnimation(AnimationUtils.loadAnimation(activity,R.anim.anim_card_view));
 
-            viewHolder.author.setText(item.getAuthor());
+            viewHolder.author.setText(item.getUserLogin());
             viewHolder.headline.setText(item.getHeadLine());
             viewHolder.subject.setText(item.getSubject());
             viewHolder.date.setText(item.getDateStart());
@@ -174,15 +174,6 @@ public class ForYouListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         @Override
         public void onListener() {
-//            cardView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Toast.makeText(v.getContext(), "Open task", Toast.LENGTH_LONG).show();
-////                    v.getContext().startActivity(new Intent(v.getContext(), ViewTaskActivity.class));
-//                    Intent intent = new Intent();
-//                    intent.putExtra()
-//                }
-//            });
 
         }
     }
