@@ -56,7 +56,9 @@ public class ViewTaskActivity extends AppCompatActivity implements Activity {
         subject.setText(taskDTO.getSubject());
         header.setText(taskDTO.getHeadLine());
         description.setText(taskDTO.getDescription());
-        name.setText(taskDTO.getAuthor());
+        name.setText(taskDTO.getUserName());
+        email.setText(taskDTO.getUserEmail());
+        country.setText(taskDTO.getUserCountry());
     }
 
     @Override

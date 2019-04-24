@@ -36,9 +36,9 @@ public class CountryListFragment extends DialogFragment implements Activity {
 
         getDialog().setTitle("choose country");
 
-        // listView properties
-        adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1,
-                Constants.Values.COUNTRIES);
+//        // listView properties
+//        adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1,
+//                Constants.Values.COUNTRIES);
         listView.setAdapter(adapter);
 
 
