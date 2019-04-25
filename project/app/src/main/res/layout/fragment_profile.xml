@@ -1,65 +1,222 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.ProfileFragment">
 
-    <android.support.design.widget.CollapsingToolbarLayout
-        android:id="@+id/fragment_profile_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="0dp"
-        android:background="@color/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_scrollFlags="scroll" />
-
-    <ImageView
-        android:id="@+id/fragment_profile_edit_profile"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="6dp"
-        android:background="?android:selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:padding="12dp"
-        app:layout_constraintStart_toStartOf="@+id/fragment_profile_toolbar"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_edit_white_24dp" />
-
-    <ImageView
-        android:id="@+id/fragment_profile_settings"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="6dp"
-        android:background="?android:selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:padding="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_settings_white_24dp" />
-
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/fragment_profile_bottomNavigationView"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/fragment_profile_main.appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/fragment_profile_toolbar"
-        android:layout_gravity="bottom"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
-        app:itemBackground="@color/colorPrimaryLight"
-        app:itemIconTint="@color/nav_item_colors"
-        app:itemTextColor="@color/nav_item_colors"
-        app:labelVisibilityMode="unlabeled"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_profile_toolbar"
-        app:menu="@menu/profile_nav_items" />
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-</android.support.constraint.ConstraintLayout>
+        <!--<android.support.v7.widget.Toolbar-->
+        <!--android:id="@+id/fragment_profile_toolbar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="56dp"-->
+        <!--android:fitsSystemWindows="true"-->
+        <!--app:layout_scrollFlags="scroll|enterAlwaysCollapsed">-->
+
+        <!--<ImageView-->
+        <!--android:id="@+id/fragment_profile_edit_profile"-->
+        <!--android:layout_width="48dp"-->
+        <!--android:layout_height="48dp"-->
+        <!--android:layout_gravity="start"-->
+        <!--android:layout_marginStart="6dp"-->
+        <!--android:layout_marginTop="6dp"-->
+        <!--android:background="?android:selectableItemBackground"-->
+        <!--android:clickable="true"-->
+        <!--android:focusable="true"-->
+        <!--android:padding="12dp"-->
+        <!--app:srcCompat="@drawable/ic_edit_white_24dp" />-->
+
+        <!---->
+
+        <!--<ImageView-->
+        <!--android:id="@+id/fragment_profile_settings"-->
+        <!--android:layout_width="48dp"-->
+        <!--android:layout_height="48dp"-->
+        <!--android:layout_gravity="end"-->
+        <!--android:layout_marginTop="6dp"-->
+        <!--android:layout_marginEnd="6dp"-->
+        <!--android:background="?android:selectableItemBackground"-->
+        <!--android:clickable="true"-->
+        <!--android:focusable="true"-->
+        <!--android:padding="12dp"-->
+        <!--app:srcCompat="@drawable/ic_settings_white_24dp" />-->
+        <!---->
+        <!--</android.support.v7.widget.Toolbar>-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_scrollFlags="scroll|snap">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="16dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/fragment_profile_edit_profile"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="start"
+
+                    android:background="?android:selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="12dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_edit_white_24dp" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/fragment_profile_avatar"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/splashscreen_emblem"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/fragment_profile_settings"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="8dp"
+                    android:background="?android:selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="12dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_settings_white_24dp" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/fragment_profile_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/john_snow"
+                android:textColor="@color/colorSecondaryLight"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/fragment_profile_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/login"
+                android:textColor="@color/colorSecondaryLight"
+                android:textSize="20sp" />
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/fragment_profile_linearLayout"
+                    android:layout_width="205dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/colorPrimary"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/fragment_profile_task_count"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/count_of_tasks"
+                        android:textColor="@color/colorSecondaryLight"
+                        android:textSize="30sp" />
+
+                    <TextView
+                        android:id="@+id/fragment_profile_textView_task"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/tasks"
+                        android:textColor="@color/colorSecondaryLight"
+                        android:textSize="25sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="205dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/colorPrimaryDark"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/fragment_profile_linearLayout"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/fragment_profile_resumes_count"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/count_of_resumes"
+                        android:textColor="@color/colorSecondaryLight"
+                        android:textSize="30sp" />
+
+                    <TextView
+                        android:id="@+id/fragment_profile_textView_resume"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/resumes"
+                        android:textColor="@color/colorSecondaryLight"
+                        android:textSize="25dp" />
+                </LinearLayout>
+            </android.support.constraint.ConstraintLayout>
+        </LinearLayout>
+
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/fragment_profile_bottomNavigationView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:itemBackground="@color/colorPrimaryLight"
+            app:itemIconTint="@color/nav_item_colors"
+            app:itemTextColor="@color/nav_item_colors"
+            app:labelVisibilityMode="unlabeled"
+            app:menu="@menu/profile_nav_items"
+            app:tabGravity="fill"
+            app:tabMode="fixed" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/fragment_profile_nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <FrameLayout
+            android:id="@+id/fragment_profile_navigation_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

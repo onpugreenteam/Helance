@@ -236,6 +236,15 @@
     <string name="cancel_creating_resume">You want to cancel creating new resume?</string>
     <string name="choose_lesson">Choose lesson</string>
     <string name="cancel_registration">You want to cancel registration?</string>
+    <string name="john_snow">John Snow</string>
+    <string name="count_of_tasks">20</string>
+    <string name="tasks">TASKS</string>
+    <string name="count_of_resumes">3</string>
+    <string name="resumes">RESUMES</string>
+    <string name="phone">Phone</string>
+    <string name="email_example">example@email.com</string>
+    <string name="telegram_example">\@example</string>
+    <string name="facebook">Facebook</string>
 
 
 </resources>

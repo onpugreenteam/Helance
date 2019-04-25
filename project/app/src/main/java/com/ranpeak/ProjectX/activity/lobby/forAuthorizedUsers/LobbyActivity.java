@@ -28,7 +28,7 @@ public class LobbyActivity extends AppCompatActivity implements Activity {
    final Fragment resumes = new ResumesFragment();
    final Fragment tasks = new TasksFragment();
    final Fragment forYou = new ForYouFragment();
-   final Fragment notifications = new ProfileFragment();
+   final Fragment profile = new ProfileFragment();
    final FragmentManager fm = getSupportFragmentManager();
 
    Fragment active = forYou;
@@ -42,7 +42,10 @@ public class LobbyActivity extends AppCompatActivity implements Activity {
         findViewById();
         onListener();
 
-        fm.beginTransaction().add(R.id.navigation_container,notifications,"4").hide(notifications).commit();
+//        Intent i = getIntent();
+//        data = (List<TaskEntity>) i.getSerializableExtra("data");
+
+        fm.beginTransaction().add(R.id.navigation_container, profile,"4").hide(profile).commit();
         fm.beginTransaction().add(R.id.navigation_container,tasks,"2").hide(tasks).commit();
         fm.beginTransaction().add(R.id.navigation_container,resumes,"1").hide(resumes).commit();
         fm.beginTransaction().add(R.id.navigation_container,forYou,"3").commit();
@@ -75,19 +78,12 @@ public class LobbyActivity extends AppCompatActivity implements Activity {
                     active = forYou;
                     return true;
                 case R.id.nav_profile:
-                    fm.beginTransaction().hide(active).show(notifications).commit();
-                    active = notifications;
+                    fm.beginTransaction().hide(active).show(profile).commit();
+                    active = profile;
                     return true;
                 default:
                     return false;
             }
         });
     }
-
-//    private void animationBackground(){
-//        animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-//        animationDrawable.setEnterFadeDuration(4500);
-//        animationDrawable.setExitFadeDuration(4500);
-//        animationDrawable.start();
-//    }
 }

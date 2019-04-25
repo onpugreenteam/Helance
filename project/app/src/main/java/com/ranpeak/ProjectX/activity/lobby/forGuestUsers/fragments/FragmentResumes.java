@@ -42,6 +42,7 @@ public class FragmentResumes extends Fragment implements Activity {
     private ResumeDAO resumeDAO;
 
     public FragmentResumes() {
+
     }
 
     @Nullable
@@ -64,7 +65,6 @@ public class FragmentResumes extends Fragment implements Activity {
         findViewById();
         initImageBitmaps();
         Log.d("Data size", String.valueOf(data.size()));
-
 
         resumeListAdapter = new ResumeListAdapter(data,imageUrls,recyclerView,getActivity());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
