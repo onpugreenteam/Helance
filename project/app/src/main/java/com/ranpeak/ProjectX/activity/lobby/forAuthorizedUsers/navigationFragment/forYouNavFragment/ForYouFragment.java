@@ -26,7 +26,6 @@ import com.ranpeak.ProjectX.dto.TaskDTO;
 
 public class ForYouFragment extends Fragment implements Activity {
 
-
     private View view;
     private LocalDB localDB;
     private TaskDAO taskDAO;
@@ -39,7 +38,6 @@ public class ForYouFragment extends Fragment implements Activity {
 
 
     public ForYouFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -99,12 +97,8 @@ public class ForYouFragment extends Fragment implements Activity {
 
     @Override
     public void onListener() {
-        search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), SearchTaskAlertDialog.class));
-            }
-        });
+        search.setOnClickListener(v -> startActivity(
+                new Intent(getContext(), SearchTaskAlertDialog.class)));
 
     }
 

@@ -57,11 +57,11 @@ public class LobbyForGuestActivity extends AppCompatActivity implements Activity
 
     @Override
     public void onListener() {
-        imageView.setOnClickListener(v ->
-                startActivity(new Intent(getApplicationContext(), SearchTaskAlertDialog.class)));
+        imageView.setOnClickListener(v -> startActivity(
+                new Intent(getApplicationContext(), SearchTaskAlertDialog.class)));
 
-        floatingLayout.setOnClickListener(v ->
-                startActivity(new Intent(getApplicationContext(), LogInActivity.class)));
+        floatingLayout.setOnClickListener(v -> startActivity(
+                new Intent(getApplicationContext(), LogInActivity.class)));
     }
 
 

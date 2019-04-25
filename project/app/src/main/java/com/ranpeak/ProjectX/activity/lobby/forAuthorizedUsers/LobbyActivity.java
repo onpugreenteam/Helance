@@ -23,17 +23,13 @@ public class LobbyActivity extends AppCompatActivity implements Activity {
 
    private final static int LOBBY_ACTIVITY = R.layout.activity_lobby;
 
-//   private ImageView imageViewButtonProfile;
-//   private ImageView imageViewButtonSearch;
 //   private AnimationDrawable animationDrawable;
-//   private TextView textView;
    private BottomNavigationView bottomNavigationView;
    final Fragment resumes = new ResumesFragment();
    final Fragment tasks = new TasksFragment();
    final Fragment forYou = new ForYouFragment();
    final Fragment notifications = new ProfileFragment();
    final FragmentManager fm = getSupportFragmentManager();
-   private TaskListAdapter adapter;
 
    Fragment active = forYou;
 
@@ -42,46 +38,29 @@ public class LobbyActivity extends AppCompatActivity implements Activity {
         super.onCreate(savedInstanceState);
         setContentView(LOBBY_ACTIVITY);
 
-        LocalDB localDB = App.getInstance().getLocalDB();
-
-        TaskDAO taskDAO = localDB.taskDao();
-
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         findViewById();
         onListener();
-
-//        Intent i = getIntent();
-//        data = (List<TaskEntity>) i.getSerializableExtra("data");
 
         fm.beginTransaction().add(R.id.navigation_container,notifications,"4").hide(notifications).commit();
         fm.beginTransaction().add(R.id.navigation_container,tasks,"2").hide(tasks).commit();
         fm.beginTransaction().add(R.id.navigation_container,resumes,"1").hide(resumes).commit();
         fm.beginTransaction().add(R.id.navigation_container,forYou,"3").commit();
 
-
         bottomNavigationView.setSelectedItemId(R.id.nav_recom);
-//        textView.setText(bottomNavigationView.getMenu().getItem(2).getTitle());
 
     }
 
 
     @Override
     public void findViewById(){
-//        imageViewButtonProfile = findViewById(R.id.imageViewProfileButton);
-//        imageViewButtonSearch = findViewById(R.id.imageViewSearchButton);
-//        textView = findViewById(R.id.textView2);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
     }
 
 
     @Override
     public void onListener(){
-
-//        imageViewButtonSearch.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), SearchTaskAlertDialog.class)));
-//        imageViewButtonProfile.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), ProfileActivity.class)));
-
         bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
-//            textView.setText(menuItem.getTitle());
             switch (menuItem.getItemId()){
                 case R.id.nav_resumes:
                     fm.beginTransaction().hide(active).show(resumes).commit();

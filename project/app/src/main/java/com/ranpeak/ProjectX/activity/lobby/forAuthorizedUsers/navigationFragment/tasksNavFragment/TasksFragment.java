@@ -2,7 +2,7 @@ package com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragmen
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.AsyncTask;
+
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -53,7 +53,7 @@ public class TasksFragment extends Fragment implements Activity {
     private ArrayList<String> imageUrls = new ArrayList<>();
     private RecyclerView recyclerView;
     private TaskListAdapter adapter;
-    SwipeRefreshLayout mSwipeRefreshLayout;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
     private LocalDB localDB;
     private TaskDAO taskDAO;
     private ImageView search;
@@ -88,13 +88,11 @@ public class TasksFragment extends Fragment implements Activity {
                             Log.d("Data size in LocalDB", String.valueOf(taskDTOS.size()));
                 });
 
-//        new GetFreeTask().execute();
-
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new TaskListAdapter(data, imageUrls, recyclerView, getActivity());
         recyclerView.setAdapter(adapter);
 
-//        getTasksFromServer();
+        getTasksFromServer();
 
 //        adapter.setLoadMore(new ILoadMore() {
 //            @Override
@@ -152,27 +150,16 @@ public class TasksFragment extends Fragment implements Activity {
 
     @Override
     public void onListener() {
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                getTasksFromServer();
-                mSwipeRefreshLayout.setRefreshing(false);
-            }
+        mSwipeRefreshLayout.setOnRefreshListener(() -> {
+            getTasksFromServer();
+            mSwipeRefreshLayout.setRefreshing(false);
         });
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), CreatingTaskActivity.class));
-            }
-        });
+        fab.setOnClickListener(v -> startActivity(
+                new Intent(getContext(), CreatingTaskActivity.class)));
 
-        search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), SearchTaskAlertDialog.class));
-            }
-        });
+        search.setOnClickListener(v -> startActivity(
+                new Intent(getContext(), SearchTaskAlertDialog.class)));
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -187,53 +174,9 @@ public class TasksFragment extends Fragment implements Activity {
         });
     }
 
-
-    public static TasksFragment getInstance(List<TaskDTO> data) {
-        Bundle args = new Bundle();
-        TasksFragment fragment = new TasksFragment();
-        fragment.setArguments(args);
-        fragment.setData(data);
-
-        return fragment;
-    }
-
-
     public static TasksFragment newInstance() {
         return new TasksFragment();
     }
-
-
-    public void setData(List<TaskDTO> data) {
-        this.data = data;
-    }
-
-
-    public class GetFreeTask extends AsyncTask<Void, Void, List<TaskDTO>> {
-
-        @Override
-        protected List<TaskDTO> doInBackground(Void... params) {
-            RestTemplate restTemplate = new RestTemplate();
-            ResponseEntity<List<TaskDTO>> response = restTemplate.exchange(
-                    Constants.URL.GET_ALL_TASK,
-                    HttpMethod.GET,
-                    null,
-                    new ParameterizedTypeReference<List<TaskDTO>>() {
-                    });
-            List<TaskDTO> taskDTOS = response.getBody();
-
-            return taskDTOS;
-        }
-
-        @Override
-        protected void onPostExecute(List<TaskDTO> taskDTOS) {
-            data = taskDTOS;
-            Log.d("Data Size", String.valueOf(data.size()));
-            addTasksToLocalDB(data);
-            adapter = new TaskListAdapter(data, imageUrls, recyclerView, getActivity());
-            recyclerView.setAdapter(adapter);
-        }
-    }
-
 
     @SuppressLint("CheckResult")
     private void  getTasksFromServer(){
@@ -244,7 +187,6 @@ public class TasksFragment extends Fragment implements Activity {
                 .subscribeWith(new DisposableObserver<List<TaskDTO>>() {
                     @Override
                     public void onNext(List<TaskDTO> taskDTOS) {
-                        data.clear();
                         data.addAll(taskDTOS);
                         addTasksToLocalDB(data);
                         adapter.notifyDataSetChanged();
