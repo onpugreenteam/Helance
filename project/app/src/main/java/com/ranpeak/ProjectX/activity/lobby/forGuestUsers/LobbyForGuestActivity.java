@@ -1,10 +1,13 @@
 package com.ranpeak.ProjectX.activity.lobby.forGuestUsers;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageView;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.SearchTaskAlertDialog;
@@ -15,7 +18,6 @@ import com.ranpeak.ProjectX.activity.lobby.forGuestUsers.fragments.FragmentResum
 import com.ranpeak.ProjectX.activity.lobby.forGuestUsers.fragments.FragmentTasks;
 import com.ranpeak.ProjectX.activity.logIn.LogInActivity;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
-import com.robertlevonyan.views.customfloatingactionbutton.FloatingActionButton;
 
 
 public class LobbyForGuestActivity extends AppCompatActivity implements Activity {
@@ -25,7 +27,7 @@ public class LobbyForGuestActivity extends AppCompatActivity implements Activity
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private ImageView imageView;
-    private FloatingActionButton floatingLayout;
+    private Button floatingLayout;
 
 
     @Override
@@ -36,6 +38,7 @@ public class LobbyForGuestActivity extends AppCompatActivity implements Activity
         if (SharedPrefManager.getInstance(this).isLoggedIn()) {
             finish();
             startActivity(new Intent(this, LobbyActivity.class));
+            Log.d("Start new act", String.valueOf(SharedPrefManager.getInstance(this).isLoggedIn()));
         }
 
         findViewById();
@@ -51,7 +54,7 @@ public class LobbyForGuestActivity extends AppCompatActivity implements Activity
         tabLayout = findViewById(R.id.tabLayout);
         viewPager = findViewById(R.id.viewPager);
         imageView = findViewById(R.id.imageView2);
-        floatingLayout = findViewById(R.id.custom_fab);
+        floatingLayout = findViewById(R.id.my_rounded_sign_in_button);
     }
 
 

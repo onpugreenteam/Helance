@@ -1,4 +1,4 @@
-package com.ranpeak.ProjectX.networking;
+package com.ranpeak.ProjectX.networking.retrofit;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

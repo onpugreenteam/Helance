@@ -20,8 +20,8 @@ import com.ranpeak.ProjectX.dataBase.App;
 import com.ranpeak.ProjectX.dataBase.local.LocalDB;
 import com.ranpeak.ProjectX.dataBase.local.dao.TaskDAO;
 import com.ranpeak.ProjectX.dto.TaskDTO;
-import com.ranpeak.ProjectX.networking.ApiService;
-import com.ranpeak.ProjectX.networking.RetrofitClient;
+import com.ranpeak.ProjectX.networking.retrofit.ApiService;
+import com.ranpeak.ProjectX.networking.retrofit.RetrofitClient;
 
 import java.util.ArrayList;
 import java.util.List;

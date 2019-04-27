@@ -39,9 +39,8 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.creatingTask.fragment.LessonListFragment;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
-import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.LobbyActivity;
-import com.ranpeak.ProjectX.networking.Constants;
-import com.ranpeak.ProjectX.request.RequestHandler;
+import com.ranpeak.ProjectX.networking.volley.Constants;
+import com.ranpeak.ProjectX.networking.volley.RequestHandler;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
 
 import java.text.DateFormat;
@@ -328,15 +327,12 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
                 focusView.requestFocus();
             }
         } else {
-            /** Использовать это для создания задания*/
            postTask();
-            /** Убрать это когда добавление задания готово*/
-            Intent intent = new Intent(getApplicationContext(), LobbyActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
-
-//            Toast.makeText(getApplicationContext(), "done", Toast.LENGTH_SHORT).show();
-//            finish();
+//            Intent intent = new Intent(getApplicationContext(), LobbyActivity.class);
+//                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                        startActivity(intent);
+            Toast.makeText(getApplicationContext(), "done", Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
 

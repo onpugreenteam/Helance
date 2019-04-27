@@ -16,6 +16,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
@@ -33,8 +34,8 @@ import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.LobbyActivity;
 import com.ranpeak.ProjectX.activity.passwordRecovery.PassRecoveryActivity1;
 import com.ranpeak.ProjectX.activity.registration.RegistrationActivity1;
 import com.ranpeak.ProjectX.activity.registration.RegistrationActivity2;
-import com.ranpeak.ProjectX.networking.Constants;
-import com.ranpeak.ProjectX.request.RequestHandler;
+import com.ranpeak.ProjectX.networking.volley.Constants;
+import com.ranpeak.ProjectX.networking.volley.RequestHandler;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
 
 import org.json.JSONException;
@@ -71,11 +72,6 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
         setContentView(LOGIN_ACTIVITY);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
-        if (SharedPrefManager.getInstance(this).isLoggedIn()) {
-            finish();
-            startActivity(new Intent(this, LobbyActivity.class));
-        }
 
         findViewById();
         onListener();
@@ -291,7 +287,13 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
                     progressDialog.dismiss();
                     try {
                         JSONObject jsonObject = new JSONObject(response);
-
+                        Log.d("Name",jsonObject.getString("name"));
+                        Log.d("Login",jsonObject.getString("login"));
+                        Log.d("Email",jsonObject.getString("email"));
+                        Log.d("Country",jsonObject.getString("country"));
+                        Log.d("Telephone",jsonObject.getString("telephone"));
+                        Log.d("Avatar",jsonObject.getString("avatar"));
+                        Log.d("Active", String.valueOf(jsonObject.getBoolean("active")));
                         // если аккаунт не активирован, то открывается активность где надо ввести код
                         if ((jsonObject.getString("login").equals(login)
                                 || jsonObject.getString("email").equals(login))
@@ -303,7 +305,6 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
                             intent.putExtra("email", jsonObject.getString("email"));
                             intent.putExtra("country", jsonObject.getString("country"));
                             intent.putExtra("avatar", jsonObject.getString("avatar"));
-                            intent.putExtra("aboutMyself", jsonObject.getString("aboutMyself"));
                             startActivity(intent);
                         } else if ((jsonObject.getString("login").equals(login)
                                 || jsonObject.getString("email").equals(login))
@@ -315,10 +316,13 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
                                             jsonObject.getString("name"),
                                             jsonObject.getString("email"),
                                             jsonObject.getString("country"),
-                                            jsonObject.getString("avatar")
+                                            jsonObject.getString("avatar"),
+                                            jsonObject.getString("telephone")
                                     );
-                            startActivity(new Intent(getApplicationContext(), LobbyActivity.class));
+
                             finish();
+                            startActivity(new Intent(getApplicationContext(), LobbyActivity.class));
+
 
                         } else if (jsonObject.getString("message").equals("error")) {
                             mEmailView.getText().clear();
@@ -329,6 +333,7 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
                         }
 
                     } catch (JSONException e) {
+                        Log.d("eRROR",e.getMessage());
                         e.printStackTrace();
                     }
                 },

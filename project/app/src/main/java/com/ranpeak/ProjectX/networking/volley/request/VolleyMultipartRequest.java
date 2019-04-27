@@ -1,4 +1,4 @@
-package com.ranpeak.ProjectX.request;
+package com.ranpeak.ProjectX.networking.volley.request;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;

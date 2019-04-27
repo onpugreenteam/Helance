@@ -13,7 +13,7 @@ import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.creatingResume.CreatingResumeActivity;
 import com.ranpeak.ProjectX.activity.creatingTask.CreatingTaskActivity;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
-import com.ranpeak.ProjectX.networking.Constants;
+import com.ranpeak.ProjectX.networking.volley.Constants;
 
 public class LessonListFragment extends DialogFragment implements Activity {
 

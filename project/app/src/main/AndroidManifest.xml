@@ -34,7 +34,7 @@
             android:label="@string/title_activity_registration"
             android:theme="@style/ToolBarProfile" >
         </activity>
-        <activity android:name=".activity.creatingResume.EditResumeActivity"
+        <activity android:name=".activity.EditResumeActivity"
             android:theme="@style/ToolBarProfile"
             android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".activity.registration.RegistrationActivity2"
@@ -58,7 +58,7 @@
             android:theme="@style/ToolBarProfile" >
 
         </activity>
-        <activity android:name=".activity.settings.SettingsActivity" />
+        <activity android:name=".activity.SearchTaskAlertDialog" />
         <activity android:name=".activity.SettingsActivity"
             android:theme="@style/ToolBarProfile" />
 

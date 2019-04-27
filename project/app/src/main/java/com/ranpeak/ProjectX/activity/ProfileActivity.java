@@ -40,9 +40,9 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.logIn.LogInActivity;
-import com.ranpeak.ProjectX.networking.Constants;
-import com.ranpeak.ProjectX.request.RequestHandler;
-import com.ranpeak.ProjectX.request.VolleyMultipartRequest;
+import com.ranpeak.ProjectX.networking.volley.Constants;
+import com.ranpeak.ProjectX.networking.volley.RequestHandler;
+import com.ranpeak.ProjectX.networking.volley.request.VolleyMultipartRequest;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
 
 import org.json.JSONException;

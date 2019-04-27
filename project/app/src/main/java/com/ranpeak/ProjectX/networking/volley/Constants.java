@@ -1,4 +1,4 @@
-package com.ranpeak.ProjectX.networking;
+package com.ranpeak.ProjectX.networking.volley;
 
 import java.util.regex.Pattern;
 
@@ -21,6 +21,7 @@ public class Constants {
        public static final String GET_AVATAR = HOST + "aaa/";
        public static final String GET_ALL_TASK = HOST + "getAllTasks";
        public static final String ADD_TASK = HOST + "addTask";
+       public static final String ADD_RESUME = HOST + "addResume";
    }
 
     public static class Values {

@@ -1,5 +1,6 @@
 package com.ranpeak.ProjectX.activity.lobby.forGuestUsers.fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,12 +16,12 @@ import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.resumesNavFragment.adapter.ResumeListAdapter;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.tasksNavFragment.TasksFragment;
-import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.tasksNavFragment.adapter.TaskListAdapter;
 import com.ranpeak.ProjectX.dataBase.App;
 import com.ranpeak.ProjectX.dataBase.local.LocalDB;
 import com.ranpeak.ProjectX.dataBase.local.dao.ResumeDAO;
 import com.ranpeak.ProjectX.dto.ResumeDTO;
-import com.ranpeak.ProjectX.dto.TaskDTO;
+import com.ranpeak.ProjectX.networking.retrofit.ApiService;
+import com.ranpeak.ProjectX.networking.retrofit.RetrofitClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
@@ -41,6 +43,9 @@ public class FragmentResumes extends Fragment implements Activity {
     private LocalDB localDB;
     private ResumeDAO resumeDAO;
 
+    private ApiService apiService = RetrofitClient.getInstance()
+            .create(ApiService.class);
+
     public FragmentResumes() {
 
     }
@@ -52,26 +57,16 @@ public class FragmentResumes extends Fragment implements Activity {
         localDB = App.getInstance().getLocalDB();
         resumeDAO = localDB.resumeDAO();
 
-        mockResumes();
+//        getResumesFromLocalDB();
 
-//        resumeDAO.getAllResumes()
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(resumeDTOS -> {
-//                    Log.d("Data size re in LocalDB", String.valueOf(resumeDTOS.size()));
-//                    data = resumeDTOS;
-//
-////                    resumeListAdapter.notifyDataSetChanged();
-//                });
         findViewById();
         initImageBitmaps();
-        Log.d("Data size", String.valueOf(data.size()));
 
         resumeListAdapter = new ResumeListAdapter(data,imageUrls,recyclerView,getActivity());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(resumeListAdapter);
 
-//        addResumesToLocalDB(mockResumes());
-
+        getResumesFromServer();
 
         return view;
     }
@@ -105,19 +100,44 @@ public class FragmentResumes extends Fragment implements Activity {
 
     }
 
-    private void mockResumes() {
-        ResumeDTO resumeDTO5 = new ResumeDTO("asd","sd","sadasd","sdsd","sdadasd");
-        ResumeDTO resumeDTO1 = new ResumeDTO("asd","sd","sadasd","sdsd","sdadasd");
-        ResumeDTO resumeDTO2 = new ResumeDTO("asd","sd","sadasd","sdsd","sdadasd");
-        ResumeDTO resumeDTO3 = new ResumeDTO("asd","sd","sadasd","sdsd","sdadasd");
-        ResumeDTO resumeDTO4 = new ResumeDTO("asd","sd","sadasd","sdsd","sdadasd");
-        data.add(resumeDTO1);
-        data.add(resumeDTO2);
-        data.add(resumeDTO3);
-        data.add(resumeDTO4);
-        data.add(resumeDTO5);
+
+    @SuppressLint("CheckResult")
+    private void getResumesFromServer(){
+        apiService.getAllResumes()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(new DisposableObserver<List<ResumeDTO>>() {
+                @Override
+                public void onNext(List<ResumeDTO> resumeDTOS) {
+                    data.addAll(resumeDTOS);
+                    addResumesToLocalDB(data);
+                    resumeListAdapter.notifyDataSetChanged();
+                    Log.d("Resume size from server", String.valueOf(resumeDTOS.size()));
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                    Log.d("Error", e.getMessage());
+
+                }
+
+                @Override
+                public void onComplete() {
+                    // Received all notes
+
+                }
+            });
     }
 
+    private void getResumesFromLocalDB(){
+        resumeDAO.getAllResumes()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(resumeDTOS -> {
+                    Log.d("Data size re in LocalDB", String.valueOf(resumeDTOS.size()));
+                    data = resumeDTOS;
+                    resumeListAdapter.notifyDataSetChanged();
+                });
+    }
 
     public void addResumesToLocalDB(List<ResumeDTO> resumeDTOS) {
         Observable.fromCallable(() -> localDB.resumeDAO().insertAll(resumeDTOS))

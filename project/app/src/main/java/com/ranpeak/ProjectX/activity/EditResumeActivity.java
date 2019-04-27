@@ -1,4 +1,4 @@
-package com.ranpeak.ProjectX.activity.creatingResume;
+package com.ranpeak.ProjectX.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

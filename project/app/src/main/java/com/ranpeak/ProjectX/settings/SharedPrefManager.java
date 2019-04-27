@@ -14,6 +14,7 @@ public class SharedPrefManager {
     private static final String KEY_EMAIL = "user_email";
     private static final String KEY_COUNTRY = "user_country";
     private static final String KEY_AVATAR = null;
+    private static final String KEY_TELEPHONE = "user_telephone";
 
     private SharedPrefManager(Context context){
         mCtx = context;
@@ -28,7 +29,7 @@ public class SharedPrefManager {
 
     // Если пользователь ввошел в акаунт(ввел правильно логин и пароль) -->
     // его данные(которые прийдут по логину и паролю с БД) сохраняться в приложении
-    public boolean userLogin(String login, String name, String email, String country, String avatar){
+    public boolean userLogin(String login, String name, String email, String country, String avatar, String telephone){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -37,8 +38,10 @@ public class SharedPrefManager {
         editor.putString(KEY_EMAIL, email);
         editor.putString(KEY_COUNTRY, country);
         editor.putString(KEY_AVATAR, avatar);
+        editor.putString(KEY_TELEPHONE, telephone);
 
         editor.apply();
+        editor.commit();
 
         return true;
     }
@@ -104,6 +107,11 @@ public class SharedPrefManager {
         return sharedPreferences.getString(KEY_COUNTRY,null);
     }
 
+
+    public String getUserTelephone(){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(KEY_TELEPHONE,null);
+    }
 
     public String getUserAvatar() {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);

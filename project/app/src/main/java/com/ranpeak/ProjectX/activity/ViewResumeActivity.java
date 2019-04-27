@@ -53,8 +53,11 @@ public class ViewResumeActivity extends AppCompatActivity implements Activity {
         ResumeDTO resumeDTO = (ResumeDTO) intent.getSerializableExtra("ResumeObject");
 
         subject.setText(resumeDTO.getSubject());
-        description.setText(resumeDTO.getText());
-        name.setText(resumeDTO.getEmployee());
+        description.setText(resumeDTO.getOpportunities());
+        name.setText(resumeDTO.getUserName());
+        email.setText(resumeDTO.getUserEmail());
+        country.setText(resumeDTO.getUserCountry());
+        date.setText(resumeDTO.getDateStart());
     }
 
     @Override

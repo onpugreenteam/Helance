@@ -20,19 +20,13 @@ import com.ranpeak.ProjectX.activity.SearchTaskAlertDialog;
 import com.ranpeak.ProjectX.activity.creatingTask.CreatingTaskActivity;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.tasksNavFragment.adapter.TaskListAdapter;
-import com.ranpeak.ProjectX.networking.ApiService;
-import com.ranpeak.ProjectX.networking.Constants;
+import com.ranpeak.ProjectX.networking.retrofit.ApiService;
 import com.ranpeak.ProjectX.dataBase.App;
 import com.ranpeak.ProjectX.dataBase.local.LocalDB;
 import com.ranpeak.ProjectX.dataBase.local.dao.TaskDAO;
 
 import com.ranpeak.ProjectX.dto.TaskDTO;
-import com.ranpeak.ProjectX.networking.RetrofitClient;
-
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
+import com.ranpeak.ProjectX.networking.retrofit.RetrofitClient;
 
 import java.util.ArrayList;
 import java.util.List;

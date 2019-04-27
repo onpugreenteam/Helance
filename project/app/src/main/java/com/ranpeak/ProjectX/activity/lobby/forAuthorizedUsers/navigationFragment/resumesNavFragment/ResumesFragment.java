@@ -12,8 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.ranpeak.ProjectX.R;
@@ -22,14 +20,12 @@ import com.ranpeak.ProjectX.activity.creatingResume.CreatingResumeActivity;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.resumesNavFragment.adapter.ResumeListAdapter;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.tasksNavFragment.TasksFragment;
-import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.tasksNavFragment.adapter.TaskListAdapter;
 import com.ranpeak.ProjectX.dataBase.App;
 import com.ranpeak.ProjectX.dataBase.local.LocalDB;
 import com.ranpeak.ProjectX.dataBase.local.dao.ResumeDAO;
 import com.ranpeak.ProjectX.dto.ResumeDTO;
-import com.ranpeak.ProjectX.dto.TaskDTO;
-import com.ranpeak.ProjectX.networking.ApiService;
-import com.ranpeak.ProjectX.networking.RetrofitClient;
+import com.ranpeak.ProjectX.networking.retrofit.ApiService;
+import com.ranpeak.ProjectX.networking.retrofit.RetrofitClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +34,6 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
@@ -92,42 +87,42 @@ public class ResumesFragment extends Fragment implements Activity {
 
         ResumeDTO resumeDTO1 = new ResumeDTO();
         resumeDTO1.setId(1);
-        resumeDTO1.setText("Gjitk yf[ ns fjelpdifqebnwifunqweo eoqfnweuiofh qef uqweif nqewiuf  iuqef iwuefbn weiuf iqeuf qiuewf qnieuwf qeiwf nq");
+        resumeDTO1.setOpportunities("Gjitk yf[ ns fjelpdifqebnwifunqweo eoqfnweuiofh qef uqweif nqewiuf  iuqef iwuefbn weiuf iqeuf qiuewf qnieuwf qeiwf nq");
         resumeDTO1.setDateStart("21.08.19");
         resumeDTO1.setStatus("Active");
-        resumeDTO1.setEmployee("Fantastic");
+        resumeDTO1.setUserLogin("Fantastic");
         resumeDTO1.setSubject("Programming");
 
         ResumeDTO resumeDTO2 = new ResumeDTO();
         resumeDTO1.setId(2);
-        resumeDTO2.setText("Gjitk yf[ ns fjelpdifqebnwifunqweo eoqfnweuiofh qef uqweif nqewiuf  iuqef iwuefbn weiuf iqeuf qiuewf qnieuwf qeiwf nq");
+        resumeDTO2.setOpportunities("Gjitk yf[ ns fjelpdifqebnwifunqweo eoqfnweuiofh qef uqweif nqewiuf  iuqef iwuefbn weiuf iqeuf qiuewf qnieuwf qeiwf nq");
         resumeDTO2.setDateStart("21.10.19");
         resumeDTO2.setStatus("Active");
-        resumeDTO2.setEmployee("Jenia12CM");
+        resumeDTO2.setUserLogin("Jenia12CM");
         resumeDTO2.setSubject("Programming");
 
         ResumeDTO resumeDTO3 = new ResumeDTO();
         resumeDTO1.setId(3);
-        resumeDTO3.setText("Gjitk yf[ ns fjelpdifqebnwifunqweo eoqfnweuiofh qef uqw  sa d sa asd eif nqewiuf  iuqef iwuefbn weiuf iqeuf qiuewf qnieuwf qeiwf nq");
+        resumeDTO3.setOpportunities("Gjitk yf[ ns fjelpdifqebnwifunqweo eoqfnweuiofh qef uqw  sa d sa asd eif nqewiuf  iuqef iwuefbn weiuf iqeuf qiuewf qnieuwf qeiwf nq");
         resumeDTO3.setDateStart("21.10.19");
         resumeDTO3.setStatus("Active");
-        resumeDTO3.setEmployee("Fantastic");
+        resumeDTO3.setUserLogin("Fantastic");
         resumeDTO3.setSubject("Programming");
 
         ResumeDTO resumeDTO4 = new ResumeDTO();
         resumeDTO1.setId(4);
-        resumeDTO4.setText("Gjitk yf[ ns fjelpdifqebnwifunqweo eoqfAS DASD ASD d asnweuiofh qef uqweif nqewiuf  iuqef iwuefbn weiuf iqeuf qiuewf qnieuwf qeiwf nq");
+        resumeDTO4.setOpportunities("Gjitk yf[ ns fjelpdifqebnwifunqweo eoqfAS DASD ASD d asnweuiofh qef uqweif nqewiuf  iuqef iwuefbn weiuf iqeuf qiuewf qnieuwf qeiwf nq");
         resumeDTO4.setDateStart("21.10.19");
         resumeDTO4.setStatus("Active");
-        resumeDTO4.setEmployee("Azik13");
+        resumeDTO4.setUserLogin("Azik13");
         resumeDTO4.setSubject("Programming");
 
         ResumeDTO resumeDTO5 = new ResumeDTO();
         resumeDTO1.setId(5);
-        resumeDTO5.setText("Gjitk yf[ ns fsadas sad asd as d asd ASjelpdifqebnwifunqweo eoqfnweuiofh qef uqweif nqewiuf  iuqef iwuefbn weiuf iqeuf qiuewf qnieuwf qeiwf nq");
+        resumeDTO5.setOpportunities("Gjitk yf[ ns fsadas sad asd as d asd ASjelpdifqebnwifunqweo eoqfnweuiofh qef uqweif nqewiuf  iuqef iwuefbn weiuf iqeuf qiuewf qnieuwf qeiwf nq");
         resumeDTO5.setDateStart("21.11.19");
         resumeDTO5.setStatus("Active");
-        resumeDTO5.setEmployee("Andrey21CM");
+        resumeDTO5.setUserLogin("Andrey21CM");
         resumeDTO5.setSubject("Programming");
 
         resumeDTOS.add(resumeDTO1);

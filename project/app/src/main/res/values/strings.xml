@@ -115,7 +115,7 @@
     <string name="title_activity_settings">Settings</string>
     <string name="projectx">Helance</string>
     <string name="internet_error">Internet connection lost</string>
-    <string name="internet_check">Check internet connection</string>
+    <string name="internet_check">Server don`t worked</string>
     <string name="task_price">Type task price</string>
 
     <!-- Strings related to Settings -->

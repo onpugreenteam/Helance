@@ -1,6 +1,5 @@
 package com.ranpeak.ProjectX.activity.registration;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.support.design.widget.TextInputLayout;
@@ -19,8 +18,8 @@ import com.github.reinaldoarrosi.maskededittext.MaskedEditText;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.LobbyActivity;
-import com.ranpeak.ProjectX.networking.Constants;
-import com.ranpeak.ProjectX.request.RequestHandler;
+import com.ranpeak.ProjectX.networking.volley.Constants;
+import com.ranpeak.ProjectX.networking.volley.RequestHandler;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,7 +39,6 @@ public class RegistrationActivity4 extends AppCompatActivity implements Activity
     private EditText registration_telegram;
     private EditText registration_instagram;
     private EditText registration_facebook;
-
 
     private String email;
     private String name;

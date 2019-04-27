@@ -1,4 +1,4 @@
-package com.ranpeak.ProjectX.networking;
+package com.ranpeak.ProjectX.networking.retrofit;
 
 import com.ranpeak.ProjectX.dto.ResumeDTO;
 import com.ranpeak.ProjectX.dto.TaskDTO;

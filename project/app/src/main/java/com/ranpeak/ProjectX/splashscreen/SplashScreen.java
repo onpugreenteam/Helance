@@ -1,7 +1,10 @@
 package com.ranpeak.ProjectX.splashscreen;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -13,14 +16,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.lobby.forGuestUsers.LobbyForGuestActivity;
-import com.ranpeak.ProjectX.activity.logIn.LogInActivity;
-import com.ranpeak.ProjectX.networking.Constants;
-import com.ranpeak.ProjectX.request.RequestHandler;
+import com.ranpeak.ProjectX.networking.volley.Constants;
+import com.ranpeak.ProjectX.networking.volley.RequestHandler;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -35,6 +35,7 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(SPLASH_ACTIVITY);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        checkInternetConnection();
         findViewById();
         animate();
     }
@@ -42,7 +43,6 @@ public class SplashScreen extends AppCompatActivity {
     @Override
     public void finish() {
         startActivity(new Intent(SplashScreen.this, LobbyForGuestActivity.class));
-
         super.finish();
     }
 
@@ -98,22 +98,45 @@ public class SplashScreen extends AppCompatActivity {
 
 
     private void getAllLogins() {
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, Constants.URL.GET_USER,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Toast.makeText(getApplicationContext(), "Data downloading", Toast.LENGTH_SHORT).show();
-                        startLoadData();
-                    }
+
+
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Constants.URL.GET_ALL_TASK,
+                response -> {
+                    Toast.makeText(getApplicationContext(), "Data downloading", Toast.LENGTH_SHORT).show();
+                    startLoadData();
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "Waiting...", Toast.LENGTH_SHORT).show();
-                        noInternetConnection();
-                    }
+                error -> {
+                    Toast.makeText(getApplicationContext(), "Server don`t started", Toast.LENGTH_SHORT).show();
+                    noInternetConnection();
                 });
         RequestHandler.getmInstance(this).addToRequestQueue(stringRequest);
     }
+
+    private boolean checkInternetConnection() {
+
+        ConnectivityManager connManager =
+                (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo networkInfo = connManager.getActiveNetworkInfo();
+
+        if (networkInfo == null) {
+            Toast.makeText(this, "No default network is currently active", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if (!networkInfo.isConnected()) {
+            Toast.makeText(this, "Network is not connected", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if (!networkInfo.isAvailable()) {
+            Toast.makeText(this, "Network not available", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        Toast.makeText(this, "Network OK", Toast.LENGTH_LONG).show();
+        return true;
+    }
+
 
 }

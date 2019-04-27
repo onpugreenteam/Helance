@@ -8,17 +8,29 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.creatingTask.fragment.LessonListFragment;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
-import com.ranpeak.ProjectX.networking.Constants;
+import com.ranpeak.ProjectX.networking.volley.Constants;
+import com.ranpeak.ProjectX.networking.volley.RequestHandler;
+import com.ranpeak.ProjectX.settings.SharedPrefManager;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
+
+import timber.log.Timber;
 
 public class CreatingResumeActivity extends AppCompatActivity implements Activity {
 
@@ -52,7 +64,7 @@ public class CreatingResumeActivity extends AppCompatActivity implements Activit
     @Override
     public void onListener() {
         lessonPicker.setOnClickListener(v -> lessonListFragment.show(fm, "Country lists"));
-        create.setOnClickListener(view -> Toast.makeText(getApplicationContext(),"created",Toast.LENGTH_LONG).show());
+        create.setOnClickListener(view -> attemptCreatingResume());
         description.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -69,6 +81,16 @@ public class CreatingResumeActivity extends AppCompatActivity implements Activit
                 descriptionLength.setText(description.getText().toString().length() + "/");
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        // если пустых полей нет, то открывается диалог с потверждение закрытия окна
+        if (!allFieldsEmpty()) {
+            openDialog();
+        }
+        // если ни одно из полей не заполнено, то окно закрывается без открытия диалога
+        else super.onBackPressed();
     }
 
     private void toolbar() {
@@ -128,5 +150,73 @@ public class CreatingResumeActivity extends AppCompatActivity implements Activit
     // устанавливает в поле LessonPicker выбранный пользователем предмет
     public void setLessonPicker(String lesson) {
         this.lessonPicker.setText(lesson);
+    }
+
+
+    // проверка всех полей на правильность
+    // checking every field
+    private void attemptCreatingResume() {
+        // Reset errors.
+        description.setError(null);
+
+        boolean cancel = false;
+        View focusView = null;
+
+        if (!stringContainsItemFromList(lessonPicker.getText().toString(), Constants.Values.LESSONS)) {
+            cancel = true;
+        } else if (description.getText().toString().isEmpty()) {
+            cancel = true;
+            focusView = description;
+            description.setError(getString(R.string.error_field_required));
+        }
+
+        if (cancel) {
+            Toast.makeText(getApplicationContext(), "feel all required fields", Toast.LENGTH_SHORT).show();
+            if (focusView != null) {
+                focusView.requestFocus();
+            }
+        } else {
+            postResume();
+//            Intent intent = new Intent(getApplicationContext(), LobbyActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//            startActivity(intent);
+            Toast.makeText(getApplicationContext(), "done", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+    }
+
+    private void postResume() {
+
+        final String text = description.getText().toString().trim();
+        final String typeLesson = lessonPicker.getText().toString().trim();
+
+        DateFormat df = new SimpleDateFormat("d MMM yyyy");
+        final String dateStart = df.format(Calendar.getInstance().getTime());
+
+        Timber.d(dateStart);
+        Timber.d(text);
+        Timber.d(typeLesson);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                Constants.URL.ADD_RESUME,
+                response -> {
+                    Toast.makeText(getApplicationContext(), "Successful", Toast.LENGTH_LONG).show();
+                    finish();
+                },
+                error -> Toast.makeText(getApplicationContext(), "Please on Internet", Toast.LENGTH_LONG).show()) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("opportunities", text);
+                params.put("dateStart", dateStart);
+                params.put("users", String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()));
+                params.put("subject", typeLesson);
+                params.put("status", "Active");
+                return params;
+            }
+
+        };
+        RequestHandler.getmInstance(this).addToRequestQueue(stringRequest);
     }
 }

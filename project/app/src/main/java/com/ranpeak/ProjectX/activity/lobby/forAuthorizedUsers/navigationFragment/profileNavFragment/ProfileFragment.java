@@ -31,7 +31,7 @@ public class ProfileFragment extends Fragment implements Activity {
     private BottomNavigationView bottomNavigationView;
     private ImageView editProfile;
     private ImageView settings;
-    private final FragmentManager fragmentManager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
+//    private final FragmentManager fragmentManager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
     private final Fragment myProfile = new MyProfileFragment();
     private final Fragment myTask = new MyTaskFragment();
     private final Fragment myResume = new MyResumeFragment();
@@ -53,7 +53,7 @@ public class ProfileFragment extends Fragment implements Activity {
         findViewById();
         onListener();
         initData();
-        initFragments();
+//        initFragments();
         return view;
     }
 
@@ -72,24 +72,24 @@ public class ProfileFragment extends Fragment implements Activity {
                 startActivity(new Intent(getActivity(), SettingsActivity.class)));
         editProfile.setOnClickListener(v ->
                 startActivity(new Intent(getActivity(), EditProfileActivity.class)));
-        bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
-            switch (menuItem.getItemId()) {
-                case R.id.nav_my_profile:
-                    fragmentManager.beginTransaction().hide(activeFragment).show(myProfile).commit();
-                    activeFragment = myProfile;
-                    return true;
-                case R.id.nav_my_resumes:
-                    fragmentManager.beginTransaction().hide(activeFragment).show(myResume).commit();
-                    activeFragment = myResume;
-                    return true;
-                case R.id.nav_my_tasks:
-                    fragmentManager.beginTransaction().hide(activeFragment).show(myTask).commit();
-                    activeFragment = myTask;
-                    return true;
-                default:
-                    return false;
-            }
-        });
+//        bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
+//            switch (menuItem.getItemId()) {
+//                case R.id.nav_my_profile:
+//                    fragmentManager.beginTransaction().hide(activeFragment).show(myProfile).commit();
+//                    activeFragment = myProfile;
+//                    return true;
+//                case R.id.nav_my_resumes:
+//                    fragmentManager.beginTransaction().hide(activeFragment).show(myResume).commit();
+//                    activeFragment = myResume;
+//                    return true;
+//                case R.id.nav_my_tasks:
+//                    fragmentManager.beginTransaction().hide(activeFragment).show(myTask).commit();
+//                    activeFragment = myTask;
+//                    return true;
+//                default:
+//                    return false;
+//            }
+//        });
     }
 
     private void initData() {
@@ -97,10 +97,10 @@ public class ProfileFragment extends Fragment implements Activity {
             login.setText(String.valueOf(SharedPrefManager.getInstance(getContext()).getUserLogin()));
     }
 
-    private void initFragments() {
-        fragmentManager.beginTransaction().add(R.id.fragment_profile_navigation_container, myProfile, "1").commit();
-        fragmentManager.beginTransaction().add(R.id.fragment_profile_navigation_container, myResume, "2").hide(myResume).commit();
-        fragmentManager.beginTransaction().add(R.id.fragment_profile_navigation_container, myTask, "3").hide(myTask).commit();
-        bottomNavigationView.setSelectedItemId(R.id.nav_my_profile);
-    }
+//    private void initFragments() {
+//        fragmentManager.beginTransaction().add(R.id.fragment_profile_navigation_container, myProfile, "1").commit();
+//        fragmentManager.beginTransaction().add(R.id.fragment_profile_navigation_container, myResume, "2").hide(myResume).commit();
+//        fragmentManager.beginTransaction().add(R.id.fragment_profile_navigation_container, myTask, "3").hide(myTask).commit();
+//        bottomNavigationView.setSelectedItemId(R.id.nav_my_profile);
+//    }
 }
