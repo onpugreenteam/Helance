@@ -99,8 +99,6 @@ public class SplashScreen extends AppCompatActivity {
 
     private void getAllLogins() {
 
-
-
         StringRequest stringRequest = new StringRequest(Request.Method.GET, Constants.URL.GET_ALL_TASK,
                 response -> {
                     Toast.makeText(getApplicationContext(), "Data downloading", Toast.LENGTH_SHORT).show();
@@ -108,7 +106,8 @@ public class SplashScreen extends AppCompatActivity {
                 },
                 error -> {
                     Toast.makeText(getApplicationContext(), "Server don`t started", Toast.LENGTH_SHORT).show();
-                    noInternetConnection();
+//                    noInternetConnection();
+                    startLoadData();
                 });
         RequestHandler.getmInstance(this).addToRequestQueue(stringRequest);
     }

@@ -109,7 +109,7 @@ public class FragmentTasks extends Fragment implements Activity {
                         data.addAll(taskDTOS);
                         addTasksToLocalDB(data);
                         taskListAdapter.notifyDataSetChanged();
-                        Log.d("Data size from server", String.valueOf(taskDTOS.size()));
+                        Log.d("Task size from server", String.valueOf(taskDTOS.size()));
                     }
 
                     @Override

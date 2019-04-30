@@ -73,15 +73,6 @@ public class TasksFragment extends Fragment implements Activity {
         localDB = App.getInstance().getLocalDB();
         taskDAO = localDB.taskDao();
 
-        taskDAO.getAllTasks()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(taskDTOS -> {
-                            data = taskDTOS;
-                            adapter = new TaskListAdapter(data, imageUrls, recyclerView, getActivity());
-                            recyclerView.setAdapter(adapter);
-                            Log.d("Data size in LocalDB", String.valueOf(taskDTOS.size()));
-                });
-
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new TaskListAdapter(data, imageUrls, recyclerView, getActivity());
         recyclerView.setAdapter(adapter);
@@ -172,9 +163,19 @@ public class TasksFragment extends Fragment implements Activity {
         return new TasksFragment();
     }
 
+    private void getTasksFromLocalDB(){
+        taskDAO.getAllTasks()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(taskDTOS -> {
+                    data = taskDTOS;
+                    adapter = new TaskListAdapter(data, imageUrls, recyclerView, getActivity());
+                    recyclerView.setAdapter(adapter);
+                    Log.d("Data size in LocalDB", String.valueOf(taskDTOS.size()));
+                });
+    }
+
     @SuppressLint("CheckResult")
     private void  getTasksFromServer(){
-
         apiService.getAllTask()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -189,8 +190,8 @@ public class TasksFragment extends Fragment implements Activity {
 
                     @Override
                     public void onError(Throwable e) {
-                        // Network error
-
+                        Log.d("eRROR",e.getMessage());
+                        getTasksFromLocalDB();
                     }
 
                     @Override

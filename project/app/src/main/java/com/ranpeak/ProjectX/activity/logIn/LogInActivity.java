@@ -31,9 +31,16 @@ import com.android.volley.toolbox.StringRequest;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.LobbyActivity;
+import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.tasksNavFragment.TasksFragment;
 import com.ranpeak.ProjectX.activity.passwordRecovery.PassRecoveryActivity1;
 import com.ranpeak.ProjectX.activity.registration.RegistrationActivity1;
 import com.ranpeak.ProjectX.activity.registration.RegistrationActivity2;
+import com.ranpeak.ProjectX.dataBase.App;
+import com.ranpeak.ProjectX.dataBase.local.LocalDB;
+import com.ranpeak.ProjectX.dataBase.local.dao.NetworkDAO;
+import com.ranpeak.ProjectX.dto.SocialNetworkDTO;
+import com.ranpeak.ProjectX.networking.retrofit.ApiService;
+import com.ranpeak.ProjectX.networking.retrofit.RetrofitClient;
 import com.ranpeak.ProjectX.networking.volley.Constants;
 import com.ranpeak.ProjectX.networking.volley.RequestHandler;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
@@ -45,6 +52,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.observers.DefaultObserver;
+import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -66,12 +80,23 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
     private Button google;
     private TextView registrationButton;
     private TextView forgotPassword;
+    private String userLogin = null;
+    private LocalDB localDB;
+    private NetworkDAO networkDAO;
+
+    private ApiService apiService = RetrofitClient.getInstance()
+            .create(ApiService.class);
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(LOGIN_ACTIVITY);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        localDB = App.getInstance().getLocalDB();
+        networkDAO = localDB.networkDAO();
 
         findViewById();
         onListener();
@@ -319,7 +344,8 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
                                             jsonObject.getString("avatar"),
                                             jsonObject.getString("telephone")
                                     );
-
+                            userLogin = jsonObject.getString("login");
+                            getUserNetworks();
                             finish();
                             startActivity(new Intent(getApplicationContext(), LobbyActivity.class));
 
@@ -354,5 +380,59 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
 
         RequestHandler.getmInstance(this).addToRequestQueue(stringRequest);
     }
+
+    private void getUserNetworks(){
+        apiService.getAllUserNetworks(userLogin)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<List<SocialNetworkDTO>>() {
+                    @Override
+                    public void onNext(List<SocialNetworkDTO> socialNetworkDTOS) {
+                        addNetworksToLocalDB(socialNetworkDTOS);
+                        Log.d("Network taken", String.valueOf(socialNetworkDTOS.size()));
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d("ERROR",e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+    }
+
+    private void addNetworksToLocalDB(List<SocialNetworkDTO> socialNetworkDTOS) {
+        Observable.fromCallable(() -> localDB.networkDAO().insertNetworks(socialNetworkDTOS))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new TasksFragment.DefaultSubscriber<List<Long>>(){
+                        @Override
+                        public void onSubscribe(@io.reactivex.annotations.NonNull Disposable d) {
+                            super.onSubscribe(d);
+                        }
+
+                        @Override
+                        public void onNext(@io.reactivex.annotations.NonNull List<Long> longs) {
+                            super.onNext(longs);
+                            Timber.d("insert countries transaction complete");
+                        }
+
+                        @Override
+                        public void onError(@io.reactivex.annotations.NonNull Throwable e) {
+                            super.onError(e);
+                            Timber.d("error storing countries in db"+e);
+                        }
+
+                        @Override
+                        public void onComplete() {
+                            Timber.d("insert countries transaction complete");
+                        }
+                    });
+    }
+
 }
 

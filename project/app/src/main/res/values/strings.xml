@@ -101,7 +101,7 @@
     <string name="task_description">Type description of your task</string>
     <string name="type_here">Type here</string>
     <string name="add_files">Add pictures</string>
-    <string name="socialNetworks">Social networks:</string>
+    <string name="socialNetworkDTOS">Social networks:</string>
     <string name="select_date">Click to set a deadline</string>
     <string name="select_date_below">Select deadline</string>
     <string name="select_lesson">Click to choose a lesson</string>

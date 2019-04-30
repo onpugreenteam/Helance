@@ -18,7 +18,7 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="80dp"
         app:srcCompat="@drawable/ic_splash_screen_logo" />
 
     <TextView
@@ -35,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_gravity="center_vertical"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="15dp"
         android:background="@drawable/shadow_rounded_edit_text"
         android:hint="@string/prompt_email"
         android:inputType="textEmailAddress"
@@ -83,7 +83,7 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/buttonbordershadow"
         android:text="@string/login"
         android:textColor="@color/colorPrimary"
@@ -135,16 +135,16 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="99dp"
         android:layout_gravity="center"
-        android:paddingTop="50dp"
+
         android:paddingBottom="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/don_t_have_an_account"
             android:layout_gravity="bottom"
+            android:text="@string/don_t_have_an_account"
             android:textColor="@color/colorSecondaryLight"
             android:textStyle="bold" />
 
@@ -153,9 +153,9 @@
             style="?android:textAppearanceSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="30dp"
-            android:paddingStart="10dp"
             android:layout_gravity="bottom"
+            android:paddingStart="10dp"
+            android:paddingTop="30dp"
             android:text="@string/registration_button"
             android:textColor="@color/colorSecondaryLight"
             android:textStyle="bold" />

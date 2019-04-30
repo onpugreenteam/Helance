@@ -96,7 +96,7 @@
             android:id="@+id/edit_profile_social_network_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/socialNetworks"
+            android:text="@string/socialNetworkDTOS"
             android:textColor="@color/darkText"
             android:textSize="24sp" />
 

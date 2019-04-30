@@ -1,5 +1,6 @@
 package com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.forYouNavFragment;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,10 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.SearchTaskAlertDialog;
@@ -35,7 +40,7 @@ public class ForYouFragment extends Fragment implements Activity {
     private ForYouListAdapter adapter;
     final String subject = "Maths";
     private ImageView search;
-
+    private ProgressBar progressDialog;
 
     public ForYouFragment() {
     }
@@ -47,6 +52,7 @@ public class ForYouFragment extends Fragment implements Activity {
         view = inflater.inflate(R.layout.fragment_for_you, container, false);
         findViewById();
         onListener();
+        progressDialog = new ProgressBar(getContext());
 
         initImageBitmaps();
 
@@ -57,7 +63,10 @@ public class ForYouFragment extends Fragment implements Activity {
         adapter = new ForYouListAdapter(data, imageUrls, recyclerView, getActivity());
         recyclerView.setAdapter(adapter);
 
+
+
         taskDAO.getAllTasksForYou(subject)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(taskDTOS -> {
                     data = taskDTOS;
