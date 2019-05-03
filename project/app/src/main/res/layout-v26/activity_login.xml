@@ -1,3 +1,12 @@
+<layout>
+    <data>
+        <import type="android.view.View"/>
+
+        <variable
+            name="viewModel"
+            type="com.ranpeak.ProjectX.activity.logIn.viewmodel.LoginViewModel" />
+    </data>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,10 +17,8 @@
     android:gravity="center"
     android:orientation="vertical"
     tools:context="com.ranpeak.ProjectX.activity.logIn.LogInActivity"
-
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin">
-
 
     <ImageView
         android:id="@+id/login_activity_splash_image"
@@ -27,8 +34,10 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:gravity="start"
+        android:text="@string/invalidEmailOrPassword"
         android:textColor="@color/colorAccent"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        app:visibility="@{viewModel.textViewError}"/>
 
     <AutoCompleteTextView
         android:id="@+id/login_activity_email"
@@ -76,17 +85,24 @@
         android:text="@string/forgot_password"
         android:textColor="@color/colorSecondaryLight"
         android:textSize="14sp" />
-
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}" />
     <Button
         android:id="@+id/login_activity_login_button"
         style="?android:textAppearanceSmall"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="4dp"
         android:background="@drawable/buttonbordershadow"
         android:text="@string/login"
         android:textColor="@color/colorPrimary"
+        android:onClick="@{() -> viewModel.onLoginClick()}"
         android:textSize="20sp"
         android:textStyle="bold" />
 
@@ -161,3 +177,4 @@
             android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>
+</layout>
