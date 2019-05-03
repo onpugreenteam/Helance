@@ -12,6 +12,10 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+
+    }
+    dataBinding {
+        enabled = true
     }
     buildTypes {
         release {
@@ -120,6 +124,8 @@ dependencies {
     implementation 'com.google.dagger:dagger-android-support:2.13'
     // Logs(timber)
     implementation 'com.jakewharton.timber:timber:4.7.1'
+    // MVVM
+    implementation 'com.github.stfalcon:androidmvvmhelper:0.4'
 }
 
 repositories {

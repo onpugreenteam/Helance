@@ -1,5 +1,7 @@
 package com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
@@ -9,14 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
+import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.forYouNavFragment.ForYouFragment;
+import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.ProfileFragment;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.resumesNavFragment.ResumesFragment;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.tasksNavFragment.TasksFragment;
-import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.tasksNavFragment.adapter.TaskListAdapter;
-import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.ProfileFragment;
-import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.forYouNavFragment.ForYouFragment;
-import com.ranpeak.ProjectX.dataBase.App;
-import com.ranpeak.ProjectX.dataBase.local.LocalDB;
-import com.ranpeak.ProjectX.dataBase.local.dao.TaskDAO;
 
 
 public class LobbyActivity extends AppCompatActivity implements Activity {
@@ -42,9 +40,6 @@ public class LobbyActivity extends AppCompatActivity implements Activity {
         findViewById();
         onListener();
 
-//        Intent i = getIntent();
-//        data = (List<TaskEntity>) i.getSerializableExtra("data");
-
         fm.beginTransaction().add(R.id.navigation_container, profile,"4").hide(profile).commit();
         fm.beginTransaction().add(R.id.navigation_container,tasks,"2").hide(tasks).commit();
         fm.beginTransaction().add(R.id.navigation_container,resumes,"1").hide(resumes).commit();
@@ -54,6 +49,10 @@ public class LobbyActivity extends AppCompatActivity implements Activity {
 
     }
 
+    public static Intent newIntent(Context context) {
+        Intent intent = new Intent(context, LobbyActivity.class);
+        return intent;
+    }
 
     @Override
     public void findViewById(){

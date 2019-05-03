@@ -1,13 +1,14 @@
 package com.ranpeak.ProjectX.activity.logIn;
 
 import android.app.LoaderManager.LoaderCallbacks;
-import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,51 +19,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.android.volley.Request;
-import com.android.volley.toolbox.StringRequest;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.LobbyActivity;
-import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.tasksNavFragment.TasksFragment;
+import com.ranpeak.ProjectX.activity.logIn.commands.LoginNavigator;
+import com.ranpeak.ProjectX.activity.logIn.viewmodel.LoginViewModel;
 import com.ranpeak.ProjectX.activity.passwordRecovery.PassRecoveryActivity1;
 import com.ranpeak.ProjectX.activity.registration.RegistrationActivity1;
 import com.ranpeak.ProjectX.activity.registration.RegistrationActivity2;
-import com.ranpeak.ProjectX.dataBase.App;
-import com.ranpeak.ProjectX.dataBase.local.LocalDB;
-import com.ranpeak.ProjectX.dataBase.local.dao.NetworkDAO;
-import com.ranpeak.ProjectX.dto.SocialNetworkDTO;
-import com.ranpeak.ProjectX.networking.retrofit.ApiService;
-import com.ranpeak.ProjectX.networking.retrofit.RetrofitClient;
-import com.ranpeak.ProjectX.networking.volley.Constants;
-import com.ranpeak.ProjectX.networking.volley.RequestHandler;
-import com.ranpeak.ProjectX.settings.SharedPrefManager;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import com.ranpeak.ProjectX.databinding.ActivityLoginBinding;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.observers.DefaultObserver;
-import io.reactivex.schedulers.Schedulers;
-import timber.log.Timber;
-
 import static android.Manifest.permission.READ_CONTACTS;
 
-public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<Cursor>, Activity {
+public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<Cursor>, Activity, LoginNavigator {
 
     private final static int LOGIN_ACTIVITY = R.layout.activity_login;
     /**
@@ -70,79 +46,91 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     private static final int REQUEST_READ_CONTACTS = 0;
 
-    private ProgressDialog progressDialog;
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
-    private TextView textViewError;
-    private Button loginButton;
     private Button facebook;
     private Button google;
     private TextView registrationButton;
     private TextView forgotPassword;
-    private String userLogin = null;
-    private LocalDB localDB;
-    private NetworkDAO networkDAO;
 
-    private ApiService apiService = RetrofitClient.getInstance()
-            .create(ApiService.class);
-
+    private ActivityLoginBinding activityLoginBinding;
+    private LoginViewModel loginViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(LOGIN_ACTIVITY);
-
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        localDB = App.getInstance().getLocalDB();
-        networkDAO = localDB.networkDAO();
+        activityLoginBinding = DataBindingUtil.setContentView(this,LOGIN_ACTIVITY);
+        loginViewModel = new LoginViewModel(this);
+        loginViewModel.setNavigator(this);
+        activityLoginBinding.setViewModel(loginViewModel);
 
         findViewById();
         onListener();
         populateAutoComplete();
 //        animationBackground();
-
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Please wait...");
-
     }
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, LogInActivity.class);
+    }
+
 
     @Override
     public void findViewById() {
         mEmailView = findViewById(R.id.login_activity_email);
         mPasswordView = findViewById(R.id.login_activity_password);
-        loginButton = findViewById(R.id.login_activity_login_button);
         registrationButton = findViewById(R.id.login_activity_registration_button);
-        textViewError = findViewById(R.id.login_activity_text_view_error);
         forgotPassword = findViewById(R.id.login_activity_forgot_password);
         facebook = findViewById(R.id.login_activity_registration_facebook);
         google = findViewById(R.id.login_activity_registration_google);
     }
 
     @Override
+    public void handleError(Throwable throwable) {
+        Log.d("ERROR",throwable.getMessage());
+        Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void loginClicked() {
+        attemptLogin();
+    }
+
+    @Override
+    public void openLobbyActivity() {
+        Intent intent = LobbyActivity.newIntent(LogInActivity.this);
+        startActivity(intent);
+        finish();
+        Toast.makeText(getApplicationContext(),"Open Lobby",Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void openRegistrationActivity(String name, String email, String login, String country) {
+        Intent intent = new Intent(getApplicationContext(), RegistrationActivity2.class);
+        intent.putExtra("registration_username", login);
+        intent.putExtra("name", name);
+        intent.putExtra("email", email);
+        intent.putExtra("country", country);
+        startActivity(intent);
+        Toast.makeText(getApplicationContext(),"You account not active",Toast.LENGTH_LONG).show();
+    }
+
+
+    @Override
     public void onListener() {
-        mPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
-            if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-                attemptLogin();
-                return true;
-            }
-            return false;
-        });
-//drg
-        loginButton.setOnClickListener(view -> attemptLogin());
-        registrationButton.setOnClickListener( view -> {
-            startActivity(new Intent(LogInActivity.this, RegistrationActivity1.class));
-//            finish();
-        });
-        forgotPassword.setOnClickListener( view -> {
-            startActivity(new Intent(LogInActivity.this, PassRecoveryActivity1.class));
-//            finish();
-        });
-        google.setOnClickListener( view -> {
+        registrationButton.setOnClickListener(view -> startActivity(
+                new Intent(LogInActivity.this, RegistrationActivity1.class))
+        );
+        forgotPassword.setOnClickListener(view -> startActivity(
+                new Intent(LogInActivity.this, PassRecoveryActivity1.class))
+        );
+        google.setOnClickListener(view -> {
 
         });
-        facebook.setOnClickListener( view -> {
+        facebook.setOnClickListener(view -> {
 
         });
     }
@@ -187,7 +175,9 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
             // form field with an error.
             focusView.requestFocus();
         } else {
-            loginUser();
+            final String log = activityLoginBinding.loginActivityEmail.getText().toString();
+            final String pass = activityLoginBinding.loginActivityPassword.getText().toString();
+            loginViewModel.sendLoginRequest(log,pass,getApplicationContext());
         }
     }
 
@@ -248,12 +238,10 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
                 // Retrieve data rows for the device user's 'profile' contact.
                 Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
                         ContactsContract.Contacts.Data.CONTENT_DIRECTORY), LogInActivity.ProfileQuery.PROJECTION,
-
                 // Select only email addresses.
                 ContactsContract.Contacts.Data.MIMETYPE +
                         " = ?", new String[]{ContactsContract.CommonDataKinds.Email
                 .CONTENT_ITEM_TYPE},
-
                 // Show primary email addresses first. Note that there won't be
                 // a primary email address if the user hasn't specified one.
                 ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
@@ -268,7 +256,6 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
             emails.add(cursor.getString(LogInActivity.ProfileQuery.ADDRESS));
             cursor.moveToNext();
         }
-
         addEmailsToAutoComplete(emails);
     }
 
@@ -294,145 +281,8 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
                 ContactsContract.CommonDataKinds.Email.ADDRESS,
                 ContactsContract.CommonDataKinds.Email.IS_PRIMARY,
         };
-
         int ADDRESS = 0;
         int IS_PRIMARY = 1;
     }
-
-    // Запрос на аунтификацию по (логину или почте) с паролем
-    private void loginUser() {
-
-        final String login = mEmailView.getText().toString().trim();
-        final String password = mPasswordView.getText().toString().trim();
-        progressDialog.show();
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                Constants.URL.LOGIN_USER,
-                response -> {
-                    progressDialog.dismiss();
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        Log.d("Name",jsonObject.getString("name"));
-                        Log.d("Login",jsonObject.getString("login"));
-                        Log.d("Email",jsonObject.getString("email"));
-                        Log.d("Country",jsonObject.getString("country"));
-                        Log.d("Telephone",jsonObject.getString("telephone"));
-                        Log.d("Avatar",jsonObject.getString("avatar"));
-                        Log.d("Active", String.valueOf(jsonObject.getBoolean("active")));
-                        // если аккаунт не активирован, то открывается активность где надо ввести код
-                        if ((jsonObject.getString("login").equals(login)
-                                || jsonObject.getString("email").equals(login))
-                                && !jsonObject.getBoolean("active")) {
-                            Intent intent = new Intent(getApplicationContext(), RegistrationActivity2.class);
-                            intent.putExtra("registration_username", jsonObject.getString("login"));
-                            intent.putExtra("password", jsonObject.getString("password"));
-                            intent.putExtra("name", jsonObject.getString("name"));
-                            intent.putExtra("email", jsonObject.getString("email"));
-                            intent.putExtra("country", jsonObject.getString("country"));
-                            intent.putExtra("avatar", jsonObject.getString("avatar"));
-                            startActivity(intent);
-                        } else if ((jsonObject.getString("login").equals(login)
-                                || jsonObject.getString("email").equals(login))
-                                && jsonObject.getBoolean("active")) {
-
-                            SharedPrefManager.getInstance(getApplicationContext())
-                                    .userLogin(
-                                            jsonObject.getString("login"),
-                                            jsonObject.getString("name"),
-                                            jsonObject.getString("email"),
-                                            jsonObject.getString("country"),
-                                            jsonObject.getString("avatar"),
-                                            jsonObject.getString("telephone")
-                                    );
-                            userLogin = jsonObject.getString("login");
-                            getUserNetworks();
-                            finish();
-                            startActivity(new Intent(getApplicationContext(), LobbyActivity.class));
-
-
-                        } else if (jsonObject.getString("message").equals("error")) {
-                            mEmailView.getText().clear();
-                            mPasswordView.getText().clear();
-
-                            textViewError.setVisibility(View.VISIBLE);
-                            textViewError.setText(getText(R.string.invalidEmailOrPassword));
-                        }
-
-                    } catch (JSONException e) {
-                        Log.d("eRROR",e.getMessage());
-                        e.printStackTrace();
-                    }
-                },
-                error -> {
-                    progressDialog.hide();
-                    Toast.makeText(getApplicationContext(), "Please on Internet",
-                            Toast.LENGTH_LONG).show();
-                }) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("login", login);
-                params.put("password", password);
-                return params;
-            }
-        };
-
-        RequestHandler.getmInstance(this).addToRequestQueue(stringRequest);
-    }
-
-    private void getUserNetworks(){
-        apiService.getAllUserNetworks(userLogin)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<List<SocialNetworkDTO>>() {
-                    @Override
-                    public void onNext(List<SocialNetworkDTO> socialNetworkDTOS) {
-                        addNetworksToLocalDB(socialNetworkDTOS);
-                        Log.d("Network taken", String.valueOf(socialNetworkDTOS.size()));
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.d("ERROR",e.getMessage());
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-
-    }
-
-    private void addNetworksToLocalDB(List<SocialNetworkDTO> socialNetworkDTOS) {
-        Observable.fromCallable(() -> localDB.networkDAO().insertNetworks(socialNetworkDTOS))
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new TasksFragment.DefaultSubscriber<List<Long>>(){
-                        @Override
-                        public void onSubscribe(@io.reactivex.annotations.NonNull Disposable d) {
-                            super.onSubscribe(d);
-                        }
-
-                        @Override
-                        public void onNext(@io.reactivex.annotations.NonNull List<Long> longs) {
-                            super.onNext(longs);
-                            Timber.d("insert countries transaction complete");
-                        }
-
-                        @Override
-                        public void onError(@io.reactivex.annotations.NonNull Throwable e) {
-                            super.onError(e);
-                            Timber.d("error storing countries in db"+e);
-                        }
-
-                        @Override
-                        public void onComplete() {
-                            Timber.d("insert countries transaction complete");
-                        }
-                    });
-    }
-
 }
 
