@@ -13,6 +13,8 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.List;
 
+import io.reactivex.Scheduler;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Entity(tableName = "TaskEntity")
 public class TaskDTO implements Serializable {
@@ -90,16 +92,14 @@ public class TaskDTO implements Serializable {
     @SerializedName("views")
     @ColumnInfo (name = "views")
     @Expose
-    private int views;
-
-
+    private String views;
 
 
     public TaskDTO() {
     }
 
     @Ignore
-    public TaskDTO(long id, String subject, String headLine, String description, String dateStart, float price, String deadline, String status, String userLogin, String userEmail, String userName, String userAvatar, String userCountry, String fileTasks, int views) {
+    public TaskDTO(long id, String subject, String headLine, String description, String dateStart, float price, String deadline, String status, String userLogin, String userEmail, String userName, String userAvatar, String userCountry, String fileTasks, String views) {
         this.id = id;
         this.subject = subject;
         this.headLine = headLine;
@@ -230,11 +230,11 @@ public class TaskDTO implements Serializable {
         this.userCountry = userCountry;
     }
 
-    public int getViews() {
+    public String getViews() {
         return views;
     }
 
-    public void setViews(int views) {
+    public void setViews(String views) {
         this.views = views;
     }
 }

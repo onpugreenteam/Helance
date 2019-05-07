@@ -28,6 +28,10 @@ import com.ranpeak.ProjectX.viewModel.TaskViewModel;
 import java.util.Calendar;
 import java.util.Objects;
 
+import io.reactivex.Completable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+
 public class MyTaskEditActivity extends AppCompatActivity implements Activity {
 
     private DatePickerDialog.OnDateSetListener dateSetListener;
@@ -36,6 +40,8 @@ public class MyTaskEditActivity extends AppCompatActivity implements Activity {
 
     private TaskDTO myTaskItem;
     private TaskDTO editedTask;
+    private TaskViewModel taskViewModel;
+
 
     private Button save;
     private TextView subject;
@@ -47,8 +53,6 @@ public class MyTaskEditActivity extends AppCompatActivity implements Activity {
     private TextView name;
     private TextView email;
     private TextView country;
-
-    private TaskViewModel taskViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,8 +140,9 @@ public class MyTaskEditActivity extends AppCompatActivity implements Activity {
     }
 
     private void initData() {
+        taskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
         myTaskItem = (TaskDTO) getIntent().getSerializableExtra("MyTask");
-
+        descriptionLength.setText(description.getText().toString().length() + "/");
         subject.setText(myTaskItem.getSubject());
         deadline.setText(myTaskItem.getDeadline());
         header.setText(myTaskItem.getHeadLine());
@@ -273,6 +278,11 @@ public class MyTaskEditActivity extends AppCompatActivity implements Activity {
 
     private void editTask(TaskDTO editedTask) {
         editedTask.setId(myTaskItem.getId());
+        Completable.fromRunnable(() -> {
+            taskViewModel.update(editedTask);
+        })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe();
         taskViewModel.update(editedTask);
         Intent resultIntent = new Intent();
         resultIntent.putExtra("EditedTask", editedTask);

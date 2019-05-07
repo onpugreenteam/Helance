@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.StrictMode;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -77,7 +76,7 @@ public class ResumeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         RecyclerView.ViewHolder rv = null;
 
         if(viewType == VIEW_TYPE_ITEM){
-            View view = LayoutInflater.from(activity).inflate(R.layout.resume_item, parent, false);
+            View view = LayoutInflater.from(activity).inflate(R.layout.item_resume, parent, false);
             rv = new ResumeViewHolder(view);
         }else if(viewType == VIEW_TYPE_LOADING){
             View view = LayoutInflater.from(activity).inflate(R.layout.item_loading, parent, false);

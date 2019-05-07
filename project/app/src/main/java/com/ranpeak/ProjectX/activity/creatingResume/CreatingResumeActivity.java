@@ -1,6 +1,7 @@
 package com.ranpeak.ProjectX.activity.creatingResume;
 
 import android.app.FragmentManager;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -19,9 +20,11 @@ import com.android.volley.toolbox.StringRequest;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.creatingTask.fragment.LessonListFragment;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
+import com.ranpeak.ProjectX.dto.ResumeDTO;
 import com.ranpeak.ProjectX.networking.volley.Constants;
 import com.ranpeak.ProjectX.networking.volley.RequestHandler;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
+import com.ranpeak.ProjectX.viewModel.ResumeViewModel;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -30,6 +33,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import io.reactivex.Completable;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class CreatingResumeActivity extends AppCompatActivity implements Activity {
@@ -41,6 +48,7 @@ public class CreatingResumeActivity extends AppCompatActivity implements Activit
     private TextView lessonPicker;
     private final FragmentManager fm = getFragmentManager();
     private final LessonListFragment lessonListFragment = new LessonListFragment();
+    private ResumeViewModel resumeViewModel;
     private Button create;
 
     @Override
@@ -51,6 +59,8 @@ public class CreatingResumeActivity extends AppCompatActivity implements Activit
         findViewById();
         onListener();
         toolbar();
+        resumeViewModel = ViewModelProviders.of(this).get(ResumeViewModel.class);
+
     }
 
     @Override
@@ -190,8 +200,10 @@ public class CreatingResumeActivity extends AppCompatActivity implements Activit
         final String text = description.getText().toString().trim();
         final String typeLesson = lessonPicker.getText().toString().trim();
 
-        DateFormat df = new SimpleDateFormat("d MMM yyyy");
+        final DateFormat df = new SimpleDateFormat("d MMM yyyy");
         final String dateStart = df.format(Calendar.getInstance().getTime());
+        final String status = "Active";
+        final String views = "0";
 
         Timber.d(dateStart);
         Timber.d(text);
@@ -201,6 +213,25 @@ public class CreatingResumeActivity extends AppCompatActivity implements Activit
                 Constants.URL.ADD_RESUME,
                 response -> {
                     Toast.makeText(getApplicationContext(), "Successful", Toast.LENGTH_LONG).show();
+
+                    ResumeDTO resume = new ResumeDTO();
+                    resume.setDateStart(dateStart);
+                    resume.setOpportunities(text);
+                    resume.setStatus(status);
+                    resume.setSubject(typeLesson);
+                    resume.setUserAvatar(String.valueOf(SharedPrefManager.getInstance(this).getUserAvatar()));
+                    resume.setUserCountry(String.valueOf(SharedPrefManager.getInstance(this).getUserCountry()));
+                    resume.setUserEmail(String.valueOf(SharedPrefManager.getInstance(this).getUserEmail()));
+                    resume.setUserLogin(String.valueOf(SharedPrefManager.getInstance(this).getUserLogin()));
+                    resume.setUserName(String.valueOf(SharedPrefManager.getInstance(this).getUserName()));
+                    resume.setViews(views);
+                    Completable.fromRunnable(()->{
+
+                        resumeViewModel.insert(resume);
+                    })
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe();
+
                     finish();
                 },
                 error -> Toast.makeText(getApplicationContext(), "Please on Internet", Toast.LENGTH_LONG).show()) {
@@ -213,6 +244,7 @@ public class CreatingResumeActivity extends AppCompatActivity implements Activit
                 params.put("users", String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()));
                 params.put("subject", typeLesson);
                 params.put("status", "Active");
+                params.put("views", views);
                 return params;
             }
 

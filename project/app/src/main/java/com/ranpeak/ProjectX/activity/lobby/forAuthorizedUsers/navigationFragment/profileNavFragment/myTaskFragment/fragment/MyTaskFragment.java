@@ -23,6 +23,16 @@ import com.ranpeak.ProjectX.dto.TaskDTO;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
 import com.ranpeak.ProjectX.viewModel.TaskViewModel;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
+
+import io.reactivex.Completable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
+
 
 public class MyTaskFragment extends Fragment implements Activity {
 
@@ -31,9 +41,7 @@ public class MyTaskFragment extends Fragment implements Activity {
     private MyTaskListAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private TaskViewModel taskViewModel;
-
-    private Button size;
-
+    private CompositeDisposable disposable = new CompositeDisposable();
 
     public MyTaskFragment() {
 
@@ -52,17 +60,10 @@ public class MyTaskFragment extends Fragment implements Activity {
     @Override
     public void findViewById() {
         recyclerView = view.findViewById(R.id.fragment_my_task_recyclerView);
-        size = view.findViewById(R.id.fragment_my_task_size);
     }
 
     @Override
     public void onListener() {
-        size.setOnClickListener(v->{
-            adapter.getItemCount();
-            String str = String.valueOf(adapter.getItemCount());
-            Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();
-            adapter.notifyDataSetChanged();
-        });
     }
 
     private void initItems() {
@@ -74,9 +75,14 @@ public class MyTaskFragment extends Fragment implements Activity {
         recyclerView.setAdapter(adapter);
 
         taskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
-        taskViewModel.getAllUsersTask(String.valueOf(SharedPrefManager.getInstance(getContext()).getUserLogin())).observe(this, tasks -> {
-            adapter.submitList(tasks);
-        });
+        disposable.add(taskViewModel.getAllUsersTask(
+                String.valueOf(SharedPrefManager.getInstance(getContext()).getUserLogin()))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(taskDTOS -> {
+                    adapter.submitList(taskDTOS);
+                })
+        );
+//        disposable.dispose();
 
         // if one of the items was clicked
         adapter.setOnItemClickListener(new MyTaskListAdapter.OnItemClickListener() {
@@ -102,11 +108,20 @@ public class MyTaskFragment extends Fragment implements Activity {
             @Override
             public void onUpdateStatusClick(TaskDTO task) {
                 if (task.getStatus().equals(getString(R.string.not_active))) {
-                    task.setStatus(getString(R.string.active));
+                    Completable.fromRunnable(() -> {
+                        task.setStatus(getString(R.string.active));
+                        taskViewModel.update(task);
+                    })
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe();
                 } else {
-                    task.setStatus(getString(R.string.not_active));
+                    Completable.fromRunnable(() -> {
+                        task.setStatus(getString(R.string.not_active));
+                        taskViewModel.update(task);
+                    })
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe();
                 }
-                taskViewModel.update(task);
                 adapter.notifyDataSetChanged();
             }
 

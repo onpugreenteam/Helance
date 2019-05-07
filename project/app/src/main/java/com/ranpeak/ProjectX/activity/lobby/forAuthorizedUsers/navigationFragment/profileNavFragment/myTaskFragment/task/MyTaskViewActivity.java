@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.r0adkll.slidr.Slidr;
@@ -20,12 +21,18 @@ import com.ranpeak.ProjectX.viewModel.TaskViewModel;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.reactivex.Completable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 
 public class MyTaskViewActivity extends AppCompatActivity implements Activity {
 
-    private TaskDTO myTaskItem;
-
+    private static TaskDTO myTaskItem;
+    private static TaskDTO taskDTO;
     private TaskDTO myEditedTaskItem;
+    private TaskViewModel taskViewModel;
+    private CompositeDisposable disposable = new CompositeDisposable();
+
 
     private TextView subject;
     private TextView header;
@@ -37,8 +44,6 @@ public class MyTaskViewActivity extends AppCompatActivity implements Activity {
     private TextView price;
     private CircleImageView avatar;
 
-    private TaskViewModel taskViewModel;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +53,7 @@ public class MyTaskViewActivity extends AppCompatActivity implements Activity {
 
         toolbar();
         findViewById();
-        setData();
+        initData();
         onListener();
         Slidr.attach(this);
     }
@@ -80,24 +85,37 @@ public class MyTaskViewActivity extends AppCompatActivity implements Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.my_task_menu, menu);
+        getMenuInflater().inflate(R.menu.menu_my_task, menu);
         return true;
     }
-
-    private void setData() {
+    private void initData() {
 
         myTaskItem = (TaskDTO) getIntent().getSerializableExtra("MyTask");
+        taskDTO = myTaskItem;
+        taskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
+
+        disposable.add(taskViewModel.getTaskById(myTaskItem.getId())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(val -> {
+            taskDTO = val;
+        }));
+        disposable.dispose();
+
+        setData(taskDTO);
+    }
+
+    private void setData(TaskDTO taskDTO) {
         Glide.with(getApplicationContext())
-                .load(myTaskItem.getUserAvatar())
+                .load(taskDTO.getUserAvatar())
                 .into(avatar);
-        subject.setText(myTaskItem.getSubject());
-        header.setText(myTaskItem.getHeadLine());
-        description.setText(myTaskItem.getDescription());
-        deadline.setText(myTaskItem.getDeadline());
-        price.setText(String.valueOf(myTaskItem.getPrice()));
-        userCountry.setText(myTaskItem.getUserCountry());
-        userName.setText(myTaskItem.getUserName());
-        userEmail.setText(myTaskItem.getUserEmail());
+        subject.setText(taskDTO.getSubject());
+        header.setText(taskDTO.getHeadLine());
+        description.setText(taskDTO.getDescription());
+        deadline.setText(taskDTO.getDeadline());
+        price.setText(String.valueOf(taskDTO.getPrice()));
+        userCountry.setText(taskDTO.getUserCountry());
+        userName.setText(taskDTO.getUserName());
+        userEmail.setText(taskDTO.getUserEmail());
     }
 
     @Override
@@ -107,16 +125,18 @@ public class MyTaskViewActivity extends AppCompatActivity implements Activity {
             case android.R.id.home:
                 finish();
                 return true;
-            case R.id.my_task_menu_edit:
+            case R.id.menu_my_task_edit:
                 Intent intent = new Intent(getApplicationContext(), MyTaskEditActivity.class);
-                intent.putExtra("MyTask", myTaskItem);
+                intent.putExtra("MyTask", taskDTO);
+//                startActivity(intent);
                 startActivityForResult(intent, Constants.Codes.EDIT_CODE);
                 break;
-            case R.id.my_task_menu_delete:
-                taskViewModel.delete(myTaskItem);
-                // sending result code = 1 after user click delete item to previous activity
-//                Intent resultIntent = new Intent();
-//                setResult(Constants.Codes.DELETE_CODE, resultIntent);
+            case R.id.menu_my_task_delete:
+                Completable.fromRunnable(() -> {
+                    taskViewModel.delete(taskDTO);
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe();
                 finish();
                 break;
 
@@ -133,19 +153,9 @@ public class MyTaskViewActivity extends AppCompatActivity implements Activity {
             if (data != null) {
                 myEditedTaskItem = (TaskDTO) data.getSerializableExtra("EditedTask");
                 setEditedData(myEditedTaskItem);
-//                Intent resultIntent = new Intent();
-//                resultIntent.putExtra("EditedTask", myEditedTaskItem);
-//                setResult(Constants.Codes.EDIT_CODE, resultIntent);
 
             }
-//            else {
-//                Toast.makeText(getApplicationContext(), "no_data", Toast.LENGTH_SHORT).show();
-//            }
         }
-//        else {
-//
-//            Toast.makeText(getApplicationContext(), "desc_no", Toast.LENGTH_SHORT).show();
-//        }
     }
 
     private void setEditedData(TaskDTO editedData) {

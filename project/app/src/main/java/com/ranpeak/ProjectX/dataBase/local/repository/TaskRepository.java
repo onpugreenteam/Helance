@@ -11,12 +11,18 @@ import com.ranpeak.ProjectX.dto.TaskDTO;
 import java.util.List;
 
 import io.reactivex.Flowable;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class TaskRepository {
     private TaskDAO taskDao;
     private Flowable<List<TaskDTO>> allTasks;
-    private static LiveData<List<TaskDTO>> allUsersTasks;
-    private static LiveData<List<TaskDTO>> allNotUsersTasks;
+    private static Flowable<List<TaskDTO>> allUsersTasks;
+    private static Flowable<List<TaskDTO>> allNotUsersTasks;
     private static LiveData<Integer> countOfUsersTask;
 
     public TaskRepository(Application application) {
@@ -42,17 +48,26 @@ public class TaskRepository {
     }
 
     public LiveData<Integer> getCountOfUserTask(String userLogin) {
+
         countOfUsersTask = taskDao.getCountOfUsersTask(userLogin);
         return countOfUsersTask;
+
+//        return taskDao.getCountOfUsersTask(userLogin);
     }
 
-    public LiveData<List<TaskDTO>> getAllUsersTask (String userLogin) {
+    public Flowable<List<TaskDTO>> getAllUsersTask (String userLogin) {
 //        new GetAllUsersTasksAsyncTask(taskDao).execute(userLogin);
 //        return allUsersTasks;
         return taskDao.getAllUserTasks(userLogin);
     }
 
-    public LiveData<List<TaskDTO>> getAllNotUsersTask (String userLogin) {
+    public Flowable<TaskDTO> getTaskById (long userLogin) {
+//        new GetAllUsersTasksAsyncTask(taskDao).execute(userLogin);
+//        return allUsersTasks;
+        return taskDao.getTaskById(userLogin);
+    }
+
+    public Flowable<List<TaskDTO>> getAllNotUsersTask (String userLogin) {
         new GetAllNotUsersTasksAsyncTask(taskDao).execute(userLogin);
         return allNotUsersTasks;
     }
@@ -99,7 +114,7 @@ public class TaskRepository {
         }
     }
 
-    private static class GetAllUsersTasksAsyncTask extends AsyncTask<String, Void, LiveData<List<TaskDTO>>> {
+    private static class GetAllUsersTasksAsyncTask extends AsyncTask<String, Void, Flowable<List<TaskDTO>>> {
         private TaskDAO taskDAO;
 
         private GetAllUsersTasksAsyncTask(TaskDAO taskDAO) {
@@ -107,17 +122,17 @@ public class TaskRepository {
         }
 
         @Override
-        protected LiveData<List<TaskDTO>> doInBackground(String... userLogin) {
+        protected Flowable<List<TaskDTO>> doInBackground(String... userLogin) {
             return taskDAO.getAllUserTasks(userLogin[0]);
         }
 
         @Override
-        protected void onPostExecute(LiveData<List<TaskDTO>> data) {
+        protected void onPostExecute(Flowable<List<TaskDTO>> data) {
             allUsersTasks = data;
         }
     }
 
-    private static class GetAllNotUsersTasksAsyncTask extends AsyncTask<String, Void, LiveData<List<TaskDTO>>> {
+    private static class GetAllNotUsersTasksAsyncTask extends AsyncTask<String, Void, Flowable<List<TaskDTO>>> {
         private TaskDAO taskDAO;
 
         private GetAllNotUsersTasksAsyncTask(TaskDAO taskDAO) {
@@ -125,12 +140,12 @@ public class TaskRepository {
         }
 
         @Override
-        protected LiveData<List<TaskDTO>> doInBackground(String... userLogin) {
+        protected Flowable<List<TaskDTO>> doInBackground(String... userLogin) {
             return taskDAO.getAllNotUserTasks(userLogin[0]);
         }
 
         @Override
-        protected void onPostExecute(LiveData<List<TaskDTO>> data) {
+        protected void onPostExecute(Flowable<List<TaskDTO>> data) {
             allNotUsersTasks = data;
         }
     }

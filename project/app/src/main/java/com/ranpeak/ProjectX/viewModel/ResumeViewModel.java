@@ -41,6 +41,10 @@ public class ResumeViewModel extends AndroidViewModel {
         return allResumes;
     }
 
+    public Flowable<List<ResumeDTO>> getAllUsersResumes(String userLogin) {
+        return repository.getAllUsersResume(userLogin);
+    }
+
     public LiveData<Integer> getCountOfUsersResumes(String userLogin) {
         return repository.getCountOfUsersResumes(userLogin);
     }

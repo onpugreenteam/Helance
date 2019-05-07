@@ -38,7 +38,7 @@ public interface ResumeDAO {
     Flowable<List<ResumeDTO>> getAllResumes();
 
     @Query("SELECT * FROM ResumeEntity WHERE userLogin=:userLogin")
-    LiveData<List<ResumeDTO>> getAllUserResumes(String userLogin);
+    Flowable<List<ResumeDTO>> getAllUserResumes(String userLogin);
 
     @Query("SELECT * FROM ResumeEntity WHERE userLogin<>:userLogin")
     LiveData<List<ResumeDTO>> getAllNotUserResumes(String userLogin);

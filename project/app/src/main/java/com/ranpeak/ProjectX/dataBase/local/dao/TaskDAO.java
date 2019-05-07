@@ -15,6 +15,7 @@ import java.util.List;
 
 import bolts.Task;
 import io.reactivex.Flowable;
+import io.reactivex.Observable;
 
 @Dao
 public interface TaskDAO {
@@ -41,11 +42,14 @@ public interface TaskDAO {
     Flowable<List<TaskDTO>> getAllTasksForYou(String subject);
 
     @Query("SELECT * FROM TaskEntity WHERE userLogin=:userLogin")
-    LiveData<List<TaskDTO>> getAllUserTasks(String userLogin);
+    Flowable<List<TaskDTO>> getAllUserTasks(String userLogin);
+
+    @Query("SELECT * FROM TaskEntity WHERE id=:id")
+    Flowable<TaskDTO> getTaskById(long id);
 
     @Query("SELECT * FROM TaskEntity WHERE userLogin<>:userLogin")
-    LiveData<List<TaskDTO>> getAllNotUserTasks(String userLogin);
+    Flowable<List<TaskDTO>> getAllNotUserTasks(String userLogin);
 
     @Query("SELECT COUNT(*) FROM TaskEntity WHERE userLogin=:userLogin")
-    LiveData<Integer> getCountOfUsersTask(String userLogin);
+    LiveData<Integer> /* Flowable<Integer>*/ getCountOfUsersTask(String userLogin);
 }

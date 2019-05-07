@@ -1,31 +1,20 @@
 package com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myTaskFragment.adapter;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.recyclerview.extensions.ListAdapter;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.dto.TaskDTO;
 
-import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import bolts.Task;
 
 public class MyTaskListAdapter extends ListAdapter<TaskDTO, MyTaskListAdapter.MyTaskListViewHolder> {
 
@@ -81,6 +70,7 @@ public class MyTaskListAdapter extends ListAdapter<TaskDTO, MyTaskListAdapter.My
         myTaskListViewHolder.status.setText(currentItem.getStatus());
         myTaskListViewHolder.author.setText(currentItem.getUserName());
         myTaskListViewHolder.views.setText(String.valueOf(currentItem.getViews()));
+        //        Glide.with(activity).load(currentItem.getUserAvatar()).into(myTaskListViewHolder.avatar);
     }
 
     public TaskDTO getTaskAt(int position) {
@@ -99,7 +89,6 @@ public class MyTaskListAdapter extends ListAdapter<TaskDTO, MyTaskListAdapter.My
         private TextView price;
         private TextView updateStatus;
         private ImageView taskSettings;
-        private ImageView deleteButton;
         private OnItemClickListener listener;
         private android.app.Activity activity;
 
@@ -123,7 +112,6 @@ public class MyTaskListAdapter extends ListAdapter<TaskDTO, MyTaskListAdapter.My
             price = itemView.findViewById(R.id.item_task_profile_price);
             updateStatus = itemView.findViewById(R.id.item_task_profile_update_status);
             taskSettings = itemView.findViewById(R.id.item_task_profile_settings);
-            deleteButton = itemView.findViewById(R.id.item_task_profile_delete_img);
         }
 
         @Override
@@ -133,25 +121,6 @@ public class MyTaskListAdapter extends ListAdapter<TaskDTO, MyTaskListAdapter.My
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         listener.onItemClick(getItem(position));
-                    }
-                }
-            });
-            itemView.setOnLongClickListener(v -> {
-//                if (listener != null) {
-//                    int position = getAdapterPosition();
-//                    if (position != RecyclerView.NO_POSITION) {
-//                        taskSettings.setVisibility(View.INVISIBLE);
-//                        deleteButton.setVisibility(View.VISIBLE);
-//                        listener.onItemLongClick(position);
-//                    }
-//                }
-                return true;
-            });
-            deleteButton.setOnClickListener(v -> {
-                if (listener != null) {
-                    int position = getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION) {
-                        listener.onDeleteClick(getItem(position));
                     }
                 }
             });
@@ -165,10 +134,10 @@ public class MyTaskListAdapter extends ListAdapter<TaskDTO, MyTaskListAdapter.My
             });
             taskSettings.setOnClickListener(v -> {
                 PopupMenu popupMenu = new PopupMenu(activity, taskSettings);
-                popupMenu.inflate(R.menu.my_task_menu);
+                popupMenu.inflate(R.menu.menu_my_task);
                 popupMenu.setOnMenuItemClickListener(i -> {
                     switch (i.getItemId()) {
-                        case R.id.my_task_menu_edit:
+                        case R.id.menu_my_task_edit:
                             if (listener != null) {
                                 int position = getAdapterPosition();
                                 if (position != RecyclerView.NO_POSITION) {
@@ -176,7 +145,7 @@ public class MyTaskListAdapter extends ListAdapter<TaskDTO, MyTaskListAdapter.My
                                 }
                             }
                             break;
-                        case R.id.my_task_menu_delete:
+                        case R.id.menu_my_task_delete:
                             if (listener != null) {
                                 int position = getAdapterPosition();
                                 if (position != RecyclerView.NO_POSITION) {

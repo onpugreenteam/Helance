@@ -28,23 +28,6 @@ public class MyProfileFragment extends Fragment implements Activity {
 
     }
 
-
-//    public static MyProfileFragment newInstance(int page) {
-//        Bundle args = new Bundle();
-//        args.putInt(NAME, page);
-//        MyProfileFragment myProfileFragment = new MyProfileFragment();
-//        myProfileFragment.setArguments(args);
-//        return myProfileFragment;
-//    }
-//
-//    @Override
-//    public void onCreate(@Nullable Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            page = getArguments().getInt(NAME);
-//        }
-//    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

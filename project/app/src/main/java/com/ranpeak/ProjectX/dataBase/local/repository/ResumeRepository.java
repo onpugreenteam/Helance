@@ -44,14 +44,16 @@ public class ResumeRepository {
     public LiveData<Integer> getCountOfUsersResumes(String userLogin) {
         countOfUsersResumes = resumeDAO.getCountOfUsersResumes(userLogin);
         return countOfUsersResumes;
+//        return resumeDAO.getCountOfUsersResumes(userLogin);
     }
 
-    public LiveData<List<ResumeDTO>> getAllUsersTask (String userLogin) {
-        new GetAllUsersResumesAsyncTask(resumeDAO).execute(userLogin);
-        return allUsersResumes;
+    public Flowable<List<ResumeDTO>> getAllUsersResume(String userLogin) {
+//        new GetAllUsersResumesAsyncTask(resumeDAO).execute(userLogin);
+//        return allUsersResumes;
+        return resumeDAO.getAllUserResumes(userLogin);
     }
 
-    public LiveData<List<ResumeDTO>> getAllNotUsersTask (String userLogin) {
+    public LiveData<List<ResumeDTO>> getAllNotUsersResume (String userLogin) {
         new GetAllNotUsersResumesAsyncTask(resumeDAO).execute(userLogin);
         return allNotUsersResumes;
     }
@@ -98,23 +100,23 @@ public class ResumeRepository {
         }
     }
 
-    private static class GetAllUsersResumesAsyncTask extends AsyncTask<String, Void, LiveData<List<ResumeDTO>>> {
-        private ResumeDAO resumeDAO;
-
-        private GetAllUsersResumesAsyncTask(ResumeDAO resumeDAO) {
-            this.resumeDAO = resumeDAO;
-        }
-
-        @Override
-        protected LiveData<List<ResumeDTO>> doInBackground(String... userLogin) {
-            return resumeDAO.getAllUserResumes(userLogin[0]);
-        }
-
-        @Override
-        protected void onPostExecute(LiveData<List<ResumeDTO>> data) {
-            allUsersResumes = data;
-        }
-    }
+//    private static class GetAllUsersResumesAsyncTask extends AsyncTask<String, Void, LiveData<List<ResumeDTO>>> {
+//        private ResumeDAO resumeDAO;
+//
+//        private GetAllUsersResumesAsyncTask(ResumeDAO resumeDAO) {
+//            this.resumeDAO = resumeDAO;
+//        }
+//
+//        @Override
+//        protected LiveData<List<ResumeDTO>> doInBackground(String... userLogin) {
+//            return resumeDAO.getAllUserResumes(userLogin[0]);
+//        }
+//
+//        @Override
+//        protected void onPostExecute(LiveData<List<ResumeDTO>> data) {
+//            allUsersResumes = data;
+//        }
+//    }
 
     private static class GetAllNotUsersResumesAsyncTask extends AsyncTask<String, Void, LiveData<List<ResumeDTO>>> {
         private ResumeDAO resumeDAO;

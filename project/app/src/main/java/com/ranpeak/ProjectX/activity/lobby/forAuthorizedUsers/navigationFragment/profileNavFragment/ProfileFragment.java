@@ -3,10 +3,8 @@ package com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragmen
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +25,12 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
+import io.reactivex.Flowable;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+
 
 public class ProfileFragment extends Fragment implements Activity {
 
@@ -39,6 +43,7 @@ public class ProfileFragment extends Fragment implements Activity {
     private TextView resumesCount;
     private TaskViewModel taskViewModel;
     private ResumeViewModel resumeViewModel;
+    private io.reactivex.disposables.CompositeDisposable mDisposable = new CompositeDisposable();
 
 
     private final int[] imageResId = {
@@ -68,6 +73,7 @@ public class ProfileFragment extends Fragment implements Activity {
     @Override
     public void findViewById() {
         tasksCount = view.findViewById(R.id.fragment_profile_task_count);
+        resumesCount = view.findViewById(R.id.fragment_profile_resumes_count);
         viewPager = view.findViewById(R.id.fragment_profile_viewPager);
         tabLayout = view.findViewById(R.id.fragment_profile_tabLayout);
         editProfile = view.findViewById(R.id.fragment_profile_edit_profile);
@@ -93,12 +99,29 @@ public class ProfileFragment extends Fragment implements Activity {
         ).observe(this, integer -> {
             tasksCount.setText(String.valueOf(integer));
         });
-        resumeViewModel= ViewModelProviders.of(this).get(ResumeViewModel.class);
-//        resumeViewModel.getCountOfUsersResumes(
+//        mDisposable.add(taskViewModel.getCountOfUsersTask(
 //                String.valueOf(SharedPrefManager.getInstance(getContext()).getUserLogin())
-//        ).observe(this, integer -> {
-//            resumesCount.setText(String.valueOf(integer));
-//        });
+//        )
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(integer -> {
+//                    tasksCount.setText("29");
+//                })
+//        );
+//        mDisposable.dispose();
+        resumeViewModel = ViewModelProviders.of(this).get(ResumeViewModel.class);
+        resumeViewModel.getCountOfUsersResumes(
+                String.valueOf(SharedPrefManager.getInstance(getContext()).getUserLogin())
+        ).observe(this, integer -> {
+            resumesCount.setText(String.valueOf(integer));
+        });
+//        mDisposable.add(resumeViewModel.getCountOfUsersResumes(
+//                String.valueOf(SharedPrefManager.getInstance(getContext()).getUserLogin())
+//        )
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(integer -> {
+//                    resumesCount.setText("20");
+//                }));
+//        mDisposable.dispose();
         name.setText(String.valueOf(SharedPrefManager.getInstance(getContext()).getUserName()));
         login.setText(String.valueOf(SharedPrefManager.getInstance(getContext()).getUserLogin()));
     }

@@ -12,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 import io.reactivex.Flowable;
+import io.reactivex.Observable;
 
 public class TaskViewModel extends AndroidViewModel {
     private TaskRepository repository;
@@ -39,11 +40,15 @@ public class TaskViewModel extends AndroidViewModel {
         return allTasks;
     }
 
-    public LiveData<Integer> getCountOfUsersTask(String userLogin) {
+    public LiveData<Integer> /* Flowable<Integer>*/ getCountOfUsersTask(String userLogin) {
         return repository.getCountOfUserTask(userLogin);
     }
 
-    public LiveData<List<TaskDTO>> getAllUsersTask(String userLogin) {
+    public Flowable<List<TaskDTO>> getAllUsersTask(String userLogin) {
         return repository.getAllUsersTask(userLogin);
+    }
+
+    public Flowable<TaskDTO> getTaskById(long id) {
+        return repository.getTaskById(id);
     }
 }

@@ -33,7 +33,8 @@
             android:theme="@style/AppTheme.SlidrActivityTheme">
 
         </activity>
-        <activity android:name=".activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myTaskFragment.task.MyTaskEditActivity" >
+        <activity android:name=".activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myTaskFragment.task.MyTaskEditActivity"
+            android:theme="@style/ToolBarProfile">
 
         </activity>
         <activity

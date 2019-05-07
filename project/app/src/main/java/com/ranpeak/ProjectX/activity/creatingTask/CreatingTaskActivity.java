@@ -55,6 +55,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import io.reactivex.Completable;
+import io.reactivex.Observable;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class CreatingTaskActivity extends AppCompatActivity implements Activity {
@@ -332,7 +337,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
                 focusView.requestFocus();
             }
         } else {
-           postTask();
+            postTask();
 //            Intent intent = new Intent(getApplicationContext(), LobbyActivity.class);
 //                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 //                        startActivity(intent);
@@ -368,11 +373,12 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
         final String dateEnd = datePicker.getText().toString().trim();
         final String subject = lessonPicker.getText().toString().trim();
         final float price = Float.parseFloat(taskPrice.getText().toString().trim());
-        final String status ="Active";
+        final String status = "Active";
 
 
         DateFormat df = new SimpleDateFormat("d MMM yyyy");
         final String dateStart = df.format(Calendar.getInstance().getTime());
+        final String views = "0";
 
         Timber.d(dateStart);
         Timber.d(headline);
@@ -400,31 +406,49 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
                     task.setUserEmail(String.valueOf(SharedPrefManager.getInstance(this).getUserEmail()));
                     task.setUserLogin(String.valueOf(SharedPrefManager.getInstance(this).getUserLogin()));
                     task.setUserName(String.valueOf(SharedPrefManager.getInstance(this).getUserName()));
+                    task.setViews(views);
 
 
-                    taskViewModel.insert(task);
+//                    taskViewModel.insert(task);
+
+                    Completable.fromRunnable(() ->
+                            taskViewModel.insert(task))
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe();
+
 //                        Intent intent = new Intent(getApplicationContext(), LobbyActivity.class);
 //                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 //                        startActivity(intent);
-                    finish();
-                },
-                error -> Toast.makeText(getApplicationContext(), "Please on Internet", Toast.LENGTH_LONG).show()) {
+        finish();
+    },
+    error ->Toast.makeText(
 
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("headLine", headline);
-                params.put("description", descrpiption);
-                params.put("dateStart", dateStart);
-                params.put("deadline", dateEnd);
-                params.put("user", String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()));
-                params.put("subject", subject);
-                params.put("price", String.valueOf(price));
-                params.put("status", "Active");
-                return params;
-            }
+    getApplicationContext(), "Please on Internet",Toast.LENGTH_LONG).
 
-        };
-        RequestHandler.getmInstance(this).addToRequestQueue(stringRequest);
+    show())
+
+    {
+
+        @Override
+        protected Map<String, String> getParams () {
+        Map<String, String> params = new HashMap<>();
+        params.put("headLine", headline);
+        params.put("description", descrpiption);
+        params.put("dateStart", dateStart);
+        params.put("deadline", dateEnd);
+        params.put("user", String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()));
+        params.put("subject", subject);
+        params.put("price", String.valueOf(price));
+        params.put("status", "Active");
+        params.put("views", views);
+        return params;
     }
+
+    }
+
+    ;
+        RequestHandler.getmInstance(this).
+
+    addToRequestQueue(stringRequest);
+}
 }
