@@ -19,7 +19,8 @@ import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myTaskFragment.adapter.MyTaskListAdapter;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myTaskFragment.task.MyTaskEditActivity;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myTaskFragment.task.MyTaskViewActivity;
-import com.ranpeak.ProjectX.dataBase.local.dto.Task;
+import com.ranpeak.ProjectX.dto.TaskDTO;
+import com.ranpeak.ProjectX.settings.SharedPrefManager;
 import com.ranpeak.ProjectX.viewModel.TaskViewModel;
 
 
@@ -73,7 +74,7 @@ public class MyTaskFragment extends Fragment implements Activity {
         recyclerView.setAdapter(adapter);
 
         taskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
-        taskViewModel.getAllTasks().observe(this, tasks -> {
+        taskViewModel.getAllUsersTask(String.valueOf(SharedPrefManager.getInstance(getContext()).getUserLogin())).observe(this, tasks -> {
             adapter.submitList(tasks);
         });
 
@@ -81,7 +82,7 @@ public class MyTaskFragment extends Fragment implements Activity {
         adapter.setOnItemClickListener(new MyTaskListAdapter.OnItemClickListener() {
 
             @Override
-            public void onItemClick(Task task) {
+            public void onItemClick(TaskDTO task) {
                 Intent intent = new Intent(getContext(), MyTaskViewActivity.class);
                 intent.putExtra("MyTask", task);
 
@@ -89,7 +90,7 @@ public class MyTaskFragment extends Fragment implements Activity {
             }
 
             @Override
-            public void onItemLongClick(Task task) {
+            public void onItemLongClick(TaskDTO task) {
                 adapter.notifyDataSetChanged();
             }
 
@@ -99,7 +100,7 @@ public class MyTaskFragment extends Fragment implements Activity {
             }
 
             @Override
-            public void onUpdateStatusClick(Task task) {
+            public void onUpdateStatusClick(TaskDTO task) {
                 if (task.getStatus().equals(getString(R.string.not_active))) {
                     task.setStatus(getString(R.string.active));
                 } else {
@@ -110,12 +111,12 @@ public class MyTaskFragment extends Fragment implements Activity {
             }
 
             @Override
-            public void onDeleteClick(Task task) {
+            public void onDeleteClick(TaskDTO task) {
                 taskViewModel.delete(task);
             }
 
             @Override
-            public void onEditClick(Task task) {
+            public void onEditClick(TaskDTO task) {
                 Intent intent = new Intent(getActivity(), MyTaskEditActivity.class);
                 intent.putExtra("MyTask", task);
 

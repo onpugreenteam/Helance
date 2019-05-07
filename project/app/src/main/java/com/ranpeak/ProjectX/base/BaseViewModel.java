@@ -16,6 +16,7 @@ public abstract class BaseViewModel<N> extends ViewModel {
     }
 
     protected BaseViewModel() {
+
     }
 
     public ObservableBoolean getIsLoading() {

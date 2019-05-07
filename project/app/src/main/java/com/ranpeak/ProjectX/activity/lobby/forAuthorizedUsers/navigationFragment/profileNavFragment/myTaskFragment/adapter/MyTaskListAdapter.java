@@ -18,14 +18,16 @@ import android.widget.Toast;
 
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
-import com.ranpeak.ProjectX.dataBase.local.dto.Task;
+import com.ranpeak.ProjectX.dto.TaskDTO;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyTaskListAdapter extends ListAdapter<Task, MyTaskListAdapter.MyTaskListViewHolder> {
+import bolts.Task;
+
+public class MyTaskListAdapter extends ListAdapter<TaskDTO, MyTaskListAdapter.MyTaskListViewHolder> {
 
     private android.app.Activity activity;
     private OnItemClickListener listener;
@@ -36,19 +38,19 @@ public class MyTaskListAdapter extends ListAdapter<Task, MyTaskListAdapter.MyTas
         this.activity = activity;
     }
 
-    private static final DiffUtil.ItemCallback<Task> DIFF_CALLBACK = new DiffUtil.ItemCallback<Task>() {
+    private static final DiffUtil.ItemCallback<TaskDTO> DIFF_CALLBACK = new DiffUtil.ItemCallback<TaskDTO>() {
         @Override
-        public boolean areItemsTheSame(@NonNull Task oldItem, @NonNull Task newItem) {
+        public boolean areItemsTheSame(@NonNull TaskDTO oldItem, @NonNull TaskDTO newItem) {
             return oldItem.getId() == newItem.getId();
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull Task oldItem, @NonNull Task newItem) {
+        public boolean areContentsTheSame(@NonNull TaskDTO oldItem, @NonNull TaskDTO newItem) {
             return oldItem.getHeadLine().equals(newItem.getHeadLine())
                     && oldItem.getSubject().equals(newItem.getSubject())
                     && oldItem.getDescription().equals(newItem.getDescription())
                     && oldItem.getDateStart().equals(newItem.getDateStart())
-                    && oldItem.getPrice().equals(newItem.getPrice())
+                    && oldItem.getPrice() == newItem.getPrice()
                     && oldItem.getDeadline().equals(newItem.getDeadline())
                     && oldItem.getStatus().equals(newItem.getStatus())
                     && oldItem.getUserLogin().equals(newItem.getUserLogin())
@@ -70,9 +72,9 @@ public class MyTaskListAdapter extends ListAdapter<Task, MyTaskListAdapter.MyTas
 
     @Override
     public void onBindViewHolder(@NonNull MyTaskListViewHolder myTaskListViewHolder, int position) {
-        Task currentItem = getItem(position);
+        TaskDTO currentItem = getItem(position);
 
-        myTaskListViewHolder.price.setText(currentItem.getPrice());
+        myTaskListViewHolder.price.setText(String.valueOf(currentItem.getPrice()));
         myTaskListViewHolder.subject.setText(currentItem.getSubject());
         myTaskListViewHolder.headline.setText(currentItem.getHeadLine());
         myTaskListViewHolder.deadLine.setText(currentItem.getDeadline());
@@ -81,7 +83,7 @@ public class MyTaskListAdapter extends ListAdapter<Task, MyTaskListAdapter.MyTas
         myTaskListViewHolder.views.setText(String.valueOf(currentItem.getViews()));
     }
 
-    public Task getTaskAt(int position) {
+    public TaskDTO getTaskAt(int position) {
         return getItem(position);
     }
 
@@ -193,17 +195,17 @@ public class MyTaskListAdapter extends ListAdapter<Task, MyTaskListAdapter.MyTas
     }
 
     public interface OnItemClickListener {
-        void onItemClick(Task task);
+        void onItemClick(TaskDTO task);
 
-        void onItemLongClick(Task task);
+        void onItemLongClick(TaskDTO task);
 
         void itemDeletable(boolean delete);
 
-        void onUpdateStatusClick(Task task);
+        void onUpdateStatusClick(TaskDTO taskDTO);
 
-        void onDeleteClick(Task task);
+        void onDeleteClick(TaskDTO task);
 
-        void onEditClick(Task task);
+        void onEditClick(TaskDTO task);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {

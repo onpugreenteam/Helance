@@ -4,17 +4,20 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 
-import com.ranpeak.ProjectX.dataBase.local.dto.Resume;
 import com.ranpeak.ProjectX.dataBase.local.repository.ResumeRepository;
+import com.ranpeak.ProjectX.dto.ResumeDTO;
 
+import org.intellij.lang.annotations.Flow;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+import io.reactivex.Flowable;
+
 public class ResumeViewModel extends AndroidViewModel {
 
     private ResumeRepository repository;
-    private LiveData<List<Resume>> allResumes;
+    private Flowable<List<ResumeDTO>> allResumes;
 
     public ResumeViewModel(@NotNull Application application) {
         super(application);
@@ -22,19 +25,19 @@ public class ResumeViewModel extends AndroidViewModel {
         allResumes = repository.getAllResumes();
     }
 
-    public void insert(Resume resume) {
+    public void insert(ResumeDTO resume) {
         repository.insert(resume);
     }
 
-    public void update(Resume resume) {
+    public void update(ResumeDTO resume) {
         repository.update(resume);
     }
 
-    public void delete(Resume resume) {
+    public void delete(ResumeDTO resume) {
         repository.delete(resume);
     }
 
-    public LiveData<List<Resume>> getAllResumes() {
+    public Flowable<List<ResumeDTO>> getAllResumes() {
         return allResumes;
     }
 

@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide;
 import com.r0adkll.slidr.Slidr;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
-import com.ranpeak.ProjectX.dataBase.local.dto.Task;
+import com.ranpeak.ProjectX.dto.TaskDTO;
 import com.ranpeak.ProjectX.networking.volley.Constants;
 import com.ranpeak.ProjectX.viewModel.TaskViewModel;
 
@@ -23,9 +23,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MyTaskViewActivity extends AppCompatActivity implements Activity {
 
-    private Task myTaskItem;
+    private TaskDTO myTaskItem;
 
-    private Task myEditedTaskItem;
+    private TaskDTO myEditedTaskItem;
 
     private TextView subject;
     private TextView header;
@@ -86,7 +86,7 @@ public class MyTaskViewActivity extends AppCompatActivity implements Activity {
 
     private void setData() {
 
-        myTaskItem = (Task) getIntent().getSerializableExtra("MyTask");
+        myTaskItem = (TaskDTO) getIntent().getSerializableExtra("MyTask");
         Glide.with(getApplicationContext())
                 .load(myTaskItem.getUserAvatar())
                 .into(avatar);
@@ -131,7 +131,7 @@ public class MyTaskViewActivity extends AppCompatActivity implements Activity {
         if (requestCode == Constants.Codes.EDIT_CODE
                 && resultCode == Constants.Codes.EDIT_CODE) {
             if (data != null) {
-                myEditedTaskItem = (Task) data.getSerializableExtra("EditedTask");
+                myEditedTaskItem = (TaskDTO) data.getSerializableExtra("EditedTask");
                 setEditedData(myEditedTaskItem);
 //                Intent resultIntent = new Intent();
 //                resultIntent.putExtra("EditedTask", myEditedTaskItem);
@@ -148,7 +148,7 @@ public class MyTaskViewActivity extends AppCompatActivity implements Activity {
 //        }
     }
 
-    private void setEditedData(Task editedData) {
+    private void setEditedData(TaskDTO editedData) {
         myTaskItem = editedData;
 
         subject.setText(editedData.getSubject());

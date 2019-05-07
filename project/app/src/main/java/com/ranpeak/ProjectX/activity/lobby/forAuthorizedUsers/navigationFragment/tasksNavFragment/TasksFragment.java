@@ -56,10 +56,8 @@ public class TasksFragment extends Fragment implements Activity {
     private ApiService apiService = RetrofitClient.getInstance()
             .create(ApiService.class);
 
-
     public TasksFragment() {
     }
-
 
     @SuppressLint("CheckResult")
     @Override
@@ -182,6 +180,7 @@ public class TasksFragment extends Fragment implements Activity {
                 .subscribeWith(new DisposableObserver<List<TaskDTO>>() {
                     @Override
                     public void onNext(List<TaskDTO> taskDTOS) {
+                        data.clear();
                         data.addAll(taskDTOS);
                         addTasksToLocalDB(data);
                         adapter.notifyDataSetChanged();

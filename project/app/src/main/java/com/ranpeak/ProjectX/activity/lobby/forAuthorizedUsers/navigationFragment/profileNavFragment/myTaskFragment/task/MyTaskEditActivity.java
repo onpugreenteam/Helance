@@ -20,7 +20,7 @@ import android.widget.Toast;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.creatingTask.fragment.LessonListFragment;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
-import com.ranpeak.ProjectX.dataBase.local.dto.Task;
+import com.ranpeak.ProjectX.dto.TaskDTO;
 import com.ranpeak.ProjectX.networking.volley.Constants;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
 import com.ranpeak.ProjectX.viewModel.TaskViewModel;
@@ -34,8 +34,8 @@ public class MyTaskEditActivity extends AppCompatActivity implements Activity {
     private final FragmentManager fm = getFragmentManager();
     private final LessonListFragment lessonListFragment = new LessonListFragment();
 
-    private Task myTaskItem;
-    private Task editedTask;
+    private TaskDTO myTaskItem;
+    private TaskDTO editedTask;
 
     private Button save;
     private TextView subject;
@@ -136,7 +136,7 @@ public class MyTaskEditActivity extends AppCompatActivity implements Activity {
     }
 
     private void initData() {
-        myTaskItem = (Task) getIntent().getSerializableExtra("MyTask");
+        myTaskItem = (TaskDTO) getIntent().getSerializableExtra("MyTask");
 
         subject.setText(myTaskItem.getSubject());
         deadline.setText(myTaskItem.getDeadline());
@@ -168,24 +168,9 @@ public class MyTaskEditActivity extends AppCompatActivity implements Activity {
         } else if (header.getText().toString().equals("")) {
             cancel = true;
             focusView = header;
-        } else if (equalFields(new Task(
-                        subject.getText().toString(),
-                        header.getText().toString(),
-                        description.getText().toString(),
-                        ((Task) getIntent().getSerializableExtra("MyTask")).getDateStart(),
-                        price.getText().toString(),
-                        deadline.getText().toString(),
-                        ((Task) getIntent().getSerializableExtra("MyTask")).getStatus(),
-                        String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()),
-                        String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserEmail()),
-                        String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserName()),
-                        String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserAvatar()),
-                        String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserCountry()),
-                        ((Task) getIntent().getSerializableExtra("MyTask")).getFileTasks(),
-                        ((Task) getIntent().getSerializableExtra("MyTask")).getViews()
-                ),
+        } else if (equalFields(
 
-                (Task) getIntent().getSerializableExtra("MyTask")) ) {
+                (TaskDTO) getIntent().getSerializableExtra("MyTask")) ) {
             changed = false;
         }
         if (!changed) {
@@ -200,24 +185,23 @@ public class MyTaskEditActivity extends AppCompatActivity implements Activity {
         } else {
 
             //            if (fieldsAreCorrect()) {
-            editedTask = new Task(
-                    subject.getText().toString(),
-                    header.getText().toString(),
-                    description.getText().toString(),
-                    myTaskItem.getDateStart(),
-                    price.getText().toString(),
-                    deadline.getText().toString(),
-                    myTaskItem.getStatus(),
-                    String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()),
-                    String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserEmail()),
-                    String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserName()),
-                    String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserAvatar()),
-                    String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserCountry()),
-                    ((Task) getIntent().getSerializableExtra("MyTask")).getFileTasks(),
-                    ((Task) getIntent().getSerializableExtra("MyTask")).getViews()
-            );
+            editedTask = new TaskDTO();
 
 
+            editedTask.setSubject(subject.getText().toString());
+            editedTask.setHeadLine(header.getText().toString());
+            editedTask.setDescription(description.getText().toString());
+            editedTask.setDateStart(((TaskDTO) getIntent().getSerializableExtra("MyTask")).getDateStart());
+            editedTask.setPrice(Float.parseFloat(price.getText().toString()));
+            editedTask.setDeadline(deadline.getText().toString());
+            editedTask.setStatus(((TaskDTO) getIntent().getSerializableExtra("MyTask")).getStatus());
+            editedTask.setUserLogin(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()));
+            editedTask.setUserEmail(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserEmail()));
+            editedTask.setUserName(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserName()));
+            editedTask.setUserCountry(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserCountry()));
+            editedTask.setUserAvatar(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserAvatar()));
+            editedTask.setFileTasks(((TaskDTO) getIntent().getSerializableExtra("MyTask")).getFileTasks());
+            editedTask.setViews(((TaskDTO) getIntent().getSerializableExtra("MyTask")).getViews());
             /** Использовать этот метод для обновления задания в бд (только в бд)*/
             editTask(editedTask);
 
@@ -249,12 +233,28 @@ public class MyTaskEditActivity extends AppCompatActivity implements Activity {
     }
 
     // check if objects fields are identical
-    private boolean equalFields(Task item1, Task item2) {
+    private boolean equalFields(TaskDTO item2) {
+        TaskDTO item1 = new TaskDTO();
+        item1.setSubject(subject.getText().toString());
+        item1.setHeadLine(header.getText().toString());
+        item1.setDescription(description.getText().toString());
+        item1.setDateStart(((TaskDTO) getIntent().getSerializableExtra("MyTask")).getDateStart());
+        item1.setPrice(Float.parseFloat(price.getText().toString()));
+        item1.setDeadline(deadline.getText().toString());
+        item1.setStatus(((TaskDTO) getIntent().getSerializableExtra("MyTask")).getStatus());
+        item1.setUserLogin(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()));
+        item1.setUserEmail(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserEmail()));
+        item1.setUserName(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserName()));
+        item1.setUserCountry(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserCountry()));
+        item1.setUserAvatar(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserAvatar()));
+        item1.setFileTasks(((TaskDTO) getIntent().getSerializableExtra("MyTask")).getFileTasks());
+        item1.setViews(((TaskDTO) getIntent().getSerializableExtra("MyTask")).getViews());
+
         return item1.getSubject().equals(item2.getSubject())
                 && item1.getHeadLine().equals(item2.getHeadLine())
                 && item1.getDescription().equals(item2.getDescription())
                 && item1.getDateStart().equals(item2.getDateStart())
-                && item1.getPrice().equals(item2.getPrice())
+                && item1.getPrice() == item2.getPrice()
                 && item1.getDeadline().equals(item2.getDeadline())
                 && item1.getStatus().equals(item2.getStatus());
 //                && item1.getFileTasks().equals(item2.getFileTasks());
@@ -271,7 +271,7 @@ public class MyTaskEditActivity extends AppCompatActivity implements Activity {
         return false;
     }
 
-    private void editTask(Task editedTask) {
+    private void editTask(TaskDTO editedTask) {
         editedTask.setId(myTaskItem.getId());
         taskViewModel.update(editedTask);
         Intent resultIntent = new Intent();

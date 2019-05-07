@@ -5,37 +5,39 @@ import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
 
 import com.ranpeak.ProjectX.dataBase.local.LocalDB;
-import com.ranpeak.ProjectX.dataBase.local.dao.TaskDAO2;
-import com.ranpeak.ProjectX.dataBase.local.dto.Task;
+import com.ranpeak.ProjectX.dataBase.local.dao.TaskDAO;
+import com.ranpeak.ProjectX.dto.TaskDTO;
 
 import java.util.List;
 
+import io.reactivex.Flowable;
+
 public class TaskRepository {
-    private TaskDAO2 taskDao;
-    private LiveData<List<Task>> allTasks;
-    private static LiveData<List<Task>> allUsersTasks;
-    private static LiveData<List<Task>> allNotUsersTasks;
+    private TaskDAO taskDao;
+    private Flowable<List<TaskDTO>> allTasks;
+    private static LiveData<List<TaskDTO>> allUsersTasks;
+    private static LiveData<List<TaskDTO>> allNotUsersTasks;
     private static LiveData<Integer> countOfUsersTask;
 
     public TaskRepository(Application application) {
         LocalDB database = LocalDB.getInstance(application);
-        taskDao = database.taskDao2();
+        taskDao = database.taskDao();
         allTasks = taskDao.getAllTasks();
     }
 
-    public void insert(Task taskDTO) {
+    public void insert(TaskDTO taskDTO) {
         new InsertTaskAsyncTask(taskDao).execute(taskDTO);
     }
 
-    public void update(Task taskDTO) {
+    public void update(TaskDTO taskDTO) {
         new UpdateTaskAsyncTask(taskDao).execute(taskDTO);
     }
 
-    public void delete(Task taskDTO) {
+    public void delete(TaskDTO taskDTO) {
         new DeleteTaskAsyncTask(taskDao).execute(taskDTO);
     }
 
-    public LiveData<List<Task>> getAllTasks() {
+    public Flowable<List<TaskDTO>> getAllTasks() {
         return allTasks;
     }
 
@@ -44,90 +46,91 @@ public class TaskRepository {
         return countOfUsersTask;
     }
 
-    public LiveData<List<Task>> getAllUsersTask (String userLogin) {
-        new GetAllUsersTasksAsyncTask(taskDao).execute(userLogin);
-        return allUsersTasks;
+    public LiveData<List<TaskDTO>> getAllUsersTask (String userLogin) {
+//        new GetAllUsersTasksAsyncTask(taskDao).execute(userLogin);
+//        return allUsersTasks;
+        return taskDao.getAllUserTasks(userLogin);
     }
 
-    public LiveData<List<Task>> getAllNotUsersTask (String userLogin) {
+    public LiveData<List<TaskDTO>> getAllNotUsersTask (String userLogin) {
         new GetAllNotUsersTasksAsyncTask(taskDao).execute(userLogin);
         return allNotUsersTasks;
     }
 
-    private static class InsertTaskAsyncTask extends AsyncTask<Task, Void, Void> {
-        private TaskDAO2 taskDao;
+    private static class InsertTaskAsyncTask extends AsyncTask<TaskDTO, Void, Void> {
+        private TaskDAO taskDao;
 
-        private InsertTaskAsyncTask(TaskDAO2 taskDAO) {
+        private InsertTaskAsyncTask(TaskDAO taskDAO) {
             this.taskDao = taskDAO;
         }
 
         @Override
-        protected Void doInBackground(Task... taskDTOS) {
+        protected Void doInBackground(TaskDTO... taskDTOS) {
             taskDao.insert(taskDTOS[0]);
             return null;
         }
     }
 
-    private static class UpdateTaskAsyncTask extends AsyncTask<Task, Void, Void> {
-        private TaskDAO2 taskDAO;
+    private static class UpdateTaskAsyncTask extends AsyncTask<TaskDTO, Void, Void> {
+        private TaskDAO taskDAO;
 
-        private UpdateTaskAsyncTask(TaskDAO2 taskDAO) {
+        private UpdateTaskAsyncTask(TaskDAO taskDAO) {
             this.taskDAO = taskDAO;
         }
 
         @Override
-        protected Void doInBackground(Task... taskDTOS) {
+        protected Void doInBackground(TaskDTO... taskDTOS) {
             taskDAO.update(taskDTOS[0]);
             return null;
         }
     }
 
-    private static class DeleteTaskAsyncTask extends AsyncTask<Task, Void, Void> {
-        private TaskDAO2 taskDAO;
+    private static class DeleteTaskAsyncTask extends AsyncTask<TaskDTO, Void, Void> {
+        private TaskDAO taskDAO;
 
-        private DeleteTaskAsyncTask(TaskDAO2 taskDAO) {
+        private DeleteTaskAsyncTask(TaskDAO taskDAO) {
             this.taskDAO = taskDAO;
         }
 
         @Override
-        protected Void doInBackground(Task... taskDTOS) {
+        protected Void doInBackground(TaskDTO... taskDTOS) {
             taskDAO.delete(taskDTOS[0]);
             return null;
         }
     }
 
-    private static class GetAllUsersTasksAsyncTask extends AsyncTask<String, Void, LiveData<List<Task>>> {
-        private TaskDAO2 taskDAO;
+    private static class GetAllUsersTasksAsyncTask extends AsyncTask<String, Void, LiveData<List<TaskDTO>>> {
+        private TaskDAO taskDAO;
 
-        private GetAllUsersTasksAsyncTask(TaskDAO2 taskDAO) {
+        private GetAllUsersTasksAsyncTask(TaskDAO taskDAO) {
             this.taskDAO = taskDAO;
         }
 
         @Override
-        protected LiveData<List<Task>> doInBackground(String... userLogin) {
+        protected LiveData<List<TaskDTO>> doInBackground(String... userLogin) {
             return taskDAO.getAllUserTasks(userLogin[0]);
         }
 
         @Override
-        protected void onPostExecute(LiveData<List<Task>> data) {
+        protected void onPostExecute(LiveData<List<TaskDTO>> data) {
             allUsersTasks = data;
         }
     }
 
-    private static class GetAllNotUsersTasksAsyncTask extends AsyncTask<String, Void, LiveData<List<Task>>> {
-        private TaskDAO2 taskDAO;
+    private static class GetAllNotUsersTasksAsyncTask extends AsyncTask<String, Void, LiveData<List<TaskDTO>>> {
+        private TaskDAO taskDAO;
 
-        private GetAllNotUsersTasksAsyncTask(TaskDAO2 taskDAO) {
+        private GetAllNotUsersTasksAsyncTask(TaskDAO taskDAO) {
             this.taskDAO = taskDAO;
         }
 
         @Override
-        protected LiveData<List<Task>> doInBackground(String... userLogin) {
+        protected LiveData<List<TaskDTO>> doInBackground(String... userLogin) {
             return taskDAO.getAllNotUserTasks(userLogin[0]);
         }
 
         @Override
-        protected void onPostExecute(LiveData<List<Task>> data) {
+        protected void onPostExecute(LiveData<List<TaskDTO>> data) {
             allNotUsersTasks = data;
         }
     }

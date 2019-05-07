@@ -40,7 +40,7 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.creatingTask.fragment.LessonListFragment;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
-import com.ranpeak.ProjectX.dataBase.local.dto.Task;
+import com.ranpeak.ProjectX.dto.TaskDTO;
 import com.ranpeak.ProjectX.networking.volley.Constants;
 import com.ranpeak.ProjectX.networking.volley.RequestHandler;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
@@ -367,7 +367,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
         final String descrpiption = taskDescription.getText().toString().trim();
         final String dateEnd = datePicker.getText().toString().trim();
         final String subject = lessonPicker.getText().toString().trim();
-        final String price = taskPrice.getText().toString().trim();
+        final float price = Float.parseFloat(taskPrice.getText().toString().trim());
         final String status ="Active";
 
 
@@ -385,22 +385,23 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
                 Constants.URL.ADD_TASK,
                 response -> {
                     Toast.makeText(getApplicationContext(), "Successful", Toast.LENGTH_LONG).show();
-                    Task task = new Task(
-                            subject,
-                            headline,
-                            descrpiption,
-                            dateStart,
-                            price,
-                            dateEnd,
-                            status,
-                            String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()),
-                            String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserEmail()),
-                            String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserName()),
-                            String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserAvatar()),
-                            String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserCountry()),
-                            null,
-                            "0"
+                    TaskDTO task = new TaskDTO(
                     );
+                    task.setDateStart(dateStart);
+                    task.setDeadline(dateEnd);
+                    task.setDescription(descrpiption);
+                    task.setFileTasks(null);
+                    task.setHeadLine(headline);
+                    task.setPrice(price);
+                    task.setStatus(status);
+                    task.setSubject(subject);
+                    task.setUserAvatar(String.valueOf(SharedPrefManager.getInstance(this).getUserAvatar()));
+                    task.setUserCountry(String.valueOf(SharedPrefManager.getInstance(this).getUserCountry()));
+                    task.setUserEmail(String.valueOf(SharedPrefManager.getInstance(this).getUserEmail()));
+                    task.setUserLogin(String.valueOf(SharedPrefManager.getInstance(this).getUserLogin()));
+                    task.setUserName(String.valueOf(SharedPrefManager.getInstance(this).getUserName()));
+
+
                     taskViewModel.insert(task);
 //                        Intent intent = new Intent(getApplicationContext(), LobbyActivity.class);
 //                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -418,7 +419,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
                 params.put("deadline", dateEnd);
                 params.put("user", String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()));
                 params.put("subject", subject);
-                params.put("price", price);
+                params.put("price", String.valueOf(price));
                 params.put("status", "Active");
                 return params;
             }
