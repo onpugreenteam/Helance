@@ -101,7 +101,6 @@ public class TasksFragment extends Fragment implements Activity {
         return view;
     }
 
-
     private void initImageBitmaps() {
         imageUrls.add("https://cdn.fishki.net/upload/post/2017/03/19/2245758/01-beautiful-white-cat-imagescar-wallpaper.jpg");
         imageUrls.add("https://usionline.com/wp-content/uploads/2016/02/12-4.jpg");
