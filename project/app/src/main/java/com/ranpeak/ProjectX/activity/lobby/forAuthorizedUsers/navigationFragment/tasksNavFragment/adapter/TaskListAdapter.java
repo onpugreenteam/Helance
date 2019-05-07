@@ -144,8 +144,6 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.data = data;
     }
 
-
-
     public class TaskViewHolder extends RecyclerView.ViewHolder implements com.ranpeak.ProjectX.activity.interfaces.Activity {
         CardView cardView;
         TextView author;
@@ -178,8 +176,6 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         }
     }
-
-
 
     private class LoadingViewHolder extends RecyclerView.ViewHolder{
 

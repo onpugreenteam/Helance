@@ -104,7 +104,7 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
         Intent intent = LobbyActivity.newIntent(LogInActivity.this);
         startActivity(intent);
         finish();
-        Toast.makeText(getApplicationContext(),"Open Lobby",Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(),"Open TaskNavigator",Toast.LENGTH_LONG).show();
     }
 
     @Override
