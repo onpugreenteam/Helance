@@ -13,9 +13,9 @@ import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
 
-import org.w3c.dom.Text;
-
 public class MyProfileFragment extends Fragment implements Activity {
+
+    private final int layout = R.layout.fragment_my_profile;
     private View view;
     private TextView phoneNumber;
     private TextView email;
@@ -28,10 +28,27 @@ public class MyProfileFragment extends Fragment implements Activity {
 
     }
 
+
+//    public static MyProfileFragment newInstance(int page) {
+//        Bundle args = new Bundle();
+//        args.putInt(NAME, page);
+//        MyProfileFragment myProfileFragment = new MyProfileFragment();
+//        myProfileFragment.setArguments(args);
+//        return myProfileFragment;
+//    }
+//
+//    @Override
+//    public void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        if (getArguments() != null) {
+//            page = getArguments().getInt(NAME);
+//        }
+//    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_my_profile, container, false);
+        view = inflater.inflate(layout, container, false);
         findViewById();
         onListener();
         initData();
@@ -52,12 +69,13 @@ public class MyProfileFragment extends Fragment implements Activity {
     public void onListener() {
 
     }
+
     private void initData(){
-//        phoneNumber.setText(SharedPrefManager.getInstance(getContext()).getUeserPhoneNumber());
+//        phoneNumber.setOpportunities(SharedPrefManager.getInstance(getContext()).getUeserPhoneNumber());
         email.setText(String.valueOf(SharedPrefManager.getInstance(getContext()).getUserEmail()));
         country.setText(String.valueOf(SharedPrefManager.getInstance(getContext()).getUserCountry()));
-//        telegram.setText(String.valueOf(SharedPrefManager.getInstance(getContext()).getUserTelegram()));
-//        instagram.setText(String.valueOf(SharedPrefManager.getInstance(getContext()).getUserInstagram()));
-//        facebook.setText(String.valueOf(SharedPrefManager.getInstance(getContext()).getUserFacebook()));
+//        telegram.setOpportunities(String.valueOf(SharedPrefManager.getInstance(getContext()).getUserTelegram()));
+//        instagram.setOpportunities(String.valueOf(SharedPrefManager.getInstance(getContext()).getUserInstagram()));
+//        facebook.setOpportunities(String.valueOf(SharedPrefManager.getInstance(getContext()).getUserFacebook()));
     }
 }

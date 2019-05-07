@@ -245,6 +245,16 @@
     <string name="email_example">example@email.com</string>
     <string name="telegram_example">\@example</string>
     <string name="facebook">Facebook</string>
+    <string name="price">Price</string>
+    <string name="update_status">Update status</string>
+    <string name="task_status">Status</string>
+    <string name="views">Views</string>
+    <string name="author">Author</string>
+    <string name="resume_status">Status</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="not_active">Not active</string>
+    <string name="active">Active</string>
 
 
 </resources>

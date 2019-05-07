@@ -53,6 +53,8 @@ ext {
 }
 
 dependencies {
+    //slide to close activity
+    implementation 'com.r0adkll:slidableactivity:2.0.6'
     // Phone number mask for edittext
     implementation 'com.github.reinaldoarrosi:maskededittext:1.1.0'
     // Country picker

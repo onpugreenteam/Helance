@@ -43,4 +43,13 @@ public class Constants {
 
         public static final String[] LESSONS = new String[]{"Maths", "Physics"};
     }
+
+    public static final class Codes {
+
+        public static final int EMPTY_CODE = 0;
+        public static final int DELETE_CODE = 1;
+        public static final int EDIT_CODE = 2;
+        public static final int DELETE_OR_EDIT_CODE = 3;
+
+    }
 }

@@ -9,6 +9,7 @@ import android.widget.EditText;
 
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
+import com.ranpeak.ProjectX.settings.SharedPrefManager;
 
 import java.util.Objects;
 
@@ -30,6 +31,7 @@ public class EditProfileActivity extends AppCompatActivity implements Activity {
         findViewById();
         onListener();
         toolbar();
+        setText();
     }
 
     @Override
@@ -70,5 +72,15 @@ public class EditProfileActivity extends AppCompatActivity implements Activity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void setText(){
+        name.setText(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserName()));
+        name.setSelection(name.getText().length());
+        country.setText(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserCountry()));
+        email.setText(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserEmail()));
+//        telephone.setOpportunities(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserTelephone()));
+//        telegram.setOpportunities(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserTelegram()));
+//        instgram.setOpportunities(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserInstagram()));
     }
 }

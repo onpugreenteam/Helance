@@ -3,6 +3,7 @@ package com.ranpeak.ProjectX.activity.creatingTask;
 import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.FragmentManager;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -39,9 +40,11 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.creatingTask.fragment.LessonListFragment;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
+import com.ranpeak.ProjectX.dataBase.local.dto.Task;
 import com.ranpeak.ProjectX.networking.volley.Constants;
 import com.ranpeak.ProjectX.networking.volley.RequestHandler;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
+import com.ranpeak.ProjectX.viewModel.TaskViewModel;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -74,6 +77,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
     private List<ImageView> imageViewList = new ArrayList<>();
     private final FragmentManager fm = getFragmentManager();
     private final LessonListFragment lessonListFragment = new LessonListFragment();
+    private TaskViewModel taskViewModel;
 
 
     @Override
@@ -91,6 +95,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     REQUEST_PERMISSION);
         }
+        taskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
     }
 
     @Override
@@ -359,10 +364,11 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
 
     private void postTask() {
         final String headline = typeName.getText().toString().trim();
-        final String text = taskDescription.getText().toString().trim();
+        final String descrpiption = taskDescription.getText().toString().trim();
         final String dateEnd = datePicker.getText().toString().trim();
-        final String typeLesson = lessonPicker.getText().toString().trim();
+        final String subject = lessonPicker.getText().toString().trim();
         final String price = taskPrice.getText().toString().trim();
+        final String status ="Active";
 
 
         DateFormat df = new SimpleDateFormat("d MMM yyyy");
@@ -370,8 +376,8 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
 
         Timber.d(dateStart);
         Timber.d(headline);
-        Timber.d(text);
-        Timber.d(typeLesson);
+        Timber.d(descrpiption);
+        Timber.d(subject);
         Timber.d(dateEnd);
 
 
@@ -379,6 +385,23 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
                 Constants.URL.ADD_TASK,
                 response -> {
                     Toast.makeText(getApplicationContext(), "Successful", Toast.LENGTH_LONG).show();
+                    Task task = new Task(
+                            subject,
+                            headline,
+                            descrpiption,
+                            dateStart,
+                            price,
+                            dateEnd,
+                            status,
+                            String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()),
+                            String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserEmail()),
+                            String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserName()),
+                            String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserAvatar()),
+                            String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserCountry()),
+                            null,
+                            "0"
+                    );
+                    taskViewModel.insert(task);
 //                        Intent intent = new Intent(getApplicationContext(), LobbyActivity.class);
 //                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 //                        startActivity(intent);
@@ -390,11 +413,11 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("headLine", headline);
-                params.put("description", text);
+                params.put("description", descrpiption);
                 params.put("dateStart", dateStart);
                 params.put("deadline", dateEnd);
                 params.put("user", String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()));
-                params.put("subject", typeLesson);
+                params.put("subject", subject);
                 params.put("price", price);
                 params.put("status", "Active");
                 return params;

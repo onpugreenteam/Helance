@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     tools:context=".activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.ProfileFragment">
 
     <android.support.design.widget.AppBarLayout
@@ -12,43 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-        <!--<android.support.v7.widget.Toolbar-->
-        <!--android:id="@+id/fragment_profile_toolbar"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="56dp"-->
-        <!--android:fitsSystemWindows="true"-->
-        <!--app:layout_scrollFlags="scroll|enterAlwaysCollapsed">-->
-
-        <!--<ImageView-->
-        <!--android:id="@+id/fragment_profile_edit_profile"-->
-        <!--android:layout_width="48dp"-->
-        <!--android:layout_height="48dp"-->
-        <!--android:layout_gravity="start"-->
-        <!--android:layout_marginStart="6dp"-->
-        <!--android:layout_marginTop="6dp"-->
-        <!--android:background="?android:selectableItemBackground"-->
-        <!--android:clickable="true"-->
-        <!--android:focusable="true"-->
-        <!--android:padding="12dp"-->
-        <!--app:srcCompat="@drawable/ic_edit_white_24dp" />-->
-
-        <!---->
-
-        <!--<ImageView-->
-        <!--android:id="@+id/fragment_profile_settings"-->
-        <!--android:layout_width="48dp"-->
-        <!--android:layout_height="48dp"-->
-        <!--android:layout_gravity="end"-->
-        <!--android:layout_marginTop="6dp"-->
-        <!--android:layout_marginEnd="6dp"-->
-        <!--android:background="?android:selectableItemBackground"-->
-        <!--android:clickable="true"-->
-        <!--android:focusable="true"-->
-        <!--android:padding="12dp"-->
-        <!--app:srcCompat="@drawable/ic_settings_white_24dp" />-->
-        <!---->
-        <!--</android.support.v7.widget.Toolbar>-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -59,10 +22,11 @@
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingTop="16dp"
+
+                android:orientation="horizontal"
                 android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:orientation="horizontal">
+                android:paddingTop="16dp"
+                android:paddingEnd="16dp">
 
                 <ImageView
                     android:id="@+id/fragment_profile_edit_profile"
@@ -190,33 +154,32 @@
             </android.support.constraint.ConstraintLayout>
         </LinearLayout>
 
-        <android.support.design.widget.BottomNavigationView
-            android:id="@+id/fragment_profile_bottomNavigationView"
+        <android.support.design.widget.TabLayout
+            android:id="@+id/fragment_profile_tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:itemBackground="@color/colorPrimaryLight"
-            app:itemIconTint="@color/nav_item_colors"
-            app:itemTextColor="@color/nav_item_colors"
-            app:labelVisibilityMode="unlabeled"
-            app:menu="@menu/profile_nav_items"
             app:tabGravity="fill"
-            app:tabMode="fixed" />
+            app:tabMode="fixed">
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:icon="@drawable/my_profile"/>
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:icon="@drawable/my_task"/>
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:icon="@drawable/my_resume"/>
+        </android.support.design.widget.TabLayout>
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.widget.NestedScrollView
-        android:id="@+id/fragment_profile_nestedScrollView"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/fragment_profile_viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <FrameLayout
-            android:id="@+id/fragment_profile_navigation_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </FrameLayout>
-
-    </android.support.v4.widget.NestedScrollView>
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </android.support.design.widget.CoordinatorLayout>
