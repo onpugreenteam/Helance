@@ -61,7 +61,6 @@ public class ResumesFragment extends Fragment implements Activity {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         view = inflater.inflate(R.layout.fragment_resumes, container, false);
         findViewById();
         onListener();
@@ -70,7 +69,6 @@ public class ResumesFragment extends Fragment implements Activity {
         localDB = App.getInstance().getLocalDB();
         resumeDAO = localDB.resumeDAO();
 
-//        addResumesToLocalDB(mockResumes());
         getResumesFromLocalDB();
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -81,59 +79,6 @@ public class ResumesFragment extends Fragment implements Activity {
 
         return view;
     }
-
-    private List<ResumeDTO> mockResumes() {
-        List<ResumeDTO> resumeDTOS = new ArrayList<>();
-
-        ResumeDTO resumeDTO1 = new ResumeDTO();
-        resumeDTO1.setId(1);
-        resumeDTO1.setOpportunities("Gjitk yf[ ns fjelpdifqebnwifunqweo eoqfnweuiofh qef uqweif nqewiuf  iuqef iwuefbn weiuf iqeuf qiuewf qnieuwf qeiwf nq");
-        resumeDTO1.setDateStart("21.08.19");
-        resumeDTO1.setStatus("Active");
-        resumeDTO1.setUserLogin("Fantastic");
-        resumeDTO1.setSubject("Programming");
-
-        ResumeDTO resumeDTO2 = new ResumeDTO();
-        resumeDTO1.setId(2);
-        resumeDTO2.setOpportunities("Gjitk yf[ ns fjelpdifqebnwifunqweo eoqfnweuiofh qef uqweif nqewiuf  iuqef iwuefbn weiuf iqeuf qiuewf qnieuwf qeiwf nq");
-        resumeDTO2.setDateStart("21.10.19");
-        resumeDTO2.setStatus("Active");
-        resumeDTO2.setUserLogin("Jenia12CM");
-        resumeDTO2.setSubject("Programming");
-
-        ResumeDTO resumeDTO3 = new ResumeDTO();
-        resumeDTO1.setId(3);
-        resumeDTO3.setOpportunities("Gjitk yf[ ns fjelpdifqebnwifunqweo eoqfnweuiofh qef uqw  sa d sa asd eif nqewiuf  iuqef iwuefbn weiuf iqeuf qiuewf qnieuwf qeiwf nq");
-        resumeDTO3.setDateStart("21.10.19");
-        resumeDTO3.setStatus("Active");
-        resumeDTO3.setUserLogin("Fantastic");
-        resumeDTO3.setSubject("Programming");
-
-        ResumeDTO resumeDTO4 = new ResumeDTO();
-        resumeDTO1.setId(4);
-        resumeDTO4.setOpportunities("Gjitk yf[ ns fjelpdifqebnwifunqweo eoqfAS DASD ASD d asnweuiofh qef uqweif nqewiuf  iuqef iwuefbn weiuf iqeuf qiuewf qnieuwf qeiwf nq");
-        resumeDTO4.setDateStart("21.10.19");
-        resumeDTO4.setStatus("Active");
-        resumeDTO4.setUserLogin("Azik13");
-        resumeDTO4.setSubject("Programming");
-
-        ResumeDTO resumeDTO5 = new ResumeDTO();
-        resumeDTO1.setId(5);
-        resumeDTO5.setOpportunities("Gjitk yf[ ns fsadas sad asd as d asd ASjelpdifqebnwifunqweo eoqfnweuiofh qef uqweif nqewiuf  iuqef iwuefbn weiuf iqeuf qiuewf qnieuwf qeiwf nq");
-        resumeDTO5.setDateStart("21.11.19");
-        resumeDTO5.setStatus("Active");
-        resumeDTO5.setUserLogin("Andrey21CM");
-        resumeDTO5.setSubject("Programming");
-
-        resumeDTOS.add(resumeDTO1);
-        resumeDTOS.add(resumeDTO2);
-        resumeDTOS.add(resumeDTO3);
-        resumeDTOS.add(resumeDTO4);
-        resumeDTOS.add(resumeDTO5);
-
-        return resumeDTOS;
-    }
-
 
     public void addResumesToLocalDB(List<ResumeDTO> resumeDTOS) {
         Observable.fromCallable(() -> localDB.resumeDAO().insertAll(resumeDTOS))
@@ -245,7 +190,6 @@ public class ResumesFragment extends Fragment implements Activity {
                 });
     }
 
-
     private void getResumesFromLocalDB(){
         resumeDAO.getAllResumes()
                 .observeOn(AndroidSchedulers.mainThread())
@@ -256,9 +200,4 @@ public class ResumesFragment extends Fragment implements Activity {
                     recyclerView.setAdapter(resumeListAdapter);
                 });
     }
-
-    public static ResumesFragment newInstance() {
-        return new ResumesFragment();
-    }
-
 }
