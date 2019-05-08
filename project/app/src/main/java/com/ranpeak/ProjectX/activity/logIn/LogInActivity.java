@@ -77,7 +77,6 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
         return new Intent(context, LogInActivity.class);
     }
 
-
     @Override
     public void findViewById() {
         mEmailView = findViewById(R.id.login_activity_email);
@@ -104,7 +103,7 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
         Intent intent = LobbyActivity.newIntent(LogInActivity.this);
         startActivity(intent);
         finish();
-        Toast.makeText(getApplicationContext(),"Open TaskNavigator",Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(),"Successful",Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -117,7 +116,6 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
         startActivity(intent);
         Toast.makeText(getApplicationContext(),"You account not active",Toast.LENGTH_LONG).show();
     }
-
 
     @Override
     public void onListener() {
@@ -140,7 +138,6 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
-
         // Store values at the time of the login attempt.
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
@@ -181,16 +178,13 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
-
     private boolean isEmailValid(String email) {
         return email.length() > 4;
     }
 
-
     private boolean isPasswordValid(String password) {
         return password.length() > 4;
     }
-
 
     private void populateAutoComplete() {
         if (!mayRequestContacts()) {
@@ -198,7 +192,6 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
         }
         getLoaderManager().initLoader(0, null, this);
     }
-
 
     private boolean mayRequestContacts() {
 
@@ -217,7 +210,6 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
         return false;
     }
 
-
     /**
      * Callback received when a permissions request has been completed.
      */
@@ -230,7 +222,6 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         }
     }
-
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
@@ -247,7 +238,6 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
                 ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
     }
 
-
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
         List<String> emails = new ArrayList<>();
@@ -259,12 +249,10 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
         addEmailsToAutoComplete(emails);
     }
 
-
     @Override
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
 
     }
-
 
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
@@ -274,7 +262,6 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mEmailView.setAdapter(adapter);
     }
-
 
     public interface ProfileQuery {
         String[] PROJECTION = {

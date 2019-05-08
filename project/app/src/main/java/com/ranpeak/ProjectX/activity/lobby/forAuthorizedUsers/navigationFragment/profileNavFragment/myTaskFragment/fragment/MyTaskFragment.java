@@ -25,6 +25,7 @@ import com.ranpeak.ProjectX.dto.TaskDTO;
 import com.ranpeak.ProjectX.dto.pojo.TaskPOJO;
 import com.ranpeak.ProjectX.networking.retrofit.ApiService;
 import com.ranpeak.ProjectX.networking.retrofit.RetrofitClient;
+import com.ranpeak.ProjectX.dto.pojo.TaskPOJO;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
 import com.ranpeak.ProjectX.viewModel.TaskViewModel;
 
@@ -58,7 +59,6 @@ public class MyTaskFragment extends Fragment implements Activity {
         findViewById();
         onListener();
         initItems();
-
         return view;
     }
 
@@ -76,7 +76,7 @@ public class MyTaskFragment extends Fragment implements Activity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
 
-        adapter = new MyTaskListAdapter(getActivity());
+        adapter = new MyTaskListAdapter(/*myTaskItems, */getActivity());
         recyclerView.setAdapter(adapter);
 
         taskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
@@ -85,10 +85,8 @@ public class MyTaskFragment extends Fragment implements Activity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(taskDTOS -> {
                     adapter.submitList(taskDTOS);
-                    Log.d("My_Data", String.valueOf(taskDTOS.size()));
                 })
         );
-
 //        disposable.dispose();
 
         // if one of the items was clicked
@@ -152,7 +150,6 @@ public class MyTaskFragment extends Fragment implements Activity {
             @Override
             public void onDeleteClick(TaskDTO task) {
                 taskViewModel.delete(task);
-//                apiService.deleteTask(task.getId());
             }
 
             @Override
