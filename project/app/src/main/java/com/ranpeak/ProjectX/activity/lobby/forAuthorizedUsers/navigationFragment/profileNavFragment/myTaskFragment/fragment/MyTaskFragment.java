@@ -8,11 +8,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
 
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
@@ -23,15 +22,9 @@ import com.ranpeak.ProjectX.dto.TaskDTO;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
 import com.ranpeak.ProjectX.viewModel.TaskViewModel;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.List;
-
 import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
 
 
 public class MyTaskFragment extends Fragment implements Activity {
@@ -79,7 +72,10 @@ public class MyTaskFragment extends Fragment implements Activity {
                 String.valueOf(SharedPrefManager.getInstance(getContext()).getUserLogin()))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(taskDTOS -> {
+                    Log.d("Tasks user profile", String.valueOf(taskDTOS.size()));
                     adapter.submitList(taskDTOS);
+                },throwable -> {
+                    Log.d("Error upload my task", throwable.getMessage());
                 })
         );
 //        disposable.dispose();

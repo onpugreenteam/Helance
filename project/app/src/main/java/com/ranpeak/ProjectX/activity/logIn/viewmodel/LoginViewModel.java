@@ -145,7 +145,7 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.d("ERROR",e.getMessage());
+                        Log.d("ERROR upload networks",e.getMessage());
                     }
 
                     @Override
