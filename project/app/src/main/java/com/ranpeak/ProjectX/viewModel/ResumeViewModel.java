@@ -17,16 +17,18 @@ import io.reactivex.Flowable;
 public class ResumeViewModel extends AndroidViewModel {
 
     private ResumeRepository repository;
-    private Flowable<List<ResumeDTO>> allResumes;
 
     public ResumeViewModel(@NotNull Application application) {
         super(application);
         repository = new ResumeRepository(application);
-        allResumes = repository.getAllResumes();
     }
 
     public void insert(ResumeDTO resume) {
         repository.insert(resume);
+    }
+
+    public void insertAll(List<ResumeDTO>resume) {
+        repository.insertAll(resume);
     }
 
     public void update(ResumeDTO resume) {
@@ -38,7 +40,7 @@ public class ResumeViewModel extends AndroidViewModel {
     }
 
     public Flowable<List<ResumeDTO>> getAllResumes() {
-        return allResumes;
+        return repository.getAllResumes();
     }
 
     public Flowable<List<ResumeDTO>> getAllUsersResumes(String userLogin) {
@@ -47,5 +49,9 @@ public class ResumeViewModel extends AndroidViewModel {
 
     public LiveData<Integer> getCountOfUsersResumes(String userLogin) {
         return repository.getCountOfUsersResumes(userLogin);
+    }
+
+    public Flowable<ResumeDTO> getTaskById(long id) {
+        return repository.getResumeById(id);
     }
 }

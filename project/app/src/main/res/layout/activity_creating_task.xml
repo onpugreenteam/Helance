@@ -214,7 +214,7 @@
                 android:layout_width="130dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:background="@drawable/create_task_button_pressed"
+                android:background="@drawable/rectangle_rounded_button"
                 android:text="@string/create"
                 android:textSize="5pt" />
         </LinearLayout>

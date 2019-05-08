@@ -41,8 +41,8 @@ public interface TaskDAO {
     @Query("SELECT * FROM TaskEntity WHERE subject = :subject")
     Flowable<List<TaskDTO>> getAllTasksForYou(String subject);
 
-    @Query("SELECT * FROM TaskEntity WHERE userLogin=:userLogin")
-    Flowable<List<TaskDTO>> getAllUserTasks(String userLogin);
+    @Query("SELECT * FROM TaskEntity WHERE userLogin =:userLogin")
+    Flowable<List<TaskDTO>> getAllUsersTasks(String userLogin);
 
     @Query("SELECT * FROM TaskEntity WHERE id=:id")
     Flowable<TaskDTO> getTaskById(long id);

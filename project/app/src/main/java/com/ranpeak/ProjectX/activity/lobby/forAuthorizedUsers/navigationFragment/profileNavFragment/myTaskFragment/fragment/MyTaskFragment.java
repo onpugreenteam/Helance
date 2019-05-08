@@ -8,30 +8,32 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
 
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myTaskFragment.adapter.MyTaskListAdapter;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myTaskFragment.task.MyTaskEditActivity;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myTaskFragment.task.MyTaskViewActivity;
+import com.ranpeak.ProjectX.dataBase.App;
+import com.ranpeak.ProjectX.dataBase.local.LocalDB;
+import com.ranpeak.ProjectX.dataBase.local.dao.TaskDAO;
 import com.ranpeak.ProjectX.dto.TaskDTO;
+import com.ranpeak.ProjectX.dto.pojo.TaskPOJO;
+import com.ranpeak.ProjectX.networking.retrofit.ApiService;
+import com.ranpeak.ProjectX.networking.retrofit.RetrofitClient;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
 import com.ranpeak.ProjectX.viewModel.TaskViewModel;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.List;
 
 import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class MyTaskFragment extends Fragment implements Activity {
@@ -42,6 +44,8 @@ public class MyTaskFragment extends Fragment implements Activity {
     private RecyclerView.LayoutManager layoutManager;
     private TaskViewModel taskViewModel;
     private CompositeDisposable disposable = new CompositeDisposable();
+    private ApiService apiService = RetrofitClient.getInstance().create(ApiService.class);
+
 
     public MyTaskFragment() {
 
@@ -54,6 +58,7 @@ public class MyTaskFragment extends Fragment implements Activity {
         findViewById();
         onListener();
         initItems();
+
         return view;
     }
 
@@ -71,7 +76,7 @@ public class MyTaskFragment extends Fragment implements Activity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
 
-        adapter = new MyTaskListAdapter(/*myTaskItems, */getActivity());
+        adapter = new MyTaskListAdapter(getActivity());
         recyclerView.setAdapter(adapter);
 
         taskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
@@ -80,8 +85,10 @@ public class MyTaskFragment extends Fragment implements Activity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(taskDTOS -> {
                     adapter.submitList(taskDTOS);
+                    Log.d("My_Data", String.valueOf(taskDTOS.size()));
                 })
         );
+
 //        disposable.dispose();
 
         // if one of the items was clicked
@@ -108,26 +115,44 @@ public class MyTaskFragment extends Fragment implements Activity {
             @Override
             public void onUpdateStatusClick(TaskDTO task) {
                 if (task.getStatus().equals(getString(R.string.not_active))) {
-                    Completable.fromRunnable(() -> {
                         task.setStatus(getString(R.string.active));
-                        taskViewModel.update(task);
-                    })
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe();
                 } else {
-                    Completable.fromRunnable(() -> {
                         task.setStatus(getString(R.string.not_active));
-                        taskViewModel.update(task);
-                    })
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe();
                 }
+
+                taskViewModel.update(task);
+                Call<TaskPOJO> call = apiService.updateTask(
+                        new TaskPOJO(
+                                task.getId(),
+                                task.getSubject(),
+                                task.getHeadLine(),
+                                task.getDescription(),
+                                task.getDateStart(),
+                                task.getPrice(),
+                                task.getDeadline(),
+                                task.getStatus(),
+                                task.getUserLogin(),
+                                task.getViews()
+                        )
+                );
+                call.enqueue(new Callback<TaskPOJO>() {
+                    @Override
+                    public void onResponse(Call<TaskPOJO> call, Response<TaskPOJO> response) {
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<TaskPOJO> call, Throwable t) {
+
+                    }
+                });
                 adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onDeleteClick(TaskDTO task) {
                 taskViewModel.delete(task);
+//                apiService.deleteTask(task.getId());
             }
 
             @Override

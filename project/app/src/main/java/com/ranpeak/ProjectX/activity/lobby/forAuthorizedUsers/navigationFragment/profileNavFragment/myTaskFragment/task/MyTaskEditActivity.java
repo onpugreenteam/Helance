@@ -21,6 +21,9 @@ import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.creatingTask.fragment.LessonListFragment;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.dto.TaskDTO;
+import com.ranpeak.ProjectX.dto.pojo.TaskPOJO;
+import com.ranpeak.ProjectX.networking.retrofit.ApiService;
+import com.ranpeak.ProjectX.networking.retrofit.RetrofitClient;
 import com.ranpeak.ProjectX.networking.volley.Constants;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
 import com.ranpeak.ProjectX.viewModel.TaskViewModel;
@@ -28,15 +31,17 @@ import com.ranpeak.ProjectX.viewModel.TaskViewModel;
 import java.util.Calendar;
 import java.util.Objects;
 
-import io.reactivex.Completable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MyTaskEditActivity extends AppCompatActivity implements Activity {
 
     private DatePickerDialog.OnDateSetListener dateSetListener;
     private final FragmentManager fm = getFragmentManager();
     private final LessonListFragment lessonListFragment = new LessonListFragment();
+    private ApiService apiService = RetrofitClient.getInstance().create(ApiService.class);
+
 
     private TaskDTO myTaskItem;
     private TaskDTO editedTask;
@@ -210,6 +215,8 @@ public class MyTaskEditActivity extends AppCompatActivity implements Activity {
             /** Использовать этот метод для обновления задания в бд (только в бд)*/
             editTask(editedTask);
 
+            updateTaskOnServer(editedTask);
+
 //                );
             // if tasks are not equal (something changed) we pass all data to prev activity
 //                if (!equalFields(myTaskItem, editedTask)){
@@ -278,15 +285,19 @@ public class MyTaskEditActivity extends AppCompatActivity implements Activity {
 
     private void editTask(TaskDTO editedTask) {
         editedTask.setId(myTaskItem.getId());
-        Completable.fromRunnable(() -> {
-            taskViewModel.update(editedTask);
-        })
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe();
+//        Completable.fromRunnable(() -> {
+//            taskViewModel.update(editedTask);
+//        })
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe();
         taskViewModel.update(editedTask);
         Intent resultIntent = new Intent();
         resultIntent.putExtra("EditedTask", editedTask);
         setResult(Constants.Codes.EDIT_CODE, resultIntent);
         finish();
+    }
+
+    private void updateTaskOnServer(TaskDTO task) {
+
     }
 }

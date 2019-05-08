@@ -61,12 +61,7 @@ public class MyResumeListAdapter extends ListAdapter<ResumeDTO,  MyResumeListAda
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyResumeListViewHolder myResumeListViewHolder, int i) {
-
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull MyResumeListAdapter.MyResumeListViewHolder holder, int position, @NonNull List<Object> payloads) {
+    public void onBindViewHolder(@NonNull MyResumeListAdapter.MyResumeListViewHolder holder, int position) {
         ResumeDTO currentItem = getItem(position);
 
         holder.opportunities.setText(currentItem.getOpportunities());
@@ -132,13 +127,13 @@ public class MyResumeListAdapter extends ListAdapter<ResumeDTO,  MyResumeListAda
                 if (listener != null) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
-                        listener.onUpdateStatusClick(getItem(position));
+                        listener.onUpdateStatusClick(getItem(position), position);
                     }
                 }
             });
             settings.setOnClickListener(v -> {
                 PopupMenu popupMenu = new PopupMenu(activity, settings);
-                popupMenu.inflate(R.menu.menu_my_task);
+                popupMenu.inflate(R.menu.menu_my_resume);
                 popupMenu.setOnMenuItemClickListener(i -> {
                     switch (i.getItemId()) {
                         case R.id.menu_my_resume_edit:
@@ -174,7 +169,7 @@ public class MyResumeListAdapter extends ListAdapter<ResumeDTO,  MyResumeListAda
 
         void itemDeletable(boolean resumeDTO);
 
-        void onUpdateStatusClick(ResumeDTO resumeDTO);
+        void onUpdateStatusClick(ResumeDTO resumeDTO, int pos);
 
         void onDeleteClick(ResumeDTO resumeDTO);
 

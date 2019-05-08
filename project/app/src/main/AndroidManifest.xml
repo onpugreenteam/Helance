@@ -29,6 +29,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myResumeFragment.resume.MyResumeViewActivity"
+            android:theme="@style/AppTheme.SlidrActivityTheme">
+        </activity>
+        <activity android:name=".activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myResumeFragment.resume.MyResumeEditActivity"
+            android:theme="@style/ToolBarProfile">
+        </activity>
         <activity android:name=".activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myTaskFragment.task.MyTaskViewActivity"
             android:theme="@style/AppTheme.SlidrActivityTheme">
 

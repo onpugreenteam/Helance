@@ -54,7 +54,7 @@ public class MyProfileFragment extends Fragment implements Activity {
     }
 
     private void initData(){
-//        phoneNumber.setOpportunities(SharedPrefManager.getInstance(getContext()).getUeserPhoneNumber());
+//        phoneNumber.setText(SharedPrefManager.getInstance(getContext()).getUserPhoneNumber());
         email.setText(String.valueOf(SharedPrefManager.getInstance(getContext()).getUserEmail()));
         country.setText(String.valueOf(SharedPrefManager.getInstance(getContext()).getUserCountry()));
 //        telegram.setOpportunities(String.valueOf(SharedPrefManager.getInstance(getContext()).getUserTelegram()));

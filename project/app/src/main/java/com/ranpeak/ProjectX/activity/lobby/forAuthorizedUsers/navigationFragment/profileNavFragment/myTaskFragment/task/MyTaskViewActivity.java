@@ -88,6 +88,7 @@ public class MyTaskViewActivity extends AppCompatActivity implements Activity {
         getMenuInflater().inflate(R.menu.menu_my_task, menu);
         return true;
     }
+
     private void initData() {
 
         myTaskItem = (TaskDTO) getIntent().getSerializableExtra("MyTask");
@@ -95,10 +96,10 @@ public class MyTaskViewActivity extends AppCompatActivity implements Activity {
         taskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
 
         disposable.add(taskViewModel.getTaskById(myTaskItem.getId())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(val -> {
-            taskDTO = val;
-        }));
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(val -> {
+                    taskDTO = val;
+                }));
         disposable.dispose();
 
         setData(taskDTO);
@@ -135,8 +136,8 @@ public class MyTaskViewActivity extends AppCompatActivity implements Activity {
                 Completable.fromRunnable(() -> {
                     taskViewModel.delete(taskDTO);
                 })
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe();
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe();
                 finish();
                 break;
 

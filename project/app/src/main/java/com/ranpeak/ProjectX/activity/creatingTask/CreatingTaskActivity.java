@@ -408,47 +408,37 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
                     task.setUserName(String.valueOf(SharedPrefManager.getInstance(this).getUserName()));
                     task.setViews(views);
 
-
-//                    taskViewModel.insert(task);
-
-                    Completable.fromRunnable(() ->
-                            taskViewModel.insert(task))
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe();
+                    taskViewModel.insert(task);
 
 //                        Intent intent = new Intent(getApplicationContext(), LobbyActivity.class);
 //                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 //                        startActivity(intent);
-        finish();
-    },
-    error ->Toast.makeText(
+                    finish();
+                },
+                error -> Toast.makeText(
 
-    getApplicationContext(), "Please on Internet",Toast.LENGTH_LONG).
+                        getApplicationContext(), "Please on Internet", Toast.LENGTH_LONG).
 
-    show())
+                        show()) {
 
-    {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("headLine", headline);
+                params.put("description", descrpiption);
+                params.put("dateStart", dateStart);
+                params.put("deadline", dateEnd);
+                params.put("user", String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()));
+                params.put("subject", subject);
+                params.put("price", String.valueOf(price));
+                params.put("status", "Active");
+                params.put("views", views);
+                return params;
+            }
 
-        @Override
-        protected Map<String, String> getParams () {
-        Map<String, String> params = new HashMap<>();
-        params.put("headLine", headline);
-        params.put("description", descrpiption);
-        params.put("dateStart", dateStart);
-        params.put("deadline", dateEnd);
-        params.put("user", String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()));
-        params.put("subject", subject);
-        params.put("price", String.valueOf(price));
-        params.put("status", "Active");
-        params.put("views", views);
-        return params;
-    }
-
-    }
-
-    ;
+        };
         RequestHandler.getmInstance(this).
 
-    addToRequestQueue(stringRequest);
-}
+                addToRequestQueue(stringRequest);
+    }
 }

@@ -224,6 +224,7 @@
     <string name="no">No</string>
     <string name="creating_task_contractual_price">Contractual price</string>
     <string name="creating_task_task_description_length">150</string>
+    <string name="creating_resume_resume_opportunities_length">200</string>
     <string name="forgot_password">Forgot password?</string>
     <string name="login_with">Login with</string>
     <string name="or">- OR -</string>
@@ -255,6 +256,7 @@
     <string name="delete">Delete</string>
     <string name="active">Active</string>
     <string name="not_active">Not active</string>
+    <string name="opportunities">Opportunities</string>
 
 
 </resources>

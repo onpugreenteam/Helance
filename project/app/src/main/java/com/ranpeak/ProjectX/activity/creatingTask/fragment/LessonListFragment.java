@@ -13,6 +13,8 @@ import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.creatingResume.CreatingResumeActivity;
 import com.ranpeak.ProjectX.activity.creatingTask.CreatingTaskActivity;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
+import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myResumeFragment.resume.MyResumeEditActivity;
+import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myTaskFragment.task.MyTaskEditActivity;
 import com.ranpeak.ProjectX.networking.volley.Constants;
 
 public class LessonListFragment extends DialogFragment implements Activity {
@@ -52,6 +54,10 @@ public class LessonListFragment extends DialogFragment implements Activity {
                     ((CreatingTaskActivity) getActivity()).setLessonPicker(selectedFromList);
                 } else if (getActivity().getClass().getSimpleName().equals(CreatingResumeActivity.class.getSimpleName())) {
                     ((CreatingResumeActivity) getActivity()).setLessonPicker(selectedFromList);
+                } else if (getActivity().getClass().getSimpleName().equals(MyResumeEditActivity.class.getSimpleName())) {
+                    ((MyResumeEditActivity) getActivity()).setLessonPicker(selectedFromList);
+                } else if (getActivity().getClass().getSimpleName().equals(MyTaskEditActivity.class.getSimpleName())) {
+                    ((MyTaskEditActivity) getActivity()).setLessonPicker(selectedFromList);
                 }
             }
             getDialog().dismiss();

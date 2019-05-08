@@ -21,6 +21,8 @@ import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.creatingTask.fragment.LessonListFragment;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.dto.ResumeDTO;
+import com.ranpeak.ProjectX.networking.retrofit.ApiService;
+import com.ranpeak.ProjectX.networking.retrofit.RetrofitClient;
 import com.ranpeak.ProjectX.networking.volley.Constants;
 import com.ranpeak.ProjectX.networking.volley.RequestHandler;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
@@ -225,12 +227,12 @@ public class CreatingResumeActivity extends AppCompatActivity implements Activit
                     resume.setUserLogin(String.valueOf(SharedPrefManager.getInstance(this).getUserLogin()));
                     resume.setUserName(String.valueOf(SharedPrefManager.getInstance(this).getUserName()));
                     resume.setViews(views);
-                    Completable.fromRunnable(()->{
+//                    Completable.fromRunnable(()->{
 
                         resumeViewModel.insert(resume);
-                    })
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe();
+//                    })
+//                            .observeOn(AndroidSchedulers.mainThread())
+//                            .subscribe();
 
                     finish();
                 },
