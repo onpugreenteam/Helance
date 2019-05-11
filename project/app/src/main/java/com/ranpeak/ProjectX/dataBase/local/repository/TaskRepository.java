@@ -1,10 +1,13 @@
 package com.ranpeak.ProjectX.dataBase.local.repository;
 
+import android.annotation.SuppressLint;
 import android.arch.lifecycle.LiveData;
+import android.util.Log;
 
 import com.ranpeak.ProjectX.dataBase.App;
 import com.ranpeak.ProjectX.dataBase.local.LocalDB;
 import com.ranpeak.ProjectX.dataBase.local.dao.TaskDAO;
+import com.ranpeak.ProjectX.dto.MyTaskDTO;
 import com.ranpeak.ProjectX.dto.ResumeDTO;
 import com.ranpeak.ProjectX.dto.TaskDTO;
 import com.ranpeak.ProjectX.dto.pojo.TaskPOJO;
@@ -16,6 +19,7 @@ import java.util.List;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,11 +51,16 @@ public class TaskRepository {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe();
-//        new InsertAllTaskAsyncTask(taskDao).execute(taskDTO);
-//        taskDao.insertAll(taskDTO);
     }
 
-    public void update(TaskDTO taskDTO) {
+    public void insertAllUsersTasks(List<MyTaskDTO> taskDTO) {
+        Completable.fromRunnable(() -> taskDao.insertAllUsersTasks(taskDTO))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe();
+    }
+
+    public void update(MyTaskDTO taskDTO) {
         Completable.fromRunnable(() -> taskDao.update(taskDTO))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -86,20 +95,20 @@ public class TaskRepository {
 //        new UpdateTaskAsyncTask(taskDao).execute(taskDTO);
     }
 
-    public void delete(TaskDTO taskDTO) {
+    public void delete(MyTaskDTO taskDTO) {
         Completable.fromRunnable(() -> taskDao.delete(taskDTO))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe();
-        Call<TaskDTO> deleteReq = apiService.deleteTask(taskDTO.getId());
-        deleteReq.enqueue(new Callback<TaskDTO>() {
+        Call<MyTaskDTO> deleteReq = apiService.deleteTask(taskDTO.getId());
+        deleteReq.enqueue(new Callback<MyTaskDTO>() {
             @Override
-            public void onResponse(Call<TaskDTO> call, Response<TaskDTO> response) {
+            public void onResponse(Call<MyTaskDTO> call, Response<MyTaskDTO> response) {
 
             }
 
             @Override
-            public void onFailure(Call<TaskDTO> call, Throwable t) {
+            public void onFailure(Call<MyTaskDTO> call, Throwable t) {
 
             }
         });
@@ -108,6 +117,14 @@ public class TaskRepository {
 
     public void deleteAll() {
         Completable.fromRunnable(() -> taskDao.deleteAllTasks())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe();
+//        new DeleteTaskAsyncTask(taskDao).execute(taskDTO);
+    }
+
+    public void deleteAllUsersTasks() {
+        Completable.fromRunnable(() -> taskDao.deleteAllUsersTasks())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe();
@@ -123,12 +140,42 @@ public class TaskRepository {
         return taskDao.getCountOfUsersTask(userLogin);
     }
 
-    public Flowable<List<TaskDTO>> getAllUsersTask (String userLogin) {
+    @SuppressLint("CheckResult")
+    public Flowable<List<MyTaskDTO>> getAllUsersTask (String userLogin) {
+        apiService.getAllUsersTasks(userLogin)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableObserver<List<MyTaskDTO>>() {
+                    @Override
+                    public void onNext(List<MyTaskDTO> taskDTOS) {
+                        refreshAllUsersTasks(taskDTOS);
 
-        return taskDao.getAllUsersTasks(userLogin);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d("Error", e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        // Received all notes
+                    }
+                });
+        return taskDao.getAllUsersTasks();
     }
 
-    public Flowable<TaskDTO> getTaskById (long userLogin) {
+    public Flowable<MyTaskDTO> getTaskById (long userLogin) {
         return taskDao.getTaskById(userLogin);
+    }
+
+    private void refreshAllUsersTasks(List<MyTaskDTO> myTaskDTO) {
+        Completable.fromRunnable(() -> {
+            taskDao.deleteAllTasks();
+            taskDao.insertAllUsersTasks(myTaskDTO);
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe();
     }
 }

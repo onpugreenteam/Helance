@@ -5,6 +5,7 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 
 import com.ranpeak.ProjectX.dataBase.local.repository.TaskRepository;
+import com.ranpeak.ProjectX.dto.MyTaskDTO;
 import com.ranpeak.ProjectX.dto.TaskDTO;
 
 import org.jetbrains.annotations.NotNull;
@@ -13,10 +14,10 @@ import java.util.List;
 
 import io.reactivex.Flowable;
 
-public class TaskViewModel extends AndroidViewModel {
+public class MyTaskViewModel extends AndroidViewModel {
     private TaskRepository repository;
 
-    public TaskViewModel(@NotNull Application application) {
+    public MyTaskViewModel(@NotNull Application application) {
         super(application);
         repository = new TaskRepository();
     }
@@ -29,11 +30,11 @@ public class TaskViewModel extends AndroidViewModel {
         repository.insertAll(taskDTO);
     }
 
-    public void update(TaskDTO taskDTO) {
+    public void update(MyTaskDTO taskDTO) {
         repository.update(taskDTO);
     }
 
-    public void delete(TaskDTO taskDTO) {
+    public void delete(MyTaskDTO taskDTO) {
         repository.delete(taskDTO);
     }
 
@@ -45,7 +46,7 @@ public class TaskViewModel extends AndroidViewModel {
         return repository.getCountOfUserTask(userLogin);
     }
 
-    public Flowable<List<TaskDTO>> getAllUsersTask(String userLogin) {
+    public Flowable<List<MyTaskDTO>> getAllUsersTask(String userLogin) {
         return repository.getAllUsersTask(userLogin);
     }
 
@@ -53,7 +54,7 @@ public class TaskViewModel extends AndroidViewModel {
         return repository.getAllTasks();
     }
 
-    public Flowable<TaskDTO> getTaskById(long id) {
+    public Flowable<MyTaskDTO> getTaskById(long id) {
         return repository.getTaskById(id);
     }
 }

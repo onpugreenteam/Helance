@@ -1,11 +1,14 @@
 package com.ranpeak.ProjectX.dataBase.local.repository;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
+import android.util.Log;
 
 import com.ranpeak.ProjectX.dataBase.App;
 import com.ranpeak.ProjectX.dataBase.local.LocalDB;
 import com.ranpeak.ProjectX.dataBase.local.dao.ResumeDAO;
+import com.ranpeak.ProjectX.dto.MyResumeDTO;
 import com.ranpeak.ProjectX.dto.ResumeDTO;
 import com.ranpeak.ProjectX.dto.pojo.ResumePOJO;
 import com.ranpeak.ProjectX.networking.retrofit.ApiService;
@@ -16,6 +19,7 @@ import java.util.List;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,7 +27,6 @@ import retrofit2.Response;
 
 public class ResumeRepository {
     private ResumeDAO resumeDAO;
-    private Flowable<List<ResumeDTO>> allResumes;
     private static LiveData<Integer> countOfUsersResumes;
     private ApiService apiService = RetrofitClient.getInstance().create(ApiService.class);
 
@@ -31,7 +34,6 @@ public class ResumeRepository {
     public ResumeRepository(Application application) {
         LocalDB database = App.getInstance().getLocalDB();
         resumeDAO = database.resumeDAO();
-        allResumes = resumeDAO.getAllResumes();
     }
 
     public void insert(ResumeDTO resume) {
@@ -54,7 +56,7 @@ public class ResumeRepository {
                 .subscribe();
     }
 
-    public void update(ResumeDTO resume) {
+    public void update(MyResumeDTO resume) {
 //        new UpdateResumeAsyncTask(resumeDAO).execute(resume);
         Completable.fromRunnable(() -> {
             resumeDAO.update(resume);
@@ -87,52 +89,76 @@ public class ResumeRepository {
         });
     }
 
-    public void delete(ResumeDTO resume) {
+    public void delete(MyResumeDTO resume) {
 //        new DeleteResumeAsyncTask(resumeDAO).execute(resume);
         Completable.fromRunnable(() -> resumeDAO.delete(resume))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe();
-        Call<ResumeDTO> deleteReq = apiService.deleteResume(resume.getId());
-        deleteReq.enqueue(new Callback<ResumeDTO>() {
+        Call<MyResumeDTO> deleteReq = apiService.deleteResume(resume.getId());
+        deleteReq.enqueue(new Callback<MyResumeDTO>() {
             @Override
-            public void onResponse(Call<ResumeDTO> call, Response<ResumeDTO> response) {
+            public void onResponse(Call<MyResumeDTO> call, Response<MyResumeDTO> response) {
 
             }
 
             @Override
-            public void onFailure(Call<ResumeDTO> call, Throwable t) {
+            public void onFailure(Call<MyResumeDTO> call, Throwable t) {
 
             }
         });
     }
-
-    public Flowable<List<ResumeDTO>> getAllResumes() {
-        return allResumes;
-    }
-
     public LiveData<Integer> getCountOfUsersResumes(String userLogin) {
         countOfUsersResumes = resumeDAO.getCountOfUsersResumes(userLogin);
         return countOfUsersResumes;
 //        return resumeDAO.getCountOfUsersResumes(userLogin);
     }
 
-    public Flowable<List<ResumeDTO>> getAllUsersResume(String userLogin) {
-//        new GetAllUsersResumesAsyncTask(resumeDAO).execute(userLogin);
-//        return allUsersResumes;
+    @SuppressLint("CheckResult")
+    public Flowable<List<MyResumeDTO>> getAllUsersResume(String userLogin) {
+        apiService.getAllUsersResumes(userLogin)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableObserver<List<MyResumeDTO>>() {
+                    @Override
+                    public void onNext(List<MyResumeDTO> taskDTOS) {
+                        refreshAllUsersResumes(taskDTOS);
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d("Error", e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        // Received all notes
+                    }
+                });
         return resumeDAO.getAllUserResumes(userLogin);
     }
 
-    public Flowable<ResumeDTO> getResumeById (long userLogin) {
+    public Flowable<MyResumeDTO> getResumeById (long userLogin) {
 //        new GetAllUsersTasksAsyncTask(taskDao).execute(userLogin);
 //        return allUsersTasks;
         return resumeDAO.getResumeById(userLogin);
     }
 
-    public Flowable<List<ResumeDTO>> getAllNotUsersResume (String userLogin) {
+    public Flowable<List<MyResumeDTO>> getAllNotUsersResume (String userLogin) {
 //        new GetAllNotUsersResumesAsyncTask(resumeDAO).execute(userLogin);
 //        return allNotUsersResumes;
         return resumeDAO.getAllNotUserResumes(userLogin);
 
+    }
+
+    private void refreshAllUsersResumes(List<MyResumeDTO> myResumeDTOS) {
+        Completable.fromRunnable(() -> {
+            resumeDAO.deleteAllResumes();
+            resumeDAO.insertAllUsersResumes(myResumeDTOS);
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe();
     }
 }

@@ -16,12 +16,13 @@ import android.widget.Toast;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.creating.LessonListFragment;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
+import com.ranpeak.ProjectX.dto.MyResumeDTO;
 import com.ranpeak.ProjectX.dto.ResumeDTO;
 import com.ranpeak.ProjectX.networking.retrofit.ApiService;
 import com.ranpeak.ProjectX.networking.retrofit.RetrofitClient;
 import com.ranpeak.ProjectX.networking.volley.Constants;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
-import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.ResumeViewModel;
+import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.MyResumeViewModel;
 
 import java.util.Objects;
 
@@ -30,9 +31,9 @@ public class MyResumeEditActivity extends AppCompatActivity implements Activity 
     private final FragmentManager fm = getFragmentManager();
     private final LessonListFragment lessonListFragment = new LessonListFragment();
 
-    private ResumeDTO myResumeItem;
-    private ResumeDTO editedResume;
-    private ResumeViewModel resumeViewModel;
+    private MyResumeDTO myResumeItem;
+    private MyResumeDTO editedResume;
+    private MyResumeViewModel resumeViewModel;
     private ApiService apiService = RetrofitClient.getInstance().create(ApiService.class);
 
     private Button save;
@@ -49,7 +50,7 @@ public class MyResumeEditActivity extends AppCompatActivity implements Activity 
         initData();
         onListener();
 
-        resumeViewModel = ViewModelProviders.of(this).get(ResumeViewModel.class);
+        resumeViewModel = ViewModelProviders.of(this).get(MyResumeViewModel.class);
     }
 
     private void toolbar() {
@@ -102,8 +103,8 @@ public class MyResumeEditActivity extends AppCompatActivity implements Activity 
     }
 
     private void initData() {
-        resumeViewModel = ViewModelProviders.of(this).get(ResumeViewModel.class);
-        myResumeItem = (ResumeDTO) getIntent().getSerializableExtra("MyResume");
+        resumeViewModel = ViewModelProviders.of(this).get(MyResumeViewModel.class);
+        myResumeItem = (MyResumeDTO) getIntent().getSerializableExtra("MyResume");
         opportunitiesLength.setText(opportunities.getText().toString().length() + "/");
         subject.setText(myResumeItem.getSubject());
         opportunities.setText(myResumeItem.getOpportunities());
@@ -127,7 +128,7 @@ public class MyResumeEditActivity extends AppCompatActivity implements Activity 
             focusView = opportunities;
         } else if (equalFields(
 
-                (ResumeDTO) getIntent().getSerializableExtra("MyResume"))) {
+                (MyResumeDTO) getIntent().getSerializableExtra("MyResume"))) {
             changed = false;
         }
         if (!changed) {
@@ -142,19 +143,19 @@ public class MyResumeEditActivity extends AppCompatActivity implements Activity 
         } else {
 
             //            if (fieldsAreCorrect()) {
-            editedResume = new ResumeDTO();
+            editedResume = new MyResumeDTO();
 
 
             editedResume.setSubject(subject.getText().toString());
             editedResume.setOpportunities(opportunities.getText().toString());
-            editedResume.setDateStart(((ResumeDTO) getIntent().getSerializableExtra("MyResume")).getDateStart());
-            editedResume.setStatus(((ResumeDTO) getIntent().getSerializableExtra("MyResume")).getStatus());
+            editedResume.setDateStart(((MyResumeDTO) getIntent().getSerializableExtra("MyResume")).getDateStart());
+            editedResume.setStatus(((MyResumeDTO) getIntent().getSerializableExtra("MyResume")).getStatus());
             editedResume.setUserLogin(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()));
             editedResume.setUserEmail(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserEmail()));
             editedResume.setUserName(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserName()));
             editedResume.setUserCountry(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserCountry()));
             editedResume.setUserAvatar(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserAvatar()));
-            editedResume.setViews(((ResumeDTO) getIntent().getSerializableExtra("MyResume")).getViews());
+            editedResume.setViews(((MyResumeDTO) getIntent().getSerializableExtra("MyResume")).getViews());
             /** Использовать этот метод для обновления задания в бд (только в бд)*/
             editResume(editedResume);
 
@@ -168,18 +169,18 @@ public class MyResumeEditActivity extends AppCompatActivity implements Activity 
     }
 
     // check if objects fields are identical
-    private boolean equalFields(ResumeDTO item2) {
-        ResumeDTO item1 = new ResumeDTO();
+    private boolean equalFields(MyResumeDTO item2) {
+        MyResumeDTO item1 = new MyResumeDTO();
         item1.setSubject(subject.getText().toString());
         item1.setOpportunities(opportunities.getText().toString());
-        item1.setDateStart(((ResumeDTO) getIntent().getSerializableExtra("MyResume")).getDateStart());
-        item1.setStatus(((ResumeDTO) getIntent().getSerializableExtra("MyResume")).getStatus());
+        item1.setDateStart(((MyResumeDTO) getIntent().getSerializableExtra("MyResume")).getDateStart());
+        item1.setStatus(((MyResumeDTO) getIntent().getSerializableExtra("MyResume")).getStatus());
         item1.setUserLogin(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()));
         item1.setUserEmail(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserEmail()));
         item1.setUserName(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserName()));
         item1.setUserCountry(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserCountry()));
         item1.setUserAvatar(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserAvatar()));
-        item1.setViews(((ResumeDTO) getIntent().getSerializableExtra("MyResume")).getViews());
+        item1.setViews(((MyResumeDTO) getIntent().getSerializableExtra("MyResume")).getViews());
 
         return item1.getSubject().equals(item2.getSubject())
                 && item1.getOpportunities().equals(item2.getOpportunities())
@@ -199,7 +200,7 @@ public class MyResumeEditActivity extends AppCompatActivity implements Activity 
         return false;
     }
 
-    private void editResume(ResumeDTO editedResume) {
+    private void editResume(MyResumeDTO editedResume) {
         editedResume.setId(myResumeItem.getId());
 //        Completable.fromRunnable(() -> {
 //            taskViewModel.update(editedTask);
@@ -213,7 +214,7 @@ public class MyResumeEditActivity extends AppCompatActivity implements Activity 
         finish();
     }
 
-    private void updateOnServer(ResumeDTO editedResume) {
+    private void updateOnServer(MyResumeDTO editedResume) {
 
     }
 }

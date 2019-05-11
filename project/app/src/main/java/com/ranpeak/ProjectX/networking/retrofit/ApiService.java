@@ -1,5 +1,7 @@
 package com.ranpeak.ProjectX.networking.retrofit;
 
+import com.ranpeak.ProjectX.dto.MyResumeDTO;
+import com.ranpeak.ProjectX.dto.MyTaskDTO;
 import com.ranpeak.ProjectX.dto.ResumeDTO;
 import com.ranpeak.ProjectX.dto.SocialNetworkDTO;
 import com.ranpeak.ProjectX.dto.TaskDTO;
@@ -19,17 +21,23 @@ public interface ApiService {
     @GET("getAllTasks")
     Observable<List<TaskDTO>> getAllTask();
 
+    @GET("getAllUsersTasks/{login}")
+    Observable<List<MyTaskDTO>> getAllUsersTasks(@Path("login") String userLogin);
+
     @GET("getAllResumes")
     Observable<List<ResumeDTO>> getAllResumes();
+
+    @GET("getAllUsersResumes/{login}")
+    Observable<List<MyResumeDTO>> getAllUsersResumes(@Path("login") String userLogin);
 
     @GET("getAllSocialNetworks/for/user/{login}")
     Observable<List<SocialNetworkDTO>> getAllUserNetworks(@Path("login") String login);
 
     @DELETE("deleteTask/{taskId}")
-    Call<TaskDTO> deleteTask(@Path("taskId") long id);
+    Call<MyTaskDTO> deleteTask(@Path("taskId") long id);
 
     @DELETE("deleteResume/{taskId}")
-    Call<ResumeDTO> deleteResume(@Path("taskId") long id);
+    Call<MyResumeDTO> deleteResume(@Path("taskId") long id);
 
     @POST("updateTask")
     Call<TaskPOJO> updateTask (@Body TaskPOJO taskDTO);

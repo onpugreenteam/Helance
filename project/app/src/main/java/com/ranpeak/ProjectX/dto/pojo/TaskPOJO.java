@@ -24,6 +24,9 @@ public class TaskPOJO {
 
     private String telephone;
 
+    public TaskPOJO() {
+    }
+
     public TaskPOJO(long id, String subject, String headLine, String description, String dateStart, float price, String deadline, String status, String userLogin, String views, String telephone) {
         this.id = id;
         this.subject = subject;

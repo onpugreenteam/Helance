@@ -4,16 +4,17 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import com.ranpeak.ProjectX.dataBase.local.repository.ResumeRepository;
+import com.ranpeak.ProjectX.dto.MyResumeDTO;
 import com.ranpeak.ProjectX.dto.ResumeDTO;
 import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import io.reactivex.Flowable;
 
-public class ResumeViewModel extends AndroidViewModel {
+public class MyResumeViewModel extends AndroidViewModel {
 
     private ResumeRepository repository;
 
-    public ResumeViewModel(@NotNull Application application) {
+    public MyResumeViewModel(@NotNull Application application) {
         super(application);
         repository = new ResumeRepository(application);
     }
@@ -26,19 +27,15 @@ public class ResumeViewModel extends AndroidViewModel {
         repository.insertAll(resume);
     }
 
-    public void update(ResumeDTO resume) {
+    public void update(MyResumeDTO resume) {
         repository.update(resume);
     }
 
-    public void delete(ResumeDTO resume) {
+    public void delete(MyResumeDTO resume) {
         repository.delete(resume);
     }
 
-    public Flowable<List<ResumeDTO>> getAllResumes() {
-        return repository.getAllResumes();
-    }
-
-    public Flowable<List<ResumeDTO>> getAllUsersResumes(String userLogin) {
+    public Flowable<List<MyResumeDTO>> getAllUsersResumes(String userLogin) {
         return repository.getAllUsersResume(userLogin);
     }
 
@@ -46,7 +43,7 @@ public class ResumeViewModel extends AndroidViewModel {
         return repository.getCountOfUsersResumes(userLogin);
     }
 
-    public Flowable<ResumeDTO> getTaskById(long id) {
+    public Flowable<MyResumeDTO> getResumeById(long id) {
         return repository.getResumeById(id);
     }
 }
