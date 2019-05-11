@@ -26,5 +26,4 @@ public class SplashViewModel extends BaseViewModel<SplashNavigator> {
                 });
         RequestHandler.getmInstance(context).addToRequestQueue(stringRequest);
     }
-
 }
