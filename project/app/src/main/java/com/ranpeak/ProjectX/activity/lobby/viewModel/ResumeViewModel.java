@@ -3,8 +3,9 @@ package com.ranpeak.ProjectX.activity.lobby.viewModel;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
+
+import com.ranpeak.ProjectX.activity.lobby.DefaultSubscriber;
 import com.ranpeak.ProjectX.activity.lobby.commands.ResumeNavigator;
-import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.tasksNavFragment.TasksFragment;
 import com.ranpeak.ProjectX.base.BaseViewModel;
 import com.ranpeak.ProjectX.dataBase.App;
 import com.ranpeak.ProjectX.dataBase.local.LocalDB;
@@ -12,13 +13,14 @@ import com.ranpeak.ProjectX.dataBase.local.dao.ResumeDAO;
 import com.ranpeak.ProjectX.dto.ResumeDTO;
 import com.ranpeak.ProjectX.networking.retrofit.ApiService;
 import com.ranpeak.ProjectX.networking.retrofit.RetrofitClient;
+
 import java.util.List;
+
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
-import timber.log.Timber;
 
 public class ResumeViewModel extends BaseViewModel<ResumeNavigator> {
 
@@ -50,6 +52,7 @@ public class ResumeViewModel extends BaseViewModel<ResumeNavigator> {
                     @Override
                     public void onError(Throwable e) {
                         Log.d("Error", e.getMessage());
+                        getNavigator().handleError(e);
                         getResumesFromLocalDB();
                     }
 
@@ -60,6 +63,7 @@ public class ResumeViewModel extends BaseViewModel<ResumeNavigator> {
                 });
     }
 
+    @SuppressLint("CheckResult")
     private void getResumesFromLocalDB(){
         resumeDAO.getAllResumes()
                 .observeOn(AndroidSchedulers.mainThread())
@@ -75,7 +79,7 @@ public class ResumeViewModel extends BaseViewModel<ResumeNavigator> {
         Observable.fromCallable(() -> localDB.resumeDAO().insertAll(resumeDTOS))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new TasksFragment.DefaultSubscriber<List<Long>>(){
+                .subscribe(new DefaultSubscriber<List<Long>>(){
                     @Override
                     public void onSubscribe(@io.reactivex.annotations.NonNull Disposable d) {
                         super.onSubscribe(d);
@@ -84,18 +88,18 @@ public class ResumeViewModel extends BaseViewModel<ResumeNavigator> {
                     @Override
                     public void onNext(@io.reactivex.annotations.NonNull List<Long> longs) {
                         super.onNext(longs);
-                        Timber.d("insert countries transaction complete");
+                        Log.d("AddResumes","insert countries transaction complete");
                     }
 
                     @Override
                     public void onError(@io.reactivex.annotations.NonNull Throwable e) {
                         super.onError(e);
-                        Timber.d("error storing countries in db"+e);
+                        Log.d("AddResumes","error storing countries in db"+e);
                     }
 
                     @Override
                     public void onComplete() {
-                        Timber.d("insert countries transaction complete");
+                        Log.d("AddResumes","insert countries transaction complete");
                     }
                 });
     }

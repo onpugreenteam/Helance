@@ -27,7 +27,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
@@ -45,7 +44,6 @@ import com.ranpeak.ProjectX.networking.volley.Constants;
 import com.ranpeak.ProjectX.networking.volley.RequestHandler;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.TaskViewModel;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -54,8 +52,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-
-import timber.log.Timber;
 
 public class CreatingTaskActivity extends AppCompatActivity implements Activity {
 
@@ -214,7 +210,6 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
         else super.onBackPressed();
     }
 
-
     // открытие подтверждающего диалога перед закрытием окна
     private void openDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -226,7 +221,6 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
-
 
     // устанавливаем изображения в LinearLayout
     @Override
@@ -263,7 +257,6 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
             }
         }
     }
-
 
     // Запрашивает у пользователя разрешение на доступ к галерее
     private void requestMultiplePermissions() {
@@ -341,7 +334,6 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
         }
     }
 
-
     // если все поля не тронуты(ни одно из них не заполнено), то возвращает true
     private boolean allFieldsEmpty() {
         return typeName.getText().toString().isEmpty()
@@ -370,17 +362,9 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
         final float price = Float.parseFloat(taskPrice.getText().toString().trim());
         final String status = "Active";
 
-
         DateFormat df = new SimpleDateFormat("d MMM yyyy");
         final String dateStart = df.format(Calendar.getInstance().getTime());
         final String views = "0";
-
-        Timber.d(dateStart);
-        Timber.d(headline);
-        Timber.d(descrpiption);
-        Timber.d(subject);
-        Timber.d(dateEnd);
-
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 Constants.URL.ADD_TASK,
@@ -403,11 +387,6 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
                     task.setUserName(String.valueOf(SharedPrefManager.getInstance(this).getUserName()));
                     task.setViews(views);
 
-//                    taskViewModel.insert(task);
-
-//                        Intent intent = new Intent(getApplicationContext(), LobbyActivity.class);
-//                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                        startActivity(intent);
                     finish();
                 },
                 error -> Toast.makeText(
@@ -430,10 +409,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
                 params.put("views", views);
                 return params;
             }
-
         };
-        RequestHandler.getmInstance(this).
-
-                addToRequestQueue(stringRequest);
+        RequestHandler.getmInstance(this).addToRequestQueue(stringRequest);
     }
 }

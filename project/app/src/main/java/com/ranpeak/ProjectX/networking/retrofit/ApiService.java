@@ -1,18 +1,13 @@
 package com.ranpeak.ProjectX.networking.retrofit;
 
-import android.arch.persistence.room.Delete;
-
-import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
 import com.ranpeak.ProjectX.dto.ResumeDTO;
 import com.ranpeak.ProjectX.dto.SocialNetworkDTO;
 import com.ranpeak.ProjectX.dto.TaskDTO;
 import com.ranpeak.ProjectX.dto.pojo.ResumePOJO;
 import com.ranpeak.ProjectX.dto.pojo.TaskPOJO;
-
 import java.util.List;
 import io.reactivex.Observable;
 import retrofit2.Call;
-import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
@@ -41,6 +36,4 @@ public interface ApiService {
 
     @POST("updateResume")
     Call<ResumePOJO> updateResume (@Body ResumePOJO resumePOJO);
-
-//    @POST("")
 }

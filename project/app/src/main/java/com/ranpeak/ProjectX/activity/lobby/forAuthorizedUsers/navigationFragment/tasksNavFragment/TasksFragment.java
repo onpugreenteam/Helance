@@ -1,81 +1,58 @@
 package com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.tasksNavFragment;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.ranpeak.ProjectX.R;
-import com.ranpeak.ProjectX.activity.search.SearchTaskAlertDialog;
 import com.ranpeak.ProjectX.activity.creating.creatingTask.CreatingTaskActivity;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
+import com.ranpeak.ProjectX.activity.lobby.commands.TaskNavigator;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.tasksNavFragment.adapter.TaskListAdapter;
-import com.ranpeak.ProjectX.networking.retrofit.ApiService;
-import com.ranpeak.ProjectX.dataBase.App;
-import com.ranpeak.ProjectX.dataBase.local.LocalDB;
-import com.ranpeak.ProjectX.dataBase.local.dao.TaskDAO;
-
+import com.ranpeak.ProjectX.activity.lobby.viewModel.TaskViewModel;
 import com.ranpeak.ProjectX.dto.TaskDTO;
-import com.ranpeak.ProjectX.networking.retrofit.RetrofitClient;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.observers.DisposableObserver;
-import io.reactivex.schedulers.Schedulers;
-import timber.log.Timber;
-
-public class TasksFragment extends Fragment implements Activity {
+public class TasksFragment extends Fragment implements Activity, TaskNavigator {
 
     private View view;
     private List<TaskDTO> data = new ArrayList<>();
     private ArrayList<String> imageUrls = new ArrayList<>();
     private RecyclerView recyclerView;
-    private TaskListAdapter adapter;
+    private TaskListAdapter taskListAdapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private LocalDB localDB;
-    private TaskDAO taskDAO;
     private ImageView search;
     private FloatingActionButton fab;
-
-    private ApiService apiService = RetrofitClient.getInstance()
-            .create(ApiService.class);
+    private TaskViewModel taskViewModel;
 
     public TasksFragment() {
     }
 
-    @SuppressLint("CheckResult")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_tasks, container, false);
+
+        taskViewModel = new TaskViewModel(getContext());
+        taskViewModel.setNavigator(this);
+
         findViewById();
         onListener();
         initImageBitmaps();
 
-        localDB = App.getInstance().getLocalDB();
-        taskDAO = localDB.taskDao();
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new TaskListAdapter(data, imageUrls, recyclerView, getActivity());
-        recyclerView.setAdapter(adapter);
-
-        getTasksFromServer();
+        setupAdapter();
+        getTasks();
 
 //        adapter.setLoadMore(new ILoadMore() {
 //            @Override
@@ -120,7 +97,6 @@ public class TasksFragment extends Fragment implements Activity {
         imageUrls.add("https://i.mycdn.me/image?id=877079192648&t=35&plc=WEB&tkn=*85PLfcQAXU8Glv9V8-xzIyJxZF4");
     }
 
-
     @Override
     public void findViewById() {
         recyclerView = view.findViewById(R.id.fragment_tasks_recycleView_tasks);
@@ -129,11 +105,10 @@ public class TasksFragment extends Fragment implements Activity {
         search = view.findViewById(R.id.fragment_tasks_search);
     }
 
-
     @Override
     public void onListener() {
         mSwipeRefreshLayout.setOnRefreshListener(() -> {
-            getTasksFromServer();
+            getTasks();
             mSwipeRefreshLayout.setRefreshing(false);
         });
 
@@ -156,103 +131,25 @@ public class TasksFragment extends Fragment implements Activity {
         });
     }
 
-    public static TasksFragment newInstance() {
-        return new TasksFragment();
+    public void handleError(Throwable throwable) {
+        Toast.makeText(getContext(),"Tasks don`t upload",Toast.LENGTH_LONG).show();
     }
 
-    private void getTasksFromLocalDB(){
-        taskDAO.getAllTasks()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(taskDTOS -> {
-                    data = taskDTOS;
-                    adapter = new TaskListAdapter(data, imageUrls, recyclerView, getActivity());
-                    recyclerView.setAdapter(adapter);
-                    Log.d("Data size in LocalDB", String.valueOf(taskDTOS.size()));
-                });
+    @Override
+    public void getDataInAdapter(List<TaskDTO> taskDTOS) {
+        data.clear();
+        data.addAll(taskDTOS);
+        taskListAdapter.notifyDataSetChanged();
     }
 
-    @SuppressLint("CheckResult")
-    private void  getTasksFromServer(){
-        apiService.getAllTask()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableObserver<List<TaskDTO>>() {
-                    @Override
-                    public void onNext(List<TaskDTO> taskDTOS) {
-                        data.clear();
-                        data.addAll(taskDTOS);
-                        addTasksToLocalDB(data);
-                        adapter.notifyDataSetChanged();
-                        Log.d("Data size from server", String.valueOf(taskDTOS.size()));
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.d("eRROR",e.getMessage());
-                        getTasksFromLocalDB();
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        // Received all notes
-
-                    }
-                });
+    private void setupAdapter(){
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        taskListAdapter = new TaskListAdapter(data,imageUrls,recyclerView,getActivity());
+        recyclerView.setAdapter(taskListAdapter);
     }
 
-
-    public void addTasksToLocalDB(List<TaskDTO> tasksDTOS) {
-        Observable.fromCallable(() -> localDB.taskDao().insertAll(tasksDTOS))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultSubscriber<List<Long>>(){
-                    @Override
-                    public void onSubscribe(@NonNull Disposable d) {
-                        super.onSubscribe(d);
-                    }
-
-                    @Override
-                    public void onNext(@NonNull List<Long> longs) {
-                        super.onNext(longs);
-                        Timber.d("insert countries transaction complete");
-                    }
-
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        super.onError(e);
-                        Timber.d("error storing countries in db"+e);
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        Timber.d("insert countries transaction complete");
-                    }
-                });
+    private void getTasks(){
+        taskViewModel.getTasksFromServer();
     }
 
-    public static class DefaultSubscriber<T> implements Observer<T> {
-
-        Disposable disposable;
-
-        @Override
-        public void onSubscribe(@NonNull Disposable d) {
-            disposable = d;
-        }
-
-        @Override
-        public void onNext(@NonNull T t) {
-
-        }
-
-        @Override
-        public void onError(@NonNull Throwable e) {
-            Timber.e(e);
-        }
-
-        @Override
-        public void onComplete() {
-
-        }
-
-    }
 }

@@ -3,8 +3,8 @@ package com.ranpeak.ProjectX.activity.lobby.viewModel;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
+import com.ranpeak.ProjectX.activity.lobby.DefaultSubscriber;
 import com.ranpeak.ProjectX.activity.lobby.commands.TaskNavigator;
-import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.tasksNavFragment.TasksFragment;
 import com.ranpeak.ProjectX.base.BaseViewModel;
 import com.ranpeak.ProjectX.dataBase.App;
 import com.ranpeak.ProjectX.dataBase.local.LocalDB;
@@ -19,7 +19,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
-import timber.log.Timber;
 
 public class TaskViewModel extends BaseViewModel<TaskNavigator> {
 
@@ -35,6 +34,7 @@ public class TaskViewModel extends BaseViewModel<TaskNavigator> {
     public TaskViewModel(Context context) {
         this.context = context;
     }
+
 
     @SuppressLint("CheckResult")
     public void getTasksFromServer(){
@@ -63,7 +63,6 @@ public class TaskViewModel extends BaseViewModel<TaskNavigator> {
                 });
     }
 
-
     @SuppressLint("CheckResult")
     private void getTasksFromLocalDB(){
         taskDAO.getAllTasks()
@@ -76,12 +75,11 @@ public class TaskViewModel extends BaseViewModel<TaskNavigator> {
                 });
     }
 
-
     private void addTasksToLocalDB(List<TaskDTO> tasksDTOS) {
         Observable.fromCallable(() -> localDB.taskDao().insertAll(tasksDTOS))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new TasksFragment.DefaultSubscriber<List<Long>>(){
+                .subscribe(new DefaultSubscriber<List<Long>>(){
                     @Override
                     public void onSubscribe(@io.reactivex.annotations.NonNull Disposable d) {
                         super.onSubscribe(d);
@@ -90,18 +88,18 @@ public class TaskViewModel extends BaseViewModel<TaskNavigator> {
                     @Override
                     public void onNext(@io.reactivex.annotations.NonNull List<Long> longs) {
                         super.onNext(longs);
-                        Timber.d("insert countries transaction complete");
+                        Log.d("AddTasks","insert countries transaction complete");
                     }
 
                     @Override
                     public void onError(@io.reactivex.annotations.NonNull Throwable e) {
                         super.onError(e);
-                        Timber.d("error storing countries in db"+e);
+                        Log.d("AddTasks","error storing countries in db"+e);
                     }
 
                     @Override
                     public void onComplete() {
-                        Timber.d("insert countries transaction complete");
+                        Log.d("AddTasks","insert countries transaction complete");
                     }
                 });
     }

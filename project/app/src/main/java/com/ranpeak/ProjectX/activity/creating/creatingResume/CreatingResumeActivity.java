@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -25,15 +26,12 @@ import com.ranpeak.ProjectX.networking.volley.Constants;
 import com.ranpeak.ProjectX.networking.volley.RequestHandler;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.ResumeViewModel;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-
-import timber.log.Timber;
 
 public class CreatingResumeActivity extends AppCompatActivity implements Activity {
 
@@ -201,9 +199,9 @@ public class CreatingResumeActivity extends AppCompatActivity implements Activit
         final String status = "Active";
         final String views = "0";
 
-        Timber.d(dateStart);
-        Timber.d(text);
-        Timber.d(typeLesson);
+        Log.d("dateStart",dateStart);
+        Log.d("text",text);
+        Log.d("typeLesson",typeLesson);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 Constants.URL.ADD_RESUME,
@@ -221,12 +219,6 @@ public class CreatingResumeActivity extends AppCompatActivity implements Activit
                     resume.setUserLogin(String.valueOf(SharedPrefManager.getInstance(this).getUserLogin()));
                     resume.setUserName(String.valueOf(SharedPrefManager.getInstance(this).getUserName()));
                     resume.setViews(views);
-//                    Completable.fromRunnable(()->{
-
-//                        resumeViewModel.insert(resume);
-//                    })
-//                            .observeOn(AndroidSchedulers.mainThread())
-//                            .subscribe();
 
                     finish();
                 },

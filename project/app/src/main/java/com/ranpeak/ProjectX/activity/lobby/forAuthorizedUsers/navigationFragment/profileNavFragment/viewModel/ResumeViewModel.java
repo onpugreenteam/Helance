@@ -3,14 +3,10 @@ package com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragmen
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
-
 import com.ranpeak.ProjectX.dataBase.local.repository.ResumeRepository;
 import com.ranpeak.ProjectX.dto.ResumeDTO;
-
 import org.jetbrains.annotations.NotNull;
-
 import java.util.List;
-
 import io.reactivex.Flowable;
 
 public class ResumeViewModel extends AndroidViewModel {

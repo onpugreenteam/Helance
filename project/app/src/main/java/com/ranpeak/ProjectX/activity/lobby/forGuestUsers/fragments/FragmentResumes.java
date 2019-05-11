@@ -10,14 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.commands.ResumeNavigator;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.resumesNavFragment.adapter.ResumeListAdapter;
 import com.ranpeak.ProjectX.activity.lobby.viewModel.ResumeViewModel;
 import com.ranpeak.ProjectX.dto.ResumeDTO;
-
 import java.util.ArrayList;
 import java.util.List;
 

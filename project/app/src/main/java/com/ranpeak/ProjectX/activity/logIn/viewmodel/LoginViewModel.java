@@ -4,9 +4,10 @@ import android.content.Context;
 import android.databinding.ObservableInt;
 import android.util.Log;
 import android.view.View;
+
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
-import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.tasksNavFragment.TasksFragment;
+import com.ranpeak.ProjectX.activity.lobby.DefaultSubscriber;
 import com.ranpeak.ProjectX.activity.logIn.commands.LoginNavigator;
 import com.ranpeak.ProjectX.base.BaseViewModel;
 import com.ranpeak.ProjectX.dataBase.local.LocalDB;
@@ -17,17 +18,19 @@ import com.ranpeak.ProjectX.networking.retrofit.RetrofitClient;
 import com.ranpeak.ProjectX.networking.volley.Constants;
 import com.ranpeak.ProjectX.networking.volley.RequestHandler;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
-import timber.log.Timber;
 
 public class LoginViewModel extends BaseViewModel<LoginNavigator> {
 
@@ -159,7 +162,7 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
         Observable.fromCallable(() -> localDB.networkDAO().insertNetworks(socialNetworkDTOS))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new TasksFragment.DefaultSubscriber<List<Long>>(){
+                .subscribe(new DefaultSubscriber<List<Long>>(){
                     @Override
                     public void onSubscribe(@io.reactivex.annotations.NonNull Disposable d) {
                         super.onSubscribe(d);
@@ -168,18 +171,18 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
                     @Override
                     public void onNext(@io.reactivex.annotations.NonNull List<Long> longs) {
                         super.onNext(longs);
-                        Timber.d("insert countries transaction complete");
+                        Log.d("AddNetwork","insert countries transaction complete");
                     }
 
                     @Override
                     public void onError(@io.reactivex.annotations.NonNull Throwable e) {
                         super.onError(e);
-                        Timber.d("error storing countries in db"+e);
+                        Log.d("AddNetwork","error storing countries in db"+e);
                     }
 
                     @Override
                     public void onComplete() {
-                        Timber.d("insert countries transaction complete");
+                        Log.d("AddNetwork","insert countries transaction complete");
                     }
                 });
     }

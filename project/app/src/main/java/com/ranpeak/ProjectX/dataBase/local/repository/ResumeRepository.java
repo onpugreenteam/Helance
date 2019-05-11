@@ -2,7 +2,6 @@ package com.ranpeak.ProjectX.dataBase.local.repository;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
-import android.os.AsyncTask;
 
 import com.ranpeak.ProjectX.dataBase.App;
 import com.ranpeak.ProjectX.dataBase.local.LocalDB;
@@ -25,8 +24,6 @@ import retrofit2.Response;
 public class ResumeRepository {
     private ResumeDAO resumeDAO;
     private Flowable<List<ResumeDTO>> allResumes;
-    private static Flowable<List<ResumeDTO>> allUsersResumes;
-    private static Flowable<List<ResumeDTO>> allNotUsersResumes;
     private static LiveData<Integer> countOfUsersResumes;
     private ApiService apiService = RetrofitClient.getInstance().create(ApiService.class);
 
@@ -137,83 +134,5 @@ public class ResumeRepository {
 //        return allNotUsersResumes;
         return resumeDAO.getAllNotUserResumes(userLogin);
 
-    }
-
-    private static class InsertResumeAsyncTask extends AsyncTask<ResumeDTO, Void, Void> {
-        private ResumeDAO resumeDAO;
-
-        private InsertResumeAsyncTask(ResumeDAO resumeDAO) {
-            this.resumeDAO = resumeDAO;
-        }
-
-        @Override
-        protected Void doInBackground(ResumeDTO... resumes) {
-            resumeDAO.insert(resumes[0]);
-            return null;
-        }
-    }
-
-    private static class UpdateResumeAsyncTask extends AsyncTask<ResumeDTO, Void, Void> {
-        private ResumeDAO resumeDAO;
-
-        private UpdateResumeAsyncTask(ResumeDAO resumeDAO) {
-            this.resumeDAO = resumeDAO;
-        }
-
-        @Override
-        protected Void doInBackground(ResumeDTO... resumes) {
-            resumeDAO.update(resumes[0]);
-            return null;
-        }
-    }
-
-    private static class DeleteResumeAsyncTask extends AsyncTask<ResumeDTO, Void, Void> {
-        private ResumeDAO resumeDAO;
-
-        private DeleteResumeAsyncTask(ResumeDAO resumeDAO) {
-            this.resumeDAO = resumeDAO;
-        }
-
-        @Override
-        protected Void doInBackground(ResumeDTO... resumes) {
-            resumeDAO.delete(resumes[0]);
-            return null;
-        }
-    }
-
-//    private static class GetAllUsersResumesAsyncTask extends AsyncTask<String, Void, LiveData<List<ResumeDTO>>> {
-//        private ResumeDAO resumeDAO;
-//
-//        private GetAllUsersResumesAsyncTask(ResumeDAO resumeDAO) {
-//            this.resumeDAO = resumeDAO;
-//        }
-//
-//        @Override
-//        protected LiveData<List<ResumeDTO>> doInBackground(String... userLogin) {
-//            return resumeDAO.getAllUserResumes(userLogin[0]);
-//        }
-//
-//        @Override
-//        protected void onPostExecute(LiveData<List<ResumeDTO>> data) {
-//            allUsersResumes = data;
-//        }
-//    }
-
-    private static class GetAllNotUsersResumesAsyncTask extends AsyncTask<String, Void, Flowable<List<ResumeDTO>>> {
-        private ResumeDAO resumeDAO;
-
-        private GetAllNotUsersResumesAsyncTask(ResumeDAO resumeDAO) {
-            this.resumeDAO = resumeDAO;
-        }
-
-        @Override
-        protected Flowable<List<ResumeDTO>> doInBackground(String... userLogin) {
-            return resumeDAO.getAllNotUserResumes(userLogin[0]);
-        }
-
-        @Override
-        protected void onPostExecute(Flowable<List<ResumeDTO>> data) {
-            allNotUsersResumes = data;
-        }
     }
 }

@@ -36,11 +36,12 @@ public class FragmentTasks extends Fragment implements Activity, TaskNavigator {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
          view = inflater.inflate(R.layout.fargment_lobby_list_tasks, container, false);
 
-        findViewById();
-        initImageBitmaps();
-
-        taskViewModel = new TaskViewModel(getContext());
+         taskViewModel = new TaskViewModel(getContext());
         taskViewModel.setNavigator(this);
+
+        findViewById();
+        onListener();
+        initImageBitmaps();
 
         setupAdapter();
         getTasks();

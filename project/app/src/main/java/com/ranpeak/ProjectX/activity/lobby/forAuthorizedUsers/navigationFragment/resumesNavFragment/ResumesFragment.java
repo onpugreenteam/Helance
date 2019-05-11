@@ -1,6 +1,5 @@
 package com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.resumesNavFragment;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,52 +7,32 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
+import android.widget.Toast;
 import com.ranpeak.ProjectX.R;
-import com.ranpeak.ProjectX.activity.search.SearchResumeAlertDialog;
 import com.ranpeak.ProjectX.activity.creating.creatingResume.CreatingResumeActivity;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
+import com.ranpeak.ProjectX.activity.lobby.commands.ResumeNavigator;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.resumesNavFragment.adapter.ResumeListAdapter;
-import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.tasksNavFragment.TasksFragment;
-import com.ranpeak.ProjectX.dataBase.App;
-import com.ranpeak.ProjectX.dataBase.local.LocalDB;
-import com.ranpeak.ProjectX.dataBase.local.dao.ResumeDAO;
+import com.ranpeak.ProjectX.activity.lobby.viewModel.ResumeViewModel;
 import com.ranpeak.ProjectX.dto.ResumeDTO;
-import com.ranpeak.ProjectX.networking.retrofit.ApiService;
-import com.ranpeak.ProjectX.networking.retrofit.RetrofitClient;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.observers.DisposableObserver;
-import io.reactivex.schedulers.Schedulers;
-import timber.log.Timber;
-
-
-public class ResumesFragment extends Fragment implements Activity {
+public class ResumesFragment extends Fragment implements Activity, ResumeNavigator {
 
     private View view;
     private FloatingActionButton fab;
-    private LocalDB localDB;
-    private ResumeDAO resumeDAO;
     private RecyclerView recyclerView;
     private ResumeListAdapter resumeListAdapter;
     private List<ResumeDTO> data = new ArrayList<>();
     private ArrayList<String> imageUrls = new ArrayList<>();
     private ImageView search;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-
-    private ApiService apiService = RetrofitClient.getInstance()
-            .create(ApiService.class);
+    private ResumeViewModel resumeViewModel;
 
     public ResumesFragment() {
     }
@@ -62,51 +41,18 @@ public class ResumesFragment extends Fragment implements Activity {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_resumes, container, false);
+
+        resumeViewModel = new ResumeViewModel(getContext());
+        resumeViewModel.setNavigator(this);
+
         findViewById();
         onListener();
         initImageBitmaps();
 
-        localDB = App.getInstance().getLocalDB();
-        resumeDAO = localDB.resumeDAO();
-
-        getResumesFromLocalDB();
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        resumeListAdapter = new ResumeListAdapter(data, imageUrls, recyclerView, getActivity());
-        recyclerView.setAdapter(resumeListAdapter);
-
-        getResumesFromServer();
+        setupAdapter();
+        getResumes();
 
         return view;
-    }
-
-    public void addResumesToLocalDB(List<ResumeDTO> resumeDTOS) {
-        Observable.fromCallable(() -> localDB.resumeDAO().insertAll(resumeDTOS))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new TasksFragment.DefaultSubscriber<List<Long>>(){
-                    @Override
-                    public void onSubscribe(@NonNull Disposable d) {
-                        super.onSubscribe(d);
-                    }
-
-                    @Override
-                    public void onNext(@NonNull List<Long> longs) {
-                        super.onNext(longs);
-                        Timber.d("insert countries transaction complete");
-                    }
-
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        super.onError(e);
-                        Timber.d("error storing countries in db"+e);
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        Timber.d("insert countries transaction complete");
-                    }
-                });
     }
 
     @Override
@@ -121,7 +67,7 @@ public class ResumesFragment extends Fragment implements Activity {
     public void onListener() {
 
         mSwipeRefreshLayout.setOnRefreshListener(() -> {
-            getResumesFromServer();
+            getResumes();
             mSwipeRefreshLayout.setRefreshing(false);
         });
 
@@ -163,41 +109,25 @@ public class ResumesFragment extends Fragment implements Activity {
         imageUrls.add("https://i.mycdn.me/image?id=877079192648&t=35&plc=WEB&tkn=*85PLfcQAXU8Glv9V8-xzIyJxZF4");
     }
 
-    @SuppressLint("CheckResult")
-    private void getResumesFromServer(){
-        apiService.getAllResumes()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableObserver<List<ResumeDTO>>() {
-                    @Override
-                    public void onNext(List<ResumeDTO> resumeDTOS) {
-                        data.addAll(resumeDTOS);
-                        addResumesToLocalDB(data);
-                        resumeListAdapter.notifyDataSetChanged();
-                        Log.d("Resume size from server", String.valueOf(resumeDTOS.size()));
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.d("Error",e.getMessage());
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        // Received all notes
-                    }
-                });
+    @Override
+    public void handleError(Throwable throwable) {
+        Toast.makeText(getContext(),"Resumes don`t upload",Toast.LENGTH_LONG).show();
     }
 
-    private void getResumesFromLocalDB(){
-        resumeDAO.getAllResumes()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(resumeDTOS -> {
-                    Log.d("Resumes size in LocalDB", String.valueOf(resumeDTOS.size()));
-                    data = resumeDTOS;
-                    resumeListAdapter = new ResumeListAdapter(data, imageUrls, recyclerView, getActivity());
-                    recyclerView.setAdapter(resumeListAdapter);
-                });
+    @Override
+    public void getDataInAdapter(List<ResumeDTO> resumeDTOS) {
+        data.clear();
+        data.addAll(resumeDTOS);
+        resumeListAdapter.notifyDataSetChanged();
+    }
+
+    private void setupAdapter(){
+        resumeListAdapter = new ResumeListAdapter(data,imageUrls,recyclerView,getActivity());
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(resumeListAdapter);
+    }
+
+    private void getResumes(){
+        resumeViewModel.getResumesFromServer();
     }
 }
