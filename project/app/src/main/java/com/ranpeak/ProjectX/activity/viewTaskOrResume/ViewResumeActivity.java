@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -13,6 +14,8 @@ import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.viewTaskOrResume.contact.ContactDialogFragment;
 import com.ranpeak.ProjectX.dto.ResumeDTO;
+
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -34,7 +37,8 @@ public class ViewResumeActivity extends AppCompatActivity implements Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_resume);
+        setContentView(R.layout.activity_resume_view);
+        toolbar();
         findViewById();
         onListener();
         setData();
@@ -50,11 +54,26 @@ public class ViewResumeActivity extends AppCompatActivity implements Activity {
         imageView = findViewById(R.id.resume_profile_image_view);
         name = findViewById(R.id.activity_resume_view_name);
         country = findViewById(R.id.activity_resume_view_country);
-        email= findViewById(R.id.activity_resume_view_email);
+        email = findViewById(R.id.activity_resume_view_email);
         contact = findViewById(R.id.activity_resume_view_button);
     }
 
-    private void setData(){
+    private void toolbar() {
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(null);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void setData() {
         Intent intent = getIntent();
         ResumeDTO resumeDTO = (ResumeDTO) intent.getSerializableExtra("ResumeObject");
 
@@ -71,12 +90,12 @@ public class ViewResumeActivity extends AppCompatActivity implements Activity {
 
     @Override
     public void onListener() {
-        contact.setOnClickListener(v->{
+        contact.setOnClickListener(v -> {
             ContactDialogFragment contactDialogFragment = new ContactDialogFragment();
             Bundle bundle = new Bundle();
-            bundle.putString(getString(R.string.phone),userPhone);
-            bundle.putString(getString(R.string.email),userEmail);
-            bundle.putString(getString(R.string.name),userName);
+            bundle.putString(getString(R.string.phone), userPhone);
+            bundle.putString(getString(R.string.email), userEmail);
+            bundle.putString(getString(R.string.name), userName);
             contactDialogFragment.setArguments(bundle);
             contactDialogFragment.show(getSupportFragmentManager(), contactDialogFragment.getTag());
         });

@@ -83,6 +83,30 @@ public class MyResumeViewActivity extends AppCompatActivity implements Activity 
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // back button on toolbar pressed
+            case android.R.id.home:
+                finish();
+                return true;
+            case R.id.menu_my_task_edit:
+                Intent intent = new Intent(getApplicationContext(), MyResumeEditActivity.class);
+                intent.putExtra("MyResume", resumeDTO);
+//                startActivity(intent);
+                startActivityForResult(intent, Constants.Codes.EDIT_CODE);
+                break;
+            case R.id.menu_my_task_delete:
+                resumeViewModel.delete(resumeDTO);
+                finish();
+                break;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
+    }
+
     private void initData() {
 
         myResumeItem = (ResumeDTO) getIntent().getSerializableExtra("MyResume");
@@ -108,30 +132,6 @@ public class MyResumeViewActivity extends AppCompatActivity implements Activity 
         userCountry.setText(resumeDTO.getUserCountry());
         userName.setText(resumeDTO.getUserName());
         userEmail.setText(resumeDTO.getUserEmail());
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            // back button on toolbar pressed
-            case android.R.id.home:
-                finish();
-                return true;
-            case R.id.menu_my_task_edit:
-                Intent intent = new Intent(getApplicationContext(), MyResumeEditActivity.class);
-                intent.putExtra("MyResume", resumeDTO);
-//                startActivity(intent);
-                startActivityForResult(intent, Constants.Codes.EDIT_CODE);
-                break;
-            case R.id.menu_my_task_delete:
-                resumeViewModel.delete(resumeDTO);
-                finish();
-                break;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-        return true;
     }
 
     @Override

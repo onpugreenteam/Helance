@@ -46,7 +46,7 @@ public class ContactDialogFragment extends BottomSheetDialogFragment {
 
         phone.setText(userPhone);
         email.setText(userEmail);
-        name.setText(R.string.contact+userName);
+        name.setText(getString(R.string.contact)+" "+userName);
 
         return view;
     }

@@ -123,7 +123,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="8dp"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/rectangle_rounded_button"
         android:text="@string/contact"
         android:clickable="true"
         android:textColor="@color/colorSecondaryLight"
