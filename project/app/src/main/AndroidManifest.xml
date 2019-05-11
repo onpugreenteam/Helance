@@ -88,7 +88,7 @@
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".activity.search.SearchResumeAlertDialog" />
         <activity
-            android:name=".splashscreen.SplashScreen"
+            android:name=".activity.splashscreen.SplashScreen"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
