@@ -30,7 +30,7 @@
         <TextView
             android:id="@+id/item_resume_profile_status"
             android:layout_width="wrap_content"
-            android:layout_height="13dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="3dp"
             android:text="@string/resume_status"

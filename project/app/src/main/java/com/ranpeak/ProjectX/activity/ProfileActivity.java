@@ -23,7 +23,6 @@ import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -106,13 +105,8 @@ public class ProfileActivity extends AppCompatActivity implements Activity {
 
     @Override
     public void onListener() {
-        camera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivityForResult(new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI), GALLERY);
-            }
-        });
+        camera.setOnClickListener(v -> startActivityForResult(
+                new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI), GALLERY));
     }
 
 
@@ -214,26 +208,19 @@ public class ProfileActivity extends AppCompatActivity implements Activity {
     private void uploadImage(final Bitmap bitmap) {
 
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, Constants.URL.UPLOAD_AVATAR,
-                new Response.Listener<NetworkResponse>() {
-                    @Override
-                    public void onResponse(NetworkResponse response) {
-                        Log.d("ressssssoo", new String(response.data));
-                        rQueue.getCache().clear();
+                response -> {
+                    Log.d("ressssssoo", new String(response.data));
+                    rQueue.getCache().clear();
 
-                        try {
-                            JSONObject jsonObject = new JSONObject(new String(response.data));
-                            Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                    try {
+                        JSONObject jsonObject = new JSONObject(new String(response.data));
+                        Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "Please on Internet", Toast.LENGTH_SHORT).show();
-                    }
-                }) {
+                error ->
+                        Toast.makeText(getApplicationContext(), "Please on Internet", Toast.LENGTH_SHORT).show()) {
 
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {

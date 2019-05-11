@@ -1,4 +1,4 @@
-package com.ranpeak.ProjectX.activity.creatingTask;
+package com.ranpeak.ProjectX.activity.creating.creatingTask;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
@@ -38,13 +38,13 @@ import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.ranpeak.ProjectX.R;
-import com.ranpeak.ProjectX.activity.creatingTask.fragment.LessonListFragment;
+import com.ranpeak.ProjectX.activity.creating.LessonListFragment;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.dto.TaskDTO;
 import com.ranpeak.ProjectX.networking.volley.Constants;
 import com.ranpeak.ProjectX.networking.volley.RequestHandler;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
-import com.ranpeak.ProjectX.viewModel.TaskViewModel;
+import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.TaskViewModel;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -55,11 +55,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import io.reactivex.Completable;
-import io.reactivex.Observable;
-import io.reactivex.Scheduler;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class CreatingTaskActivity extends AppCompatActivity implements Activity {
@@ -408,7 +403,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
                     task.setUserName(String.valueOf(SharedPrefManager.getInstance(this).getUserName()));
                     task.setViews(views);
 
-                    taskViewModel.insert(task);
+//                    taskViewModel.insert(task);
 
 //                        Intent intent = new Intent(getApplicationContext(), LobbyActivity.class);
 //                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

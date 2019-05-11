@@ -1,4 +1,4 @@
-package com.ranpeak.ProjectX.viewModel;
+package com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
@@ -7,7 +7,6 @@ import android.arch.lifecycle.LiveData;
 import com.ranpeak.ProjectX.dataBase.local.repository.ResumeRepository;
 import com.ranpeak.ProjectX.dto.ResumeDTO;
 
-import org.intellij.lang.annotations.Flow;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;

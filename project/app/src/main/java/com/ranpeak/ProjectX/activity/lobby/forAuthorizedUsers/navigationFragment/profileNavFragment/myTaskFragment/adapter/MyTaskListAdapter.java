@@ -45,7 +45,6 @@ public class MyTaskListAdapter extends ListAdapter<TaskDTO, MyTaskListAdapter.My
                     && oldItem.getUserLogin().equals(newItem.getUserLogin())
                     && oldItem.getUserEmail().equals(newItem.getUserEmail())
                     && oldItem.getUserName().equals(newItem.getUserName())
-                    && oldItem.getUserAvatar().equals(newItem.getUserAvatar())
                     && oldItem.getUserCountry().equals(newItem.getUserCountry());
         }
     };

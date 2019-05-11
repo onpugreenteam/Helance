@@ -1,4 +1,4 @@
-package com.ranpeak.ProjectX.activity.creatingTask;
+package com.ranpeak.ProjectX.activity.creating.creatingTask;
 
 import android.content.Intent;
 import android.net.Uri;

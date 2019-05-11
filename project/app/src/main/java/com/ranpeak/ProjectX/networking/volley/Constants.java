@@ -42,7 +42,9 @@ public class Constants {
             return PASSWORD_PATTERN;
         }
 
-        public static final String[] LESSONS = new String[]{"Maths", "Physics"};
+        public static final String[] LESSONS = new String[]{
+                "Maths", "Physics","Programming","Economic","Philosophy","English","Other"
+        };
     }
 
     public static final class Codes {

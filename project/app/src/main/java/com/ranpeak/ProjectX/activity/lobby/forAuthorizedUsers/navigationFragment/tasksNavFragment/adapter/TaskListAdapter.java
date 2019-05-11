@@ -114,14 +114,11 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
             Glide.with(activity).load(getRandomChestItem(images)).into(viewHolder.profile_user);
 
-            viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(v.getContext(), "Open task", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(v.getContext(),ViewTaskActivity.class);
-                    intent.putExtra("TaskObject", item);
-                    v.getContext().startActivity(intent);
-                }
+            viewHolder.cardView.setOnClickListener(v -> {
+                Toast.makeText(v.getContext(), "Open task", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(v.getContext(),ViewTaskActivity.class);
+                intent.putExtra("TaskObject", item);
+                v.getContext().startActivity(intent);
             });
 
         }else if(holder instanceof LoadingViewHolder){

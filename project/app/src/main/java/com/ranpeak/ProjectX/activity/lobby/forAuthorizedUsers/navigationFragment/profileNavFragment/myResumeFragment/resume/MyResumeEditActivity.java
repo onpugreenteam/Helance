@@ -14,14 +14,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ranpeak.ProjectX.R;
-import com.ranpeak.ProjectX.activity.creatingTask.fragment.LessonListFragment;
+import com.ranpeak.ProjectX.activity.creating.LessonListFragment;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.dto.ResumeDTO;
 import com.ranpeak.ProjectX.networking.retrofit.ApiService;
 import com.ranpeak.ProjectX.networking.retrofit.RetrofitClient;
 import com.ranpeak.ProjectX.networking.volley.Constants;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
-import com.ranpeak.ProjectX.viewModel.ResumeViewModel;
+import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.ResumeViewModel;
 
 import java.util.Objects;
 

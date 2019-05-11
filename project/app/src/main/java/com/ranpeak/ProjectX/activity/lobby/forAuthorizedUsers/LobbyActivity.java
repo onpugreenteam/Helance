@@ -59,7 +59,6 @@ public class LobbyActivity extends AppCompatActivity implements Activity {
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
     }
 
-
     @Override
     public void onListener(){
         bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {

@@ -76,7 +76,7 @@ public class ResumeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         RecyclerView.ViewHolder rv = null;
 
         if(viewType == VIEW_TYPE_ITEM){
-            View view = LayoutInflater.from(activity).inflate(R.layout.item_resume, parent, false);
+            View view = LayoutInflater.from(activity).inflate(R.layout.resume_item, parent, false);
             rv = new ResumeViewHolder(view);
         }else if(viewType == VIEW_TYPE_LOADING){
             View view = LayoutInflater.from(activity).inflate(R.layout.item_loading, parent, false);

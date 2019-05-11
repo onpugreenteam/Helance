@@ -1,10 +1,9 @@
-package com.ranpeak.ProjectX.viewModel;
+package com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 
-import com.ranpeak.ProjectX.activity.lobby.commands.TaskNavigator;
 import com.ranpeak.ProjectX.dataBase.local.repository.TaskRepository;
 import com.ranpeak.ProjectX.dto.TaskDTO;
 

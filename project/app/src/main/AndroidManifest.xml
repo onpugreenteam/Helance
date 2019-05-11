@@ -63,12 +63,12 @@
         <activity
             android:name=".activity.registration.RegistrationActivity4"
             android:theme="@style/ToolBarProfile" />
-        <activity android:name=".activity.creatingTask.FullScreenImageActivity" />
+        <activity android:name=".activity.creating.creatingTask.FullScreenImageActivity" />
         <activity
-            android:name=".activity.creatingResume.CreatingResumeActivity"
+            android:name=".activity.creating.creatingResume.CreatingResumeActivity"
             android:theme="@style/ToolBarProfile" />
         <activity
-            android:name=".activity.creatingTask.CreatingTaskActivity"
+            android:name=".activity.creating.creatingTask.CreatingTaskActivity"
             android:theme="@style/ToolBarProfile" />
         <activity android:name=".activity.SearchTaskAlertDialog" />
         <activity
@@ -102,8 +102,10 @@
             android:theme="@style/ToolBarProfile" />
         <activity android:name=".activity.lobby.forAuthorizedUsers.LobbyActivity" />
         <activity android:name=".activity.lobby.forGuestUsers.LobbyForGuestActivity" />
-        <activity android:name=".activity.ViewResumeActivity" />
-        <activity android:name=".activity.ViewTaskActivity" />
+        <activity android:name=".activity.ViewResumeActivity"
+            android:theme="@style/AppTheme.SlidrActivityTheme"/>
+        <activity android:name=".activity.ViewTaskActivity"
+            android:theme="@style/AppTheme.SlidrActivityTheme"/>
 
 
         <provider

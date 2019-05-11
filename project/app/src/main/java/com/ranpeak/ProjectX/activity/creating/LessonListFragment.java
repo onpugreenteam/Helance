@@ -1,4 +1,4 @@
-package com.ranpeak.ProjectX.activity.creatingTask.fragment;
+package com.ranpeak.ProjectX.activity.creating;
 
 import android.app.DialogFragment;
 import android.os.Bundle;
@@ -10,8 +10,8 @@ import android.widget.ListView;
 import android.widget.SearchView;
 
 import com.ranpeak.ProjectX.R;
-import com.ranpeak.ProjectX.activity.creatingResume.CreatingResumeActivity;
-import com.ranpeak.ProjectX.activity.creatingTask.CreatingTaskActivity;
+import com.ranpeak.ProjectX.activity.creating.creatingResume.CreatingResumeActivity;
+import com.ranpeak.ProjectX.activity.creating.creatingTask.CreatingTaskActivity;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myResumeFragment.resume.MyResumeEditActivity;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myTaskFragment.task.MyTaskEditActivity;

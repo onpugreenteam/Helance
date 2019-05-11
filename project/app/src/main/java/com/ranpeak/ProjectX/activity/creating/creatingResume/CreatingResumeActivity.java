@@ -1,4 +1,4 @@
-package com.ranpeak.ProjectX.activity.creatingResume;
+package com.ranpeak.ProjectX.activity.creating.creatingResume;
 
 import android.app.FragmentManager;
 import android.arch.lifecycle.ViewModelProviders;
@@ -18,15 +18,13 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.ranpeak.ProjectX.R;
-import com.ranpeak.ProjectX.activity.creatingTask.fragment.LessonListFragment;
+import com.ranpeak.ProjectX.activity.creating.LessonListFragment;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.dto.ResumeDTO;
-import com.ranpeak.ProjectX.networking.retrofit.ApiService;
-import com.ranpeak.ProjectX.networking.retrofit.RetrofitClient;
 import com.ranpeak.ProjectX.networking.volley.Constants;
 import com.ranpeak.ProjectX.networking.volley.RequestHandler;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
-import com.ranpeak.ProjectX.viewModel.ResumeViewModel;
+import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.ResumeViewModel;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -35,10 +33,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import io.reactivex.Completable;
-import io.reactivex.Scheduler;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class CreatingResumeActivity extends AppCompatActivity implements Activity {
@@ -229,7 +223,7 @@ public class CreatingResumeActivity extends AppCompatActivity implements Activit
                     resume.setViews(views);
 //                    Completable.fromRunnable(()->{
 
-                        resumeViewModel.insert(resume);
+//                        resumeViewModel.insert(resume);
 //                    })
 //                            .observeOn(AndroidSchedulers.mainThread())
 //                            .subscribe();

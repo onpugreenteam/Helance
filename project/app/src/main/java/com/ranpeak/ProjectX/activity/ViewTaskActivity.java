@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.r0adkll.slidr.Slidr;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.dto.TaskDTO;
@@ -33,6 +34,7 @@ public class ViewTaskActivity extends AppCompatActivity implements Activity {
         setContentView(R.layout.activity_task_view);
         findViewById();
         setData();
+        Slidr.attach(this);
     }
 
     @Override

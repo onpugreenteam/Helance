@@ -16,7 +16,7 @@ import android.widget.ImageView;
 
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.SearchResumeAlertDialog;
-import com.ranpeak.ProjectX.activity.creatingResume.CreatingResumeActivity;
+import com.ranpeak.ProjectX.activity.creating.creatingResume.CreatingResumeActivity;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.resumesNavFragment.adapter.ResumeListAdapter;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.tasksNavFragment.TasksFragment;

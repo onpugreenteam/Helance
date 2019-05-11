@@ -18,22 +18,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ranpeak.ProjectX.R;
-import com.ranpeak.ProjectX.activity.creatingTask.fragment.LessonListFragment;
+import com.ranpeak.ProjectX.activity.creating.LessonListFragment;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.dto.TaskDTO;
-import com.ranpeak.ProjectX.dto.pojo.TaskPOJO;
 import com.ranpeak.ProjectX.networking.retrofit.ApiService;
 import com.ranpeak.ProjectX.networking.retrofit.RetrofitClient;
 import com.ranpeak.ProjectX.networking.volley.Constants;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
-import com.ranpeak.ProjectX.viewModel.TaskViewModel;
+import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.TaskViewModel;
 
 import java.util.Calendar;
 import java.util.Objects;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MyTaskEditActivity extends AppCompatActivity implements Activity {
 

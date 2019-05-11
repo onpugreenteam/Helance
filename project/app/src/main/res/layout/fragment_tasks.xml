@@ -54,7 +54,9 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/fragment_tasks_recycleView_tasks"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

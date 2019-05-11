@@ -1,17 +1,17 @@
 package com.ranpeak.ProjectX.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.r0adkll.slidr.Slidr;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.dto.ResumeDTO;
-import com.ranpeak.ProjectX.dto.TaskDTO;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -33,6 +33,7 @@ public class ViewResumeActivity extends AppCompatActivity implements Activity {
         setContentView(R.layout.activity_view_resume);
         findViewById();
         setData();
+        Slidr.attach(this);
     }
 
     @Override
