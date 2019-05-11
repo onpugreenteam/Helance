@@ -32,7 +32,7 @@ public class ContactDialogFragment extends BottomSheetDialogFragment {
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_contact_dialog, container, false);
+        View view = inflater.inflate(R.layout.item_contact_user, container, false);
 //        ((View) view.getParent()).setBackgroundColor(getResources().getColor(android.R.color.transparent));
         Bundle bundle = getArguments();
 

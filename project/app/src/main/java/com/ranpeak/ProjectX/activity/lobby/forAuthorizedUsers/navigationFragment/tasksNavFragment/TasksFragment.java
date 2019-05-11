@@ -140,8 +140,8 @@ public class TasksFragment extends Fragment implements Activity {
         fab.setOnClickListener(v -> startActivity(
                 new Intent(getContext(), CreatingTaskActivity.class)));
 
-        search.setOnClickListener(v -> startActivity(
-                new Intent(getContext(), SearchTaskAlertDialog.class)));
+//        search.setOnClickListener(v -> startActivity(
+//                new Intent(getContext(), SearchTaskAlertDialog.class)));
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override

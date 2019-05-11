@@ -179,9 +179,9 @@ public class ProfileFragment extends Fragment implements Activity {
         Log.d("Aaaaaaa", String.valueOf(SharedPrefManager.getInstance(getContext()).getUserAvatar()));
 
         if (!SharedPrefManager.getInstance(getContext()).getUserAvatar().equals("nullk")) {
-            byte[] decodedString = Base64.decode(String.valueOf(SharedPrefManager.getInstance(getContext()).getUserAvatar()), Base64.DEFAULT);
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            avatar.setImageBitmap(decodedByte);
+//            byte[] decodedString = Base64.decode(String.valueOf(SharedPrefManager.getInstance(getContext()).getUserAvatar()), Base64.DEFAULT);
+//            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+//            avatar.setImageBitmap(decodedByte);
         } else {
             Log.d("Avatar splash view",SharedPrefManager.getInstance(getContext()).getUserAvatar());
             avatar.setVisibility(View.VISIBLE);

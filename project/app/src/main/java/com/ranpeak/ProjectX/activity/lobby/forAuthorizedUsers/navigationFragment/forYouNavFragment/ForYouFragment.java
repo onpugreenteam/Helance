@@ -104,8 +104,8 @@ public class ForYouFragment extends Fragment implements Activity {
 
     @Override
     public void onListener() {
-        search.setOnClickListener(v -> startActivity(
-                new Intent(getContext(), SearchTaskAlertDialog.class)));
+//        search.setOnClickListener(v -> startActivity(
+//                new Intent(getContext(), SearchTaskAlertDialog.class)));
 
     }
 

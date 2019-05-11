@@ -1,158 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_my_resume_edit_scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     android:background="@color/background_material_light"
     android:fillViewport="true"
     android:orientation="vertical"
     tools:context=".activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myResumeFragment.resume.MyResumeEditActivity">
 
-    <LinearLayout
+    <ScrollView
         android:id="@+id/activity_my_resume_edit_linearLayout1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/activity_my_resume_edit_subject"
-            style="@style/TextView.Primary"
-            android:layout_width="match_parent"
-            android:layout_height="36dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="bottom"
-            android:text="@string/subject"
-            android:textColor="@color/darkText"
-            android:textSize="18sp" />
-
-        <View
-            android:id="@+id/activity_my_resume_edit_view1"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/textOnPrimary"
-            app:layout_constraintTop_toBottomOf="@+id/activity_my_resume_edit_subject"
-            tools:layout_editor_absoluteX="22dp" />
-
-        <EditText
-            android:id="@+id/activity_my_resume_edit_opportunities"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="top"
-            android:inputType="textCapSentences|textNoSuggestions|textMultiLine"
-            android:maxLength="150"
-            android:maxLines="6"
-            android:minLines="3"
-            android:scrollbars="vertical"
-            android:text="@string/opportunities"
-            android:textSize="18sp" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:gravity="end"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/activity_my_resume_edit_opportunities_length"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:text="0/"
-                android:textSize="12sp" />
+                android:id="@+id/activity_my_resume_edit_subject"
+                style="@style/TextView.Primary"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="bottom"
+                android:text="@string/subject"
+                android:textColor="@color/darkText"
+                android:textSize="18sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:gravity="end"
-                android:text="@string/creating_resume_resume_opportunities_length"
-                android:textColor="@color/textOnPrimary"
-                android:textSize="12sp" />
+            <View
+                android:id="@+id/activity_my_resume_edit_view1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/textOnPrimary"
+                app:layout_constraintTop_toBottomOf="@+id/activity_my_resume_edit_subject"
+                tools:layout_editor_absoluteX="22dp" />
 
-        </LinearLayout>
-
-        <View
-            android:id="@+id/activity_my_resume_edit_view2"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="20dp"
-            android:background="@color/color_Black"
-            tools:layout_editor_absoluteX="22dp" />
-
-        <LinearLayout
-            android:id="@+id/activity_my_resume_edit_linearLayout2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            tools:ignore="MissingConstraints">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/activity_my_resume_edit_avatar"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:src="@mipmap/ic_launcher"
-                tools:ignore="MissingConstraints" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/activity_my_resume_edit_user_name"
-                    style="@style/TextView.Primary"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="top"
-                    android:text="@string/name"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/activity_my_resume_edit_user_email"
-                    style="@style/TextView.Primary"
-                    android:layout_width="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="@string/email"
-                    android:textSize="18sp"
-                    tools:layout_editor_absoluteX="92dp" />
-
-                <TextView
-                    android:id="@+id/activity_my_resume_edit_user_country"
-                    style="@style/TextView.Primary"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="@string/country"
-                    android:textSize="18sp"
-                    tools:layout_editor_absoluteX="88dp" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="bottom"
-            android:paddingTop="50dp">
-
-            <Button
-                android:id="@+id/activity_my_resume_edit_save"
+            <EditText
+                android:id="@+id/activity_my_resume_edit_opportunities"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/rectangle_rounded_button"
-                android:text="@string/save"
-                android:textColor="@color/colorSecondaryLight" />
-        </LinearLayout>
-    </LinearLayout>
+                android:layout_marginTop="20dp"
+                android:gravity="top"
+                android:inputType="textCapSentences|textNoSuggestions|textMultiLine"
+                android:maxLength="150"
+                android:maxLines="6"
+                android:minLines="3"
+                android:scrollbars="vertical"
+                android:text="@string/opportunities"
+                android:textSize="18sp" />
 
-</ScrollView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:gravity="end"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/activity_my_resume_edit_opportunities_length"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:text="0/"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:gravity="end"
+                    android:text="@string/creating_resume_resume_opportunities_length"
+                    android:textColor="@color/textOnPrimary"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/activity_my_resume_edit_view2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/color_Black"
+                tools:layout_editor_absoluteX="22dp" />
+
+            <LinearLayout
+                android:id="@+id/activity_my_resume_edit_linearLayout2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                tools:ignore="MissingConstraints">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/activity_my_resume_edit_avatar"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@mipmap/ic_launcher"
+                    tools:ignore="MissingConstraints" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/activity_my_resume_edit_user_name"
+                        style="@style/TextView.Primary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top"
+                        android:text="@string/name"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/activity_my_resume_edit_user_email"
+                        style="@style/TextView.Primary"
+                        android:layout_width="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/email"
+                        android:textSize="18sp"
+                        tools:layout_editor_absoluteX="92dp" />
+
+                    <TextView
+                        android:id="@+id/activity_my_resume_edit_user_country"
+                        style="@style/TextView.Primary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/country"
+                        android:textSize="18sp"
+                        tools:layout_editor_absoluteX="88dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:paddingTop="50dp">
+
+        <Button
+            android:id="@+id/activity_my_resume_edit_save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rectangle_rounded_button"
+            android:text="@string/save"
+            android:textColor="@color/colorSecondaryLight" />
+    </LinearLayout>
+</LinearLayout>
+

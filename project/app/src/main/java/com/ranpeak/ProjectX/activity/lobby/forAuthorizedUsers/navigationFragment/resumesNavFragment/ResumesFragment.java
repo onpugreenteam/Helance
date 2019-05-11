@@ -140,8 +140,8 @@ public class ResumesFragment extends Fragment implements Activity {
             }
         });
 
-        search.setOnClickListener(v -> startActivity(
-                new Intent(getContext(), SearchResumeAlertDialog.class)));
+//        search.setOnClickListener(v -> startActivity(
+//                new Intent(getContext(), SearchResumeAlertDialog.class)));
     }
 
     private void initImageBitmaps() {
