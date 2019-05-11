@@ -12,11 +12,8 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.dto.ResumeDTO;
-
-import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -42,7 +39,6 @@ public class MyResumeListAdapter extends ListAdapter<ResumeDTO,  MyResumeListAda
                     && oldItem.getOpportunities().equals(newItem.getOpportunities())
                     && oldItem.getStatus().equals(newItem.getStatus())
                     && oldItem.getSubject().equals(newItem.getSubject())
-                    && oldItem.getUserAvatar().equals(newItem.getUserAvatar())
                     && oldItem.getUserCountry().equals(newItem.getUserCountry())
                     && oldItem.getUserEmail().equals(newItem.getUserEmail())
                     && oldItem.getUserName().equals(newItem.getUserName())
