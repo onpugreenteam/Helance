@@ -13,11 +13,11 @@ import com.bumptech.glide.Glide;
 import com.r0adkll.slidr.Slidr;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
-import com.ranpeak.ProjectX.dto.ResumeDTO;
+import com.ranpeak.ProjectX.dto.MyResumeDTO;
 import com.ranpeak.ProjectX.networking.retrofit.ApiService;
 import com.ranpeak.ProjectX.networking.retrofit.RetrofitClient;
 import com.ranpeak.ProjectX.networking.volley.Constants;
-import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.ResumeViewModel;
+import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.MyResumeViewModel;
 
 import java.util.Objects;
 
@@ -27,10 +27,10 @@ import io.reactivex.disposables.CompositeDisposable;
 
 public class MyResumeViewActivity extends AppCompatActivity implements Activity {
 
-    private static ResumeDTO myResumeItem;
-    private static ResumeDTO resumeDTO;
-    private ResumeDTO myEditedResumeItem;
-    private ResumeViewModel resumeViewModel;
+    private static MyResumeDTO myResumeItem;
+    private static MyResumeDTO resumeDTO;
+    private MyResumeDTO myEditedResumeItem;
+    private MyResumeViewModel resumeViewModel;
     private CompositeDisposable disposable = new CompositeDisposable();
     private ApiService apiService = RetrofitClient.getInstance().create(ApiService.class);
 
@@ -46,7 +46,7 @@ public class MyResumeViewActivity extends AppCompatActivity implements Activity 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_resume_view);
 
-        resumeViewModel = ViewModelProviders.of(this).get(ResumeViewModel.class);
+        resumeViewModel = ViewModelProviders.of(this).get(MyResumeViewModel.class);
 
         toolbar();
         findViewById();
@@ -73,7 +73,7 @@ public class MyResumeViewActivity extends AppCompatActivity implements Activity 
     private void toolbar() {
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(null);
+        getSupportActionBar().setTitle(getString(R.string.app_name));
     }
 
     @Override
@@ -109,11 +109,11 @@ public class MyResumeViewActivity extends AppCompatActivity implements Activity 
 
     private void initData() {
 
-        myResumeItem = (ResumeDTO) getIntent().getSerializableExtra("MyResume");
+        myResumeItem = (MyResumeDTO) getIntent().getSerializableExtra("MyResume");
         resumeDTO = myResumeItem;
-        resumeViewModel = ViewModelProviders.of(this).get(ResumeViewModel.class);
+        resumeViewModel = ViewModelProviders.of(this).get(MyResumeViewModel.class);
 
-        disposable.add(resumeViewModel.getTaskById(myResumeItem.getId())
+        disposable.add(resumeViewModel.getResumeById(myResumeItem.getId())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(val -> {
                     resumeDTO = val;
@@ -123,7 +123,7 @@ public class MyResumeViewActivity extends AppCompatActivity implements Activity 
         setData(resumeDTO);
     }
 
-    private void setData(ResumeDTO resumeDTO) {
+    private void setData(MyResumeDTO resumeDTO) {
         Glide.with(getApplicationContext())
                 .load(resumeDTO.getUserAvatar())
                 .into(avatar);
@@ -139,14 +139,14 @@ public class MyResumeViewActivity extends AppCompatActivity implements Activity 
         if (requestCode == Constants.Codes.EDIT_CODE
                 && resultCode == Constants.Codes.EDIT_CODE) {
             if (data != null) {
-                myEditedResumeItem = (ResumeDTO) data.getSerializableExtra("EditedResume");
+                myEditedResumeItem = (MyResumeDTO) data.getSerializableExtra("EditedResume");
                 setEditedData(myEditedResumeItem);
 
             }
         }
     }
 
-    private void setEditedData(ResumeDTO editedData) {
+    private void setEditedData(MyResumeDTO editedData) {
         myResumeItem = editedData;
 
         subject.setText(editedData.getSubject());

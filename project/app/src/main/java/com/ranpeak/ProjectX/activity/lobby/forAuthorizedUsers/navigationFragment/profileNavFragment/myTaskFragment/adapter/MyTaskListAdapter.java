@@ -13,10 +13,11 @@ import android.widget.TextView;
 
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
+import com.ranpeak.ProjectX.dto.MyTaskDTO;
 import com.ranpeak.ProjectX.dto.TaskDTO;
 
 
-public class MyTaskListAdapter extends ListAdapter<TaskDTO, MyTaskListAdapter.MyTaskListViewHolder> {
+public class MyTaskListAdapter extends ListAdapter<MyTaskDTO, MyTaskListAdapter.MyTaskListViewHolder> {
 
     private android.app.Activity activity;
     private OnItemClickListener listener;
@@ -27,14 +28,14 @@ public class MyTaskListAdapter extends ListAdapter<TaskDTO, MyTaskListAdapter.My
         this.activity = activity;
     }
 
-    private static final DiffUtil.ItemCallback<TaskDTO> DIFF_CALLBACK = new DiffUtil.ItemCallback<TaskDTO>() {
+    private static final DiffUtil.ItemCallback<MyTaskDTO> DIFF_CALLBACK = new DiffUtil.ItemCallback<MyTaskDTO>() {
         @Override
-        public boolean areItemsTheSame(@NonNull TaskDTO oldItem, @NonNull TaskDTO newItem) {
+        public boolean areItemsTheSame(@NonNull MyTaskDTO oldItem, @NonNull MyTaskDTO newItem) {
             return oldItem.getId() == newItem.getId();
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull TaskDTO oldItem, @NonNull TaskDTO newItem) {
+        public boolean areContentsTheSame(@NonNull MyTaskDTO oldItem, @NonNull MyTaskDTO newItem) {
             return oldItem.getHeadLine().equals(newItem.getHeadLine())
                     && oldItem.getSubject().equals(newItem.getSubject())
                     && oldItem.getDescription().equals(newItem.getDescription())
@@ -60,7 +61,7 @@ public class MyTaskListAdapter extends ListAdapter<TaskDTO, MyTaskListAdapter.My
 
     @Override
     public void onBindViewHolder(@NonNull MyTaskListViewHolder myTaskListViewHolder, int position) {
-        TaskDTO currentItem = getItem(position);
+        MyTaskDTO currentItem = getItem(position);
 
         myTaskListViewHolder.price.setText(String.valueOf(currentItem.getPrice()));
         myTaskListViewHolder.subject.setText(currentItem.getSubject());
@@ -72,7 +73,7 @@ public class MyTaskListAdapter extends ListAdapter<TaskDTO, MyTaskListAdapter.My
         //        Glide.with(activity).load(currentItem.getUserAvatar()).into(myTaskListViewHolder.avatar);
     }
 
-    public TaskDTO getTaskAt(int position) {
+    public MyTaskDTO getTaskAt(int position) {
         return getItem(position);
     }
 
@@ -163,17 +164,17 @@ public class MyTaskListAdapter extends ListAdapter<TaskDTO, MyTaskListAdapter.My
     }
 
     public interface OnItemClickListener {
-        void onItemClick(TaskDTO task);
+        void onItemClick(MyTaskDTO task);
 
-        void onItemLongClick(TaskDTO task);
+        void onItemLongClick(MyTaskDTO task);
 
         void itemDeletable(boolean delete);
 
-        void onUpdateStatusClick(TaskDTO taskDTO);
+        void onUpdateStatusClick(MyTaskDTO taskDTO);
 
-        void onDeleteClick(TaskDTO task);
+        void onDeleteClick(MyTaskDTO task);
 
-        void onEditClick(TaskDTO task);
+        void onEditClick(MyTaskDTO task);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {

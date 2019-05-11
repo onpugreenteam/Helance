@@ -13,9 +13,10 @@ import com.bumptech.glide.Glide;
 import com.r0adkll.slidr.Slidr;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
+import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.MyTaskViewModel;
+import com.ranpeak.ProjectX.dto.MyTaskDTO;
 import com.ranpeak.ProjectX.dto.TaskDTO;
 import com.ranpeak.ProjectX.networking.volley.Constants;
-import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.TaskViewModel;
 
 import java.util.Objects;
 
@@ -26,10 +27,10 @@ import io.reactivex.disposables.CompositeDisposable;
 
 public class MyTaskViewActivity extends AppCompatActivity implements Activity {
 
-    private static TaskDTO myTaskItem;
-    private static TaskDTO taskDTO;
-    private TaskDTO myEditedTaskItem;
-    private TaskViewModel taskViewModel;
+    private static MyTaskDTO myTaskItem;
+    private static MyTaskDTO taskDTO;
+    private MyTaskDTO myEditedTaskItem;
+    private MyTaskViewModel myTaskViewModel;
     private CompositeDisposable disposable = new CompositeDisposable();
 
 
@@ -48,7 +49,7 @@ public class MyTaskViewActivity extends AppCompatActivity implements Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_task_view);
 
-        taskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
+        myTaskViewModel = ViewModelProviders.of(this).get(MyTaskViewModel.class);
 
         toolbar();
         findViewById();
@@ -78,7 +79,7 @@ public class MyTaskViewActivity extends AppCompatActivity implements Activity {
     private void toolbar() {
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(null);
+        getSupportActionBar().setTitle(getString(R.string.app_name));
     }
 
     @Override
@@ -90,11 +91,11 @@ public class MyTaskViewActivity extends AppCompatActivity implements Activity {
 
     private void initData() {
 
-        myTaskItem = (TaskDTO) getIntent().getSerializableExtra("MyTask");
+        myTaskItem = (MyTaskDTO) getIntent().getSerializableExtra("MyTask");
         taskDTO = myTaskItem;
-        taskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
+        myTaskViewModel = ViewModelProviders.of(this).get(MyTaskViewModel.class);
 
-        disposable.add(taskViewModel.getTaskById(myTaskItem.getId())
+        disposable.add(myTaskViewModel.getTaskById(myTaskItem.getId())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(val -> {
                     taskDTO = val;
@@ -104,7 +105,7 @@ public class MyTaskViewActivity extends AppCompatActivity implements Activity {
         setData(taskDTO);
     }
 
-    private void setData(TaskDTO taskDTO) {
+    private void setData(MyTaskDTO taskDTO) {
         Glide.with(getApplicationContext())
                 .load(taskDTO.getUserAvatar())
                 .into(avatar);
@@ -133,7 +134,7 @@ public class MyTaskViewActivity extends AppCompatActivity implements Activity {
                 break;
             case R.id.menu_my_task_delete:
                 Completable.fromRunnable(() -> {
-                    taskViewModel.delete(taskDTO);
+                    myTaskViewModel.delete(taskDTO);
                 })
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe();
@@ -151,14 +152,14 @@ public class MyTaskViewActivity extends AppCompatActivity implements Activity {
         if (requestCode == Constants.Codes.EDIT_CODE
                 && resultCode == Constants.Codes.EDIT_CODE) {
             if (data != null) {
-                myEditedTaskItem = (TaskDTO) data.getSerializableExtra("EditedTask");
+                myEditedTaskItem = (MyTaskDTO) data.getSerializableExtra("EditedTask");
                 setEditedData(myEditedTaskItem);
 
             }
         }
     }
 
-    private void setEditedData(TaskDTO editedData) {
+    private void setEditedData(MyTaskDTO editedData) {
         myTaskItem = editedData;
 
         subject.setText(editedData.getSubject());

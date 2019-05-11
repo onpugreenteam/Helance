@@ -5,15 +5,16 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,17 +32,15 @@ import com.android.volley.toolbox.Volley;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.DexterError;
 import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.PermissionRequestErrorListener;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.SettingsActivity;
 import com.ranpeak.ProjectX.activity.editProfile.EditProfileActivity;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.adapter.ProfileFragmentPagerAdapter;
-import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.ResumeViewModel;
-import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.TaskViewModel;
+import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.MyResumeViewModel;
+import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.MyTaskViewModel;
 import com.ranpeak.ProjectX.networking.volley.Constants;
 import com.ranpeak.ProjectX.networking.volley.request.VolleyMultipartRequest;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
@@ -64,6 +63,8 @@ import io.reactivex.disposables.CompositeDisposable;
 public class ProfileFragment extends Fragment implements Activity {
 
     private View view;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private AppBarLayout appBarLayout;
     private TabLayout tabLayout;
     private ImageView editProfile;
     private CircleImageView avatar;
@@ -71,13 +72,14 @@ public class ProfileFragment extends Fragment implements Activity {
     private ViewPager viewPager;
     private TextView tasksCount;
     private TextView resumesCount;
-    private TaskViewModel taskViewModel;
-    private ResumeViewModel resumeViewModel;
+    private MyTaskViewModel myTaskViewModel;
+    private MyResumeViewModel resumeViewModel;
     private io.reactivex.disposables.CompositeDisposable mDisposable = new CompositeDisposable();
 
     private final int[] imageResId = {
             R.drawable.my_profile, R.drawable.my_task, R.drawable.my_resume
     };
+    private int selectedTab = 0;
 
     // user info
     private TextView name;
@@ -113,6 +115,8 @@ public class ProfileFragment extends Fragment implements Activity {
 
     @Override
     public void findViewById() {
+        appBarLayout = view.findViewById(R.id.fragment_profile_main_appbar);
+        swipeRefreshLayout = view.findViewById(R.id.fragment_profile_swipeRefreshLayout);
         tasksCount = view.findViewById(R.id.fragment_profile_task_count);
         resumesCount = view.findViewById(R.id.fragment_profile_resumes_count);
         viewPager = view.findViewById(R.id.fragment_profile_viewPager);
@@ -133,57 +137,48 @@ public class ProfileFragment extends Fragment implements Activity {
         avatar.setOnClickListener(v -> startActivityForResult(
                 new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI), GALLERY));
         tabLayout.setupWithViewPager(viewPager);
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            initData();
+            initFragments(viewPager);
+            swipeRefreshLayout.setRefreshing(false);
+        });
+        appBarLayout.addOnOffsetChangedListener((appBarLayout, i) -> {
+            if ((appBarLayout.getHeight() - appBarLayout.getBottom()) != 0) {
+                selectedTab = tabLayout.getSelectedTabPosition();
+                swipeRefreshLayout.setEnabled(false);
+            } else {
+                swipeRefreshLayout.setEnabled(true);
+            }
+        });
     }
 
     private void initData() {
-        taskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
-        taskViewModel.getCountOfUsersTask(
+        myTaskViewModel = ViewModelProviders.of(this).get(MyTaskViewModel.class);
+        myTaskViewModel.getCountOfUsersTask(
                 String.valueOf(SharedPrefManager.getInstance(getContext()).getUserLogin())
         ).observe(this, integer -> {
             tasksCount.setText(String.valueOf(integer));
         });
-//        mDisposable.add(taskViewModel.getCountOfUsersTask(
-//                String.valueOf(SharedPrefManager.getInstance(getContext()).getUserLogin())
-//        )
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(integer -> {
-//                    tasksCount.setText("29");
-//                })
-//        );
-//        mDisposable.dispose();
-        resumeViewModel = ViewModelProviders.of(this).get(ResumeViewModel.class);
+        resumeViewModel = ViewModelProviders.of(this).get(MyResumeViewModel.class);
         resumeViewModel.getCountOfUsersResumes(
                 String.valueOf(SharedPrefManager.getInstance(getContext()).getUserLogin())
         ).observe(this, integer -> {
             resumesCount.setText(String.valueOf(integer));
         });
-//        mDisposable.add(resumeViewModel.getCountOfUsersResumes(
-//                String.valueOf(SharedPrefManager.getInstance(getContext()).getUserLogin())
-//        )
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(integer -> {
-//                    resumesCount.setText("20");
-//                }));
-//        mDisposable.dispose();
-        getSaveInfoAboutUser();
-
+        getSavedInfoAboutUser();
     }
 
     // Записывание данных о пользователе в нужные поля профиля
-    private void getSaveInfoAboutUser() {
+    private void getSavedInfoAboutUser() {
         login.setText(String.valueOf(SharedPrefManager.getInstance(getContext()).getUserLogin()));
         name.setText(String.valueOf(SharedPrefManager.getInstance(getContext()).getUserName()));
         avatar.setVisibility(View.VISIBLE);
-
-        Log.d("Aaaaaaa", String.valueOf(SharedPrefManager.getInstance(getContext()).getUserAvatar() != null));
-        Log.d("Aaaaaaa", String.valueOf(SharedPrefManager.getInstance(getContext()).getUserAvatar()));
 
         if (!SharedPrefManager.getInstance(getContext()).getUserAvatar().equals("nullk")) {
 //            byte[] decodedString = Base64.decode(String.valueOf(SharedPrefManager.getInstance(getContext()).getUserAvatar()), Base64.DEFAULT);
 //            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 //            avatar.setImageBitmap(decodedByte);
         } else {
-            Log.d("Avatar splash view",SharedPrefManager.getInstance(getContext()).getUserAvatar());
             avatar.setVisibility(View.VISIBLE);
         }
     }
@@ -257,12 +252,8 @@ public class ProfileFragment extends Fragment implements Activity {
                         token.continuePermissionRequest();
                     }
                 }).
-                withErrorListener(new PermissionRequestErrorListener() {
-                    @Override
-                    public void onError(DexterError error) {
-                        Toast.makeText(getContext(), "Some Error! ", Toast.LENGTH_SHORT).show();
-                    }
-                })
+                withErrorListener(error ->
+                        Toast.makeText(getContext(), "Some Error! ", Toast.LENGTH_SHORT).show())
                 .onSameThread()
                 .check();
     }
@@ -316,5 +307,9 @@ public class ProfileFragment extends Fragment implements Activity {
         for (int i = 0; i < imageResId.length; i++) {
             Objects.requireNonNull(tabLayout.getTabAt(i)).setIcon(imageResId[i]);
         }
+    }
+
+    private void updateProfileFragment() {
+
     }
 }

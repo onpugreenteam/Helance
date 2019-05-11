@@ -61,7 +61,7 @@ public class ViewResumeActivity extends AppCompatActivity implements Activity {
     private void toolbar() {
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(null);
+        getSupportActionBar().setTitle(getString(R.string.app_name));
     }
 
     @Override

@@ -8,6 +8,7 @@ import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
+import com.ranpeak.ProjectX.dto.MyResumeDTO;
 import com.ranpeak.ProjectX.dto.ResumeDTO;
 import com.ranpeak.ProjectX.dto.TaskDTO;
 
@@ -25,11 +26,14 @@ public interface ResumeDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(ResumeDTO resumeDTO);
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertAllUsersResumes(List<MyResumeDTO> myResumeDTOS);
+
     @Update
-    void update(ResumeDTO resumeDTO);
+    void update(MyResumeDTO resumeDTO);
 
     @Delete
-    void delete(ResumeDTO resumeDTO);
+    void delete(MyResumeDTO resumeDTO);
 
     @Query("DELETE FROM ResumeEntity")
     void deleteAllResumes();
@@ -37,15 +41,15 @@ public interface ResumeDAO {
     @Query("SELECT * FROM ResumeEntity")
     Flowable<List<ResumeDTO>> getAllResumes();
 
-    @Query("SELECT * FROM ResumeEntity WHERE userLogin=:userLogin")
-    Flowable<List<ResumeDTO>> getAllUserResumes(String userLogin);
+    @Query("SELECT * FROM MyResumeEntity WHERE userLogin=:userLogin")
+    Flowable<List<MyResumeDTO>> getAllUserResumes(String userLogin);
 
-    @Query("SELECT * FROM ResumeEntity WHERE id=:id")
-    Flowable<ResumeDTO> getResumeById(long id);
+    @Query("SELECT * FROM MyResumeEntity WHERE id=:id")
+    Flowable<MyResumeDTO> getResumeById(long id);
 
-    @Query("SELECT * FROM ResumeEntity WHERE userLogin<>:userLogin")
-    Flowable<List<ResumeDTO>> getAllNotUserResumes(String userLogin);
+    @Query("SELECT * FROM MyResumeEntity WHERE userLogin<>:userLogin")
+    Flowable<List<MyResumeDTO>> getAllNotUserResumes(String userLogin);
 
-    @Query("SELECT COUNT(*) FROM ResumeEntity WHERE userLogin=:userLogin")
+    @Query("SELECT COUNT(*) FROM MyResumeEntity WHERE userLogin=:userLogin")
     LiveData<Integer> getCountOfUsersResumes(String userLogin);
 }

@@ -13,11 +13,12 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.ranpeak.ProjectX.R;
+import com.ranpeak.ProjectX.dto.MyResumeDTO;
 import com.ranpeak.ProjectX.dto.ResumeDTO;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MyResumeListAdapter extends ListAdapter<ResumeDTO,  MyResumeListAdapter.MyResumeListViewHolder> {
+public class MyResumeListAdapter extends ListAdapter<MyResumeDTO,  MyResumeListAdapter.MyResumeListViewHolder> {
 
     private Activity activity;
     private OnItemClickListener listener;
@@ -27,14 +28,14 @@ public class MyResumeListAdapter extends ListAdapter<ResumeDTO,  MyResumeListAda
         this.activity = activity;
     }
 
-    private static final DiffUtil.ItemCallback<ResumeDTO> DIFF_CALLBACK = new DiffUtil.ItemCallback<ResumeDTO>() {
+    private static final DiffUtil.ItemCallback<MyResumeDTO> DIFF_CALLBACK = new DiffUtil.ItemCallback<MyResumeDTO>() {
         @Override
-        public boolean areItemsTheSame(@NonNull ResumeDTO oldItem, @NonNull ResumeDTO newItem) {
+        public boolean areItemsTheSame(@NonNull MyResumeDTO oldItem, @NonNull MyResumeDTO newItem) {
             return oldItem.getId() == newItem.getId();
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull ResumeDTO oldItem, @NonNull ResumeDTO newItem) {
+        public boolean areContentsTheSame(@NonNull MyResumeDTO oldItem, @NonNull MyResumeDTO newItem) {
             return oldItem.getDateStart().equals(newItem.getDateStart())
                     && oldItem.getOpportunities().equals(newItem.getOpportunities())
                     && oldItem.getStatus().equals(newItem.getStatus())
@@ -57,7 +58,7 @@ public class MyResumeListAdapter extends ListAdapter<ResumeDTO,  MyResumeListAda
 
     @Override
     public void onBindViewHolder(@NonNull MyResumeListAdapter.MyResumeListViewHolder holder, int position) {
-        ResumeDTO currentItem = getItem(position);
+        MyResumeDTO currentItem = getItem(position);
 
         holder.opportunities.setText(currentItem.getOpportunities());
         holder.author.setText(currentItem.getUserName());
@@ -68,7 +69,7 @@ public class MyResumeListAdapter extends ListAdapter<ResumeDTO,  MyResumeListAda
 //        Glide.with(activity).load(currentItem.getUserAvatar()).into(holder.avatar);
     }
 
-    public ResumeDTO getResumeAt(int position) {
+    public MyResumeDTO getResumeAt(int position) {
         return getItem(position);
     }
 
@@ -158,17 +159,17 @@ public class MyResumeListAdapter extends ListAdapter<ResumeDTO,  MyResumeListAda
     }
 
     public interface OnItemClickListener {
-        void onItemClick(ResumeDTO resumeDTO);
+        void onItemClick(MyResumeDTO resumeDTO);
 
-        void onItemLongClick(ResumeDTO resumeDTO);
+        void onItemLongClick(MyResumeDTO resumeDTO);
 
         void itemDeletable(boolean resumeDTO);
 
-        void onUpdateStatusClick(ResumeDTO resumeDTO, int pos);
+        void onUpdateStatusClick(MyResumeDTO resumeDTO, int pos);
 
-        void onDeleteClick(ResumeDTO resumeDTO);
+        void onDeleteClick(MyResumeDTO resumeDTO);
 
-        void onEditClick(ResumeDTO resumeDTO);
+        void onEditClick(MyResumeDTO resumeDTO);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {

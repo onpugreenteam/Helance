@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +18,13 @@ import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myTaskFragment.adapter.MyTaskListAdapter;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myTaskFragment.task.MyTaskEditActivity;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myTaskFragment.task.MyTaskViewActivity;
+import com.ranpeak.ProjectX.dto.MyTaskDTO;
 import com.ranpeak.ProjectX.dto.TaskDTO;
 import com.ranpeak.ProjectX.dto.pojo.TaskPOJO;
 import com.ranpeak.ProjectX.networking.retrofit.ApiService;
 import com.ranpeak.ProjectX.networking.retrofit.RetrofitClient;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
-import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.TaskViewModel;
+import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.MyTaskViewModel;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -37,7 +39,7 @@ public class MyTaskFragment extends Fragment implements Activity {
     private RecyclerView recyclerView;
     private MyTaskListAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-    private TaskViewModel taskViewModel;
+    private MyTaskViewModel myTaskViewModel;
     private CompositeDisposable disposable = new CompositeDisposable();
     private ApiService apiService = RetrofitClient.getInstance().create(ApiService.class);
 
@@ -73,12 +75,14 @@ public class MyTaskFragment extends Fragment implements Activity {
         adapter = new MyTaskListAdapter(/*myTaskItems, */getActivity());
         recyclerView.setAdapter(adapter);
 
-        taskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
-        disposable.add(taskViewModel.getAllUsersTask(
+        myTaskViewModel = ViewModelProviders.of(this).get(MyTaskViewModel.class);
+        disposable.add(myTaskViewModel.getAllUsersTask(
                 String.valueOf(SharedPrefManager.getInstance(getContext()).getUserLogin()))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(taskDTOS -> {
+                    Log.d("Users_tasks_in_vm", String.valueOf(taskDTOS.size()));
                     adapter.submitList(taskDTOS);
+                    adapter.notifyDataSetChanged();
                 })
         );
 //        disposable.dispose();
@@ -87,7 +91,7 @@ public class MyTaskFragment extends Fragment implements Activity {
         adapter.setOnItemClickListener(new MyTaskListAdapter.OnItemClickListener() {
 
             @Override
-            public void onItemClick(TaskDTO task) {
+            public void onItemClick(MyTaskDTO task) {
                 Intent intent = new Intent(getContext(), MyTaskViewActivity.class);
                 intent.putExtra("MyTask", task);
 
@@ -95,7 +99,7 @@ public class MyTaskFragment extends Fragment implements Activity {
             }
 
             @Override
-            public void onItemLongClick(TaskDTO task) {
+            public void onItemLongClick(MyTaskDTO task) {
                 adapter.notifyDataSetChanged();
             }
 
@@ -105,14 +109,14 @@ public class MyTaskFragment extends Fragment implements Activity {
             }
 
             @Override
-            public void onUpdateStatusClick(TaskDTO task) {
+            public void onUpdateStatusClick(MyTaskDTO task) {
                 if (task.getStatus().equals(getString(R.string.not_active))) {
                         task.setStatus(getString(R.string.active));
                 } else {
                         task.setStatus(getString(R.string.not_active));
                 }
 
-                taskViewModel.update(task);
+                myTaskViewModel.update(task);
                 Call<TaskPOJO> call = apiService.updateTask(
                         new TaskPOJO(
                                 task.getId(),
@@ -143,12 +147,12 @@ public class MyTaskFragment extends Fragment implements Activity {
             }
 
             @Override
-            public void onDeleteClick(TaskDTO task) {
-                taskViewModel.delete(task);
+            public void onDeleteClick(MyTaskDTO task) {
+                myTaskViewModel.delete(task);
             }
 
             @Override
-            public void onEditClick(TaskDTO task) {
+            public void onEditClick(MyTaskDTO task) {
                 Intent intent = new Intent(getActivity(), MyTaskEditActivity.class);
                 intent.putExtra("MyTask", task);
 

@@ -17,11 +17,12 @@ import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myResumeFragment.adapter.MyResumeListAdapter;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myResumeFragment.resume.MyResumeEditActivity;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myResumeFragment.resume.MyResumeViewActivity;
+import com.ranpeak.ProjectX.dto.MyResumeDTO;
 import com.ranpeak.ProjectX.dto.ResumeDTO;
 import com.ranpeak.ProjectX.networking.retrofit.ApiService;
 import com.ranpeak.ProjectX.networking.retrofit.RetrofitClient;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
-import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.ResumeViewModel;
+import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.MyResumeViewModel;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -32,7 +33,7 @@ public class MyResumeFragment extends Fragment implements Activity {
     private RecyclerView recyclerView;
     private MyResumeListAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-    private ResumeViewModel resumeViewModel;
+    private MyResumeViewModel resumeViewModel;
     private CompositeDisposable disposable = new CompositeDisposable();
     private ApiService apiService = RetrofitClient.getInstance().create(ApiService.class);
 
@@ -70,7 +71,7 @@ public class MyResumeFragment extends Fragment implements Activity {
         recyclerView.setAdapter(adapter);
 
         resumeViewModel = ViewModelProviders.of(this)
-                .get(ResumeViewModel.class);
+                .get(MyResumeViewModel.class);
         disposable.add(resumeViewModel.getAllUsersResumes(
                 String.valueOf(SharedPrefManager.getInstance(getContext()).getUserLogin()))
                 .observeOn(AndroidSchedulers.mainThread())
@@ -84,7 +85,7 @@ public class MyResumeFragment extends Fragment implements Activity {
         adapter.setOnItemClickListener(new MyResumeListAdapter.OnItemClickListener() {
 
             @Override
-            public void onItemClick(ResumeDTO resume) {
+            public void onItemClick(MyResumeDTO resume) {
                 Intent intent = new Intent(getContext(), MyResumeViewActivity.class);
                 intent.putExtra("MyResume", resume);
 
@@ -92,7 +93,7 @@ public class MyResumeFragment extends Fragment implements Activity {
             }
 
             @Override
-            public void onItemLongClick(ResumeDTO resumeDTO) {
+            public void onItemLongClick(MyResumeDTO resumeDTO) {
                 adapter.notifyDataSetChanged();
             }
 
@@ -102,7 +103,7 @@ public class MyResumeFragment extends Fragment implements Activity {
             }
 
             @Override
-            public void onUpdateStatusClick(ResumeDTO resumeDTO, int pos) {
+            public void onUpdateStatusClick(MyResumeDTO resumeDTO, int pos) {
                 if (resumeDTO.getStatus().equals(getString(R.string.not_active))) {
                     resumeDTO.setStatus(getString(R.string.active));
                 } else {
@@ -113,14 +114,14 @@ public class MyResumeFragment extends Fragment implements Activity {
             }
 
             @Override
-            public void onDeleteClick(ResumeDTO resumeDTO) {
+            public void onDeleteClick(MyResumeDTO resumeDTO) {
                 resumeViewModel.delete(resumeDTO);
 
 //                apiService.deleteResume(resumeDTO.getId());
             }
 
             @Override
-            public void onEditClick(ResumeDTO resumeDTO) {
+            public void onEditClick(MyResumeDTO resumeDTO) {
                 Intent intent = new Intent(getActivity(), MyResumeEditActivity.class);
                 intent.putExtra("MyResume", resumeDTO);
 

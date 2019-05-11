@@ -39,11 +39,12 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.creating.LessonListFragment;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
+import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.MyTaskViewModel;
 import com.ranpeak.ProjectX.dto.TaskDTO;
 import com.ranpeak.ProjectX.networking.volley.Constants;
 import com.ranpeak.ProjectX.networking.volley.RequestHandler;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
-import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.TaskViewModel;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -73,7 +74,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
     private List<ImageView> imageViewList = new ArrayList<>();
     private final FragmentManager fm = getFragmentManager();
     private final LessonListFragment lessonListFragment = new LessonListFragment();
-    private TaskViewModel taskViewModel;
+    private MyTaskViewModel myTaskViewModel;
 
 
     @Override
@@ -91,7 +92,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     REQUEST_PERMISSION);
         }
-        taskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
+        myTaskViewModel = ViewModelProviders.of(this).get(MyTaskViewModel.class);
     }
 
     @Override
