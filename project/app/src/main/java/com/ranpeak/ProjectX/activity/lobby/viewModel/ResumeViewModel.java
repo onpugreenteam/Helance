@@ -3,7 +3,6 @@ package com.ranpeak.ProjectX.activity.lobby.viewModel;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
-
 import com.ranpeak.ProjectX.activity.lobby.DefaultSubscriber;
 import com.ranpeak.ProjectX.activity.lobby.commands.ResumeNavigator;
 import com.ranpeak.ProjectX.base.BaseViewModel;
@@ -13,9 +12,7 @@ import com.ranpeak.ProjectX.dataBase.local.dao.ResumeDAO;
 import com.ranpeak.ProjectX.dto.ResumeDTO;
 import com.ranpeak.ProjectX.networking.retrofit.ApiService;
 import com.ranpeak.ProjectX.networking.retrofit.RetrofitClient;
-
 import java.util.List;
-
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
