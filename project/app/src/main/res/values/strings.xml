@@ -260,6 +260,7 @@
     <string name="choice_of_connection">Choice of connection</string>
     <string name="emailcontact">emailContact</string>
     <string name="phonecontact">phoneContact</string>
+    <string name="contact_user">Contact User</string>
 
 
 </resources>

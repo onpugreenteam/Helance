@@ -73,7 +73,8 @@ public class ResumeRepository {
                         resume.getStatus(),
                         resume.getOpportunities(),
                         resume.getUserLogin(),
-                        resume.getViews()
+                        resume.getViews(),
+                        resume.getTelephone()
                 )
         );
         call.enqueue(new Callback<ResumePOJO>() {

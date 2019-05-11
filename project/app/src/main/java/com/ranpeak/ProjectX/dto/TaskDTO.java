@@ -94,12 +94,16 @@ public class TaskDTO implements Serializable {
     @Expose
     private String views;
 
+    @SerializedName("telephone")
+    @ColumnInfo (name = "telephone")
+    @Expose
+    private String telephone;
 
     public TaskDTO() {
     }
 
     @Ignore
-    public TaskDTO(long id, String subject, String headLine, String description, String dateStart, float price, String deadline, String status, String userLogin, String userEmail, String userName, String userAvatar, String userCountry, String fileTasks, String views) {
+    public TaskDTO(long id, String subject, String headLine, String description, String dateStart, float price, String deadline, String status, String userLogin, String userEmail, String userName, String userAvatar, String userCountry, String fileTasks, String views, String telephone) {
         this.id = id;
         this.subject = subject;
         this.headLine = headLine;
@@ -115,6 +119,7 @@ public class TaskDTO implements Serializable {
         this.userCountry = userCountry;
         this.fileTasks = fileTasks;
         this.views = views;
+        this.telephone = telephone;
     }
 
 
@@ -236,5 +241,13 @@ public class TaskDTO implements Serializable {
 
     public void setViews(String views) {
         this.views = views;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 }

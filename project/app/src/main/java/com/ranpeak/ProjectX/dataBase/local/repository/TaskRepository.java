@@ -68,7 +68,8 @@ public class TaskRepository {
                         taskDTO.getDeadline(),
                         taskDTO.getStatus(),
                         taskDTO.getUserLogin(),
-                        taskDTO.getViews()
+                        taskDTO.getViews(),
+                        taskDTO.getTelephone()
                 )
         );
         call.enqueue(new Callback<TaskPOJO>() {

@@ -72,11 +72,16 @@ public class ResumeDTO implements Serializable {
     @Expose
     private String views;
 
+    @SerializedName("telephone")
+    @ColumnInfo (name = "telephone")
+    @Expose
+    private String telephone;
+
     public ResumeDTO() {
     }
 
     @Ignore
-    public ResumeDTO(long id, String subject, String dateStart, String opportunities, String status, String userLogin, String userEmail, String userName, String userAvatar, String userCountry, String views) {
+    public ResumeDTO(long id, String subject, String dateStart, String opportunities, String status, String userLogin, String userEmail, String userName, String userAvatar, String userCountry, String views, String telephone) {
         this.id = id;
         this.subject = subject;
         this.dateStart = dateStart;
@@ -88,6 +93,7 @@ public class ResumeDTO implements Serializable {
         this.userAvatar = userAvatar;
         this.userCountry = userCountry;
         this.views = views;
+        this.telephone = telephone;
     }
 
     public long getId() {
@@ -176,5 +182,13 @@ public class ResumeDTO implements Serializable {
 
     public void setViews(String views) {
         this.views = views;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 }

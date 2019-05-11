@@ -16,10 +16,12 @@ public class ResumePOJO {
 
     private String views;
 
+    private String telephone;
+
     public ResumePOJO() {
     }
 
-    public ResumePOJO(long id, String subject, String dateStart, String status, String opportunities, String userLogin, String views) {
+    public ResumePOJO(long id, String subject, String dateStart, String status, String opportunities, String userLogin, String views, String telephone) {
         this.id = id;
         this.subject = subject;
         this.dateStart = dateStart;
@@ -27,6 +29,7 @@ public class ResumePOJO {
         this.opportunities = opportunities;
         this.users = userLogin;
         this.views = views;
+        this.telephone = telephone;
     }
 
     public long getId() {
@@ -83,5 +86,21 @@ public class ResumePOJO {
 
     public void setViews(String views) {
         this.views = views;
+    }
+
+    public String getUsers() {
+        return users;
+    }
+
+    public void setUsers(String users) {
+        this.users = users;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 }

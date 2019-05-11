@@ -28,6 +28,9 @@ public class ViewTaskActivity extends AppCompatActivity implements Activity {
     private TextView email;
     private TextView country;
     private Button contact;
+    private String userEmail;
+    private String userPhone;
+    private String userName;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,6 +60,10 @@ public class ViewTaskActivity extends AppCompatActivity implements Activity {
         Intent intent = getIntent();
         TaskDTO taskDTO = (TaskDTO) intent.getSerializableExtra("TaskObject");
 
+        userEmail = taskDTO.getUserEmail();
+        userPhone = taskDTO.getTelephone();
+        userName = taskDTO.getUserName();
+
         subject.setText(taskDTO.getSubject());
         header.setText(taskDTO.getHeadLine());
         description.setText(taskDTO.getDescription());
@@ -69,6 +76,11 @@ public class ViewTaskActivity extends AppCompatActivity implements Activity {
     public void onListener() {
         contact.setOnClickListener(v -> {
             ContactDialogFragment contactDialogFragment = new ContactDialogFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString(getString(R.string.phone),userPhone);
+            bundle.putString(getString(R.string.email),userEmail);
+            bundle.putString(getString(R.string.name),userName);
+            contactDialogFragment.setArguments(bundle);
             contactDialogFragment.show(getSupportFragmentManager(), contactDialogFragment.getTag());
         });
     }

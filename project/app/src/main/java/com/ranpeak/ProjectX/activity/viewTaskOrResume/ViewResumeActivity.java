@@ -27,6 +27,9 @@ public class ViewResumeActivity extends AppCompatActivity implements Activity {
     private TextView email;
     private TextView country;
     private Button contact;
+    private String userEmail;
+    private String userName;
+    private String userPhone;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,6 +58,9 @@ public class ViewResumeActivity extends AppCompatActivity implements Activity {
         Intent intent = getIntent();
         ResumeDTO resumeDTO = (ResumeDTO) intent.getSerializableExtra("ResumeObject");
 
+        userPhone = resumeDTO.getTelephone();
+        userEmail = resumeDTO.getUserEmail();
+        userName = resumeDTO.getUserName();
         subject.setText(resumeDTO.getSubject());
         description.setText(resumeDTO.getOpportunities());
         name.setText(resumeDTO.getUserName());
@@ -67,6 +73,11 @@ public class ViewResumeActivity extends AppCompatActivity implements Activity {
     public void onListener() {
         contact.setOnClickListener(v->{
             ContactDialogFragment contactDialogFragment = new ContactDialogFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString(getString(R.string.phone),userPhone);
+            bundle.putString(getString(R.string.email),userEmail);
+            bundle.putString(getString(R.string.name),userName);
+            contactDialogFragment.setArguments(bundle);
             contactDialogFragment.show(getSupportFragmentManager(), contactDialogFragment.getTag());
         });
     }

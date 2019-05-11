@@ -124,7 +124,8 @@ public class MyTaskFragment extends Fragment implements Activity {
                                 task.getDeadline(),
                                 task.getStatus(),
                                 task.getUserLogin(),
-                                task.getViews()
+                                task.getViews(),
+                                task.getTelephone()
                         )
                 );
                 call.enqueue(new Callback<TaskPOJO>() {
