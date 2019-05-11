@@ -1,4 +1,4 @@
-package com.ranpeak.ProjectX.activity;
+package com.ranpeak.ProjectX.activity.viewTaskOrResume;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.r0adkll.slidr.Slidr;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
+import com.ranpeak.ProjectX.activity.viewTaskOrResume.contact.ContactDialogFragment;
 import com.ranpeak.ProjectX.dto.ResumeDTO;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -25,13 +26,14 @@ public class ViewResumeActivity extends AppCompatActivity implements Activity {
     private TextView name;
     private TextView email;
     private TextView country;
-    private Button connect;
+    private Button contact;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_resume);
         findViewById();
+        onListener();
         setData();
         Slidr.attach(this);
     }
@@ -46,7 +48,7 @@ public class ViewResumeActivity extends AppCompatActivity implements Activity {
         name = findViewById(R.id.activity_resume_view_name);
         country = findViewById(R.id.activity_resume_view_country);
         email= findViewById(R.id.activity_resume_view_email);
-        connect = findViewById(R.id.activity_resume_view_button);
+        contact = findViewById(R.id.activity_resume_view_button);
     }
 
     private void setData(){
@@ -63,6 +65,9 @@ public class ViewResumeActivity extends AppCompatActivity implements Activity {
 
     @Override
     public void onListener() {
-
+        contact.setOnClickListener(v->{
+            ContactDialogFragment contactDialogFragment = new ContactDialogFragment();
+            contactDialogFragment.show(getSupportFragmentManager(), contactDialogFragment.getTag());
+        });
     }
 }

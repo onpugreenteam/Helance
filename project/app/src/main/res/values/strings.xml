@@ -257,6 +257,9 @@
     <string name="active">Active</string>
     <string name="not_active">Not active</string>
     <string name="opportunities">Opportunities</string>
+    <string name="choice_of_connection">Choice of connection</string>
+    <string name="emailcontact">emailContact</string>
+    <string name="phonecontact">phoneContact</string>
 
 
 </resources>

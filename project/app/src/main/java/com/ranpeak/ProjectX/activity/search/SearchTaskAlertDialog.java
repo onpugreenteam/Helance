@@ -1,4 +1,4 @@
-package com.ranpeak.ProjectX.activity;
+package com.ranpeak.ProjectX.activity.search;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

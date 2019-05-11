@@ -42,8 +42,7 @@ public class MyResumeListAdapter extends ListAdapter<ResumeDTO,  MyResumeListAda
                     && oldItem.getUserCountry().equals(newItem.getUserCountry())
                     && oldItem.getUserEmail().equals(newItem.getUserEmail())
                     && oldItem.getUserName().equals(newItem.getUserName())
-                    && oldItem.getUserLogin().equals(newItem.getUserLogin())
-                    ;
+                    && oldItem.getUserLogin().equals(newItem.getUserLogin());
         }
     };
 

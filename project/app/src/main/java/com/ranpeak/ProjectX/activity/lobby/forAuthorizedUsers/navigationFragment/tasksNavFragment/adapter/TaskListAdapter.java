@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.ranpeak.ProjectX.R;
-import com.ranpeak.ProjectX.activity.ViewTaskActivity;
+import com.ranpeak.ProjectX.activity.viewTaskOrResume.ViewTaskActivity;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.ILoadMore;
 import com.ranpeak.ProjectX.dto.TaskDTO;
 

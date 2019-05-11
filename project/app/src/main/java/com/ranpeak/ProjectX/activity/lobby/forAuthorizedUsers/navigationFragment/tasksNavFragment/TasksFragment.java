@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.ranpeak.ProjectX.R;
-import com.ranpeak.ProjectX.activity.SearchTaskAlertDialog;
+import com.ranpeak.ProjectX.activity.search.SearchTaskAlertDialog;
 import com.ranpeak.ProjectX.activity.creating.creatingTask.CreatingTaskActivity;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.tasksNavFragment.adapter.TaskListAdapter;

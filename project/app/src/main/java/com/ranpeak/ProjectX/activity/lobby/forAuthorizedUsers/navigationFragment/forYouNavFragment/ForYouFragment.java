@@ -1,6 +1,5 @@
 package com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.forYouNavFragment;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,12 +15,11 @@ import android.widget.ProgressBar;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 import com.ranpeak.ProjectX.R;
-import com.ranpeak.ProjectX.activity.SearchTaskAlertDialog;
+import com.ranpeak.ProjectX.activity.search.SearchTaskAlertDialog;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.forYouNavFragment.adapter.ForYouListAdapter;
 import com.ranpeak.ProjectX.dataBase.App;

@@ -9,7 +9,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import com.ranpeak.ProjectX.R;
-import com.ranpeak.ProjectX.activity.SearchTaskAlertDialog;
+import com.ranpeak.ProjectX.activity.search.SearchTaskAlertDialog;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.LobbyActivity;
 import com.ranpeak.ProjectX.activity.lobby.forGuestUsers.adapter.ViewPagerAdapter;

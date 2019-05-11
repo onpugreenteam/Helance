@@ -12,6 +12,7 @@
 
     <color name="color_cardView_background">#808080</color>
 
+    <color name="color_cardView_background2">#646464</color>
     <color name="colorAccent">#D33434</color>
     <color name="color_Gray">#95FFFFFF</color>
     <color name="color_Black">#000000</color>
