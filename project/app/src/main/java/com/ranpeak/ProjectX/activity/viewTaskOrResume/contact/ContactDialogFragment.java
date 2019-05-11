@@ -70,7 +70,8 @@ public class ContactDialogFragment extends BottomSheetDialogFragment implements 
     @Override
     public void onListener() {
         phoneField.setOnClickListener(v -> {
-
+            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", userPhone, null));
+            startActivity(intent);
         });
 
         emailField.setOnClickListener(v -> {
