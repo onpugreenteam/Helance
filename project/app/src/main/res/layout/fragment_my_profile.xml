@@ -22,8 +22,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/registration_phone_number"
-            android:textSize="20sp"
-            android:textColor="@color/darkText" />
+            android:textColor="@color/darkText"
+            android:textSize="20sp" />
 
         <View
             android:layout_width="match_parent"
@@ -45,8 +45,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/email_example"
-            android:textSize="20sp"
-            android:textColor="@color/darkText" />
+            android:textColor="@color/darkText"
+            android:textSize="20sp" />
 
         <View
             android:layout_width="match_parent"
@@ -68,91 +68,123 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/country"
-            android:textSize="20sp"
-            android:textColor="@color/darkText" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/color_Black" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/socialNetworkDTOS"
-            android:textColor="@color/colorPrimary"
-            android:textSize="25sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="@string/telegram"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/darkText"
             android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/fragment_my_profile_telegram"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/telegram_example"
-            android:textSize="20sp"
-            android:textColor="@color/darkText" />
-
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="5dp"
             android:background="@color/color_Black" />
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/fragment_my_profile_social_networks"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/instagram"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
+            android:orientation="vertical"
+            android:visibility="gone">
 
-        <TextView
-            android:id="@+id/fragment_my_profile_instagram"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/instagram"
-            android:textSize="20sp"
-            android:textColor="@color/darkText" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/color_Black" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/socialNetworkDTOS"
+                android:textColor="@color/colorPrimary"
+                android:textSize="25sp" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/facebook"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
+            <LinearLayout
+                android:id="@+id/fragment_my_profile_linear_telegram"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
 
-        <TextView
-            android:id="@+id/fragment_my_profile_facebook"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/facebook"
-            android:textSize="20sp"
-            android:textColor="@color/darkText" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/telegram"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/color_Black" />
+                <TextView
+                    android:id="@+id/fragment_my_profile_telegram"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/darkText"
+                    android:textSize="20sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/color_Black" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/fragment_my_profile_linear_instagram"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/instagram"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/fragment_my_profile_instagram"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/darkText"
+                    android:textSize="20sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/color_Black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/fragment_my_profile_linear_facebook"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/facebook"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/fragment_my_profile_facebook"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/darkText"
+                    android:textSize="20sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/color_Black" />
+
+            </LinearLayout>
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>

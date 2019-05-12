@@ -52,4 +52,9 @@ public interface ResumeDAO {
 
     @Query("SELECT COUNT(*) FROM MyResumeEntity WHERE userLogin=:userLogin")
     LiveData<Integer> getCountOfUsersResumes(String userLogin);
+
+    @Query("DELETE FROM MyResumeEntity")
+    void deleteAllUsersResumes();
+
+
 }

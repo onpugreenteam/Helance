@@ -1,6 +1,8 @@
 package com.ranpeak.ProjectX.activity;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -10,6 +12,9 @@ import android.widget.TextView;
 
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
+import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.MyProfileViewModel;
+import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.MyResumeViewModel;
+import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.MyTaskViewModel;
 import com.ranpeak.ProjectX.activity.lobby.forGuestUsers.LobbyForGuestActivity;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
 
@@ -24,7 +29,9 @@ public class SettingsActivity extends AppCompatActivity implements Activity {
     private CheckBox checkBox2;
     private Button button;
     private Button logOut;
-
+    private MyTaskViewModel taskViewModel;
+    private MyResumeViewModel resumeViewModel;
+    private MyProfileViewModel profileViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +58,7 @@ public class SettingsActivity extends AppCompatActivity implements Activity {
     public void onListener() {
         logOut.setOnClickListener(v->{
             SharedPrefManager.getInstance(this).logout();
+            removeAllDataFromLocalDB();
             Intent intent = new Intent(this, LobbyForGuestActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 //                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -76,5 +84,14 @@ public class SettingsActivity extends AppCompatActivity implements Activity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void removeAllDataFromLocalDB() {
+        profileViewModel = ViewModelProviders.of(this).get(MyProfileViewModel.class);
+        profileViewModel.deleteAllSocialNetworks();
+        taskViewModel = ViewModelProviders.of(this).get(MyTaskViewModel.class);
+        taskViewModel.deleteAllUsersTasks();
+        resumeViewModel = ViewModelProviders.of(this).get(MyResumeViewModel.class);
+        resumeViewModel.deleteAllUsersResumes();
     }
 }

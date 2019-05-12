@@ -43,8 +43,8 @@ public class MyTaskViewModel extends AndroidViewModel {
         repository.delete(taskDTO);
     }
 
-    public void deleteAll() {
-        repository.deleteAll();
+    public void deleteAllUsersTasks() {
+        repository.deleteAllUsersTasks();
     }
 
     public LiveData<Integer> getCountOfUsersTask(String userLogin) {

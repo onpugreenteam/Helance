@@ -60,4 +60,8 @@ public class MyResumeViewModel extends AndroidViewModel {
 
         return profileRepository.getUserNetworks(userLogin);
     }
+
+    public void deleteAllUsersResumes() {
+        repository.deleteAllUsersResumes();
+    }
 }

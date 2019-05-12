@@ -8,13 +8,17 @@ import com.ranpeak.ProjectX.dto.TaskDTO;
 import com.ranpeak.ProjectX.dto.pojo.ResumePOJO;
 import com.ranpeak.ProjectX.dto.pojo.SocialNetworkPOJO;
 import com.ranpeak.ProjectX.dto.pojo.TaskPOJO;
+import com.ranpeak.ProjectX.dto.pojo.UserPOJO;
+
 import java.util.List;
 import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface ApiService {
@@ -48,4 +52,24 @@ public interface ApiService {
 
     @POST("updateResume")
     Call<ResumePOJO> updateResume (@Body ResumePOJO resumePOJO);
+
+    @POST("updateUser/{login}/{name}/{country}/{email}/{telephone}")
+    Call<UserPOJO> updateUserInfo (@Path("login") String login, @Path("name") String name,
+                                   @Path("country")String country, @Path("email") String email,
+                                   @Path("telephone") String telephone);
+
+    @POST("updateSocialNetwork/{login}/{networkName}/{networkLogin}")
+    Call<SocialNetworkPOJO> updateSocialNetwork (
+            @Path("login") String userLogin,
+            @Path("networkName") String networkName,
+            @Path("networkLogin") String networkLogin);
+
+
+    @DELETE("deleteSocialNetwork/{login}/{networkName}")
+    Call<SocialNetworkPOJO> deleteSocialNetwork (
+            @Path("networkName") String networkName, @Path("login") String login
+//            @Body SocialNetworkPOJO socialNetworkPOJO
+    );
+
+
 }

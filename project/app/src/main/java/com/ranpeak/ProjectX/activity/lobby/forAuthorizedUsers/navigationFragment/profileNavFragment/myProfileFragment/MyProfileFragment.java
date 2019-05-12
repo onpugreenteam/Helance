@@ -5,9 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ranpeak.ProjectX.R;
@@ -19,6 +22,7 @@ import com.ranpeak.ProjectX.settings.SharedPrefManager;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class MyProfileFragment extends Fragment implements Activity {
 
@@ -30,6 +34,10 @@ public class MyProfileFragment extends Fragment implements Activity {
     private TextView telegram;
     private TextView instagram;
     private TextView facebook;
+    private LinearLayout sociallNetworks;
+    private LinearLayout linearTg;
+    private LinearLayout linearInt;
+    private LinearLayout linearFb;
 
     private MyProfileViewModel myProfileViewModel;
     private CompositeDisposable disposable = new CompositeDisposable();
@@ -51,6 +59,10 @@ public class MyProfileFragment extends Fragment implements Activity {
 
     @Override
     public void findViewById() {
+        sociallNetworks = view.findViewById(R.id.fragment_my_profile_social_networks);
+        linearTg = view.findViewById(R.id.fragment_my_profile_linear_telegram);
+        linearFb = view.findViewById(R.id.fragment_my_profile_linear_facebook);
+        linearInt = view.findViewById(R.id.fragment_my_profile_linear_instagram);
         phoneNumber = view.findViewById(R.id.fragment_my_profile_phone_number);
         email = view.findViewById(R.id.fragment_my_profile_email);
         country = view.findViewById(R.id.fragment_my_profile_country);
@@ -70,6 +82,7 @@ public class MyProfileFragment extends Fragment implements Activity {
         disposable.add(myProfileViewModel.getAllSocialNetworks(
                 String.valueOf(SharedPrefManager.getInstance(getContext()).getUserLogin())
                 )
+                        .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(socialNetworkDTOS -> {
                                     for (SocialNetworkDTO socialNetworkDTO : socialNetworkDTOS) {
@@ -81,12 +94,32 @@ public class MyProfileFragment extends Fragment implements Activity {
                                             facebook.setText(socialNetworkDTO.getNetworkLogin());
                                         }
                                     }
+                                    checkForEmptySocialNetworks();
                                 }
                         )
         );
-
         phoneNumber.setText(SharedPrefManager.getInstance(getContext()).getUserTelephone());
         email.setText(String.valueOf(SharedPrefManager.getInstance(getContext()).getUserEmail()));
         country.setText(String.valueOf(SharedPrefManager.getInstance(getContext()).getUserCountry()));
+    }
+
+    private void checkForEmptySocialNetworks() {
+        Log.d("tg_length", String.valueOf(telegram.getText().toString().trim().length()));
+        Log.d("fb_length", String.valueOf(facebook.getText().toString().trim().length()));
+        if (telegram.getText().toString().trim().length() != 0
+                || instagram.getText().toString().trim().length() != 0
+                || facebook.getText().toString().trim().length() != 0
+        ) {
+            sociallNetworks.setVisibility(View.VISIBLE);
+            if (telegram.getText().toString().trim().length() != 0) {
+                linearTg.setVisibility(View.VISIBLE);
+            }
+            if (instagram.getText().toString().trim().length() != 0) {
+                linearInt.setVisibility(View.VISIBLE);
+            }
+            if (facebook.getText().toString().trim().length() != 0) {
+                linearFb.setVisibility(View.VISIBLE);
+            }
+        }
     }
 }

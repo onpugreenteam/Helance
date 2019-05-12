@@ -3,6 +3,7 @@ package com.ranpeak.ProjectX.dataBase.local.repository;
 import android.annotation.SuppressLint;
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
+import android.content.Context;
 import android.databinding.ObservableList;
 import android.util.Log;
 
@@ -12,8 +13,10 @@ import com.ranpeak.ProjectX.dataBase.local.LocalDB;
 import com.ranpeak.ProjectX.dataBase.local.dao.ProfileDAO;
 import com.ranpeak.ProjectX.dto.SocialNetworkDTO;
 import com.ranpeak.ProjectX.dto.pojo.SocialNetworkPOJO;
+import com.ranpeak.ProjectX.dto.pojo.UserPOJO;
 import com.ranpeak.ProjectX.networking.retrofit.ApiService;
 import com.ranpeak.ProjectX.networking.retrofit.RetrofitClient;
+import com.ranpeak.ProjectX.settings.SharedPrefManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +37,7 @@ public class ProfileRepository {
 
     private ProfileDAO profileDAO;
     private ApiService apiService = RetrofitClient.getInstance().create(ApiService.class);
-
+    private Context context;
 
     public ProfileRepository() {
         LocalDB database = App.getInstance().getLocalDB();
@@ -62,6 +65,11 @@ public class ProfileRepository {
 
                     }
                 });
+        return profileDAO.getAllSocialNetworks();
+    }
+
+    @SuppressLint("CheckResult")
+    public Flowable<List<SocialNetworkDTO>> receiveSocialNetworks(String userLogin) {
         return profileDAO.getAllSocialNetworks();
     }
 
@@ -107,5 +115,62 @@ public class ProfileRepository {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe();
+    }
+
+    public void deleteAllSocialNetworks() {
+        Completable.fromRunnable(() -> {
+            profileDAO.deleteAllSocialNetworks();
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe();
+    }
+
+    public void updateUserInfo(String login, String name, String country, String email, String telephone) {
+        Call<UserPOJO> call = apiService.updateUserInfo(login,
+                name, country, email, telephone);
+        call.enqueue(new Callback<UserPOJO>() {
+            @Override
+            public void onResponse(Call<UserPOJO> call, Response<UserPOJO> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<UserPOJO> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void updateNetworks(String userLogin, String networkName, String networkLogin) {
+        Call<SocialNetworkPOJO> call = apiService.updateSocialNetwork(
+                userLogin, networkName, networkLogin
+        );
+        call.enqueue(new Callback<SocialNetworkPOJO>() {
+            @Override
+            public void onResponse(Call<SocialNetworkPOJO> call, Response<SocialNetworkPOJO> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<SocialNetworkPOJO> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void deleteNetwork(String socialNetwork, String login) {
+        Call<SocialNetworkPOJO> call = apiService.deleteSocialNetwork(socialNetwork, login);
+        call.enqueue(new Callback<SocialNetworkPOJO>() {
+            @Override
+            public void onResponse(Call<SocialNetworkPOJO> call, Response<SocialNetworkPOJO> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<SocialNetworkPOJO> call, Throwable t) {
+
+            }
+        });
     }
 }
