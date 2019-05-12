@@ -1,40 +1,28 @@
 package com.ranpeak.ProjectX.activity.creating.creatingResume;
 
 import android.app.FragmentManager;
-import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.android.volley.Request;
-import com.android.volley.toolbox.StringRequest;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.creating.LessonListFragment;
+import com.ranpeak.ProjectX.activity.creating.commands.CreatingResumeNavigator;
+import com.ranpeak.ProjectX.activity.creating.viewModel.CreatingResumeViewModel;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
-import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.MyResumeViewModel;
-import com.ranpeak.ProjectX.dto.ResumeDTO;
 import com.ranpeak.ProjectX.networking.volley.Constants;
-import com.ranpeak.ProjectX.networking.volley.RequestHandler;
-import com.ranpeak.ProjectX.settings.SharedPrefManager;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
-
-public class CreatingResumeActivity extends AppCompatActivity implements Activity {
+public class CreatingResumeActivity extends AppCompatActivity implements Activity, CreatingResumeNavigator {
 
     private final static int CREATING_RESUME_ACTIVITY = R.layout.activity_creating_resume;
 
@@ -43,7 +31,7 @@ public class CreatingResumeActivity extends AppCompatActivity implements Activit
     private TextView lessonPicker;
     private final FragmentManager fm = getFragmentManager();
     private final LessonListFragment lessonListFragment = new LessonListFragment();
-    private MyResumeViewModel resumeViewModel;
+    private CreatingResumeViewModel creatingResumeViewModel;
     private Button create;
 
     @Override
@@ -54,8 +42,9 @@ public class CreatingResumeActivity extends AppCompatActivity implements Activit
         findViewById();
         onListener();
         toolbar();
-        resumeViewModel = ViewModelProviders.of(this).get(MyResumeViewModel.class);
 
+        creatingResumeViewModel = new CreatingResumeViewModel(getApplicationContext());
+        creatingResumeViewModel.setNavigator(this);
     }
 
     @Override
@@ -157,7 +146,6 @@ public class CreatingResumeActivity extends AppCompatActivity implements Activit
         this.lessonPicker.setText(lesson);
     }
 
-
     // проверка всех полей на правильность
     // checking every field
     private void attemptCreatingResume() {
@@ -182,65 +170,25 @@ public class CreatingResumeActivity extends AppCompatActivity implements Activit
             }
         } else {
             postResume();
-//            Intent intent = new Intent(getApplicationContext(), LobbyActivity.class);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//            startActivity(intent);
-            Toast.makeText(getApplicationContext(), "done", Toast.LENGTH_SHORT).show();
             finish();
         }
     }
 
-    private void postResume() {
+    @Override
+    public void handleError(Throwable throwable) {
+        Log.d("Error post resume",throwable.getMessage());
+        Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
+    }
 
+    @Override
+    public void onComplete() {
+        Toast.makeText(getApplicationContext(), "Successful", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void postResume() {
         final String text = description.getText().toString().trim();
         final String typeLesson = lessonPicker.getText().toString().trim();
-
-        final DateFormat df = new SimpleDateFormat("d MMM yyyy");
-        final String dateStart = df.format(Calendar.getInstance().getTime());
-        final String status = "Active";
-        final String views = "0";
-
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                Constants.URL.ADD_RESUME,
-                response -> {
-                    Toast.makeText(getApplicationContext(), "Successful", Toast.LENGTH_LONG).show();
-
-                    ResumeDTO resume = new ResumeDTO();
-                    resume.setDateStart(dateStart);
-                    resume.setOpportunities(text);
-                    resume.setStatus(status);
-                    resume.setSubject(typeLesson);
-                    resume.setUserAvatar(String.valueOf(SharedPrefManager.getInstance(this).getUserAvatar()));
-                    resume.setUserCountry(String.valueOf(SharedPrefManager.getInstance(this).getUserCountry()));
-                    resume.setUserEmail(String.valueOf(SharedPrefManager.getInstance(this).getUserEmail()));
-                    resume.setUserLogin(String.valueOf(SharedPrefManager.getInstance(this).getUserLogin()));
-                    resume.setUserName(String.valueOf(SharedPrefManager.getInstance(this).getUserName()));
-                    resume.setViews(views);
-//                    Completable.fromRunnable(()->{
-
-//                        resumeViewModel.insert(resume);
-//                    })
-//                            .observeOn(AndroidSchedulers.mainThread())
-//                            .subscribe();
-
-                    finish();
-                },
-                error -> Toast.makeText(getApplicationContext(), "Please on Internet", Toast.LENGTH_LONG).show()) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("opportunities", text);
-                params.put("dateStart", dateStart);
-                params.put("users", String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()));
-                params.put("subject", typeLesson);
-                params.put("status", "Active");
-                params.put("views", views);
-                return params;
-            }
-
-        };
-        RequestHandler.getmInstance(this).addToRequestQueue(stringRequest);
+        creatingResumeViewModel.postResume(text,typeLesson);
     }
 }

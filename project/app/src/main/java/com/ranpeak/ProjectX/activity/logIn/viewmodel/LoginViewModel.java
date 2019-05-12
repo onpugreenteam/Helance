@@ -4,7 +4,6 @@ import android.content.Context;
 import android.databinding.ObservableInt;
 import android.util.Log;
 import android.view.View;
-
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.ranpeak.ProjectX.activity.lobby.DefaultSubscriber;
@@ -18,14 +17,11 @@ import com.ranpeak.ProjectX.networking.retrofit.RetrofitClient;
 import com.ranpeak.ProjectX.networking.volley.Constants;
 import com.ranpeak.ProjectX.networking.volley.RequestHandler;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
