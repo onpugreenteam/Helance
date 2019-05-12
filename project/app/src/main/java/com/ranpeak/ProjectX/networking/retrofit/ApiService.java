@@ -8,6 +8,8 @@ import com.ranpeak.ProjectX.dto.TaskDTO;
 import com.ranpeak.ProjectX.dto.pojo.ResumePOJO;
 import com.ranpeak.ProjectX.dto.pojo.SocialNetworkPOJO;
 import com.ranpeak.ProjectX.dto.pojo.TaskPOJO;
+import com.ranpeak.ProjectX.dto.pojo.UserPOJO;
+
 import java.util.List;
 import io.reactivex.Observable;
 import retrofit2.Call;
