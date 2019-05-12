@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -16,7 +15,6 @@ import com.r0adkll.slidr.Slidr;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.MyResumeViewModel;
-import com.ranpeak.ProjectX.activity.lobby.viewModel.ResumeViewModel;
 import com.ranpeak.ProjectX.activity.viewTaskOrResume.contact.ContactDialogFragment;
 import com.ranpeak.ProjectX.dto.ResumeDTO;
 import com.ranpeak.ProjectX.dto.SocialNetworkDTO;
@@ -24,14 +22,11 @@ import com.ranpeak.ProjectX.networking.retrofit.ApiService;
 import com.ranpeak.ProjectX.networking.retrofit.RetrofitClient;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
 
-import java.util.List;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
 
 public class ViewResumeActivity extends AppCompatActivity implements Activity {
@@ -100,7 +95,6 @@ public class ViewResumeActivity extends AppCompatActivity implements Activity {
     private void setData() {
         Intent intent = getIntent();
         ResumeDTO resumeDTO = (ResumeDTO) intent.getSerializableExtra("ResumeObject");
-
 
         userPhone = resumeDTO.getTelephone();
         userEmail = resumeDTO.getUserEmail();

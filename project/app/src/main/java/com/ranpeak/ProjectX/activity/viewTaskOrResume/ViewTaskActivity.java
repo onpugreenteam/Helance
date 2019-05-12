@@ -1,5 +1,6 @@
 package com.ranpeak.ProjectX.activity.viewTaskOrResume;
 
+import android.annotation.SuppressLint;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,31 +12,23 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.r0adkll.slidr.Slidr;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.MyTaskViewModel;
-import com.ranpeak.ProjectX.activity.lobby.viewModel.TaskViewModel;
 import com.ranpeak.ProjectX.activity.viewTaskOrResume.contact.ContactDialogFragment;
 import com.ranpeak.ProjectX.dto.SocialNetworkDTO;
 import com.ranpeak.ProjectX.dto.TaskDTO;
 import com.ranpeak.ProjectX.networking.retrofit.ApiService;
 import com.ranpeak.ProjectX.networking.retrofit.RetrofitClient;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
-
-import java.util.List;
 import java.util.Objects;
-
 import de.hdodenhof.circleimageview.CircleImageView;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
 
 public class ViewTaskActivity extends AppCompatActivity implements Activity {
-
 
     private TextView subject;
     private TextView header;
@@ -53,6 +46,8 @@ public class ViewTaskActivity extends AppCompatActivity implements Activity {
     private String userIntagram;
     private String userFacebook;
 
+    TaskDTO taskDTO;
+
     private MyTaskViewModel taskViewModel;
     private CompositeDisposable disposable = new CompositeDisposable();
 
@@ -69,6 +64,8 @@ public class ViewTaskActivity extends AppCompatActivity implements Activity {
         onListener();
         setData();
         Slidr.attach(this);
+
+        updateViews();
     }
 
     @Override
@@ -84,10 +81,20 @@ public class ViewTaskActivity extends AppCompatActivity implements Activity {
         contact = findViewById(R.id.activity_task_view_button);
     }
 
+    @SuppressLint("CheckResult")
+    private void updateViews(){
+        apiService.updateTaskViews(taskDTO.getId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(taskDTO1 ->
+                                Log.d("OK", String.valueOf(taskDTO1.getId())),
+                           throwable ->
+                                   Log.d("Error",throwable.getMessage()));
+    }
 
     private void setData(){
         Intent intent = getIntent();
-        TaskDTO taskDTO = (TaskDTO) intent.getSerializableExtra("TaskObject");
+        taskDTO = (TaskDTO) intent.getSerializableExtra("TaskObject");
 
         userEmail = taskDTO.getUserEmail();
         userPhone = taskDTO.getTelephone();

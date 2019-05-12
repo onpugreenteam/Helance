@@ -48,4 +48,7 @@ public interface ApiService {
 
     @POST("updateResume")
     Call<ResumePOJO> updateResume (@Body ResumePOJO resumePOJO);
+
+    @GET("updateTask/views/{id}")
+    Observable<TaskDTO> updateTaskViews(@Path("id") long id);
 }
