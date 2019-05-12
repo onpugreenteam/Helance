@@ -15,6 +15,9 @@ public class SharedPrefManager {
     private static final String KEY_COUNTRY = "user_country";
     private static final String KEY_AVATAR = null;
     private static final String KEY_TELEPHONE = "user_telephone";
+    private static final String KEY_TELEGRAM = "user_telegram";
+    private static final String KEY_INSTAGRAM = "user_instagram";
+    private static final String KEY_FACEBOOK = "user_facebook";
 
     private SharedPrefManager(Context context){
         mCtx = context;

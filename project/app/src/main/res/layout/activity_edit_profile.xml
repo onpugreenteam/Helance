@@ -131,7 +131,7 @@
                 android:id="@+id/edit_profile_social_network_instagramm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/instagramm"
+                android:text="@string/instagram"
                 android:textColor="@color/darkText"
                 android:textSize="16sp" />
 
@@ -141,7 +141,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="20dp"
-                android:hint="@string/instagramm"
+                android:hint="@string/instagram"
                 android:maxLines="1"
                 android:singleLine="true"
                 android:textColorHint="@color/textOnPrimary"

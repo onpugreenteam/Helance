@@ -6,6 +6,7 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
 import com.ranpeak.ProjectX.dataBase.local.dao.NetworkDAO;
+import com.ranpeak.ProjectX.dataBase.local.dao.ProfileDAO;
 import com.ranpeak.ProjectX.dataBase.local.dao.ResumeDAO;
 import com.ranpeak.ProjectX.dataBase.local.dao.TaskDAO;
 
@@ -25,6 +26,10 @@ public abstract class LocalDB extends RoomDatabase {
     public abstract ResumeDAO resumeDAO();
 
     public abstract NetworkDAO networkDAO();
+
+    public abstract ProfileDAO profileDAO();
+
+
 
     public static synchronized LocalDB getInstance(Context context){
         if(instance==null){

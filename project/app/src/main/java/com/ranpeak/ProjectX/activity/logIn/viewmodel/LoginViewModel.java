@@ -159,32 +159,34 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
     }
 
     private void addNetworksToLocalDB(List<SocialNetworkDTO> socialNetworkDTOS) {
-        Observable.fromCallable(() -> localDB.networkDAO().insertNetworks(socialNetworkDTOS))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultSubscriber<List<Long>>(){
-                    @Override
-                    public void onSubscribe(@io.reactivex.annotations.NonNull Disposable d) {
-                        super.onSubscribe(d);
-                    }
+        if(socialNetworkDTOS!=null) {
+            Observable.fromCallable(() -> localDB.networkDAO().insertNetworks(socialNetworkDTOS))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new DefaultSubscriber<List<Long>>() {
+                        @Override
+                        public void onSubscribe(@io.reactivex.annotations.NonNull Disposable d) {
+                            super.onSubscribe(d);
+                        }
 
-                    @Override
-                    public void onNext(@io.reactivex.annotations.NonNull List<Long> longs) {
-                        super.onNext(longs);
-                        Log.d("AddNetwork","insert countries transaction complete");
-                    }
+                        @Override
+                        public void onNext(@io.reactivex.annotations.NonNull List<Long> longs) {
+                            super.onNext(longs);
+                            Log.d("AddNetwork", "insert countries transaction complete");
+                        }
 
-                    @Override
-                    public void onError(@io.reactivex.annotations.NonNull Throwable e) {
-                        super.onError(e);
-                        Log.d("AddNetwork","error storing countries in db"+e);
-                    }
+                        @Override
+                        public void onError(Throwable e) {
+                            super.onError(e);
+                            Log.d("AddNetwork", "error storing countries in db" + e.getMessage());
+                        }
 
-                    @Override
-                    public void onComplete() {
-                        Log.d("AddNetwork","insert countries transaction complete");
-                    }
-                });
+                        @Override
+                        public void onComplete() {
+                            Log.d("AddNetwork", "insert countries transaction complete");
+                        }
+                    });
+        }
     }
 
 }

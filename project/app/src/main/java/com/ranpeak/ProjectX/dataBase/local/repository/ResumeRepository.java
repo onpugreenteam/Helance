@@ -123,7 +123,6 @@ public class ResumeRepository {
                     @Override
                     public void onNext(List<MyResumeDTO> taskDTOS) {
                         refreshAllUsersResumes(taskDTOS);
-
                     }
 
                     @Override

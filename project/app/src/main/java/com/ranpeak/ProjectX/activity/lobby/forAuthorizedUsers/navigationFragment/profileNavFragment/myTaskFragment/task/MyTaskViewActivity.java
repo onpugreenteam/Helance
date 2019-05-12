@@ -106,9 +106,9 @@ public class MyTaskViewActivity extends AppCompatActivity implements Activity {
     }
 
     private void setData(MyTaskDTO taskDTO) {
-        Glide.with(getApplicationContext())
-                .load(taskDTO.getUserAvatar())
-                .into(avatar);
+//        Glide.with(getApplicationContext())
+//                .load(taskDTO.getUserAvatar())
+//                .into(avatar);
         subject.setText(taskDTO.getSubject());
         header.setText(taskDTO.getHeadLine());
         description.setText(taskDTO.getDescription());

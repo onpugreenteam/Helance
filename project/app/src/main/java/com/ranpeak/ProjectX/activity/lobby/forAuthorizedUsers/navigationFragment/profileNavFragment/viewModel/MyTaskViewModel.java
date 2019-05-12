@@ -4,8 +4,10 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 
+import com.ranpeak.ProjectX.dataBase.local.repository.ProfileRepository;
 import com.ranpeak.ProjectX.dataBase.local.repository.TaskRepository;
 import com.ranpeak.ProjectX.dto.MyTaskDTO;
+import com.ranpeak.ProjectX.dto.SocialNetworkDTO;
 import com.ranpeak.ProjectX.dto.TaskDTO;
 
 import org.jetbrains.annotations.NotNull;
@@ -13,13 +15,16 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 import io.reactivex.Flowable;
+import io.reactivex.Observable;
 
 public class MyTaskViewModel extends AndroidViewModel {
     private TaskRepository repository;
+    private ProfileRepository profileRepository;
 
     public MyTaskViewModel(@NotNull Application application) {
         super(application);
         repository = new TaskRepository();
+        profileRepository = new ProfileRepository();
     }
 
     public void insert(TaskDTO taskDTO) {
@@ -56,5 +61,9 @@ public class MyTaskViewModel extends AndroidViewModel {
 
     public Flowable<MyTaskDTO> getTaskById(long id) {
         return repository.getTaskById(id);
+    }
+
+    public Observable<List<SocialNetworkDTO>> getUserNetworks(String userLogin) {
+        return profileRepository.getUserNetworks(userLogin);
     }
 }

@@ -43,8 +43,14 @@ public class Constants {
         }
 
         public static final String[] LESSONS = new String[]{
-                "Maths", "Physics","Programming","Economic","Philosophy","English","Other"
+                "Art",
+                "Maths", "Physics", "Programming", "Economic",
+                "Philosophy", "English", "History", "Other"
         };
+
+        public static final String TELEGRAM = "Telegram";
+        public static final String INSTAGRAM = "Instagram";
+        public static final String FACEBOOK = "Facebook";
     }
 
     public static final class Codes {

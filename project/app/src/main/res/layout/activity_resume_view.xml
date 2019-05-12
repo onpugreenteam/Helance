@@ -122,6 +122,7 @@
         android:layout_marginBottom="8dp"
         android:background="@drawable/rectangle_rounded_button"
         android:text="@string/contact"
+        android:visibility="gone"
         android:textColor="@color/colorSecondaryLight"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

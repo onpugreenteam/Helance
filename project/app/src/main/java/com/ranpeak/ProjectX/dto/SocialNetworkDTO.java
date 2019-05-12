@@ -33,15 +33,22 @@ public class SocialNetworkDTO implements Serializable {
     @Expose
     private String networkLogin;
 
+    @JsonProperty("userLogin")
+    @ColumnInfo(name = "userLogin")
+    @Expose
+    private String userLogin;
+
     public SocialNetworkDTO() {
     }
 
     @Ignore
-    public SocialNetworkDTO(long idNetwork, String networkName, String networkLogin) {
+    public SocialNetworkDTO(long idNetwork, String networkName, String networkLogin, String userLogin) {
         this.idNetwork = idNetwork;
         this.networkName = networkName;
         this.networkLogin = networkLogin;
+        this.userLogin = userLogin;
     }
+
 
     public long getIdNetwork() {
         return idNetwork;
@@ -65,5 +72,13 @@ public class SocialNetworkDTO implements Serializable {
 
     public void setNetworkLogin(String networkLogin) {
         this.networkLogin = networkLogin;
+    }
+
+    public String getUserLogin() {
+        return userLogin;
+    }
+
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
     }
 }

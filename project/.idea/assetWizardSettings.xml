@@ -11,27 +11,13 @@
                   <entry key="vectorAssetStep">
                     <value>
                       <PersistentState>
-                        <option name="children">
-                          <map>
-                            <entry key="clipartAsset">
-                              <value>
-                                <PersistentState>
-                                  <option name="values">
-                                    <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/communication/ic_phone_black_24dp.xml" />
-                                    </map>
-                                  </option>
-                                </PersistentState>
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
                         <option name="values">
                           <map>
+                            <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="808080" />
-                            <entry key="outputName" value="ic_phone_black_24dp" />
+                            <entry key="outputName" value="ic_facebook" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="E:\Andrey\work\java\projectX\client\greenteamproject\project\app\src\main\res\drawable\google_svg.svg" />
+                            <entry key="sourceFile" value="D:\Andrey\Downloads\iconfinder_Facebook_194929.svg" />
                           </map>
                         </option>
                       </PersistentState>

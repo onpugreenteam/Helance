@@ -113,7 +113,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="8dp"
-            android:text="@string/instagramm"
+            android:text="@string/instagram"
             android:textColor="@color/colorPrimary"
             android:textSize="20sp" />
 
@@ -121,7 +121,7 @@
             android:id="@+id/fragment_my_profile_instagram"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/instagramm"
+            android:text="@string/instagram"
             android:textSize="20sp"
             android:textColor="@color/darkText" />
 

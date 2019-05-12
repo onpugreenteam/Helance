@@ -6,6 +6,7 @@ import com.ranpeak.ProjectX.dto.ResumeDTO;
 import com.ranpeak.ProjectX.dto.SocialNetworkDTO;
 import com.ranpeak.ProjectX.dto.TaskDTO;
 import com.ranpeak.ProjectX.dto.pojo.ResumePOJO;
+import com.ranpeak.ProjectX.dto.pojo.SocialNetworkPOJO;
 import com.ranpeak.ProjectX.dto.pojo.TaskPOJO;
 import java.util.List;
 import io.reactivex.Observable;
@@ -32,6 +33,9 @@ public interface ApiService {
 
     @GET("getAllSocialNetworks/for/user/{login}")
     Observable<List<SocialNetworkDTO>> getAllUserNetworks(@Path("login") String login);
+
+    @POST("addNetwork")
+    Call<SocialNetworkPOJO> addUserNetwork(@Body SocialNetworkPOJO socialNetworkPOJO);
 
     @DELETE("deleteTask/{taskId}")
     Call<MyTaskDTO> deleteTask(@Path("taskId") long id);

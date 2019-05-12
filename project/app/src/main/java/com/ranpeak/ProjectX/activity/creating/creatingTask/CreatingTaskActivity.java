@@ -304,15 +304,15 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
 
         if (!stringContainsItemFromList(lessonPicker.getText().toString(), Constants.Values.LESSONS)) {
             cancel = true;
-        } else if (typeName.getText().toString().isEmpty()) {
+        } else if (typeName.getText().toString().trim().isEmpty()) {
             cancel = true;
             focusView = typeName;
             typeName.setError(getString(R.string.error_field_required));
-        } else if (taskDescription.getText().toString().isEmpty()) {
+        } else if (taskDescription.getText().toString().trim().isEmpty()) {
             cancel = true;
             focusView = taskDescription;
             taskDescription.setError(getString(R.string.error_field_required));
-        } else if (taskPrice.getText().toString().isEmpty()) {
+        } else if (taskPrice.getText().toString().trim().isEmpty()) {
             cancel = true;
             focusView = taskPrice;
             taskPrice.setError(getString(R.string.error_field_required));

@@ -169,7 +169,7 @@ public class CreatingResumeActivity extends AppCompatActivity implements Activit
 
         if (!stringContainsItemFromList(lessonPicker.getText().toString(), Constants.Values.LESSONS)) {
             cancel = true;
-        } else if (description.getText().toString().isEmpty()) {
+        } else if (description.getText().toString().trim().isEmpty()) {
             cancel = true;
             focusView = description;
             description.setError(getString(R.string.error_field_required));

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_contact_dialog_parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
             </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.ConstraintLayout
-                android:id="@+id/emailField"
+                android:id="@+id/fragment_contact_dialog_emailField"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_marginTop="8dp"
@@ -90,7 +90,7 @@
             </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.ConstraintLayout
-                android:id="@+id/phoneField"
+                android:id="@+id/fragment_contact_dialog_phoneField"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_marginTop="8dp"
@@ -99,7 +99,7 @@
                 android:foreground="?android:attr/selectableItemBackground"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/emailField">
+                app:layout_constraintTop_toBottomOf="@+id/fragment_contact_dialog_emailField">
 
                 <ImageView
                     android:id="@+id/fragment_contact_dialog_imagePhone"
@@ -125,6 +125,121 @@
                     card:layout_constraintStart_toEndOf="@+id/fragment_contact_dialog_imagePhone"
                     card:layout_constraintTop_toTopOf="parent" />
             </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/fragment_contact_dialog_telegramField"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_contact_dialog_phoneField">
+
+                <ImageView
+                    android:id="@+id/fragment_contact_dialog_imageTelegram"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    app:srcCompat="@drawable/ic_telegram"
+                    card:layout_constraintBottom_toBottomOf="parent"
+                    card:layout_constraintStart_toStartOf="parent"
+                    card:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/fragment_contact_dialog_telegram"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/telegram"
+                    card:layout_constraintBottom_toBottomOf="parent"
+                    card:layout_constraintStart_toEndOf="@+id/fragment_contact_dialog_imageTelegram"
+                    card:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/fragment_contact_dialog_instagramField"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_contact_dialog_telegramField">
+
+                <ImageView
+                    android:id="@+id/fragment_contact_dialog_imageInstagram"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    app:srcCompat="@drawable/ic_instagram"
+                    card:layout_constraintBottom_toBottomOf="parent"
+                    card:layout_constraintStart_toStartOf="parent"
+                    card:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/fragment_contact_dialog_instagram"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/instagram"
+                    card:layout_constraintBottom_toBottomOf="parent"
+                    card:layout_constraintStart_toEndOf="@+id/fragment_contact_dialog_imageInstagram"
+                    card:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/fragment_contact_dialog_facebookField"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_contact_dialog_instagramField">
+
+                <ImageView
+                    android:id="@+id/fragment_contact_dialog_imageFacebook"
+                    android:layout_width="17dp"
+                    android:layout_height="18dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    app:srcCompat="@drawable/ic_facebook"
+                    card:layout_constraintBottom_toBottomOf="parent"
+                    card:layout_constraintStart_toStartOf="parent"
+                    card:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/fragment_contact_dialog_facebook"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/facebook"
+                    card:layout_constraintBottom_toBottomOf="parent"
+                    card:layout_constraintStart_toEndOf="@+id/fragment_contact_dialog_imageFacebook"
+                    card:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 </RelativeLayout>

@@ -124,9 +124,9 @@ public class MyResumeViewActivity extends AppCompatActivity implements Activity 
     }
 
     private void setData(MyResumeDTO resumeDTO) {
-        Glide.with(getApplicationContext())
-                .load(resumeDTO.getUserAvatar())
-                .into(avatar);
+//        Glide.with(getApplicationContext())
+//                .load(resumeDTO.getUserAvatar())
+//                .into(avatar);
         subject.setText(resumeDTO.getSubject());
         opportunities.setText(resumeDTO.getOpportunities());
         userCountry.setText(resumeDTO.getUserCountry());
