@@ -8,17 +8,13 @@ import com.ranpeak.ProjectX.dto.TaskDTO;
 import com.ranpeak.ProjectX.dto.pojo.ResumePOJO;
 import com.ranpeak.ProjectX.dto.pojo.SocialNetworkPOJO;
 import com.ranpeak.ProjectX.dto.pojo.TaskPOJO;
-import com.ranpeak.ProjectX.dto.pojo.UserPOJO;
-
 import java.util.List;
 import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
-import retrofit2.http.HTTP;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface ApiService {
@@ -52,6 +48,9 @@ public interface ApiService {
 
     @POST("updateResume")
     Call<ResumePOJO> updateResume (@Body ResumePOJO resumePOJO);
+
+    @GET("updateTask/views/{id}")
+    Observable<TaskDTO> updateTaskViews(@Path("id") long id);
 
     @POST("updateUser/{login}/{name}/{country}/{email}/{telephone}")
     Call<UserPOJO> updateUserInfo (@Path("login") String login, @Path("name") String name,

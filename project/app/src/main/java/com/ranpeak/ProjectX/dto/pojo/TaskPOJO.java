@@ -20,14 +20,14 @@ public class TaskPOJO {
 
     private String user;
 
-    private String views;
+    private int views;
 
     private String telephone;
 
     public TaskPOJO() {
     }
 
-    public TaskPOJO(long id, String subject, String headLine, String description, String dateStart, float price, String deadline, String status, String userLogin, String views, String telephone) {
+    public TaskPOJO(long id, String subject, String headLine, String description, String dateStart, float price, String deadline, String status, String userLogin, int views, String telephone) {
         this.id = id;
         this.subject = subject;
         this.headLine = headLine;
@@ -113,11 +113,11 @@ public class TaskPOJO {
         this.user = userLogin;
     }
 
-    public String getViews() {
+    public int getViews() {
         return views;
     }
 
-    public void setViews(String views) {
+    public void setViews(int views) {
         this.views = views;
     }
 

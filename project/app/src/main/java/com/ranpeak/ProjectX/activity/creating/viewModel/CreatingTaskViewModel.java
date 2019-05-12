@@ -36,12 +36,12 @@ public class CreatingTaskViewModel extends BaseViewModel<CreatingTaskNavigator> 
 
         DateFormat df = new SimpleDateFormat("d MMM yyyy");
         final String dateStart = df.format(Calendar.getInstance().getTime());
-        final String views = "0";
+        final int views = 0;
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 Constants.URL.ADD_TASK,
                 response -> {
-
+                         getNavigator().onComplete();
                 },
                 error -> getNavigator().handleError(error)) {
 
@@ -56,7 +56,7 @@ public class CreatingTaskViewModel extends BaseViewModel<CreatingTaskNavigator> 
                 params.put("subject", subject);
                 params.put("price", String.valueOf(price));
                 params.put("status", status);
-                params.put("views", views);
+                params.put("views", String.valueOf(views));
                 return params;
             }
         };

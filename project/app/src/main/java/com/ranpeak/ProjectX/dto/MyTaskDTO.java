@@ -6,14 +6,10 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
-import java.util.List;
-
-import io.reactivex.Scheduler;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Entity(tableName = "MyTaskEntity")
@@ -92,7 +88,7 @@ public class MyTaskDTO implements Serializable {
     @SerializedName("views")
     @ColumnInfo (name = "views")
     @Expose
-    private String views;
+    private int views;
 
     @SerializedName("telephone")
     @ColumnInfo (name = "telephone")
@@ -103,7 +99,7 @@ public class MyTaskDTO implements Serializable {
     }
 
     @Ignore
-    public MyTaskDTO(long id, String subject, String headLine, String description, String dateStart, float price, String deadline, String status, String userLogin, String userEmail, String userName, String userAvatar, String userCountry, String fileTasks, String views, String telephone) {
+    public MyTaskDTO(long id, String subject, String headLine, String description, String dateStart, float price, String deadline, String status, String userLogin, String userEmail, String userName, String userAvatar, String userCountry, String fileTasks, int views, String telephone) {
         this.id = id;
         this.subject = subject;
         this.headLine = headLine;
@@ -235,11 +231,11 @@ public class MyTaskDTO implements Serializable {
         this.userCountry = userCountry;
     }
 
-    public String getViews() {
+    public int getViews() {
         return views;
     }
 
-    public void setViews(String views) {
+    public void setViews(int views) {
         this.views = views;
     }
 

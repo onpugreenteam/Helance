@@ -6,21 +6,17 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
-import java.util.List;
-
-import io.reactivex.Scheduler;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Entity(tableName = "TaskEntity")
 public class TaskDTO implements Serializable {
 
     @SerializedName("id")
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = false)
     @Expose
     private long id;
 
