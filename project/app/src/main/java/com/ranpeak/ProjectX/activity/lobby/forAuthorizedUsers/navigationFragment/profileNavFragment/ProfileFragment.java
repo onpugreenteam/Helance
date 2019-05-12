@@ -300,7 +300,6 @@ public class ProfileFragment extends Fragment implements Activity {
         rQueue.add(volleyMultipartRequest);
     }
 
-
     private void initFragments(ViewPager viewPager) {
         ProfileFragmentPagerAdapter adapter = new ProfileFragmentPagerAdapter(getFragmentManager());
         viewPager.setAdapter(adapter);
@@ -311,5 +310,12 @@ public class ProfileFragment extends Fragment implements Activity {
 
     private void updateProfileFragment() {
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        swipeRefreshLayout.setRefreshing(true);
+        swipeRefreshLayout.setRefreshing(false);
     }
 }
