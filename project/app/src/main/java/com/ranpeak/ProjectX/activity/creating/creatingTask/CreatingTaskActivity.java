@@ -3,7 +3,6 @@ package com.ranpeak.ProjectX.activity.creating.creatingTask;
 import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.FragmentManager;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -17,6 +16,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -27,39 +27,24 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.android.volley.Request;
-import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
 import com.github.chrisbanes.photoview.PhotoView;
-import com.karumi.dexter.Dexter;
-import com.karumi.dexter.MultiplePermissionsReport;
-import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.creating.LessonListFragment;
+import com.ranpeak.ProjectX.activity.creating.commands.CreatingTaskNavigator;
+import com.ranpeak.ProjectX.activity.creating.viewModel.CreatingTaskViewModel;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
-import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.MyTaskViewModel;
-import com.ranpeak.ProjectX.dto.TaskDTO;
 import com.ranpeak.ProjectX.networking.volley.Constants;
-import com.ranpeak.ProjectX.networking.volley.RequestHandler;
-import com.ranpeak.ProjectX.settings.SharedPrefManager;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
-public class CreatingTaskActivity extends AppCompatActivity implements Activity {
+public class CreatingTaskActivity extends AppCompatActivity implements Activity, CreatingTaskNavigator {
 
     private EditText typeName;
     private EditText taskDescription;
     private TextView textViewDescriptionLength;
-    private int descriptionLength = 0;
     private EditText taskPrice;
     private TextView datePicker;
     private TextView lessonPicker;
@@ -74,8 +59,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
     private List<ImageView> imageViewList = new ArrayList<>();
     private final FragmentManager fm = getFragmentManager();
     private final LessonListFragment lessonListFragment = new LessonListFragment();
-    private MyTaskViewModel myTaskViewModel;
-
+    private CreatingTaskViewModel creatingTaskViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,32 +69,28 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
         toolbar();
         findViewById();
         onListener();
-        requestMultiplePermissions();
+
         // Спрашмвает пользователя разрешение на доступ к галерее(если он его не давал еще)
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
                 PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     REQUEST_PERMISSION);
         }
-        myTaskViewModel = ViewModelProviders.of(this).get(MyTaskViewModel.class);
+
+        creatingTaskViewModel = new CreatingTaskViewModel(getApplicationContext());
+        creatingTaskViewModel.setNavigator(this);
     }
 
     @Override
     public void findViewById() {
-        // start fragmentActivity to choose lesson
         lessonPicker = findViewById(R.id.creating_task_lesson_picker);
-
         typeName = findViewById(R.id.creating_task_name);
         taskDescription = findViewById(R.id.creating_task_description);
         textViewDescriptionLength = findViewById(R.id.creating_task_description_length);
-
         taskPrice = findViewById(R.id.creating_task_price);
         checkBox = findViewById(R.id.creating_task_check_box);
-
         create = findViewById(R.id.creating_task_button);
-
         datePicker = findViewById(R.id.date_picker);
-
         linearLayout = findViewById(R.id.creating_task_linear_layout_files);
         selectImages = findViewById(R.id.creating_task_choose_image_for_task);
         horizontalScrollView = findViewById(R.id.creating_task_scroll_view_files);
@@ -180,13 +160,6 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                // todo: goto back activity from here
-
-//                Intent intent = new Intent(CreatingTaskActivity.this, LobbyActivity.class);
-////                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-//                startActivity(intent);
-//                finish();
-
                 // если пустых полей нет, то открывается диалог с потверждение закрытия окна
                 if (!allFieldsEmpty()) {
                     openDialog();
@@ -194,7 +167,6 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
                 // если ни одно из полей не заполнено, то окно закрывается без открытия диалога
                 else finish();
                 return true;
-
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -259,34 +231,6 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
         }
     }
 
-    // Запрашивает у пользователя разрешение на доступ к галерее
-    private void requestMultiplePermissions() {
-        Dexter.withActivity(this)
-                .withPermissions(
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.READ_EXTERNAL_STORAGE)
-                .withListener(new MultiplePermissionsListener() {
-                    @Override
-                    public void onPermissionsChecked(MultiplePermissionsReport report) {
-                        // check if all permissions are granted
-                        if (report.areAllPermissionsGranted()) {
-                            Toast.makeText(getApplicationContext(), "All permissions are granted by user!", Toast.LENGTH_SHORT).show();
-                        }
-
-                        // check for permanent denial of any permission
-                        // show alert dialog navigating to Settings
-                    }
-
-                    @Override
-                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
-                        token.continuePermissionRequest();
-                    }
-                }).
-                withErrorListener(error -> Toast.makeText(getApplicationContext(), "Some Error! ", Toast.LENGTH_SHORT).show())
-                .onSameThread()
-                .check();
-    }
-
     // устанавливает в поле LessonPicker выбранный пользователем предмет
     public void setLessonPicker(String lesson) {
         this.lessonPicker.setText(lesson);
@@ -327,10 +271,6 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
             }
         } else {
             postTask();
-//            Intent intent = new Intent(getApplicationContext(), LobbyActivity.class);
-//                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                        startActivity(intent);
-            Toast.makeText(getApplicationContext(), "done", Toast.LENGTH_SHORT).show();
             finish();
         }
     }
@@ -355,62 +295,24 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity 
         return false;
     }
 
-    private void postTask() {
+    @Override
+    public void handleError(Throwable throwable) {
+        Log.d("Task post error",throwable.getMessage());
+        Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onComplete() {
+        Toast.makeText(getApplicationContext(), "Successful", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void postTask() {
         final String headline = typeName.getText().toString().trim();
         final String descrpiption = taskDescription.getText().toString().trim();
         final String dateEnd = datePicker.getText().toString().trim();
         final String subject = lessonPicker.getText().toString().trim();
         final float price = Float.parseFloat(taskPrice.getText().toString().trim());
-        final String status = "Active";
-
-        DateFormat df = new SimpleDateFormat("d MMM yyyy");
-        final String dateStart = df.format(Calendar.getInstance().getTime());
-        final String views = "0";
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                Constants.URL.ADD_TASK,
-                response -> {
-                    Toast.makeText(getApplicationContext(), "Successful", Toast.LENGTH_LONG).show();
-                    TaskDTO task = new TaskDTO(
-                    );
-                    task.setDateStart(dateStart);
-                    task.setDeadline(dateEnd);
-                    task.setDescription(descrpiption);
-                    task.setFileTasks(null);
-                    task.setHeadLine(headline);
-                    task.setPrice(price);
-                    task.setStatus(status);
-                    task.setSubject(subject);
-                    task.setUserAvatar(String.valueOf(SharedPrefManager.getInstance(this).getUserAvatar()));
-                    task.setUserCountry(String.valueOf(SharedPrefManager.getInstance(this).getUserCountry()));
-                    task.setUserEmail(String.valueOf(SharedPrefManager.getInstance(this).getUserEmail()));
-                    task.setUserLogin(String.valueOf(SharedPrefManager.getInstance(this).getUserLogin()));
-                    task.setUserName(String.valueOf(SharedPrefManager.getInstance(this).getUserName()));
-                    task.setViews(views);
-
-                    finish();
-                },
-                error -> Toast.makeText(
-
-                        getApplicationContext(), "Please on Internet", Toast.LENGTH_LONG).
-
-                        show()) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("headLine", headline);
-                params.put("description", descrpiption);
-                params.put("dateStart", dateStart);
-                params.put("deadline", dateEnd);
-                params.put("user", String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()));
-                params.put("subject", subject);
-                params.put("price", String.valueOf(price));
-                params.put("status", "Active");
-                params.put("views", views);
-                return params;
-            }
-        };
-        RequestHandler.getmInstance(this).addToRequestQueue(stringRequest);
+        creatingTaskViewModel.postTask(headline,descrpiption,dateEnd,subject,price);
     }
 }
