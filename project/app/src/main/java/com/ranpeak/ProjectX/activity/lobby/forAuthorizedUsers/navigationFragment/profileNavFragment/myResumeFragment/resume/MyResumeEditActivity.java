@@ -115,51 +115,53 @@ public class MyResumeEditActivity extends AppCompatActivity implements Activity 
     }
 
     private void attemptEditingResume() {
+        if(Constants.isOnline()) {
 
-        // reset errors
-        opportunities.setError(null);
+            // reset errors
+            opportunities.setError(null);
 
-        boolean cancel = false;
-        boolean changed = true;
-        View focusView = null;
+            boolean cancel = false;
+            boolean changed = true;
+            View focusView = null;
 
-        if (opportunities.getText().toString().equals("")) {
-            cancel = true;
-            focusView = opportunities;
-        } else if (equalFields(
+            if (opportunities.getText().toString().equals("")) {
+                cancel = true;
+                focusView = opportunities;
+            } else if (equalFields(
 
-                (MyResumeDTO) getIntent().getSerializableExtra("MyResume"))) {
-            changed = false;
-        }
-        if (!changed) {
-            Toast.makeText(getApplicationContext(), "nothing changed", Toast.LENGTH_SHORT).show();
-            finish();
-        }
-        if (changed && cancel) {
-            Toast.makeText(getApplicationContext(), "feel all required fields", Toast.LENGTH_SHORT).show();
-            if (focusView != null) {
-                focusView.requestFocus();
+                    (MyResumeDTO) getIntent().getSerializableExtra("MyResume"))) {
+                changed = false;
+            }
+            if (!changed) {
+                Toast.makeText(getApplicationContext(), "nothing changed", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+            if (changed && cancel) {
+                Toast.makeText(getApplicationContext(), "feel all required fields", Toast.LENGTH_SHORT).show();
+                if (focusView != null) {
+                    focusView.requestFocus();
+                }
+            } else {
+
+                //            if (fieldsAreCorrect()) {
+                editedResume = new MyResumeDTO();
+                editedResume.setSubject(subject.getText().toString());
+                editedResume.setOpportunities(opportunities.getText().toString());
+                editedResume.setDateStart(((MyResumeDTO) getIntent().getSerializableExtra("MyResume")).getDateStart());
+                editedResume.setStatus(((MyResumeDTO) getIntent().getSerializableExtra("MyResume")).getStatus());
+                editedResume.setUserLogin(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()));
+                editedResume.setUserEmail(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserEmail()));
+                editedResume.setUserName(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserName()));
+                editedResume.setUserCountry(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserCountry()));
+                editedResume.setUserAvatar(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserAvatar()));
+                editedResume.setViews(((MyResumeDTO) getIntent().getSerializableExtra("MyResume")).getViews());
+                /** Использовать этот метод для обновления задания в бд (только в бд)*/
+                editResume(editedResume);
+
+                updateOnServer(editedResume);
             }
         } else {
-
-            //            if (fieldsAreCorrect()) {
-            editedResume = new MyResumeDTO();
-
-
-            editedResume.setSubject(subject.getText().toString());
-            editedResume.setOpportunities(opportunities.getText().toString());
-            editedResume.setDateStart(((MyResumeDTO) getIntent().getSerializableExtra("MyResume")).getDateStart());
-            editedResume.setStatus(((MyResumeDTO) getIntent().getSerializableExtra("MyResume")).getStatus());
-            editedResume.setUserLogin(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()));
-            editedResume.setUserEmail(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserEmail()));
-            editedResume.setUserName(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserName()));
-            editedResume.setUserCountry(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserCountry()));
-            editedResume.setUserAvatar(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserAvatar()));
-            editedResume.setViews(((MyResumeDTO) getIntent().getSerializableExtra("MyResume")).getViews());
-            /** Использовать этот метод для обновления задания в бд (только в бд)*/
-            editResume(editedResume);
-
-            updateOnServer(editedResume);
+            Toast.makeText(this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
         }
     }
 

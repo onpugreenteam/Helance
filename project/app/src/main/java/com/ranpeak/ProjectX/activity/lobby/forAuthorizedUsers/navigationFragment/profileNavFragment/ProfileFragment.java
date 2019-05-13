@@ -307,15 +307,4 @@ public class ProfileFragment extends Fragment implements Activity {
             Objects.requireNonNull(tabLayout.getTabAt(i)).setIcon(imageResId[i]);
         }
     }
-
-    private void updateProfileFragment() {
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        swipeRefreshLayout.setRefreshing(true);
-        swipeRefreshLayout.setRefreshing(false);
-    }
 }

@@ -34,6 +34,8 @@ import com.ranpeak.ProjectX.activity.passwordRecovery.PassRecoveryActivity1;
 import com.ranpeak.ProjectX.activity.registration.RegistrationActivity1;
 import com.ranpeak.ProjectX.activity.registration.RegistrationActivity2;
 import com.ranpeak.ProjectX.databinding.ActivityLoginBinding;
+import com.ranpeak.ProjectX.networking.volley.Constants;
+
 import java.util.ArrayList;
 import java.util.List;
 import static android.Manifest.permission.READ_CONTACTS;
@@ -120,11 +122,24 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
 
     @Override
     public void onListener() {
-        registrationButton.setOnClickListener(view -> startActivity(
-                new Intent(LogInActivity.this, RegistrationActivity1.class))
+        registrationButton.setOnClickListener(view -> {
+                    if (Constants.isOnline()) {
+                        startActivity(
+                                new Intent(LogInActivity.this, RegistrationActivity1.class));
+                    } else {
+                        Toast.makeText(this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+                    }
+                }
         );
-        forgotPassword.setOnClickListener(view -> startActivity(
-                new Intent(LogInActivity.this, PassRecoveryActivity1.class))
+        forgotPassword.setOnClickListener(view -> {
+                    if (Constants.isOnline()) {
+                        startActivity(
+                                new Intent(LogInActivity.this, PassRecoveryActivity1.class));
+                    } else {
+                        Toast.makeText(this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
         );
         google.setOnClickListener(view -> {
 
@@ -136,46 +151,50 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
 
     // Попытка залогинится
     private void attemptLogin() {
-        // Reset errors.
-        mEmailView.setError(null);
-        mPasswordView.setError(null);
-        // Store values at the time of the login attempt.
-        String email = mEmailView.getText().toString();
-        String password = mPasswordView.getText().toString();
+        if(Constants.isOnline()) {
+            // Reset errors.
+            mEmailView.setError(null);
+            mPasswordView.setError(null);
+            // Store values at the time of the login attempt.
+            String email = mEmailView.getText().toString();
+            String password = mPasswordView.getText().toString();
 
-        boolean cancel = false;
-        View focusView = null;
+            boolean cancel = false;
+            View focusView = null;
 
-        // Check for a valid password, if the user entered one.
-        if (TextUtils.isEmpty(password)) {
-            mPasswordView.setError(getString(R.string.error_field_required));
-            focusView = mPasswordView;
-            cancel = true;
-        } else if (!isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
-            focusView = mPasswordView;
-            cancel = true;
-        }
+            // Check for a valid password, if the user entered one.
+            if (TextUtils.isEmpty(password)) {
+                mPasswordView.setError(getString(R.string.error_field_required));
+                focusView = mPasswordView;
+                cancel = true;
+            } else if (!isPasswordValid(password)) {
+                mPasswordView.setError(getString(R.string.error_invalid_password));
+                focusView = mPasswordView;
+                cancel = true;
+            }
 
-        // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.error_field_required));
-            focusView = mEmailView;
-            cancel = true;
-        } else if (!isEmailValid(email)) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
-            focusView = mEmailView;
-            cancel = true;
-        }
+            // Check for a valid email address.
+            if (TextUtils.isEmpty(email)) {
+                mEmailView.setError(getString(R.string.error_field_required));
+                focusView = mEmailView;
+                cancel = true;
+            } else if (!isEmailValid(email)) {
+                mEmailView.setError(getString(R.string.error_invalid_email));
+                focusView = mEmailView;
+                cancel = true;
+            }
 
-        if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
-            focusView.requestFocus();
+            if (cancel) {
+                // There was an error; don't attempt login and focus the first
+                // form field with an error.
+                focusView.requestFocus();
+            } else {
+                final String log = activityLoginBinding.loginActivityEmail.getText().toString();
+                final String pass = activityLoginBinding.loginActivityPassword.getText().toString();
+                loginViewModel.sendLoginRequest(log, pass, getApplicationContext());
+            }
         } else {
-            final String log = activityLoginBinding.loginActivityEmail.getText().toString();
-            final String pass = activityLoginBinding.loginActivityPassword.getText().toString();
-            loginViewModel.sendLoginRequest(log,pass,getApplicationContext());
+            Toast.makeText(this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
         }
     }
 

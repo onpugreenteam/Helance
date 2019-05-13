@@ -149,28 +149,33 @@ public class CreatingResumeActivity extends AppCompatActivity implements Activit
     // проверка всех полей на правильность
     // checking every field
     private void attemptCreatingResume() {
-        // Reset errors.
-        description.setError(null);
+        // check if user is online
+        if(Constants.isOnline()) {
+            // Reset errors.
+            description.setError(null);
 
-        boolean cancel = false;
-        View focusView = null;
+            boolean cancel = false;
+            View focusView = null;
 
-        if (!stringContainsItemFromList(lessonPicker.getText().toString(), Constants.Values.LESSONS)) {
-            cancel = true;
-        } else if (description.getText().toString().trim().isEmpty()) {
-            cancel = true;
-            focusView = description;
-            description.setError(getString(R.string.error_field_required));
-        }
+            if (!stringContainsItemFromList(lessonPicker.getText().toString(), Constants.Values.LESSONS)) {
+                cancel = true;
+            } else if (description.getText().toString().trim().isEmpty()) {
+                cancel = true;
+                focusView = description;
+                description.setError(getString(R.string.error_field_required));
+            }
 
-        if (cancel) {
-            Toast.makeText(getApplicationContext(), "feel all required fields", Toast.LENGTH_SHORT).show();
-            if (focusView != null) {
-                focusView.requestFocus();
+            if (cancel) {
+                Toast.makeText(getApplicationContext(), "feel all required fields", Toast.LENGTH_SHORT).show();
+                if (focusView != null) {
+                    focusView.requestFocus();
+                }
+            } else {
+                postResume();
+                finish();
             }
         } else {
-            postResume();
-            finish();
+            Toast.makeText(this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
         }
     }
 

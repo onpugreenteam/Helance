@@ -48,7 +48,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity,
     private EditText taskPrice;
     private TextView datePicker;
     private TextView lessonPicker;
-    private CheckBox checkBox;
+//    private CheckBox checkBox;
     private DatePickerDialog.OnDateSetListener dateSetListener;
     private LinearLayout linearLayout;
     private ImageView selectImages;
@@ -88,7 +88,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity,
         taskDescription = findViewById(R.id.creating_task_description);
         textViewDescriptionLength = findViewById(R.id.creating_task_description_length);
         taskPrice = findViewById(R.id.creating_task_price);
-        checkBox = findViewById(R.id.creating_task_check_box);
+//        checkBox = findViewById(R.id.creating_task_check_box);
         create = findViewById(R.id.creating_task_button);
         datePicker = findViewById(R.id.date_picker);
         linearLayout = findViewById(R.id.creating_task_linear_layout_files);
@@ -123,15 +123,15 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity,
             datePicker.setText(date);
             datePicker.setTextColor(ContextCompat.getColor(this, R.color.darkText));
         };
-        checkBox.setOnClickListener(v -> {
-            if (checkBox.isChecked()) {
-                taskPrice.setTextColor(ContextCompat.getColor(this, R.color.textOnPrimary));
-                taskPrice.setEnabled(false);
-            } else {
-                taskPrice.setTextColor(ContextCompat.getColor(this, R.color.darkText));
-                taskPrice.setEnabled(true);
-            }
-        });
+//        checkBox.setOnClickListener(v -> {
+//            if (checkBox.isChecked()) {
+//                taskPrice.setTextColor(ContextCompat.getColor(this, R.color.textOnPrimary));
+//                taskPrice.setEnabled(false);
+//            } else {
+//                taskPrice.setTextColor(ContextCompat.getColor(this, R.color.darkText));
+//                taskPrice.setEnabled(true);
+//            }
+//        });
         taskDescription.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -239,39 +239,43 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity,
     // проверка всех полей на правильность
     // checking every field
     private void attemptCreatingTask() {
-        // Reset errors.
-        typeName.setError(null);
-        taskDescription.setError(null);
+        if(Constants.isOnline()) {
+            // Reset errors.
+            typeName.setError(null);
+            taskDescription.setError(null);
 
-        boolean cancel = false;
-        View focusView = null;
+            boolean cancel = false;
+            View focusView = null;
 
-        if (!stringContainsItemFromList(lessonPicker.getText().toString(), Constants.Values.LESSONS)) {
-            cancel = true;
-        } else if (typeName.getText().toString().trim().isEmpty()) {
-            cancel = true;
-            focusView = typeName;
-            typeName.setError(getString(R.string.error_field_required));
-        } else if (taskDescription.getText().toString().trim().isEmpty()) {
-            cancel = true;
-            focusView = taskDescription;
-            taskDescription.setError(getString(R.string.error_field_required));
-        } else if (taskPrice.getText().toString().trim().isEmpty()) {
-            cancel = true;
-            focusView = taskPrice;
-            taskPrice.setError(getString(R.string.error_field_required));
-        } else if (datePicker.getText().toString().equals(getString(R.string.select_date))) {
-            cancel = true;
-        }
+            if (!stringContainsItemFromList(lessonPicker.getText().toString(), Constants.Values.LESSONS)) {
+                cancel = true;
+            } else if (typeName.getText().toString().trim().isEmpty()) {
+                cancel = true;
+                focusView = typeName;
+                typeName.setError(getString(R.string.error_field_required));
+            } else if (taskDescription.getText().toString().trim().isEmpty()) {
+                cancel = true;
+                focusView = taskDescription;
+                taskDescription.setError(getString(R.string.error_field_required));
+            } else if (taskPrice.getText().toString().trim().isEmpty()) {
+                cancel = true;
+                focusView = taskPrice;
+                taskPrice.setError(getString(R.string.error_field_required));
+            } else if (datePicker.getText().toString().equals(getString(R.string.select_date))) {
+                cancel = true;
+            }
 
-        if (cancel) {
-            Toast.makeText(getApplicationContext(), "feel all required fields", Toast.LENGTH_SHORT).show();
-            if (focusView != null) {
-                focusView.requestFocus();
+            if (cancel) {
+                Toast.makeText(getApplicationContext(), "feel all required fields", Toast.LENGTH_SHORT).show();
+                if (focusView != null) {
+                    focusView.requestFocus();
+                }
+            } else {
+                postTask();
+                finish();
             }
         } else {
-            postTask();
-            finish();
+            Toast.makeText(this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
         }
     }
 

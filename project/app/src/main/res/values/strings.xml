@@ -261,6 +261,7 @@
     <string name="emailcontact">emailContact</string>
     <string name="phonecontact">phoneContact</string>
     <string name="contact_user">Contact User</string>
+    <string name="no_internet">Check internet connection</string>
 
 
 </resources>

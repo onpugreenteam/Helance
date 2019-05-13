@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.r0adkll.slidr.Slidr;
 import com.ranpeak.ProjectX.R;
@@ -20,6 +21,7 @@ import com.ranpeak.ProjectX.dto.ResumeDTO;
 import com.ranpeak.ProjectX.dto.SocialNetworkDTO;
 import com.ranpeak.ProjectX.networking.retrofit.ApiService;
 import com.ranpeak.ProjectX.networking.retrofit.RetrofitClient;
+import com.ranpeak.ProjectX.networking.volley.Constants;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
 
 import java.util.Objects;
@@ -114,22 +116,26 @@ public class ViewResumeActivity extends AppCompatActivity implements Activity {
                         .getUserLogin())
         )) {
             contact.setVisibility(View.VISIBLE);
-            disposable.add(resumeViewModel.getUserNetworks(resumeDTO.getUserLogin())
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(socialNetworkDTOS -> {
-                        for (SocialNetworkDTO s :
-                                socialNetworkDTOS) {
-                            if (s.getNetworkName().equals(getString(R.string.telegram))) {
-                                userTelegram = s.getNetworkLogin();
-                            } else if (s.getNetworkName().equals(getString(R.string.instagram))) {
-                                userIntagram = s.getNetworkLogin();
-                            } else if (s.getNetworkName().equals(getString(R.string.facebook))) {
-                                userFacebook = s.getNetworkLogin();
+            if(Constants.isOnline()) {
+                disposable.add(resumeViewModel.getUserNetworks(resumeDTO.getUserLogin())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(socialNetworkDTOS -> {
+                            for (SocialNetworkDTO s :
+                                    socialNetworkDTOS) {
+                                if (s.getNetworkName().equals(getString(R.string.telegram))) {
+                                    userTelegram = s.getNetworkLogin();
+                                } else if (s.getNetworkName().equals(getString(R.string.instagram))) {
+                                    userIntagram = s.getNetworkLogin();
+                                } else if (s.getNetworkName().equals(getString(R.string.facebook))) {
+                                    userFacebook = s.getNetworkLogin();
+                                }
                             }
-                        }
-                    })
-            );
+                        })
+                );
+            } else {
+                Toast.makeText(this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+            }
         }
 
     }

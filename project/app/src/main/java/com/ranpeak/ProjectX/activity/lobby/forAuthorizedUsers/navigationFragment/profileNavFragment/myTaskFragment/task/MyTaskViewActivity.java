@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.r0adkll.slidr.Slidr;
@@ -133,11 +134,11 @@ public class MyTaskViewActivity extends AppCompatActivity implements Activity {
                 startActivityForResult(intent, Constants.Codes.EDIT_CODE);
                 break;
             case R.id.menu_my_task_delete:
-                Completable.fromRunnable(() -> {
+                if (Constants.isOnline()) {
                     myTaskViewModel.delete(taskDTO);
-                })
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe();
+                } else {
+                    Toast.makeText(this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+                }
                 finish();
                 break;
 

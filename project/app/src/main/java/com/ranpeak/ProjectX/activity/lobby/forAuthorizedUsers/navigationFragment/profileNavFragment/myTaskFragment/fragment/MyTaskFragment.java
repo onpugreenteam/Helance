@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
@@ -23,6 +24,7 @@ import com.ranpeak.ProjectX.dto.TaskDTO;
 import com.ranpeak.ProjectX.dto.pojo.TaskPOJO;
 import com.ranpeak.ProjectX.networking.retrofit.ApiService;
 import com.ranpeak.ProjectX.networking.retrofit.RetrofitClient;
+import com.ranpeak.ProjectX.networking.volley.Constants;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.MyTaskViewModel;
 
@@ -110,45 +112,25 @@ public class MyTaskFragment extends Fragment implements Activity {
 
             @Override
             public void onUpdateStatusClick(MyTaskDTO task) {
-                if (task.getStatus().equals(getString(R.string.not_active))) {
+                if(Constants.isOnline()) {
+                    if (task.getStatus().equals(getString(R.string.not_active))) {
                         task.setStatus(getString(R.string.active));
-                } else {
+                    } else {
                         task.setStatus(getString(R.string.not_active));
-                }
-
-                myTaskViewModel.update(task);
-                Call<TaskPOJO> call = apiService.updateTask(
-                        new TaskPOJO(
-                                task.getId(),
-                                task.getSubject(),
-                                task.getHeadLine(),
-                                task.getDescription(),
-                                task.getDateStart(),
-                                task.getPrice(),
-                                task.getDeadline(),
-                                task.getStatus(),
-                                task.getUserLogin(),
-                                task.getViews(),
-                                task.getTelephone()
-                        )
-                );
-                call.enqueue(new Callback<TaskPOJO>() {
-                    @Override
-                    public void onResponse(Call<TaskPOJO> call, Response<TaskPOJO> response) {
-
                     }
 
-                    @Override
-                    public void onFailure(Call<TaskPOJO> call, Throwable t) {
-
-                    }
-                });
-                adapter.notifyDataSetChanged();
+                    myTaskViewModel.update(task);
+                    adapter.notifyDataSetChanged();
+                } else Toast.makeText(getContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onDeleteClick(MyTaskDTO task) {
-                myTaskViewModel.delete(task);
+                if(Constants.isOnline()) {
+                    myTaskViewModel.delete(task);
+                } else {
+                    Toast.makeText(getContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override

@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
@@ -21,6 +22,7 @@ import com.ranpeak.ProjectX.dto.MyResumeDTO;
 import com.ranpeak.ProjectX.dto.ResumeDTO;
 import com.ranpeak.ProjectX.networking.retrofit.ApiService;
 import com.ranpeak.ProjectX.networking.retrofit.RetrofitClient;
+import com.ranpeak.ProjectX.networking.volley.Constants;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.MyResumeViewModel;
 
@@ -104,18 +106,26 @@ public class MyResumeFragment extends Fragment implements Activity {
 
             @Override
             public void onUpdateStatusClick(MyResumeDTO resumeDTO, int pos) {
-                if (resumeDTO.getStatus().equals(getString(R.string.not_active))) {
-                    resumeDTO.setStatus(getString(R.string.active));
+                if(Constants.isOnline()) {
+                    if (resumeDTO.getStatus().equals(getString(R.string.not_active))) {
+                        resumeDTO.setStatus(getString(R.string.active));
+                    } else {
+                        resumeDTO.setStatus(getString(R.string.not_active));
+                    }
+                    resumeViewModel.update(resumeDTO);
+                    adapter.notifyItemChanged(pos);
                 } else {
-                    resumeDTO.setStatus(getString(R.string.not_active));
+                    Toast.makeText(getContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
                 }
-                resumeViewModel.update(resumeDTO);
-                adapter.notifyItemChanged(pos);
             }
 
             @Override
             public void onDeleteClick(MyResumeDTO resumeDTO) {
-                resumeViewModel.delete(resumeDTO);
+                if(Constants.isOnline()) {
+                    resumeViewModel.delete(resumeDTO);
+                } else {
+                    Toast.makeText(getContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+                }
 
 //                apiService.deleteResume(resumeDTO.getId());
             }

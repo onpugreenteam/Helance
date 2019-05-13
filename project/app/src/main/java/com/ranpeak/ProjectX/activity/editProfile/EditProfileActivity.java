@@ -223,23 +223,24 @@ public class EditProfileActivity extends AppCompatActivity implements Activity {
     }
 
     private void attemptEdit() {
-        if (
-                name.getText().toString().equals(
-                        beforeEditingName)
-                        && country.getSelectedCountryName().toString().equals(
-                        beforeEditingCountry)
-                        && email.getText().toString().equals(
-                        beforeEditingEmail)
-                        && telegram.getText().toString().equals(
-                        beforeEditingTelegram)
-                        && instgram.getText().toString().equals(
-                        beforeEditingInstagram)
-                        && facebook.getText().toString().equals(
-                        beforeEditingFacebook)
-        ) {
-            Log.d("update_not", "update_not");
-            finish();
-        } else /*if (*/
+        if(Constants.isOnline()) {
+            if (
+                    name.getText().toString().equals(
+                            beforeEditingName)
+                            && country.getSelectedCountryName().toString().equals(
+                            beforeEditingCountry)
+                            && email.getText().toString().equals(
+                            beforeEditingEmail)
+                            && telegram.getText().toString().equals(
+                            beforeEditingTelegram)
+                            && instgram.getText().toString().equals(
+                            beforeEditingInstagram)
+                            && facebook.getText().toString().equals(
+                            beforeEditingFacebook)
+            ) {
+                Log.d("update_not", "update_not");
+                finish();
+            } else /*if (*/
 //                !name.getText().toString().equals(
 //                        beforeEditingName)
 //                        && !country.getText().toString().equals(
@@ -252,103 +253,103 @@ public class EditProfileActivity extends AppCompatActivity implements Activity {
 //                        beforeEditingInstagram)
 //                        && !facebook.getText().toString().equals(
 //                        beforeEditingFacebook)
-            /*)*/ {
-            Log.d("update_all", "update_all");
+                /*)*/ {
+                Log.d("update_all", "update_all");
 //            String login, String name, String country, String email, String telephone
-            updateUserInfoOnServer(
-                    java.lang.String.valueOf(SharedPrefManager.getInstance(this).getUserLogin()),
-                    name.getText().toString(), country.getSelectedCountryName().toString(),
-                    email.getText().toString(), telephone.getText().toString()
-            );
+                updateUserInfoOnServer(
+                        java.lang.String.valueOf(SharedPrefManager.getInstance(this).getUserLogin()),
+                        name.getText().toString(), country.getSelectedCountryName().toString(),
+                        email.getText().toString(), telephone.getText().toString()
+                );
 
-            socialNetworkDTOTg.setNetworkLogin(telegram.getText().toString());
-            socialNetworkDTOTg.setNetworkName(getString(R.string.telegram));
-            socialNetworkDTOTg.setUserLogin(String.valueOf(SharedPrefManager.getInstance(this).getUserLogin()));
-            if (telegram.getText().toString().length() != 0) {
+                socialNetworkDTOTg.setNetworkLogin(telegram.getText().toString());
+                socialNetworkDTOTg.setNetworkName(getString(R.string.telegram));
+                socialNetworkDTOTg.setUserLogin(String.valueOf(SharedPrefManager.getInstance(this).getUserLogin()));
+                if (telegram.getText().toString().length() != 0) {
 
-                if(beforeEditingTelegram.isEmpty()) {
-                    socialNetworkDTOTg.setIdNetwork((int) (Math.random() * 100) +1);
-                    Toast.makeText(this, "insert", Toast.LENGTH_SHORT).show();
-                    insertNetworkOnServer(socialNetworkDTOTg);
+                    if (beforeEditingTelegram.isEmpty()) {
+                        socialNetworkDTOTg.setIdNetwork((int) (Math.random() * 100) + 1);
+                        Toast.makeText(this, "insert", Toast.LENGTH_SHORT).show();
+                        insertNetworkOnServer(socialNetworkDTOTg);
+                    } else {
+                        Toast.makeText(this, "update", Toast.LENGTH_SHORT).show();
+
+                        updateNetworksOnServer(
+                                socialNetworkDTOTg.getUserLogin(),
+                                socialNetworkDTOTg.getNetworkName(),
+                                socialNetworkDTOTg.getNetworkLogin()
+                        );
+                    }
                 } else {
-                    Toast.makeText(this, "update", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "delete", Toast.LENGTH_SHORT).show();
 
-                    updateNetworksOnServer(
-                            socialNetworkDTOTg.getUserLogin(),
-                            socialNetworkDTOTg.getNetworkName(),
-                            socialNetworkDTOTg.getNetworkLogin()
-                    );
+                    if (!beforeEditingTelegram.isEmpty()) {
+                        socialNetworkDTOTg.setIdNetwork((int) (Math.random() * 100) + 1);
+                        deleteNetworksOnServer(socialNetworkDTOTg);
+                    }
                 }
-            } else {
-                Toast.makeText(this, "delete", Toast.LENGTH_SHORT).show();
 
-                if(!beforeEditingTelegram.isEmpty()) {
-                    socialNetworkDTOTg.setIdNetwork((int) (Math.random() * 100) +1);
-                    deleteNetworksOnServer(socialNetworkDTOTg);
-                }
-            }
+                socialNetworkDTOInst.setNetworkLogin(instgram.getText().toString());
+                socialNetworkDTOInst.setNetworkName(getString(R.string.instagram));
+                socialNetworkDTOInst.setUserLogin(String.valueOf(SharedPrefManager.getInstance(this).getUserLogin()));
+                if (instgram.getText().toString().length() != 0) {
 
-            socialNetworkDTOInst.setNetworkLogin(instgram.getText().toString());
-            socialNetworkDTOInst.setNetworkName(getString(R.string.instagram));
-            socialNetworkDTOInst.setUserLogin(String.valueOf(SharedPrefManager.getInstance(this).getUserLogin()));
-            if (instgram.getText().toString().length() != 0) {
-
-                if(beforeEditingInstagram.isEmpty()) {
-                    socialNetworkDTOInst.setIdNetwork((int) (Math.random() * 100) +1);
-                    insertNetworkOnServer(socialNetworkDTOInst);
+                    if (beforeEditingInstagram.isEmpty()) {
+                        socialNetworkDTOInst.setIdNetwork((int) (Math.random() * 100) + 1);
+                        insertNetworkOnServer(socialNetworkDTOInst);
+                    } else {
+                        updateNetworksOnServer(
+                                socialNetworkDTOInst.getUserLogin(),
+                                socialNetworkDTOInst.getNetworkName(),
+                                socialNetworkDTOInst.getNetworkLogin()
+                        );
+                    }
                 } else {
-                    updateNetworksOnServer(
-                            socialNetworkDTOInst.getUserLogin(),
-                            socialNetworkDTOInst.getNetworkName(),
-                            socialNetworkDTOInst.getNetworkLogin()
-                    );
+                    if (!beforeEditingInstagram.isEmpty()) {
+                        socialNetworkDTOInst.setIdNetwork((int) (Math.random() * 100) + 1);
+
+                        deleteNetworksOnServer(socialNetworkDTOInst);
+                    }
                 }
-            } else {
-                if(!beforeEditingInstagram.isEmpty()) {
-                    socialNetworkDTOInst.setIdNetwork((int) (Math.random() * 100) +1);
 
-                    deleteNetworksOnServer(socialNetworkDTOInst);
-                }
-            }
+                socialNetworkDTOFacebook.setNetworkLogin(facebook.getText().toString());
+                socialNetworkDTOFacebook.setNetworkName(getString(R.string.facebook));
+                socialNetworkDTOFacebook.setUserLogin(String.valueOf(SharedPrefManager.getInstance(this).getUserLogin()));
+                if (facebook.getText().toString().length() != 0) {
 
-            socialNetworkDTOFacebook.setNetworkLogin(facebook.getText().toString());
-            socialNetworkDTOFacebook.setNetworkName(getString(R.string.facebook));
-            socialNetworkDTOFacebook.setUserLogin(String.valueOf(SharedPrefManager.getInstance(this).getUserLogin()));
-            if (facebook.getText().toString().length() != 0) {
+                    if (beforeEditingFacebook.isEmpty()) {
+                        socialNetworkDTOFacebook.setIdNetwork((int) (Math.random() * 100) + 1);
+                        insertNetworkOnServer(socialNetworkDTOFacebook);
+                    } else {
 
-                if(beforeEditingFacebook.isEmpty()) {
-                    socialNetworkDTOFacebook.setIdNetwork((int) (Math.random() * 100) +1);
-                    insertNetworkOnServer(socialNetworkDTOFacebook);
+                        updateNetworksOnServer(
+                                socialNetworkDTOFacebook.getUserLogin(),
+                                socialNetworkDTOFacebook.getNetworkName(),
+                                socialNetworkDTOFacebook.getNetworkLogin()
+                        );
+                    }
                 } else {
+                    if (!beforeEditingFacebook.isEmpty()) {
+                        socialNetworkDTOFacebook.setIdNetwork((int) (Math.random() * 100) + 1);
 
-                    updateNetworksOnServer(
-                            socialNetworkDTOFacebook.getUserLogin(),
-                            socialNetworkDTOFacebook.getNetworkName(),
-                            socialNetworkDTOFacebook.getNetworkLogin()
-                    );
+                        deleteNetworksOnServer(socialNetworkDTOFacebook);
+                    }
                 }
-            } else {
-                if(!beforeEditingFacebook.isEmpty()) {
-                    socialNetworkDTOFacebook.setIdNetwork((int) (Math.random() * 100) +1);
 
-                    deleteNetworksOnServer(socialNetworkDTOFacebook);
-                }
+                String login = String.valueOf(SharedPrefManager.getInstance(this).getUserLogin());
+                String avatar = String.valueOf(SharedPrefManager.getInstance(this).getUserAvatar());
+                SharedPrefManager.getInstance(this).userLogin(
+                        login,
+                        name.getText().toString(),
+                        email.getText().toString(),
+                        country.getSelectedCountryName().toString(),
+                        avatar,
+                        telephone.getText().toString()
+                );
+                /** update social networks*/
+
+                finish();
             }
-
-            String login = String.valueOf(SharedPrefManager.getInstance(this).getUserLogin());
-            String avatar = String.valueOf(SharedPrefManager.getInstance(this).getUserAvatar());
-            SharedPrefManager.getInstance(this).userLogin(
-                    login,
-                    name.getText().toString(),
-                    email.getText().toString(),
-                    country.getSelectedCountryName().toString(),
-                    avatar,
-                    telephone.getText().toString()
-            );
-            /** update social networks*/
-
-            finish();
-        }
 
 //        else if (
 //                !name.getText().toString().equals(
@@ -379,6 +380,9 @@ public class EditProfileActivity extends AppCompatActivity implements Activity {
 //            Log.d("update_fb", "update_fb");
 //            updateNetworksOnServer(socialNetworkDTOFacebook);
 //        }
+        } else {
+            Toast.makeText(this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void checkEmail() {
@@ -439,7 +443,7 @@ public class EditProfileActivity extends AppCompatActivity implements Activity {
         );
     }
 
-    private void updateNetworksOnServer(String login,String networkName, String networkLogin) {
+    private void updateNetworksOnServer(String login, String networkName, String networkLogin) {
         profileViewModel.updateNetworks(
                 login, networkName, networkLogin
         );

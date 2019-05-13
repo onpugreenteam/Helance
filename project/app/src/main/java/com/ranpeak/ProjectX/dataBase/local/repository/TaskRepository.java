@@ -171,7 +171,7 @@ public class TaskRepository {
 
     private void refreshAllUsersTasks(List<MyTaskDTO> myTaskDTO) {
         Completable.fromRunnable(() -> {
-            taskDao.deleteAllTasks();
+            taskDao.deleteAllUsersTasks();
             taskDao.insertAllUsersTasks(myTaskDTO);
         })
                 .subscribeOn(Schedulers.io())

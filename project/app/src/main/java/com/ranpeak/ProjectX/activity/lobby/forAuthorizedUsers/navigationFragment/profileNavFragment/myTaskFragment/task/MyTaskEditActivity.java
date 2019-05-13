@@ -159,62 +159,62 @@ public class MyTaskEditActivity extends AppCompatActivity implements Activity {
     }
 
     private void attemptEditingTask() {
+        if(Constants.isOnline()) {
+            // reset errors
+            header.setError(null);
+            description.setError(null);
 
-        // reset errors
-        header.setError(null);
-        description.setError(null);
+            boolean cancel = false;
+            boolean changed = true;
+            View focusView = null;
 
-        boolean cancel = false;
-        boolean changed = true;
-        View focusView = null;
+            if (description.getText().toString().equals("")) {
+                cancel = true;
+                focusView = description;
+            } else if (header.getText().toString().equals("")) {
+                cancel = true;
+                focusView = header;
+            } else if (equalFields(
 
-        if (description.getText().toString().equals("")) {
-            cancel = true;
-            focusView = description;
-        } else if (header.getText().toString().equals("")) {
-            cancel = true;
-            focusView = header;
-        } else if (equalFields(
-
-                (MyTaskDTO) getIntent().getSerializableExtra("MyTask")) ) {
-            changed = false;
-        }
-        if (!changed) {
-            Toast.makeText(getApplicationContext(), "nothing changed", Toast.LENGTH_SHORT).show();
-            finish();
-        }
-        if (changed && cancel) {
-            Toast.makeText(getApplicationContext(), "feel all required fields", Toast.LENGTH_SHORT).show();
-            if (focusView != null) {
-                focusView.requestFocus();
+                    (MyTaskDTO) getIntent().getSerializableExtra("MyTask"))) {
+                changed = false;
             }
-        } else {
+            if (!changed) {
+                Toast.makeText(getApplicationContext(), "nothing changed", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+            if (changed && cancel) {
+                Toast.makeText(getApplicationContext(), "feel all required fields", Toast.LENGTH_SHORT).show();
+                if (focusView != null) {
+                    focusView.requestFocus();
+                }
+            } else {
 
-            //            if (fieldsAreCorrect()) {
-            editedTask = new MyTaskDTO();
+                //            if (fieldsAreCorrect()) {
+                editedTask = new MyTaskDTO();
 
 
-            editedTask.setSubject(subject.getText().toString());
-            editedTask.setHeadLine(header.getText().toString());
-            editedTask.setDescription(description.getText().toString());
-            editedTask.setDateStart(((MyTaskDTO) getIntent().getSerializableExtra("MyTask")).getDateStart());
-            editedTask.setPrice(Float.parseFloat(price.getText().toString()));
-            editedTask.setDeadline(deadline.getText().toString());
-            editedTask.setStatus(((MyTaskDTO) getIntent().getSerializableExtra("MyTask")).getStatus());
-            editedTask.setUserLogin(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()));
-            editedTask.setUserEmail(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserEmail()));
-            editedTask.setUserName(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserName()));
-            editedTask.setUserCountry(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserCountry()));
-            editedTask.setUserAvatar(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserAvatar()));
-            editedTask.setFileTasks(((MyTaskDTO) getIntent().getSerializableExtra("MyTask")).getFileTasks());
-            editedTask.setViews(((MyTaskDTO) getIntent().getSerializableExtra("MyTask")).getViews());
-            /** Использовать этот метод для обновления задания в бд (только в бд)*/
-            editTask(editedTask);
+                editedTask.setSubject(subject.getText().toString());
+                editedTask.setHeadLine(header.getText().toString());
+                editedTask.setDescription(description.getText().toString());
+                editedTask.setDateStart(((MyTaskDTO) getIntent().getSerializableExtra("MyTask")).getDateStart());
+                editedTask.setPrice(Float.parseFloat(price.getText().toString()));
+                editedTask.setDeadline(deadline.getText().toString());
+                editedTask.setStatus(((MyTaskDTO) getIntent().getSerializableExtra("MyTask")).getStatus());
+                editedTask.setUserLogin(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()));
+                editedTask.setUserEmail(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserEmail()));
+                editedTask.setUserName(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserName()));
+                editedTask.setUserCountry(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserCountry()));
+                editedTask.setUserAvatar(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserAvatar()));
+                editedTask.setFileTasks(((MyTaskDTO) getIntent().getSerializableExtra("MyTask")).getFileTasks());
+                editedTask.setViews(((MyTaskDTO) getIntent().getSerializableExtra("MyTask")).getViews());
+                /** Использовать этот метод для обновления задания в бд (только в бд)*/
+                editTask(editedTask);
 
-            updateTaskOnServer(editedTask);
+                updateTaskOnServer(editedTask);
 
 //                );
-            // if tasks are not equal (something changed) we pass all data to prev activity
+                // if tasks are not equal (something changed) we pass all data to prev activity
 //                if (!equalFields(myTaskItem, editedTask)){
 //            Intent resultIntent = new Intent();
 //            resultIntent.putExtra("Position", position);
@@ -227,9 +227,11 @@ public class MyTaskEditActivity extends AppCompatActivity implements Activity {
 //                }
 //            }
 //            }
+            }
+
+        } else {
+            Toast.makeText(this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
         }
-
-
     }
 
     private boolean fieldsAreCorrect() {
