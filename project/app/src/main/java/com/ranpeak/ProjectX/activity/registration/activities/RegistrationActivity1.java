@@ -1,5 +1,6 @@
-package com.ranpeak.ProjectX.activity.registration;
+package com.ranpeak.ProjectX.activity.registration.activities;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.hbb20.CountryCodePicker;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
+import com.ranpeak.ProjectX.activity.registration.viewModel.RegistrationViewModel;
 import com.ranpeak.ProjectX.networking.volley.Constants;
 import com.ranpeak.ProjectX.networking.volley.RequestHandler;
 
@@ -43,6 +45,8 @@ public class RegistrationActivity1 extends AppCompatActivity implements Activity
     private boolean email_exists = false;
     private boolean login_exists = false;
 
+
+    private RegistrationViewModel registrationViewModel;
 //    private final CountryListFragment countryListFragment = new CountryListFragment();
 //    private final FragmentManager fm = getFragmentManager();
 
@@ -53,7 +57,10 @@ public class RegistrationActivity1 extends AppCompatActivity implements Activity
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         toolbar();
         findViewById();
+
+        registrationViewModel = ViewModelProviders.of(this).get(RegistrationViewModel.class);
         onListener();
+
     }
 
 
@@ -68,11 +75,7 @@ public class RegistrationActivity1 extends AppCompatActivity implements Activity
         switch (item.getItemId()) {
             case android.R.id.home:
                 // todo: goto back activity from here
-
-//                Intent intent = new Intent(CreatingTaskActivity.this, LobbyActivity.class);
-////                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-//                startActivity(intent);
-//                finish();
+                finish();
 
                 // если пустых полей нет, то открывается диалог с потверждение закрытия окна
                 if (!allFieldsEmpty()) {
@@ -95,7 +98,9 @@ public class RegistrationActivity1 extends AppCompatActivity implements Activity
             openDialog();
         }
         // если ни одно из полей не заполнено, то окно закрывается без открытия диалога
-        else super.onBackPressed();
+        else {
+            super.onBackPressed();
+        }
     }
 
     // открытие подтверждающего диалога перед закрытием окна
@@ -104,7 +109,10 @@ public class RegistrationActivity1 extends AppCompatActivity implements Activity
         builder.setCancelable(false)
                 .setTitle(getString(R.string.confirm_exit))
                 .setMessage(getString(R.string.cancel_registration))
-                .setPositiveButton(getString(R.string.yes), (dialog, which) -> finish())
+                .setPositiveButton(getString(R.string.yes), (dialog, which) -> {
+                    finish();
+
+                })
                 .setNegativeButton(getString(R.string.no), (dialog, which) -> dialog.cancel());
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
@@ -140,59 +148,43 @@ public class RegistrationActivity1 extends AppCompatActivity implements Activity
         @Override
         public void afterTextChanged(Editable s) {
             checkLogin();
-            if (login_exists) {
-                register_login.setError(getString(R.string.error_exist_login));
-            } else {
-                register_login.setError(null);
-            }
-
-
-            boolean isEmailValid = isEmailValid(Objects.requireNonNull(register_email).getText().toString());
-            if (!isEmailValid) {
-                register_email.setError(getString(R.string.error_invalid_email));
-            } else {
-                register_email.setError(null);
-            }
             checkEmail();
-            if (email_exists) {
-                register_email.setError(getString(R.string.error_exist_email));
-            } else {
-                register_email.setError(null);
-            }
+
+//            boolean isEmailValid = isEmailValid(Objects.requireNonNull(register_email).getText().toString());
+//            if (!isEmailValid) {
+//                register_email.setError(getString(R.string.error_invalid_email));
+//            } else {
+//                register_email.setError(null);
+//            }
+//            checkEmail();
+//            if (email_exists) {
+//                register_email.setError(getString(R.string.error_exist_email));
+//            } else {
+//                register_email.setError(null);
+//            }
         }
     };
 
     private void checkLogin() {
         final String login = Objects.requireNonNull(register_login).getText().toString().trim();
+        if (!registrationViewModel.checkUserLogin(login)) {
+            register_login.setError(getString(R.string.error_exist_login));
+            login_exists = true;
+        } else {
+            register_login.setError(null);
+            login_exists = false;
+        }
+    }
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                Constants.URL.CHECK_LOGIN,
-                response -> {
-
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        if (jsonObject.getString("message").equals("no")) {
-                            Toast.makeText(getApplicationContext(), "This login already registered", Toast.LENGTH_LONG).show();
-                            register_login.setError(getString(R.string.error_exist_login));
-                            login_exists = true;
-
-                        } else if (jsonObject.getString("message").equals("ok")) {
-                            register_login.setError(null);
-                            login_exists = false;
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                },
-                error -> Toast.makeText(getApplicationContext(), "Please on Internet", Toast.LENGTH_LONG).show()) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("login", login);
-                return params;
-            }
-        };
-        RequestHandler.getmInstance(this).addToRequestQueue(stringRequest);
+    private void checkEmail() {
+        final String email = Objects.requireNonNull(register_email).getText().toString().trim();
+        if(!registrationViewModel.checkUserEmail(email)) {
+            register_email.setError(getString(R.string.error_exist_email));
+            email_exists = true;
+        } else {
+            register_email.setError(null);
+            email_exists = false;
+        }
     }
 
     private void attemptRegistration() {
@@ -267,7 +259,7 @@ public class RegistrationActivity1 extends AppCompatActivity implements Activity
         }
 
         if (!cancel) {
-            Intent intent = new Intent(getApplicationContext(), RegistrationActivity2.class);
+            Intent intent = new Intent(getApplicationContext(), RegistrationActivity3.class);
             intent.putExtra("email", register_email.getText().toString().trim());
             intent.putExtra("login", register_login.getText().toString().trim());
             intent.putExtra("name", register_name.getText().toString().trim());
@@ -287,38 +279,6 @@ public class RegistrationActivity1 extends AppCompatActivity implements Activity
     public void setCountry(String country) {
 //        this.register_country.setText(country);
 //        this.register_country.setTextColor(ContextCompat.getColor(this, R.color.darkText));
-    }
-
-    private void checkEmail() {
-        final String email = Objects.requireNonNull(register_email).getText().toString().trim();
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                Constants.URL.CHECK_EMAIL,
-                response -> {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        if (jsonObject.getString("message").equals("no")) {
-                            Toast.makeText(getApplicationContext(), "This email already registered", Toast.LENGTH_LONG).show();
-                            register_email.setError(getString(R.string.error_exist_email));
-                            email_exists = true;
-
-                        } else if (jsonObject.getString("message").equals("ok")) {
-                            register_email.setError(null);
-                            email_exists = false;
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                },
-                error -> Toast.makeText(getApplicationContext(), "Please turn on Internet", Toast.LENGTH_LONG).show()) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("email", email);
-                return params;
-            }
-        };
-        RequestHandler.getmInstance(this).addToRequestQueue(stringRequest);
     }
 
     private boolean isLoginValidShort(String login) {

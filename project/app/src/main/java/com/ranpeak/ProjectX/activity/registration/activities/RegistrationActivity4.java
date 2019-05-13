@@ -1,5 +1,6 @@
-package com.ranpeak.ProjectX.activity.registration;
+package com.ranpeak.ProjectX.activity.registration.activities;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.support.design.widget.TextInputLayout;
@@ -15,9 +16,11 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.github.reinaldoarrosi.maskededittext.MaskedEditText;
+import com.hbb20.CountryCodePicker;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.LobbyActivity;
+import com.ranpeak.ProjectX.activity.registration.viewModel.RegistrationViewModel;
 import com.ranpeak.ProjectX.networking.volley.Constants;
 import com.ranpeak.ProjectX.networking.volley.RequestHandler;
 
@@ -35,6 +38,7 @@ public class RegistrationActivity4 extends AppCompatActivity implements Activity
     private TextInputLayout registration_username;
     private Button nextButton;
     //    private EditText registration_phoneNumber;
+    private CountryCodePicker registration_phoneNumber_code;
     private MaskedEditText registration_phoneNumber;
     private EditText registration_telegram;
     private EditText registration_instagram;
@@ -46,6 +50,8 @@ public class RegistrationActivity4 extends AppCompatActivity implements Activity
     private String password;
     private String login;
 
+    private RegistrationViewModel registrationViewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +59,8 @@ public class RegistrationActivity4 extends AppCompatActivity implements Activity
         setContentView(REGISTRATION_ACTIVITY4);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        registrationViewModel = ViewModelProviders.of(this).get(RegistrationViewModel.class);
 
         login = getIntent().getStringExtra("login");
         email = getIntent().getStringExtra("email");
@@ -91,7 +99,9 @@ public class RegistrationActivity4 extends AppCompatActivity implements Activity
 
     @Override
     public void findViewById() {
+
         registration_phoneNumber = findViewById(R.id.registration_phone_number);
+        registration_phoneNumber_code = findViewById(R.id.registration_phone_number_code);
         registration_telegram = findViewById(R.id.registration_telegram);
         registration_instagram = findViewById(R.id.registration_instagram);
         registration_facebook = findViewById(R.id.registration_facebook);
@@ -101,18 +111,7 @@ public class RegistrationActivity4 extends AppCompatActivity implements Activity
     @Override
     public void onListener() {
         nextButton.setOnClickListener(view -> {
-            /** use this to register user*/
-//            attemptRegistration();
-
-            /** delete this after the registration is done*/
-            Intent intent = new Intent(getApplicationContext(), LobbyActivity.class);
-            intent.putExtra("email", email);
-            intent.putExtra("name", name);
-            intent.putExtra("country", country);
-            intent.putExtra("password", password);
-            intent.putExtra("login", login);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            attemptRegistration();
         });
     }
 
@@ -127,8 +126,12 @@ public class RegistrationActivity4 extends AppCompatActivity implements Activity
         boolean cancel = false;
         View focusView = null;
 
-        if(TextUtils.isEmpty(registration_phoneNumber.getText().toString())) {
+        if (TextUtils.isEmpty(registration_phoneNumber.getText().toString())) {
             registration_phoneNumber.setError(getString(R.string.error_field_required));
+            cancel = true;
+            focusView = registration_phoneNumber;
+        } else if (registration_phoneNumber.getText().toString().length() < 10) {
+            registration_phoneNumber.setError(getString(R.string.error_wrong_number));
             cancel = true;
             focusView = registration_phoneNumber;
         }
@@ -139,71 +142,51 @@ public class RegistrationActivity4 extends AppCompatActivity implements Activity
             focusView.requestFocus();
         } else {
 //            next();
-            registerUser();
+            registerUser(
+                    login, email, name,
+                    password, country,
+                    registration_phoneNumber_code.getSelectedCountryCodeAsInt() + registration_phoneNumber.getText().toString());
+
         }
+    }
+
+    private void registerNetwork(String login, String networkName, String networkLogin) {
+        registrationViewModel.addNetwork(login, networkName, networkLogin);
+    }
+
+    private void registerUser(String login, String email, String name, String password, String country, String phone) {
+        if(registrationViewModel.register(login,
+                email, name,password, country, phone)){
+            if (registration_telegram.getText().toString().length() != 0
+                    || registration_instagram.getText().toString().length() == 0
+                    || registration_facebook.getText().toString().length() == 0) {
+                if (registration_telegram.getText().toString().length() != 0) {
+                    registerNetwork(login, getString(R.string.telegram), registration_telegram.getText().toString());
+                }
+                if (registration_instagram.getText().toString().length() != 0) {
+                    registerNetwork(login, getString(R.string.instagram), registration_instagram.getText().toString());
+                }
+                if (registration_facebook.getText().toString().length() != 0) {
+                    registerNetwork(login, getString(R.string.facebook_app_id), registration_facebook.getText().toString());
+                }
+
+            }
+            Intent intent = new Intent(getApplicationContext(), RegistrationActivity5.class);
+            intent.putExtra("login", login);
+            intent.putExtra("email", email);
+            intent.putExtra("name", name);
+            intent.putExtra("country", country);
+            intent.putExtra("avatar", "nullk");
+            intent.putExtra("phone", phone);
+
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        };
     }
 
     @Override
     public void finish() {
         super.finish();
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-    }
-
-
-    private void next() {
-        Intent intent = new Intent(getApplicationContext(), RegistrationActivity2.class);
-        intent.putExtra("email", email);
-        intent.putExtra("name", name);
-        intent.putExtra("country", country);
-        intent.putExtra("password", password);
-        intent.putExtra("registration_username", registration_username.getEditText().getText().toString().trim());
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-    }
-
-    private void registerUser() {
-
-        final String login = Objects.requireNonNull(registration_username.getEditText()).getText().toString().trim();
-        final String password = this.password;
-        final String name = this.name;
-        final String email = this.email;
-        final String country = this.country;
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                Constants.URL.POST_USER,
-                response -> {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        if (jsonObject.getString("message").equals("Registered")) {
-                            Intent intent = new Intent(getApplicationContext(), LobbyActivity.class);
-                            intent.putExtra("email", email);
-                            intent.putExtra("name", name);
-                            intent.putExtra("country", country);
-                            intent.putExtra("password", password);
-                            intent.putExtra("registration_username", registration_username.getEditText().getText().toString().trim());
-                            startActivity(intent);
-                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                },
-                error -> {
-                    Toast.makeText(getApplicationContext(), "Please on Internet", Toast.LENGTH_LONG).show();
-                }) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("login", login);
-                params.put("password", password);
-                params.put("name", name);
-                params.put("email", email);
-                params.put("country", country);
-                return params;
-            }
-        };
-        RequestHandler.getmInstance(this).addToRequestQueue(stringRequest);
     }
 }

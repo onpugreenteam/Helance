@@ -44,20 +44,20 @@
 
         </activity>
         <activity
-            android:name=".activity.registration.RegistrationActivity1"
+            android:name=".activity.registration.activities.RegistrationActivity1"
             android:label="@string/title_activity_registration"
             android:theme="@style/ToolBarProfile" />
         <activity
-            android:name=".activity.registration.RegistrationActivity2"
+            android:name=".activity.registration.activities.RegistrationActivity5"
             android:theme="@style/ToolBarProfile" />
         <activity
-            android:name=".activity.registration.RegistrationActivity3"
+            android:name=".activity.registration.activities.RegistrationActivity3"
             android:theme="@style/ToolBarProfile" />
         <activity
             android:name=".activity.editProfile.EditProfileActivity"
             android:theme="@style/ToolBarProfile" />
         <activity
-            android:name=".activity.registration.RegistrationActivity4"
+            android:name=".activity.registration.activities.RegistrationActivity4"
             android:theme="@style/ToolBarProfile" />
         <activity android:name=".activity.creating.creatingTask.FullScreenImageActivity" />
         <activity

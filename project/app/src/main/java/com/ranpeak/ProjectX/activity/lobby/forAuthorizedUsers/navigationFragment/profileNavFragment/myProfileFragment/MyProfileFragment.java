@@ -30,7 +30,6 @@ public class MyProfileFragment extends Fragment implements Activity {
     private View view;
     private TextView phoneNumber;
     private TextView email;
-    private TextView country;
     private TextView telegram;
     private TextView instagram;
     private TextView facebook;
@@ -65,7 +64,6 @@ public class MyProfileFragment extends Fragment implements Activity {
         linearInt = view.findViewById(R.id.fragment_my_profile_linear_instagram);
         phoneNumber = view.findViewById(R.id.fragment_my_profile_phone_number);
         email = view.findViewById(R.id.fragment_my_profile_email);
-        country = view.findViewById(R.id.fragment_my_profile_country);
         telegram = view.findViewById(R.id.fragment_my_profile_telegram);
         instagram = view.findViewById(R.id.fragment_my_profile_instagram);
         facebook = view.findViewById(R.id.fragment_my_profile_facebook);
@@ -100,7 +98,6 @@ public class MyProfileFragment extends Fragment implements Activity {
         );
         phoneNumber.setText(SharedPrefManager.getInstance(getContext()).getUserTelephone());
         email.setText(String.valueOf(SharedPrefManager.getInstance(getContext()).getUserEmail()));
-        country.setText(String.valueOf(SharedPrefManager.getInstance(getContext()).getUserCountry()));
     }
 
     private void checkForEmptySocialNetworks() {

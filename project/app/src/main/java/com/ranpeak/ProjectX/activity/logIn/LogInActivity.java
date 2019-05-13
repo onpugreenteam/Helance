@@ -31,8 +31,8 @@ import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.LobbyActivity;
 import com.ranpeak.ProjectX.activity.logIn.commands.LoginNavigator;
 import com.ranpeak.ProjectX.activity.logIn.viewmodel.LoginViewModel;
 import com.ranpeak.ProjectX.activity.passwordRecovery.PassRecoveryActivity1;
-import com.ranpeak.ProjectX.activity.registration.RegistrationActivity1;
-import com.ranpeak.ProjectX.activity.registration.RegistrationActivity2;
+import com.ranpeak.ProjectX.activity.registration.activities.RegistrationActivity1;
+import com.ranpeak.ProjectX.activity.registration.activities.RegistrationActivity5;
 import com.ranpeak.ProjectX.databinding.ActivityLoginBinding;
 import com.ranpeak.ProjectX.networking.volley.Constants;
 
@@ -110,12 +110,20 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     @Override
-    public void openRegistrationActivity(String name, String email, String login, String country) {
-        Intent intent = new Intent(getApplicationContext(), RegistrationActivity2.class);
-        intent.putExtra("registration_username", login);
-        intent.putExtra("name", name);
+    public void openRegistrationActivity(
+            String login,
+            String email,
+            String name,
+            String country,
+            String avatar,
+            String phone) {
+        Intent intent = new Intent(getApplicationContext(), RegistrationActivity5.class);
+        intent.putExtra("login", login);
         intent.putExtra("email", email);
+        intent.putExtra("name", name);
         intent.putExtra("country", country);
+        intent.putExtra("avatar", avatar);
+        intent.putExtra("phone", phone);
         startActivity(intent);
         Toast.makeText(getApplicationContext(),"You account not active",Toast.LENGTH_LONG).show();
     }

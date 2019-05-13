@@ -1,10 +1,9 @@
-package com.ranpeak.ProjectX.activity.registration;
+package com.ranpeak.ProjectX.activity.registration.activities;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -55,15 +54,16 @@ public class RegistrationActivity3 extends AppCompatActivity implements Activity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                // todo: goto back activity from here
-                finish();
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == android.R.id.home) {// todo: goto back activity from here
+            finish();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     @Override
@@ -163,4 +163,5 @@ public class RegistrationActivity3 extends AppCompatActivity implements Activity
     private boolean isSecondPasswordMatches() {
         return password_2.getText().toString().equals(Objects.requireNonNull(password_1.getEditText()).getText().toString());
     }
+
 }

@@ -262,6 +262,7 @@
     <string name="phonecontact">phoneContact</string>
     <string name="contact_user">Contact User</string>
     <string name="no_internet">Check internet connection</string>
+    <string name="error_wrong_number">This number is incorrect</string>
 
 
 </resources>

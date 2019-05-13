@@ -75,9 +75,11 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
                             setIsLoading(false);
                             getNavigator().openRegistrationActivity(
                                     jsonObject.getString("login"),
-                                    jsonObject.getString("name"),
                                     jsonObject.getString("email"),
-                                    jsonObject.getString("country")
+                                    jsonObject.getString("name"),
+                                    jsonObject.getString("country"),
+                                    jsonObject.getString("avatar"),
+                                    jsonObject.getString("telephone")
                             );
                         } else if ((jsonObject.getString("login").equals(login)
                                 || jsonObject.getString("email").equals(login))

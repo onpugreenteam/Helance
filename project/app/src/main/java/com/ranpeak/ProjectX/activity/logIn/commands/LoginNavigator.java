@@ -8,5 +8,10 @@ public interface LoginNavigator {
 
     void openLobbyActivity();
 
-    void openRegistrationActivity(String name, String email, String login, String country);
+    void openRegistrationActivity(String login,
+                                  String email,
+                                  String name,
+                                  String country,
+                                  String avatar,
+                                  String phone);
 }

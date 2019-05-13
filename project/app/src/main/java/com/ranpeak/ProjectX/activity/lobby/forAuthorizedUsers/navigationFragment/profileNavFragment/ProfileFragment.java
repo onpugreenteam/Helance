@@ -84,6 +84,7 @@ public class ProfileFragment extends Fragment implements Activity {
     // user info
     private TextView name;
     private TextView login;
+    private TextView country;
 
     private final int GALLERY = 1;
     private RequestQueue rQueue;
@@ -126,6 +127,7 @@ public class ProfileFragment extends Fragment implements Activity {
         name = view.findViewById(R.id.fragment_profile_name);
         login = view.findViewById(R.id.fragment_profile_login);
         avatar = view.findViewById(R.id.fragment_profile_avatar);
+        country = view.findViewById(R.id.fragment_profile_country);
     }
 
     @Override
@@ -172,6 +174,7 @@ public class ProfileFragment extends Fragment implements Activity {
     private void getSavedInfoAboutUser() {
         login.setText(String.valueOf(SharedPrefManager.getInstance(getContext()).getUserLogin()));
         name.setText(String.valueOf(SharedPrefManager.getInstance(getContext()).getUserName()));
+        country.setText(String.valueOf(SharedPrefManager.getInstance(getContext()).getUserCountry()));
         avatar.setVisibility(View.VISIBLE);
 
         if (!SharedPrefManager.getInstance(getContext()).getUserAvatar().equals("nullk")) {

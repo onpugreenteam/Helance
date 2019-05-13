@@ -54,29 +54,6 @@
             android:layout_marginTop="5dp"
             android:background="@color/color_Black" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/country"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/fragment_my_profile_country"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/country"
-            android:textColor="@color/darkText"
-            android:textSize="20sp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/color_Black" />
-
         <LinearLayout
             android:id="@+id/fragment_my_profile_social_networks"
             android:layout_width="match_parent"
