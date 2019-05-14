@@ -69,7 +69,7 @@ public class ViewResumeActivity extends AppCompatActivity implements Activity {
         onListener();
         Slidr.attach(this);
 
-        if(Constants.isOnline()) {
+        if(IsOnline.getInstance().isConnectingToInternet(getApplicationContext())) {
             updateViews();
         } else {
             Toast.makeText(this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
