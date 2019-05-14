@@ -54,7 +54,6 @@ public class ViewTaskActivity extends AppCompatActivity implements Activity {
     private MyTaskViewModel taskViewModel;
     private CompositeDisposable disposable = new CompositeDisposable();
 
-
     private ApiService apiService = RetrofitClient.getInstance()
             .create(ApiService.class);
 
@@ -141,8 +140,6 @@ public class ViewTaskActivity extends AppCompatActivity implements Activity {
                 );
             } else Toast.makeText(this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
         }
-
-
     }
 
     @Override

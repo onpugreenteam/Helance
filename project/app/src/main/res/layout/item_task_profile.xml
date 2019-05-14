@@ -86,7 +86,7 @@
                 android:id="@+id/item_task_profile_line"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="3dp"
+                android:layout_marginTop="4dp"
                 android:background="@color/textOnPrimary"
                 card:layout_constraintTop_toBottomOf="@id/item_task_profile_linearLayout1"
                 tools:layout_editor_absoluteX="0dp" />
