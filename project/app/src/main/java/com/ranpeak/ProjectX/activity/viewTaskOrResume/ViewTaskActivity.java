@@ -21,6 +21,7 @@ import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment
 import com.ranpeak.ProjectX.activity.viewTaskOrResume.contact.ContactDialogFragment;
 import com.ranpeak.ProjectX.dto.SocialNetworkDTO;
 import com.ranpeak.ProjectX.dto.TaskDTO;
+import com.ranpeak.ProjectX.networking.IsOnline;
 import com.ranpeak.ProjectX.networking.retrofit.ApiService;
 import com.ranpeak.ProjectX.networking.retrofit.RetrofitClient;
 import com.ranpeak.ProjectX.networking.volley.Constants;
@@ -68,7 +69,7 @@ public class ViewTaskActivity extends AppCompatActivity implements Activity {
         setData();
         Slidr.attach(this);
 
-        if(Constants.isOnline()) {
+        if(IsOnline.getInstance().isConnectingToInternet(getApplicationContext())) {
             updateViews();
         } else {
             Toast.makeText(this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
@@ -122,7 +123,8 @@ public class ViewTaskActivity extends AppCompatActivity implements Activity {
                 .getUserLogin())
         )) {
             contact.setVisibility(View.VISIBLE);
-            if(Constants.isOnline()) {
+            if(IsOnline.getInstance().isConnectingToInternet(getApplicationContext())
+            ) {
                 disposable.add(taskViewModel.getUserNetworks(taskDTO.getUserLogin())
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())

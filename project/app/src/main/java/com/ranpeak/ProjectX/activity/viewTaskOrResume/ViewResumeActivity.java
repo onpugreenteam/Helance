@@ -19,6 +19,7 @@ import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment
 import com.ranpeak.ProjectX.activity.viewTaskOrResume.contact.ContactDialogFragment;
 import com.ranpeak.ProjectX.dto.ResumeDTO;
 import com.ranpeak.ProjectX.dto.SocialNetworkDTO;
+import com.ranpeak.ProjectX.networking.IsOnline;
 import com.ranpeak.ProjectX.networking.retrofit.ApiService;
 import com.ranpeak.ProjectX.networking.retrofit.RetrofitClient;
 import com.ranpeak.ProjectX.networking.volley.Constants;
@@ -116,7 +117,7 @@ public class ViewResumeActivity extends AppCompatActivity implements Activity {
                         .getUserLogin())
         )) {
             contact.setVisibility(View.VISIBLE);
-            if(Constants.isOnline()) {
+            if(IsOnline.getInstance().isConnectingToInternet(getApplicationContext())) {
                 disposable.add(resumeViewModel.getUserNetworks(resumeDTO.getUserLogin())
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())

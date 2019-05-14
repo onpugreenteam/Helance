@@ -19,6 +19,7 @@ import com.ranpeak.ProjectX.activity.creating.LessonListFragment;
 import com.ranpeak.ProjectX.activity.creating.commands.CreatingResumeNavigator;
 import com.ranpeak.ProjectX.activity.creating.viewModel.CreatingResumeViewModel;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
+import com.ranpeak.ProjectX.networking.IsOnline;
 import com.ranpeak.ProjectX.networking.volley.Constants;
 import java.util.Objects;
 
@@ -150,7 +151,7 @@ public class CreatingResumeActivity extends AppCompatActivity implements Activit
     // checking every field
     private void attemptCreatingResume() {
         // check if user is online
-        if(Constants.isOnline()) {
+        if(IsOnline.getInstance().isConnectingToInternet(getApplicationContext())) {
             // Reset errors.
             description.setError(null);
 

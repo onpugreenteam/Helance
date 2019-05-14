@@ -34,6 +34,7 @@ import com.ranpeak.ProjectX.activity.passwordRecovery.PassRecoveryActivity1;
 import com.ranpeak.ProjectX.activity.registration.activities.RegistrationActivity1;
 import com.ranpeak.ProjectX.activity.registration.activities.RegistrationActivity5;
 import com.ranpeak.ProjectX.databinding.ActivityLoginBinding;
+import com.ranpeak.ProjectX.networking.IsOnline;
 import com.ranpeak.ProjectX.networking.volley.Constants;
 
 import java.util.ArrayList;
@@ -131,7 +132,7 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
     @Override
     public void onListener() {
         registrationButton.setOnClickListener(view -> {
-                    if (Constants.isOnline()) {
+                    if (IsOnline.getInstance().isConnectingToInternet(getApplicationContext())) {
                         startActivity(
                                 new Intent(LogInActivity.this, RegistrationActivity1.class));
                     } else {
@@ -140,7 +141,7 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
                 }
         );
         forgotPassword.setOnClickListener(view -> {
-                    if (Constants.isOnline()) {
+                    if (IsOnline.getInstance().isConnectingToInternet(getApplicationContext())) {
                         startActivity(
                                 new Intent(LogInActivity.this, PassRecoveryActivity1.class));
                     } else {
@@ -159,7 +160,8 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
 
     // Попытка залогинится
     private void attemptLogin() {
-        if(Constants.isOnline()) {
+
+        if(IsOnline.getInstance().isConnectingToInternet(getApplicationContext())) {
             // Reset errors.
             mEmailView.setError(null);
             mPasswordView.setError(null);

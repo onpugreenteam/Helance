@@ -39,6 +39,12 @@ public interface ApiService {
     @POST("addNetwork")
     Call<SocialNetworkPOJO> addUserNetwork(@Body SocialNetworkPOJO socialNetworkPOJO);
 
+    @POST("sendMessage/{email}")
+    Call<Void> sendCodeOnEmail(@Path("email") String email);
+
+    @POST("changePassword/{email}/{password}")
+    Call<Void> changePassword(@Path("email") String email, @Path("password") String password);
+
     @DELETE("deleteTask/{taskId}")
     Call<MyTaskDTO> deleteTask(@Path("taskId") long id);
 

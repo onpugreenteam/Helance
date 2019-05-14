@@ -1,5 +1,8 @@
 package com.ranpeak.ProjectX.networking.volley;
 
+import android.app.Application;
+import android.os.AsyncTask;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -64,18 +67,5 @@ public class Constants {
         public static final int EDIT_CODE = 2;
         public static final int DELETE_OR_EDIT_CODE = 3;
 
-    }
-
-    public static boolean isOnline() {
-        try {
-            int timeoutMs = 1500;
-            Socket sock = new Socket();
-            SocketAddress sockaddr = new InetSocketAddress("8.8.8.8", 53);
-
-            sock.connect(sockaddr, timeoutMs);
-            sock.close();
-
-            return true;
-        } catch (IOException e) { return false; }
     }
 }

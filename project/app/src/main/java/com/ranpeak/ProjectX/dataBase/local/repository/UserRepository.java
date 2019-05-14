@@ -7,7 +7,6 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
-import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.dataBase.App;
 import com.ranpeak.ProjectX.dataBase.local.LocalDB;
 import com.ranpeak.ProjectX.dataBase.local.dao.UserDAO;
@@ -17,7 +16,6 @@ import com.ranpeak.ProjectX.networking.retrofit.ApiService;
 import com.ranpeak.ProjectX.networking.retrofit.RetrofitClient;
 import com.ranpeak.ProjectX.networking.volley.Constants;
 import com.ranpeak.ProjectX.networking.volley.RequestHandler;
-import com.ranpeak.ProjectX.settings.SharedPrefManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,7 +24,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.reactivex.Completable;
 import io.reactivex.Observable;
+import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
@@ -40,6 +40,7 @@ public class UserRepository {
     private ApiService apiService = RetrofitClient.getInstance().create(ApiService.class);
     private boolean isLoginValid = true;
     private boolean isEmailValid = true;
+    private boolean isEmailOnServer = true;
     private boolean isCodeRight = false;
     private boolean registered = false;
     private LocalDB localDB;
@@ -57,29 +58,60 @@ public class UserRepository {
 
     public boolean checkEmail(String email) {
         new CheckEmailAsyncTask().execute(email);
-        return isLoginValid;
+        return isEmailValid;
+    }
+
+    // used to create new password
+    public boolean checkEmailOnServer(String email) {
+        new CheckEmailOnServerAsyncTask().execute(email);
+        return isEmailOnServer;
+    }
+
+    public void sendCodeOnEmail(String email) {
+        Completable.fromRunnable(() -> {
+            Call<Void> call = apiService.sendCodeOnEmail(email);
+            call.enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                }
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+
+                }
+            });
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe();
     }
 
     public void addNetwork(String login, String networkName, String networkLogin) {
-        Call<SocialNetworkPOJO> call = apiService.addUserNetwork(
-                new SocialNetworkPOJO(
-                        (int) (1000 * Math.random()) + 1,
-                       networkName,
-                        networkLogin,
-                        login
-                )
-        );
-        call.enqueue(new Callback<SocialNetworkPOJO>() {
-            @Override
-            public void onResponse(Call<SocialNetworkPOJO> call, Response<SocialNetworkPOJO> response) {
+        Completable.fromRunnable(() -> {
+            Call<SocialNetworkPOJO> call = apiService.addUserNetwork(
+                    new SocialNetworkPOJO(
+                            (int) (1000 * Math.random()) + 1,
+                            networkName,
+                            networkLogin,
+                            login
+                    )
+            );
+            call.enqueue(new Callback<SocialNetworkPOJO>() {
+                @Override
+                public void onResponse(Call<SocialNetworkPOJO> call, Response<SocialNetworkPOJO> response) {
 
-            }
+                }
 
-            @Override
-            public void onFailure(Call<SocialNetworkPOJO> call, Throwable t) {
+                @Override
+                public void onFailure(Call<SocialNetworkPOJO> call, Throwable t) {
 
-            }
-        });
+                }
+            });
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe();
+
     }
 
     public boolean register(String login, String email, String name, String password, String country, String phone) {
@@ -91,6 +123,26 @@ public class UserRepository {
     public boolean checkCode(String email, String code) {
         new CheckCodeAsyncTask().execute(email, code);
         return isCodeRight;
+    }
+
+    public void changePassword(String email, String password) {
+        Completable.fromRunnable(() -> {
+            Call<Void> call = apiService.changePassword(email, password);
+            call.enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+
+                }
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+
+                }
+            });
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe();
     }
 
     public void getSocialNetworks(String userLogin){
@@ -195,6 +247,39 @@ public class UserRepository {
         }
     }
 
+    private class CheckEmailOnServerAsyncTask extends AsyncTask<String, Void, Void> {
+        CheckEmailOnServerAsyncTask() {
+        }
+
+        @Override
+        protected Void doInBackground(String... strings) {
+            StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                    Constants.URL.CHECK_EMAIL,
+                    response -> {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            if (jsonObject.getString("message").equals("no")) {
+                                setEmailOnServer(true);
+                            } else if (jsonObject.getString("message").equals("ok")) {
+                                setEmailOnServer(false);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    },
+                    error -> Toast.makeText(application, "Please turn on Internet", Toast.LENGTH_LONG).show()) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("email", strings[0]);
+                    return params;
+                }
+            };
+            RequestHandler.getmInstance(application).addToRequestQueue(stringRequest);
+            return null;
+        }
+    }
+
     private class RegisterAsyncTask extends AsyncTask<String, Void, Void> {
         RegisterAsyncTask() {
         }
@@ -246,7 +331,6 @@ public class UserRepository {
                             JSONObject jsonObject = new JSONObject(response);
                             if (jsonObject.getString("message").equals("ok")) {
                                 setCodeRight(true);
-                                Toast.makeText(application, "Activation successful", Toast.LENGTH_LONG).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -278,4 +362,11 @@ public class UserRepository {
         isCodeRight = codeRight;
     }
 
+    private void setEmailOnServer(boolean emailOnServer) {
+        isEmailOnServer = emailOnServer;
+    }
+
+    private boolean isEmailOnServer() {
+        return isEmailOnServer;
+    }
 }

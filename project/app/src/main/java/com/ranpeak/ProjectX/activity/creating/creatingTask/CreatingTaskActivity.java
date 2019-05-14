@@ -34,6 +34,7 @@ import com.ranpeak.ProjectX.activity.creating.LessonListFragment;
 import com.ranpeak.ProjectX.activity.creating.commands.CreatingTaskNavigator;
 import com.ranpeak.ProjectX.activity.creating.viewModel.CreatingTaskViewModel;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
+import com.ranpeak.ProjectX.networking.IsOnline;
 import com.ranpeak.ProjectX.networking.volley.Constants;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -239,7 +240,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity,
     // проверка всех полей на правильность
     // checking every field
     private void attemptCreatingTask() {
-        if(Constants.isOnline()) {
+        if(IsOnline.getInstance().isConnectingToInternet(getApplicationContext())) {
             // Reset errors.
             typeName.setError(null);
             taskDescription.setError(null);

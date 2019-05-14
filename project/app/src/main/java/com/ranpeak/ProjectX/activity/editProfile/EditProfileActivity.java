@@ -23,6 +23,7 @@ import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment
 import com.ranpeak.ProjectX.dto.SocialNetworkDTO;
 import com.ranpeak.ProjectX.dto.pojo.SocialNetworkPOJO;
 import com.ranpeak.ProjectX.dto.pojo.UserPOJO;
+import com.ranpeak.ProjectX.networking.IsOnline;
 import com.ranpeak.ProjectX.networking.volley.Constants;
 import com.ranpeak.ProjectX.networking.volley.RequestHandler;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
@@ -223,7 +224,7 @@ public class EditProfileActivity extends AppCompatActivity implements Activity {
     }
 
     private void attemptEdit() {
-        if(Constants.isOnline()) {
+        if(IsOnline.getInstance().isConnectingToInternet(getApplicationContext())) {
             if (
                     name.getText().toString().equals(
                             beforeEditingName)

@@ -23,6 +23,7 @@ import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.MyTaskViewModel;
 import com.ranpeak.ProjectX.dto.MyTaskDTO;
 import com.ranpeak.ProjectX.dto.TaskDTO;
+import com.ranpeak.ProjectX.networking.IsOnline;
 import com.ranpeak.ProjectX.networking.retrofit.ApiService;
 import com.ranpeak.ProjectX.networking.retrofit.RetrofitClient;
 import com.ranpeak.ProjectX.networking.volley.Constants;
@@ -159,7 +160,7 @@ public class MyTaskEditActivity extends AppCompatActivity implements Activity {
     }
 
     private void attemptEditingTask() {
-        if(Constants.isOnline()) {
+        if(IsOnline.getInstance().isConnectingToInternet(getApplicationContext())) {
             // reset errors
             header.setError(null);
             description.setError(null);

@@ -17,6 +17,7 @@ import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.MyTaskViewModel;
 import com.ranpeak.ProjectX.dto.MyTaskDTO;
 import com.ranpeak.ProjectX.dto.TaskDTO;
+import com.ranpeak.ProjectX.networking.IsOnline;
 import com.ranpeak.ProjectX.networking.volley.Constants;
 
 import java.util.Objects;
@@ -134,7 +135,7 @@ public class MyTaskViewActivity extends AppCompatActivity implements Activity {
                 startActivityForResult(intent, Constants.Codes.EDIT_CODE);
                 break;
             case R.id.menu_my_task_delete:
-                if (Constants.isOnline()) {
+                if (IsOnline.getInstance().isConnectingToInternet(getApplicationContext())) {
                     myTaskViewModel.delete(taskDTO);
                 } else {
                     Toast.makeText(this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();

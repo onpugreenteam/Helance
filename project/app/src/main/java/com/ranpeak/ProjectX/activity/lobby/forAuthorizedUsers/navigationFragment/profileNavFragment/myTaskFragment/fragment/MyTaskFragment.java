@@ -22,11 +22,14 @@ import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment
 import com.ranpeak.ProjectX.dto.MyTaskDTO;
 import com.ranpeak.ProjectX.dto.TaskDTO;
 import com.ranpeak.ProjectX.dto.pojo.TaskPOJO;
+import com.ranpeak.ProjectX.networking.IsOnline;
 import com.ranpeak.ProjectX.networking.retrofit.ApiService;
 import com.ranpeak.ProjectX.networking.retrofit.RetrofitClient;
 import com.ranpeak.ProjectX.networking.volley.Constants;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.MyTaskViewModel;
+
+import java.util.Objects;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -112,7 +115,7 @@ public class MyTaskFragment extends Fragment implements Activity {
 
             @Override
             public void onUpdateStatusClick(MyTaskDTO task) {
-                if(Constants.isOnline()) {
+                if(IsOnline.getInstance().isConnectingToInternet(Objects.requireNonNull(getContext()))) {
                     if (task.getStatus().equals(getString(R.string.not_active))) {
                         task.setStatus(getString(R.string.active));
                     } else {
@@ -126,7 +129,7 @@ public class MyTaskFragment extends Fragment implements Activity {
 
             @Override
             public void onDeleteClick(MyTaskDTO task) {
-                if(Constants.isOnline()) {
+                if(IsOnline.getInstance().isConnectingToInternet(Objects.requireNonNull(getContext()))) {
                     myTaskViewModel.delete(task);
                 } else {
                     Toast.makeText(getContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
@@ -135,10 +138,14 @@ public class MyTaskFragment extends Fragment implements Activity {
 
             @Override
             public void onEditClick(MyTaskDTO task) {
-                Intent intent = new Intent(getActivity(), MyTaskEditActivity.class);
-                intent.putExtra("MyTask", task);
+                if(IsOnline.getInstance().isConnectingToInternet(getContext())) {
+                    Intent intent = new Intent(getActivity(), MyTaskEditActivity.class);
+                    intent.putExtra("MyTask", task);
 
-                startActivity(intent);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

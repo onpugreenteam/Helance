@@ -15,6 +15,7 @@ import com.r0adkll.slidr.Slidr;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.dto.MyResumeDTO;
+import com.ranpeak.ProjectX.networking.IsOnline;
 import com.ranpeak.ProjectX.networking.retrofit.ApiService;
 import com.ranpeak.ProjectX.networking.retrofit.RetrofitClient;
 import com.ranpeak.ProjectX.networking.volley.Constants;
@@ -98,7 +99,7 @@ public class MyResumeViewActivity extends AppCompatActivity implements Activity 
                 startActivityForResult(intent, Constants.Codes.EDIT_CODE);
                 break;
             case R.id.menu_my_task_delete:
-                if(Constants.isOnline()) {
+                if(IsOnline.getInstance().isConnectingToInternet(getApplicationContext())) {
                     resumeViewModel.delete(resumeDTO);
                 } else {
                     Toast.makeText(this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();

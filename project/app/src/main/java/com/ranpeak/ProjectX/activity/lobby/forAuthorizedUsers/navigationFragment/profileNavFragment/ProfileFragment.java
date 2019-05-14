@@ -41,6 +41,7 @@ import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.adapter.ProfileFragmentPagerAdapter;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.MyResumeViewModel;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.MyTaskViewModel;
+import com.ranpeak.ProjectX.networking.IsOnline;
 import com.ranpeak.ProjectX.networking.volley.Constants;
 import com.ranpeak.ProjectX.networking.volley.request.VolleyMultipartRequest;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
@@ -140,8 +141,12 @@ public class ProfileFragment extends Fragment implements Activity {
                 new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI), GALLERY));
         tabLayout.setupWithViewPager(viewPager);
         swipeRefreshLayout.setOnRefreshListener(() -> {
-            initData();
-            initFragments(viewPager);
+            if (IsOnline.getInstance().isConnectingToInternet(Objects.requireNonNull(getContext()))) {
+                initData();
+                initFragments(viewPager);
+            } else {
+                Toast.makeText(getContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+            }
             swipeRefreshLayout.setRefreshing(false);
         });
         appBarLayout.addOnOffsetChangedListener((appBarLayout, i) -> {

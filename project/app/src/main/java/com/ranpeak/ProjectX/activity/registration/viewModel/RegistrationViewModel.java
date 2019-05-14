@@ -23,6 +23,16 @@ public class RegistrationViewModel extends AndroidViewModel {
         return userRepository.checkEmail(email);
     }
 
+    // used to recreate password
+    public boolean checkEmailOnServer(String email) {
+        return userRepository.checkEmailOnServer(email);
+    }
+
+    public void sendCodeOnEmail(String email) {
+
+        userRepository.sendCodeOnEmail(email);
+    }
+
     public void addNetwork(String login, String networkName, String networkLogin) {
         userRepository.addNetwork(login, networkName, networkLogin);
     }
@@ -34,6 +44,10 @@ public class RegistrationViewModel extends AndroidViewModel {
 
     public boolean checkCode(String email, String code) {
         return userRepository.checkCode(email, code);
+    }
+
+    public void changePassword(String email, String password) {
+        userRepository.changePassword(email, password);
     }
 
     public void getSocialNetworks(String login) {

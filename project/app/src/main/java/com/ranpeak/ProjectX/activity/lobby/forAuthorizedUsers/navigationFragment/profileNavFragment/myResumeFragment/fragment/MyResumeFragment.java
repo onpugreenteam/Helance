@@ -20,11 +20,14 @@ import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myResumeFragment.resume.MyResumeViewActivity;
 import com.ranpeak.ProjectX.dto.MyResumeDTO;
 import com.ranpeak.ProjectX.dto.ResumeDTO;
+import com.ranpeak.ProjectX.networking.IsOnline;
 import com.ranpeak.ProjectX.networking.retrofit.ApiService;
 import com.ranpeak.ProjectX.networking.retrofit.RetrofitClient;
 import com.ranpeak.ProjectX.networking.volley.Constants;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.MyResumeViewModel;
+
+import java.util.Objects;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -106,7 +109,7 @@ public class MyResumeFragment extends Fragment implements Activity {
 
             @Override
             public void onUpdateStatusClick(MyResumeDTO resumeDTO, int pos) {
-                if(Constants.isOnline()) {
+                if(IsOnline.getInstance().isConnectingToInternet(Objects.requireNonNull(getContext()))) {
                     if (resumeDTO.getStatus().equals(getString(R.string.not_active))) {
                         resumeDTO.setStatus(getString(R.string.active));
                     } else {
@@ -121,7 +124,7 @@ public class MyResumeFragment extends Fragment implements Activity {
 
             @Override
             public void onDeleteClick(MyResumeDTO resumeDTO) {
-                if(Constants.isOnline()) {
+                if(IsOnline.getInstance().isConnectingToInternet(Objects.requireNonNull(getContext()))) {
                     resumeViewModel.delete(resumeDTO);
                 } else {
                     Toast.makeText(getContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
@@ -132,10 +135,14 @@ public class MyResumeFragment extends Fragment implements Activity {
 
             @Override
             public void onEditClick(MyResumeDTO resumeDTO) {
-                Intent intent = new Intent(getActivity(), MyResumeEditActivity.class);
-                intent.putExtra("MyResume", resumeDTO);
+                if(IsOnline.getInstance().isConnectingToInternet(getContext())) {
+                    Intent intent = new Intent(getActivity(), MyResumeEditActivity.class);
+                    intent.putExtra("MyResume", resumeDTO);
 
-                startActivity(intent);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

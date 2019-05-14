@@ -1,18 +1,25 @@
 package com.ranpeak.ProjectX.activity.passwordRecovery;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
+import com.ranpeak.ProjectX.activity.registration.viewModel.RegistrationViewModel;
+import com.ranpeak.ProjectX.networking.IsOnline;
 
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -23,6 +30,10 @@ public class PassRecoveryActivity1 extends AppCompatActivity implements Activity
     private TextView emailTextView;
     private EditText emailEditText;
     private Button nextButton;
+    private boolean email_on_server = true;
+
+
+    private RegistrationViewModel registrationViewModel;
 
 
     @Override
@@ -31,6 +42,7 @@ public class PassRecoveryActivity1 extends AppCompatActivity implements Activity
         setContentView(R.layout.activity_password_recovery1);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        registrationViewModel = ViewModelProviders.of(this).get(RegistrationViewModel.class);
         toolbar();
         findViewById();
         onListener();
@@ -45,38 +57,53 @@ public class PassRecoveryActivity1 extends AppCompatActivity implements Activity
 
     @Override
     public void onListener() {
-        nextButton.setOnClickListener(v -> {
-            checkEmail();
+        emailEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                checkEmailOnServer();
+            }
         });
+        nextButton.setOnClickListener(v -> checkEmail());
     }
 
     private void checkEmail() {
         /** проверка почты на сервере (существует или нет)*/
 
         emailEditText.setError(null);
-        View requestFocus = null;
-        boolean cancel;
+        boolean cancel = false;
 
         if (TextUtils.isEmpty(emailEditText.getText().toString())) {
             emailEditText.setError(getString(R.string.error_field_required));
             cancel = true;
-            requestFocus = emailEditText;
         } else if (!isEmailValid(emailEditText.getText().toString())) {
             emailEditText.setError(getString(R.string.error_invalid_email));
             cancel = true;
-            requestFocus = emailEditText;
-        } else {
-            cancel = false;
-        }
-        if (cancel) {
-            if (requestFocus != null) {
-                requestFocus.requestFocus();
+        } else if (!TextUtils.isEmpty(emailEditText.getText().toString())
+                && isEmailValid(emailEditText.getText().toString())) {
+            checkEmailOnServer();
+            if (!email_on_server) {
+                cancel = true;
+
+                emailEditText.setError(getString(R.string.error_email_not_exist));
             }
-        } else {
+        }
+        if (!cancel) {
+            sendCodeOnEmail(emailEditText.getText().toString());
             Intent intent = new Intent(PassRecoveryActivity1.this, PassRecoveryActivity2.class);
             intent.putExtra("email", emailEditText.getText().toString());
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
         }
 
     }
@@ -110,5 +137,22 @@ public class PassRecoveryActivity1 extends AppCompatActivity implements Activity
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
+    }
+
+    private void checkEmailOnServer() {
+        final String email = Objects.requireNonNull(emailEditText).getText().toString().trim();
+        if (!registrationViewModel.checkEmailOnServer(email)) {
+            email_on_server = false;
+
+        } else {
+            emailEditText.setError(null);
+            email_on_server = true;
+
+        }
+    }
+
+    private void sendCodeOnEmail(String email) {
+
+        registrationViewModel.sendCodeOnEmail(email);
     }
 }

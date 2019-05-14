@@ -18,6 +18,7 @@ import com.ranpeak.ProjectX.activity.creating.LessonListFragment;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.dto.MyResumeDTO;
 import com.ranpeak.ProjectX.dto.ResumeDTO;
+import com.ranpeak.ProjectX.networking.IsOnline;
 import com.ranpeak.ProjectX.networking.retrofit.ApiService;
 import com.ranpeak.ProjectX.networking.retrofit.RetrofitClient;
 import com.ranpeak.ProjectX.networking.volley.Constants;
@@ -115,7 +116,8 @@ public class MyResumeEditActivity extends AppCompatActivity implements Activity 
     }
 
     private void attemptEditingResume() {
-        if(Constants.isOnline()) {
+
+        if(IsOnline.getInstance().isConnectingToInternet(getApplicationContext())) {
 
             // reset errors
             opportunities.setError(null);
