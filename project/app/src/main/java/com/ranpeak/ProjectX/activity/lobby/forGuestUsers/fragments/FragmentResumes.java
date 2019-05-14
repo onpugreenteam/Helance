@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.baoyz.widget.PullRefreshLayout;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.commands.ResumeNavigator;
@@ -27,6 +29,7 @@ public class FragmentResumes extends Fragment implements Activity, ResumeNavigat
     private List<ResumeDTO> data = new ArrayList<>();
     private ArrayList<String> imageUrls = new ArrayList<>();
     private ResumeViewModel resumeViewModel;
+    PullRefreshLayout pullRefreshLayout;
 
     public FragmentResumes() {
 
@@ -41,6 +44,7 @@ public class FragmentResumes extends Fragment implements Activity, ResumeNavigat
         resumeViewModel.setNavigator(this);
 
         findViewById();
+        typeRefresh();
         onListener();
         initImageBitmaps();
 
@@ -50,13 +54,22 @@ public class FragmentResumes extends Fragment implements Activity, ResumeNavigat
         return view;
     }
 
+    private void typeRefresh() {
+        pullRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_WATER_DROP);
+    }
+
     @Override
     public void findViewById() {
+        pullRefreshLayout = view.findViewById(R.id.refresh_resumes);
         recyclerView = view.findViewById(R.id.recycler_resumes);
     }
 
     @Override
     public void onListener() {
+        pullRefreshLayout.setOnRefreshListener(() -> {
+            getResumes();
+            pullRefreshLayout.setRefreshing(false);
+        });
 
     }
 
@@ -67,6 +80,7 @@ public class FragmentResumes extends Fragment implements Activity, ResumeNavigat
 
     @Override
     public void getDataInAdapter(List<ResumeDTO> resumeDTOS) {
+        data.clear();
         data.addAll(resumeDTOS);
         resumeListAdapter.notifyDataSetChanged();
     }

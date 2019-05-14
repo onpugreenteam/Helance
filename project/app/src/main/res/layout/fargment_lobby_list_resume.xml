@@ -6,6 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.baoyz.widget.PullRefreshLayout
+        android:id="@+id/refresh_resumes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_resumes"
         android:layout_width="match_parent"
@@ -21,5 +26,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    </com.baoyz.widget.PullRefreshLayout>
 
 </android.support.constraint.ConstraintLayout>

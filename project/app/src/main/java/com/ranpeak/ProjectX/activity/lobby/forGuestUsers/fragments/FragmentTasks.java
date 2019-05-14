@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.baoyz.widget.PullRefreshLayout;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.commands.TaskNavigator;
@@ -27,6 +29,7 @@ public class FragmentTasks extends Fragment implements Activity, TaskNavigator {
      private List<TaskDTO> data = new ArrayList<>();
      private ArrayList<String> imageUrls = new ArrayList<>();
      private TaskViewModel taskViewModel;
+     PullRefreshLayout pullRefreshLayout;
 
      public FragmentTasks() {
      }
@@ -40,6 +43,7 @@ public class FragmentTasks extends Fragment implements Activity, TaskNavigator {
         taskViewModel.setNavigator(this);
 
         findViewById();
+        typeRefresh();
         onListener();
         initImageBitmaps();
 
@@ -49,13 +53,22 @@ public class FragmentTasks extends Fragment implements Activity, TaskNavigator {
         return view;
     }
 
+    private void typeRefresh() {
+        pullRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_CIRCLES);
+    }
+
     @Override
     public void findViewById() {
-        recyclerView = view.findViewById(R.id.recycler_tasks);
+         pullRefreshLayout = view.findViewById(R.id.refresh_tasks);
+         recyclerView = view.findViewById(R.id.recycler_tasks);
     }
 
     @Override
     public void onListener() {
+         pullRefreshLayout.setOnRefreshListener(() -> {
+             getTasks();
+             pullRefreshLayout.setRefreshing(false);
+         });
 
     }
 
@@ -66,6 +79,7 @@ public class FragmentTasks extends Fragment implements Activity, TaskNavigator {
 
     @Override
     public void getDataInAdapter(List<TaskDTO> taskDTOS) {
+         data.clear();
          data.addAll(taskDTOS);
          taskListAdapter.notifyDataSetChanged();
     }
