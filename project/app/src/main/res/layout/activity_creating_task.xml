@@ -43,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:gravity="bottom"
-            android:text="@string/task_name"
+            android:text="@string/task_headline"
             android:textColor="@color/darkText"
             android:textSize="15sp" />
 
@@ -54,7 +54,6 @@
             android:layout_marginBottom="20dp"
             android:gravity="bottom"
             android:hint="@string/type_here"
-            android:inputType="textPersonName"
             android:maxLength="50"
             android:maxLines="1"
             android:textColor="@color/textOnPrimary"

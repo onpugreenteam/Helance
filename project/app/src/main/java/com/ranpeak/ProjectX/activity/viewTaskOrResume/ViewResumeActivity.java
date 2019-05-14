@@ -1,10 +1,12 @@
 package com.ranpeak.ProjectX.activity.viewTaskOrResume;
 
+import android.annotation.SuppressLint;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -48,6 +50,7 @@ public class ViewResumeActivity extends AppCompatActivity implements Activity {
     private String userTelegram;
     private String userIntagram;
     private String userFacebook;
+    private ResumeDTO resumeDTO;
 
     private MyResumeViewModel resumeViewModel;
     private CompositeDisposable disposable = new CompositeDisposable();
@@ -64,6 +67,12 @@ public class ViewResumeActivity extends AppCompatActivity implements Activity {
         setData();
         onListener();
         Slidr.attach(this);
+
+        if(Constants.isOnline()) {
+            updateViews();
+        } else {
+            Toast.makeText(this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -94,9 +103,20 @@ public class ViewResumeActivity extends AppCompatActivity implements Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    @SuppressLint("CheckResult")
+    private void updateViews(){
+        apiService.updateResumeViews(resumeDTO.getId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(resumeDTO1 ->
+                                Log.d("OK", String.valueOf(resumeDTO1.getId())),
+                        throwable ->
+                                Log.d("Error",throwable.getMessage()));
+    }
+
     private void setData() {
         Intent intent = getIntent();
-        ResumeDTO resumeDTO = (ResumeDTO) intent.getSerializableExtra("ResumeObject");
+        resumeDTO = (ResumeDTO) intent.getSerializableExtra("ResumeObject");
 
         userPhone = resumeDTO.getTelephone();
         userEmail = resumeDTO.getUserEmail();

@@ -18,7 +18,7 @@ import java.io.Serializable;
 public class ResumeDTO implements Serializable {
 
     @SerializedName("id")
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = false)
     @Expose
     private long id;
 

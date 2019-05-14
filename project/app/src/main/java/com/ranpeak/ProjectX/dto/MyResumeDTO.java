@@ -70,7 +70,7 @@ public class MyResumeDTO implements Serializable {
     @SerializedName("views")
     @ColumnInfo (name = "views")
     @Expose
-    private String views;
+    private int views;
 
     @SerializedName("telephone")
     @ColumnInfo (name = "telephone")
@@ -81,7 +81,7 @@ public class MyResumeDTO implements Serializable {
     }
 
     @Ignore
-    public MyResumeDTO(long id, String subject, String dateStart, String opportunities, String status, String userLogin, String userEmail, String userName, String userAvatar, String userCountry, String views, String telephone) {
+    public MyResumeDTO(long id, String subject, String dateStart, String opportunities, String status, String userLogin, String userEmail, String userName, String userAvatar, String userCountry, int views, String telephone) {
         this.id = id;
         this.subject = subject;
         this.dateStart = dateStart;
@@ -176,11 +176,11 @@ public class MyResumeDTO implements Serializable {
         this.userCountry = userCountry;
     }
 
-    public String getViews() {
+    public int getViews() {
         return views;
     }
 
-    public void setViews(String views) {
+    public void setViews(int views) {
         this.views = views;
     }
 

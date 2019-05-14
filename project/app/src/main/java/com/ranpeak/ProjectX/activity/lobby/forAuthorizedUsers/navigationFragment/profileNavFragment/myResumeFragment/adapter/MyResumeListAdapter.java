@@ -64,7 +64,7 @@ public class MyResumeListAdapter extends ListAdapter<MyResumeDTO,  MyResumeListA
         holder.author.setText(currentItem.getUserName());
         holder.status.setText(currentItem.getStatus());
         holder.subject.setText(currentItem.getSubject());
-        holder.views.setText(currentItem.getViews());
+        holder.views.setText(String.valueOf(currentItem.getViews()));
         holder.dateStart.setText(currentItem.getDateStart());
 //        Glide.with(activity).load(currentItem.getUserAvatar()).into(holder.avatar);
 

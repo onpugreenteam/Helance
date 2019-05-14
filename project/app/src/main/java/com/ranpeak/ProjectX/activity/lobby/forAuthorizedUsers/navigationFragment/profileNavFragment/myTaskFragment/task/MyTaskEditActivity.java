@@ -6,8 +6,8 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
@@ -22,7 +22,6 @@ import com.ranpeak.ProjectX.activity.creating.LessonListFragment;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.MyTaskViewModel;
 import com.ranpeak.ProjectX.dto.MyTaskDTO;
-import com.ranpeak.ProjectX.dto.TaskDTO;
 import com.ranpeak.ProjectX.networking.retrofit.ApiService;
 import com.ranpeak.ProjectX.networking.retrofit.RetrofitClient;
 import com.ranpeak.ProjectX.networking.volley.Constants;
@@ -36,13 +35,10 @@ public class MyTaskEditActivity extends AppCompatActivity implements Activity {
     private DatePickerDialog.OnDateSetListener dateSetListener;
     private final FragmentManager fm = getFragmentManager();
     private final LessonListFragment lessonListFragment = new LessonListFragment();
-    private ApiService apiService = RetrofitClient.getInstance().create(ApiService.class);
-
 
     private MyTaskDTO myTaskItem;
     private MyTaskDTO editedTask;
     private MyTaskViewModel myTaskViewModel;
-
 
     private Button save;
     private TextView subject;
@@ -54,6 +50,9 @@ public class MyTaskEditActivity extends AppCompatActivity implements Activity {
     private TextView name;
     private TextView email;
     private TextView country;
+
+    private ApiService apiService = RetrofitClient.getInstance()
+            .create(ApiService.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
