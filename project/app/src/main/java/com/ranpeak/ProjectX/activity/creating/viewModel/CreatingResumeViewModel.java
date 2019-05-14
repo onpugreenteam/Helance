@@ -58,5 +58,4 @@ public class CreatingResumeViewModel extends BaseViewModel<CreatingResumeNavigat
         };
         RequestHandler.getmInstance(context).addToRequestQueue(stringRequest);
     }
-
 }
