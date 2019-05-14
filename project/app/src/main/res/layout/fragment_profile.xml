@@ -60,7 +60,7 @@
         android:layout_height="1dp"
         android:background="@color/colorPrimaryDark" />
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <com.baoyz.widget.PullRefreshLayout
         android:id="@+id/fragment_profile_swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -247,5 +247,5 @@
                 android:layout_height="match_parent"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
         </android.support.design.widget.CoordinatorLayout>
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </com.baoyz.widget.PullRefreshLayout>
 </LinearLayout><!--</android.support.v4.widget.SwipeRefreshLayout>-->

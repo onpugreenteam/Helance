@@ -5,8 +5,10 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
@@ -14,7 +16,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +30,7 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.baoyz.widget.PullRefreshLayout;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -64,7 +66,7 @@ import io.reactivex.disposables.CompositeDisposable;
 public class ProfileFragment extends Fragment implements Activity {
 
     private View view;
-    private SwipeRefreshLayout swipeRefreshLayout;
+    private PullRefreshLayout swipeRefreshLayout;
     private AppBarLayout appBarLayout;
     private TabLayout tabLayout;
     private ImageView editProfile;
@@ -99,8 +101,11 @@ public class ProfileFragment extends Fragment implements Activity {
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_profile, container, false);
+
         findViewById();
+        typeRefresh();
         onListener();
+
         initData();
         initFragments(viewPager);
         requestMultiplePermissions();
@@ -140,14 +145,19 @@ public class ProfileFragment extends Fragment implements Activity {
         avatar.setOnClickListener(v -> startActivityForResult(
                 new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI), GALLERY));
         tabLayout.setupWithViewPager(viewPager);
+
         swipeRefreshLayout.setOnRefreshListener(() -> {
-            if (IsOnline.getInstance().isConnectingToInternet(Objects.requireNonNull(getContext()))) {
-                initData();
-                initFragments(viewPager);
-            } else {
-                Toast.makeText(getContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
-            }
-            swipeRefreshLayout.setRefreshing(false);
+            final Handler handler = new Handler();
+            handler.postDelayed(() -> {
+                if (IsOnline.getInstance().isConnectingToInternet(Objects.requireNonNull(getContext()))) {
+                    initData();
+                    initFragments(viewPager);
+                } else {
+                    Toast.makeText(getContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+                }
+                swipeRefreshLayout.setRefreshing(false);
+            }, 1500);
+
         });
         appBarLayout.addOnOffsetChangedListener((appBarLayout, i) -> {
             if ((appBarLayout.getHeight() - appBarLayout.getBottom()) != 0) {
@@ -158,6 +168,11 @@ public class ProfileFragment extends Fragment implements Activity {
             }
         });
     }
+
+    private void typeRefresh() {
+        swipeRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_SMARTISAN);
+    }
+
 
     private void initData() {
         myTaskViewModel = ViewModelProviders.of(this).get(MyTaskViewModel.class);
@@ -183,9 +198,9 @@ public class ProfileFragment extends Fragment implements Activity {
         avatar.setVisibility(View.VISIBLE);
 
         if (!SharedPrefManager.getInstance(getContext()).getUserAvatar().equals("nullk")) {
-//            byte[] decodedString = Base64.decode(String.valueOf(SharedPrefManager.getInstance(getContext()).getUserAvatar()), Base64.DEFAULT);
-//            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-//            avatar.setImageBitmap(decodedByte);
+            byte[] decodedString = Base64.decode(String.valueOf(SharedPrefManager.getInstance(getContext()).getUserAvatar()), Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            avatar.setImageBitmap(decodedByte);
         } else {
             avatar.setVisibility(View.VISIBLE);
         }

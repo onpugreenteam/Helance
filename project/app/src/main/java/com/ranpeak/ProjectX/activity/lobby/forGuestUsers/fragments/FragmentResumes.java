@@ -1,6 +1,7 @@
 package com.ranpeak.ProjectX.activity.lobby.forGuestUsers.fragments;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -67,10 +68,12 @@ public class FragmentResumes extends Fragment implements Activity, ResumeNavigat
     @Override
     public void onListener() {
         pullRefreshLayout.setOnRefreshListener(() -> {
-            getResumes();
-            pullRefreshLayout.setRefreshing(false);
+            final Handler handler = new Handler();
+            handler.postDelayed(() -> {
+                getResumes();
+                pullRefreshLayout.setRefreshing(false);
+            }, 1000);
         });
-
     }
 
     @Override

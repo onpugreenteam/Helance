@@ -1,6 +1,7 @@
 package com.ranpeak.ProjectX.activity.lobby.forGuestUsers.fragments;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import com.ranpeak.ProjectX.activity.lobby.commands.TaskNavigator;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.tasksNavFragment.adapter.TaskListAdapter;
 import com.ranpeak.ProjectX.activity.lobby.viewModel.TaskViewModel;
 import com.ranpeak.ProjectX.dto.TaskDTO;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,9 +68,14 @@ public class FragmentTasks extends Fragment implements Activity, TaskNavigator {
     @Override
     public void onListener() {
          pullRefreshLayout.setOnRefreshListener(() -> {
-             getTasks();
-             pullRefreshLayout.setRefreshing(false);
+             final Handler handler = new Handler();
+             handler.postDelayed(() -> {
+                 getTasks();
+                 pullRefreshLayout.setRefreshing(false);
+             }, 1000);
          });
+
+
 
     }
 
