@@ -152,7 +152,6 @@ public class PassRecoveryActivity1 extends AppCompatActivity implements Activity
     }
 
     private void sendCodeOnEmail(String email) {
-
         registrationViewModel.sendCodeOnEmail(email);
     }
 }

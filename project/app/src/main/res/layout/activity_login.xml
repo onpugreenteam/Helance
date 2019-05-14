@@ -121,6 +121,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
             android:text="@string/or"
+            android:visibility="invisible"
             android:textColor="@color/colorSecondaryLight"
             android:textSize="16sp" />
 
@@ -130,6 +131,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
+            android:visibility="invisible"
             android:text="@string/login_with"
             android:textColor="@color/colorSecondaryLight"
             android:textSize="16sp" />

@@ -134,6 +134,7 @@ public class PassRecoveryActivity3 extends AppCompatActivity implements Activity
         if(!cancel) {
             registrationViewModel.changePassword(email, password2.getText().toString());
             Intent intent = new Intent(PassRecoveryActivity3.this, LogInActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
     }

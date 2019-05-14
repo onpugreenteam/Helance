@@ -119,7 +119,7 @@ public class PassRecoveryActivity2 extends AppCompatActivity implements Activity
             if (!codeIsCorrect) {
                 cancel = true;
 
-                codeEditText.setError(getString(R.string.error_email_not_exist));
+                codeEditText.setError(getString(R.string.error_code));
             }
         }
         if(!cancel) {
