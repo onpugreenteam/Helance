@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_task_profile_cardView"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="wrap_content"
     android:layout_marginStart="6dp"
     android:layout_marginBottom="4dp"
     android:layout_marginTop="8dp"
@@ -35,14 +35,14 @@
             android:id="@+id/item_task_profile_constraintLayout1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="5dp">
+            android:padding="0dp">
 
             <TextView
                 android:id="@+id/item_task_profile_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="3dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/task_status"
                 android:textColor="@color/textOnPrimary"
                 android:textStyle="bold"
@@ -62,10 +62,8 @@
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     android:focusable="true"
-                    android:paddingTop="4dp"
-                    android:paddingBottom="4dp"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="2dp"
+                    android:layout_marginTop="8dp"
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:text="@string/update_status"
                     android:textColor="@color/colorPrimaryDark"
                     android:textStyle="bold" />
@@ -74,7 +72,7 @@
                     android:id="@+id/item_task_profile_settings"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
+                    android:layout_marginTop="5dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:paddingStart="16dp"
@@ -86,10 +84,13 @@
                 android:id="@+id/item_task_profile_line"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginStart="2dp"
                 android:layout_marginTop="4dp"
+                android:layout_marginEnd="2dp"
                 android:background="@color/textOnPrimary"
-                card:layout_constraintTop_toBottomOf="@id/item_task_profile_linearLayout1"
-                tools:layout_editor_absoluteX="0dp" />
+                card:layout_constraintEnd_toEndOf="parent"
+                card:layout_constraintStart_toStartOf="parent"
+                card:layout_constraintTop_toBottomOf="@id/item_task_profile_linearLayout1" />
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/item_task_profile_constraintLayout2"
@@ -151,29 +152,6 @@
                             android:textColor="@color/textOnPrimary"
                             android:textSize="14sp" />
 
-                        <LinearLayout
-                            android:id="@+id/item_task_profile_linearLayout3"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:gravity="end">
-
-                            <ImageView
-                                android:id="@+id/item_task_profile_views"
-                                android:layout_width="18dp"
-                                android:layout_height="18dp"
-                                card:srcCompat="@drawable/ic_remove_red_eye_black_24dp" />
-
-                            <TextView
-                                android:id="@+id/item_task_profile_views_count"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="4dp"
-                                android:text="@string/views"
-                                android:textColor="@color/colorPrimary"
-                                android:textSize="13sp" />
-
-                        </LinearLayout>
                     </LinearLayout>
 
                     <TextView
@@ -181,7 +159,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginStart="0dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
                         android:text="@string/header"
                         android:textColor="@color/textOnPrimary"
@@ -198,8 +176,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginBottom="8dp"
                     android:text="@string/subject"
                     android:textColor="@color/textOnPrimary"
                     android:textSize="15sp"
@@ -211,9 +188,9 @@
                     android:id="@+id/item_task_profile_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginBottom="8dp"
                     android:text="@string/price"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="20sp"
@@ -221,6 +198,36 @@
                     card:layout_constraintBottom_toBottomOf="parent"
                     card:layout_constraintEnd_toEndOf="parent"
                     card:layout_constraintTop_toBottomOf="@+id/item_task_profile_constraintLayout3" />
+
+                <LinearLayout
+                    android:id="@+id/item_task_profile_linearLayout3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="4dp"
+                    android:gravity="end"
+                    card:layout_constraintBottom_toTopOf="@+id/item_task_profile_subject"
+                    card:layout_constraintStart_toStartOf="parent"
+                    card:layout_constraintTop_toBottomOf="@+id/item_task_profile_avatar">
+
+                    <ImageView
+                        android:id="@+id/item_task_profile_views"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        card:srcCompat="@drawable/ic_remove_red_eye_black_24dp" />
+
+                    <TextView
+                        android:id="@+id/item_task_profile_views_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:text="@string/views"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+
             </android.support.constraint.ConstraintLayout>
 
         </android.support.constraint.ConstraintLayout>

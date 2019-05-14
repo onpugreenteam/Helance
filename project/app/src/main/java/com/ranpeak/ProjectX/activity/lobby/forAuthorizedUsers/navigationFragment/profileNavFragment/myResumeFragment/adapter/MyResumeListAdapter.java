@@ -127,6 +127,9 @@ public class MyResumeListAdapter extends ListAdapter<MyResumeDTO,  MyResumeListA
                 if (listener != null) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
+                        if(status.getText().toString().equals("Not active")){
+                            status.setTextColor(Color.parseColor("#808080"));
+                        }
                         listener.onUpdateStatusClick(getItem(position), position);
                     }
                 }
