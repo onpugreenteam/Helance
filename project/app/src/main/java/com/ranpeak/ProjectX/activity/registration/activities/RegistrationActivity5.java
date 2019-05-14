@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.LobbyActivity;
+import com.ranpeak.ProjectX.activity.logIn.LogInActivity;
 import com.ranpeak.ProjectX.activity.registration.viewModel.RegistrationViewModel;
 import com.ranpeak.ProjectX.settings.SharedPrefManager;
 
@@ -30,6 +33,8 @@ public class RegistrationActivity5 extends AppCompatActivity implements Activity
     private String avatar;
     private String phone;
     private RegistrationViewModel registrationViewModel;
+
+    private boolean codeIsCorrect = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,12 +65,21 @@ public class RegistrationActivity5 extends AppCompatActivity implements Activity
         switch (item.getItemId()) {
             case android.R.id.home:
                 // todo: goto back activity from here
+                Intent intent = new Intent(RegistrationActivity5.this, LogInActivity.class);
+                startActivity(intent);
                 finish();
                 return true;
 
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(RegistrationActivity5.this, LogInActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
@@ -80,6 +94,33 @@ public class RegistrationActivity5 extends AppCompatActivity implements Activity
             /** use this to check activation code*/
             attemptActivation();
         });
+        code.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                listener();
+            }
+        });
+    }
+
+    private void listener() {
+        final String code = this.code.getEditText().getText().toString();
+        if(code.length()==4) {
+            if (!registrationViewModel.checkCode(email, code)) {
+                codeIsCorrect = false;
+            } else {
+                codeIsCorrect = true;
+            }
+        }
     }
 
     private void attemptActivation() {
@@ -91,21 +132,35 @@ public class RegistrationActivity5 extends AppCompatActivity implements Activity
         String codeValue = Objects.requireNonNull(code.getEditText()).getText().toString();
 
         boolean cancel = false;
-        View focusView = null;
 
         // Check for a valid login.
         if (TextUtils.isEmpty(codeValue)) {
             code.setError(getString(R.string.error_field_required));
-            focusView = code;
             cancel = true;
+        } else if (!TextUtils.isEmpty(code.getEditText().getText().toString())
+                && code.getEditText().getText().toString().length() == 4) {
+            listener();
+            if(!codeIsCorrect) {
+                cancel = true;
+                code.getEditText().setError(getString(R.string.error_code));
+            }
         }
-        if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
-            focusView.requestFocus();
-        } else {
-            isCodeRight();
+        if (!cancel){
+//            isCodeRight();
 //            activateAccount();
+            Intent lobby = new Intent(this, LobbyActivity.class);
+            SharedPrefManager.getInstance(this).userLogin(
+                    login,
+                    name,
+                    email,
+                    country,
+                    avatar,
+                    phone
+            );
+            registrationViewModel.getSocialNetworks(login);
+            lobby.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(lobby);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
     }
 

@@ -140,14 +140,16 @@ public class PassRecoveryActivity1 extends AppCompatActivity implements Activity
     }
 
     private void checkEmailOnServer() {
-        final String email = Objects.requireNonNull(emailEditText).getText().toString().trim();
-        if (!registrationViewModel.checkEmailOnServer(email)) {
-            email_on_server = false;
+        if(isEmailValid(emailEditText.getText().toString())) {
+            final String email = Objects.requireNonNull(emailEditText).getText().toString().trim();
+            if (!registrationViewModel.checkEmailOnServer(email)) {
+                email_on_server = false;
 
-        } else {
-            emailEditText.setError(null);
-            email_on_server = true;
+            } else {
+                emailEditText.setError(null);
+                email_on_server = true;
 
+            }
         }
     }
 

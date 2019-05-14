@@ -297,7 +297,7 @@ public class RegistrationActivity1 extends AppCompatActivity implements Activity
     }
 
     private boolean isNameValid(String name) {
-        return name.length() > 5;
+        return name.length() > 2;
     }
 
     private boolean allFieldsEmpty() {

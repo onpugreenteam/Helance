@@ -2,6 +2,7 @@ package com.ranpeak.ProjectX.dataBase.local.repository;
 
 import android.app.Application;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -86,36 +87,22 @@ public class UserRepository {
                 .subscribe();
     }
 
-    public void addNetwork(String login, String networkName, String networkLogin) {
-        Completable.fromRunnable(() -> {
-            Call<SocialNetworkPOJO> call = apiService.addUserNetwork(
-                    new SocialNetworkPOJO(
-                            (int) (1000 * Math.random()) + 1,
-                            networkName,
-                            networkLogin,
-                            login
-                    )
-            );
-            call.enqueue(new Callback<SocialNetworkPOJO>() {
-                @Override
-                public void onResponse(Call<SocialNetworkPOJO> call, Response<SocialNetworkPOJO> response) {
-
-                }
-
-                @Override
-                public void onFailure(Call<SocialNetworkPOJO> call, Throwable t) {
-
-                }
-            });
-        })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe();
-
+    public boolean register(String login, String email, String name,
+                            String password, String country, String phone,
+                            List<SocialNetworkPOJO> list) {
+        new RegisterAsyncTask(list).execute(login,
+                email, name,password, country, phone);
+        return registered;
     }
 
     public boolean register(String login, String email, String name, String password, String country, String phone) {
         new RegisterAsyncTask().execute(login,
+                email, name,password, country, phone);
+        return registered;
+    }
+
+    public boolean register(OnRegistrationUserFinished listener, String login, String email, String name, String password, String country, String phone) {
+        new RegisterAsyncTask(listener).execute(login,
                 email, name,password, country, phone);
         return registered;
     }
@@ -190,7 +177,6 @@ public class UserRepository {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             if (jsonObject.getString("message").equals("no")) {
-                                Toast.makeText(application, "This login already registered", Toast.LENGTH_LONG).show();
                                 setLoginValid(false);
 
                             } else if (jsonObject.getString("message").equals("ok")) {
@@ -225,7 +211,6 @@ public class UserRepository {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             if (jsonObject.getString("message").equals("no")) {
-                                Toast.makeText(application, "This email already registered", Toast.LENGTH_LONG).show();
                                 setEmailValid(false);
                             } else if (jsonObject.getString("message").equals("ok")) {
                                 setEmailValid(true);
@@ -280,8 +265,23 @@ public class UserRepository {
         }
     }
 
-    private class RegisterAsyncTask extends AsyncTask<String, Void, Void> {
-        RegisterAsyncTask() {
+    public interface OnRegistrationUserFinished {
+        void addSocialNetwork();
+    }
+
+    public class RegisterAsyncTask extends AsyncTask<String, Void, Void> {
+        private OnRegistrationUserFinished listener;
+        private List<SocialNetworkPOJO> list;
+
+        RegisterAsyncTask(OnRegistrationUserFinished listener) {
+            this.listener = listener;
+        }
+
+        public RegisterAsyncTask(List<SocialNetworkPOJO> list) {
+            this.list = list;
+        }
+
+        public RegisterAsyncTask() {
         }
 
         @Override
@@ -316,9 +316,70 @@ public class UserRepository {
             RequestHandler.getmInstance(application).addToRequestQueue(stringRequest);
             return null;
         }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            if(listener!=null) {
+                listener.addSocialNetwork();
+            }
+            if(list!=null) {
+                // добавляет соцсети пользователя через 4 секунды,
+                // чтоб сервер мог успеть его зарегистрировать
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        for(int i = 0; i < list.size(); i++) {
+                            new AddNetworkAsyncTask(list.get(i)).execute();
+                        }
+//                        new AddNetworkAsyncTaskList(list).execute();
+                    }
+                }, 4000);
+            }
+        }
     }
 
-    private class CheckCodeAsyncTask extends AsyncTask<String, Void, Void> {
+    public class AddNetworkAsyncTask extends AsyncTask<String, Void, Void> {
+        private SocialNetworkPOJO item;
+
+        AddNetworkAsyncTask() {
+        }
+
+        AddNetworkAsyncTask(SocialNetworkPOJO item) {
+            this.item = item;
+        }
+
+        @Override
+        protected Void doInBackground(String... strings) {
+            Call<SocialNetworkPOJO> call = apiService.addUserNetwork(
+                    new SocialNetworkPOJO(
+                            (int) (1000 * Math.random()) + 1,
+                            item.getNetworkName(),
+                            item.getNetworkLogin(),
+                            item.getUser()
+                    )
+            );
+            call.enqueue(new Callback<SocialNetworkPOJO>() {
+                @Override
+                public void onResponse(Call<SocialNetworkPOJO> call, Response<SocialNetworkPOJO> response) {
+
+                }
+
+                @Override
+                public void onFailure(Call<SocialNetworkPOJO> call, Throwable t) {
+
+                }
+            });
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+        }
+    }
+
+  private class CheckCodeAsyncTask extends AsyncTask<String, Void, Void> {
         CheckCodeAsyncTask() {
         }
 

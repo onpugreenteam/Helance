@@ -6,7 +6,9 @@ import android.content.pm.ActivityInfo;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -21,13 +23,17 @@ import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.LobbyActivity;
 import com.ranpeak.ProjectX.activity.registration.viewModel.RegistrationViewModel;
+import com.ranpeak.ProjectX.dataBase.local.repository.UserRepository;
+import com.ranpeak.ProjectX.dto.pojo.SocialNetworkPOJO;
 import com.ranpeak.ProjectX.networking.volley.Constants;
 import com.ranpeak.ProjectX.networking.volley.RequestHandler;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -43,6 +49,7 @@ public class RegistrationActivity4 extends AppCompatActivity implements Activity
     private EditText registration_telegram;
     private EditText registration_instagram;
     private EditText registration_facebook;
+
 
     private String email;
     private String name;
@@ -113,6 +120,21 @@ public class RegistrationActivity4 extends AppCompatActivity implements Activity
         nextButton.setOnClickListener(view -> {
             attemptRegistration();
         });
+        registration_phoneNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
     }
 
     private void attemptRegistration() {
@@ -145,44 +167,69 @@ public class RegistrationActivity4 extends AppCompatActivity implements Activity
             registerUser(
                     login, email, name,
                     password, country,
-                    registration_phoneNumber_code.getSelectedCountryCodeAsInt() + registration_phoneNumber.getText().toString());
+                    registration_phoneNumber.getText().toString());
 
-        }
-    }
 
-    private void registerNetwork(String login, String networkName, String networkLogin) {
-        registrationViewModel.addNetwork(login, networkName, networkLogin);
-    }
-
-    private void registerUser(String login, String email, String name, String password, String country, String phone) {
-        if(registrationViewModel.register(login,
-                email, name,password, country, phone)){
-            if (registration_telegram.getText().toString().length() != 0
-                    || registration_instagram.getText().toString().length() == 0
-                    || registration_facebook.getText().toString().length() == 0) {
-                if (registration_telegram.getText().toString().length() != 0) {
-                    registerNetwork(login, getString(R.string.telegram), registration_telegram.getText().toString());
-                }
-                if (registration_instagram.getText().toString().length() != 0) {
-                    registerNetwork(login, getString(R.string.instagram), registration_instagram.getText().toString());
-                }
-                if (registration_facebook.getText().toString().length() != 0) {
-                    registerNetwork(login, getString(R.string.facebook_app_id), registration_facebook.getText().toString());
-                }
-
-            }
             Intent intent = new Intent(getApplicationContext(), RegistrationActivity5.class);
             intent.putExtra("login", login);
             intent.putExtra("email", email);
             intent.putExtra("name", name);
             intent.putExtra("country", country);
             intent.putExtra("avatar", "nullk");
-            intent.putExtra("phone", phone);
+            intent.putExtra("phone", registration_phoneNumber.getText().toString());
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-        };
+        }
     }
+    private void registerUser(String login, String email, String name, String password, String country, String phone) {
+        if (registration_telegram.getText().toString().length() != 0
+                || registration_instagram.getText().toString().length() != 0
+                || registration_facebook.getText().toString().length() != 0) {
+            List<SocialNetworkPOJO> networkPOJOList = new ArrayList<>();
+            if (registration_telegram.getText().toString().length() != 0) {
+                networkPOJOList.add(
+                        new SocialNetworkPOJO(
+                                (int) (1000 * Math.random()) + 1,
+                                getString(R.string.telegram),
+                                registration_telegram.getText().toString(),
+                                login
+                                )
+                );
+//                registerNetwork(login, getString(R.string.telegram), registration_telegram.getText().toString());
+            }
+            if (registration_instagram.getText().toString().length() != 0) {
+                networkPOJOList.add(
+                        new SocialNetworkPOJO(
+                                (int) (1000 * Math.random()) + 1,
+                                getString(R.string.instagram),
+                                registration_instagram.getText().toString(),
+                                login
+                        )
+                );
+//                registerNetwork(login, getString(R.string.instagram), registration_instagram.getText().toString());
+            }
+
+            if (registration_facebook.getText().toString().length() != 0) {
+                networkPOJOList.add(
+                        new SocialNetworkPOJO(
+                                (int) (1000 * Math.random()) + 1,
+                                getString(R.string.facebook),
+                                registration_facebook.getText().toString(),
+                                login
+                        )
+                );
+//                registerNetwork(login, getString(R.string.facebook_app_id), registration_facebook.getText().toString());
+            }
+            registrationViewModel.register(login, email, name,
+                    password, country, phone, networkPOJOList);
+//            registerNetwork(networkPOJOList);
+        } else {
+            registrationViewModel.register(login, email, name, password, country, phone);
+        }
+    }
+
 
     @Override
     public void finish() {

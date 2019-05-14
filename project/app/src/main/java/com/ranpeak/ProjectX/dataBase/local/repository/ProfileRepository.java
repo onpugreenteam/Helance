@@ -81,30 +81,32 @@ public class ProfileRepository {
     }
 
     public void addUserSocialNetwork(SocialNetworkDTO socialNetworkDTO) {
-        Completable.fromRunnable(() ->
-                profileDAO.insert(socialNetworkDTO))
+        Completable.fromRunnable(() -> {
+            profileDAO.insert(socialNetworkDTO);
+            Call<SocialNetworkPOJO> call = apiService.addUserNetwork(
+                    new SocialNetworkPOJO(
+                            socialNetworkDTO.getIdNetwork(),
+                            socialNetworkDTO.getNetworkName(),
+                            socialNetworkDTO.getNetworkLogin(),
+                            socialNetworkDTO.getUserLogin()
+                    )
+            );
+            call.enqueue(new Callback<SocialNetworkPOJO>() {
+                @Override
+                public void onResponse(Call<SocialNetworkPOJO> call, Response<SocialNetworkPOJO> response) {
+
+                }
+
+                @Override
+                public void onFailure(Call<SocialNetworkPOJO> call, Throwable t) {
+
+                }
+            });
+        })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe();
-        Call<SocialNetworkPOJO> call = apiService.addUserNetwork(
-                new SocialNetworkPOJO(
-                        socialNetworkDTO.getIdNetwork(),
-                        socialNetworkDTO.getNetworkName(),
-                        socialNetworkDTO.getNetworkLogin(),
-                        socialNetworkDTO.getUserLogin()
-                )
-        );
-        call.enqueue(new Callback<SocialNetworkPOJO>() {
-            @Override
-            public void onResponse(Call<SocialNetworkPOJO> call, Response<SocialNetworkPOJO> response) {
 
-            }
-
-            @Override
-            public void onFailure(Call<SocialNetworkPOJO> call, Throwable t) {
-
-            }
-        });
     }
 
     private void refreshAllUsersNetworks(List<SocialNetworkDTO> socialNetworkDTOS) {

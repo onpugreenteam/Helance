@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.LobbyActivity;
+import com.ranpeak.ProjectX.activity.lobby.forGuestUsers.LobbyForGuestActivity;
 import com.ranpeak.ProjectX.activity.logIn.commands.LoginNavigator;
 import com.ranpeak.ProjectX.activity.logIn.viewmodel.LoginViewModel;
 import com.ranpeak.ProjectX.activity.passwordRecovery.PassRecoveryActivity1;
@@ -156,6 +157,11 @@ public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<
         facebook.setOnClickListener(view -> {
 
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(LogInActivity.this, LobbyForGuestActivity.class));
     }
 
     // Попытка залогинится
