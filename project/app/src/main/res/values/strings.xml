@@ -97,7 +97,7 @@
     <string name="registration_link_facebook">example</string>
     <string name="error_password_doesnt_match">This password doesn\'t match</string>
     <string name="error_country_incorrect">Country is not correct</string>
-    <string name="task_name">Type name of your task</string>
+    <string name="task_headline">Headline of your task</string>
     <string name="task_description">Type description of your task</string>
     <string name="type_here">Type here</string>
     <string name="add_files">Add pictures</string>

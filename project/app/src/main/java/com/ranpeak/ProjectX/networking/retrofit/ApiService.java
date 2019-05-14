@@ -11,6 +11,7 @@ import com.ranpeak.ProjectX.dto.pojo.TaskPOJO;
 import com.ranpeak.ProjectX.dto.pojo.UserPOJO;
 
 import java.util.List;
+
 import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -78,5 +79,7 @@ public interface ApiService {
 //            @Body SocialNetworkPOJO socialNetworkPOJO
     );
 
+    @GET("updateResume/views/{id}")
+    Observable<TaskDTO> updateResumeViews(@Path("id") long id);
 
 }

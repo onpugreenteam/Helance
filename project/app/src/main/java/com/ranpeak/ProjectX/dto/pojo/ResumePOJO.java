@@ -14,14 +14,14 @@ public class ResumePOJO {
 
     private String users;
 
-    private String views;
+    private int views;
 
     private String telephone;
 
     public ResumePOJO() {
     }
 
-    public ResumePOJO(long id, String subject, String dateStart, String status, String opportunities, String userLogin, String views, String telephone) {
+    public ResumePOJO(long id, String subject, String dateStart, String status, String opportunities, String userLogin, int views, String telephone) {
         this.id = id;
         this.subject = subject;
         this.dateStart = dateStart;
@@ -80,11 +80,11 @@ public class ResumePOJO {
         this.users = userLogin;
     }
 
-    public String getViews() {
+    public int getViews() {
         return views;
     }
 
-    public void setViews(String views) {
+    public void setViews(int views) {
         this.views = views;
     }
 

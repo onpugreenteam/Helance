@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_resume_profile_cardView"
     android:layout_width="match_parent"
-    android:layout_height="190dp"
+    android:layout_height="wrap_content"
     android:layout_marginStart="6dp"
     android:layout_marginBottom="4dp"
     android:layout_marginTop="8dp"
@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="8dp"
             android:text="@string/resume_status"
             android:textColor="@color/textOnPrimary"
             android:textStyle="bold"
@@ -44,6 +44,7 @@
             android:id="@+id/item_resume_profile_linear1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             card:layout_constraintEnd_toEndOf="parent"
             card:layout_constraintTop_toTopOf="parent">
 
@@ -54,6 +55,9 @@
                 android:layout_marginTop="3dp"
                 android:layout_marginEnd="16dp"
                 android:text="@string/update_status"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
                 android:textColor="@color/colorPrimaryDark"
                 android:textStyle="bold" />
 
@@ -70,9 +74,13 @@
             android:id="@+id/item_resume_profile_line"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/color_Black"
-            card:layout_constraintTop_toBottomOf="@+id/item_resume_profile_linear1"
-            tools:layout_editor_absoluteX="0dp" />
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="2dp"
+            android:background="@color/textOnPrimary"
+            card:layout_constraintEnd_toEndOf="parent"
+            card:layout_constraintStart_toStartOf="parent"
+            card:layout_constraintTop_toBottomOf="@+id/item_resume_profile_linear1" />
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/item_resume_profile_constraintLayout2"
@@ -87,10 +95,10 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 android:src="@mipmap/ic_launcher"
                 card:layout_constraintStart_toStartOf="parent"
-                card:layout_constraintTop_toTopOf="parent" />
+                card:layout_constraintTop_toTopOf="@+id/item_resume_profile_linear2" />
 
             <LinearLayout
                 android:id="@+id/item_resume_profile_linear2"
@@ -130,6 +138,7 @@
                 android:id="@+id/item_resume_profile_linear3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="20dp"
                 android:orientation="vertical"
                 card:layout_constraintEnd_toEndOf="parent"
@@ -149,7 +158,7 @@
                     android:id="@+id/item_resume_profile__linear4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="8dp"
                     android:gravity="center">
 
                     <ImageView

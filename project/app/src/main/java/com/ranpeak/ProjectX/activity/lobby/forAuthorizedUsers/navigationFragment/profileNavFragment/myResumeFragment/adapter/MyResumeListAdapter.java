@@ -1,6 +1,7 @@
 package com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myResumeFragment.adapter;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.recyclerview.extensions.ListAdapter;
 import android.support.v7.util.DiffUtil;
@@ -14,7 +15,6 @@ import android.widget.TextView;
 
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.dto.MyResumeDTO;
-import com.ranpeak.ProjectX.dto.ResumeDTO;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -64,9 +64,13 @@ public class MyResumeListAdapter extends ListAdapter<MyResumeDTO,  MyResumeListA
         holder.author.setText(currentItem.getUserName());
         holder.status.setText(currentItem.getStatus());
         holder.subject.setText(currentItem.getSubject());
-        holder.views.setText(currentItem.getViews());
+        holder.views.setText(String.valueOf(currentItem.getViews()));
         holder.dateStart.setText(currentItem.getDateStart());
 //        Glide.with(activity).load(currentItem.getUserAvatar()).into(holder.avatar);
+
+        if(holder.status.getText().toString().equals("Not active")){
+            holder.status.setTextColor(Color.parseColor("#D33434"));
+        }
     }
 
     public MyResumeDTO getResumeAt(int position) {
@@ -123,6 +127,9 @@ public class MyResumeListAdapter extends ListAdapter<MyResumeDTO,  MyResumeListA
                 if (listener != null) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
+                        if(status.getText().toString().equals("Not active")){
+                            status.setTextColor(Color.parseColor("#808080"));
+                        }
                         listener.onUpdateStatusClick(getItem(position), position);
                     }
                 }

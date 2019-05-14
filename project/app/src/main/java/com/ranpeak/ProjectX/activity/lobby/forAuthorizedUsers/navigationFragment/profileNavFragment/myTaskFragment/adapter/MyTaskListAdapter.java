@@ -1,5 +1,6 @@
 package com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myTaskFragment.adapter;
 
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.recyclerview.extensions.ListAdapter;
 import android.support.v7.util.DiffUtil;
@@ -14,7 +15,6 @@ import android.widget.TextView;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.dto.MyTaskDTO;
-import com.ranpeak.ProjectX.dto.TaskDTO;
 
 
 public class MyTaskListAdapter extends ListAdapter<MyTaskDTO, MyTaskListAdapter.MyTaskListViewHolder> {
@@ -71,6 +71,10 @@ public class MyTaskListAdapter extends ListAdapter<MyTaskDTO, MyTaskListAdapter.
         myTaskListViewHolder.author.setText(currentItem.getUserName());
         myTaskListViewHolder.views.setText(String.valueOf(currentItem.getViews()));
         //        Glide.with(activity).load(currentItem.getUserAvatar()).into(myTaskListViewHolder.avatar);
+
+        if(myTaskListViewHolder.status.getText().toString().equals("Not active")){
+            myTaskListViewHolder.status.setTextColor(Color.parseColor("#D33434"));
+        }
     }
 
     public MyTaskDTO getTaskAt(int position) {
@@ -128,6 +132,9 @@ public class MyTaskListAdapter extends ListAdapter<MyTaskDTO, MyTaskListAdapter.
                 if (listener != null) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
+                        if(status.getText().toString().equals("Not active")){
+                            status.setTextColor(Color.parseColor("#808080"));
+                        }
                         listener.onUpdateStatusClick(getItem(position));
                     }
                 }
