@@ -2,6 +2,7 @@ package com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragmen
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -12,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.baoyz.widget.PullRefreshLayout;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.creating.creatingResume.CreatingResumeActivity;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
@@ -31,7 +34,7 @@ public class ResumesFragment extends Fragment implements Activity, ResumeNavigat
     private List<ResumeDTO> data = new ArrayList<>();
     private ArrayList<String> imageUrls = new ArrayList<>();
     private ImageView search;
-    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private PullRefreshLayout mSwipeRefreshLayout;
     private ResumeViewModel resumeViewModel;
 
     public ResumesFragment() {
@@ -46,6 +49,7 @@ public class ResumesFragment extends Fragment implements Activity, ResumeNavigat
         resumeViewModel.setNavigator(this);
 
         findViewById();
+        typeRefresh();
         onListener();
         initImageBitmaps();
 
@@ -63,12 +67,25 @@ public class ResumesFragment extends Fragment implements Activity, ResumeNavigat
         mSwipeRefreshLayout = view.findViewById(R.id.fragment_resumes_swipeRefresh);
     }
 
+
+    private void typeRefresh() {
+        mSwipeRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_SMARTISAN);
+    }
+
+
     @Override
     public void onListener() {
 
         mSwipeRefreshLayout.setOnRefreshListener(() -> {
-            getResumes();
-            mSwipeRefreshLayout.setRefreshing(false);
+            final Handler handler = new Handler();
+            handler.postDelayed( () -> {
+
+                        getResumes();
+                        mSwipeRefreshLayout.setRefreshing(false);
+                    }, 1000
+
+            );
+
         });
 
         fab.setOnClickListener(v -> startActivity(

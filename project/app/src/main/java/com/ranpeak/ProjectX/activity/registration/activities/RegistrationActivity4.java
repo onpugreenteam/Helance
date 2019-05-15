@@ -169,7 +169,6 @@ public class RegistrationActivity4 extends AppCompatActivity implements Activity
                     password, country,
                     registration_phoneNumber.getText().toString());
 
-
             Intent intent = new Intent(getApplicationContext(), RegistrationActivity5.class);
             intent.putExtra("login", login);
             intent.putExtra("email", email);
@@ -223,7 +222,8 @@ public class RegistrationActivity4 extends AppCompatActivity implements Activity
 //                registerNetwork(login, getString(R.string.facebook_app_id), registration_facebook.getText().toString());
             }
             registrationViewModel.register(login, email, name,
-                    password, country, phone, networkPOJOList);
+                    password, country, phone,
+                    networkPOJOList);
 //            registerNetwork(networkPOJOList);
         } else {
             registrationViewModel.register(login, email, name, password, country, phone);

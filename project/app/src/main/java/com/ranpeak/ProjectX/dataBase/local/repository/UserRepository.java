@@ -27,7 +27,6 @@ import java.util.Map;
 
 import io.reactivex.Completable;
 import io.reactivex.Observable;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
@@ -95,16 +94,14 @@ public class UserRepository {
         return registered;
     }
 
-    public boolean register(String login, String email, String name, String password, String country, String phone) {
+    public void register(String login, String email, String name, String password, String country, String phone) {
         new RegisterAsyncTask().execute(login,
                 email, name,password, country, phone);
-        return registered;
     }
 
-    public boolean register(OnRegistrationUserFinished listener, String login, String email, String name, String password, String country, String phone) {
+    public void register(OnRegistrationUserFinished listener, String login, String email, String name, String password, String country, String phone) {
         new RegisterAsyncTask(listener).execute(login,
                 email, name,password, country, phone);
-        return registered;
     }
 
     public boolean checkCode(String email, String code) {
@@ -307,9 +304,9 @@ public class UserRepository {
                     params.put("login", strings[0]);
                     params.put("email", strings[1]);
                     params.put("name", strings[2]);
-                    params.put("country", strings[3]);
-                    params.put("telephone", strings[4]);
-                    params.put("password", strings[5]);
+                    params.put("password", strings[3]);
+                    params.put("country", strings[4]);
+                    params.put("telephone", strings[5]);
                     return params;
                 }
             };

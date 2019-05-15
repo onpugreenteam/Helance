@@ -2,6 +2,7 @@ package com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragmen
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.baoyz.widget.PullRefreshLayout;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.creating.creatingTask.CreatingTaskActivity;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
@@ -31,7 +33,7 @@ public class TasksFragment extends Fragment implements Activity, TaskNavigator {
     private ArrayList<String> imageUrls = new ArrayList<>();
     private RecyclerView recyclerView;
     private TaskListAdapter taskListAdapter;
-    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private PullRefreshLayout mSwipeRefreshLayout;
     private ImageView search;
     private FloatingActionButton fab;
     private TaskViewModel taskViewModel;
@@ -48,33 +50,12 @@ public class TasksFragment extends Fragment implements Activity, TaskNavigator {
         taskViewModel.setNavigator(this);
 
         findViewById();
+        typeRefresh();
         onListener();
         initImageBitmaps();
 
         setupAdapter();
         getTasks();
-
-//        adapter.setLoadMore(new ILoadMore() {
-//            @Override
-//            public void onLoadMore() {
-//                if (data.size() <= 5) {
-//                    data.add(null);
-//                    adapter.notifyItemInserted(data.size() - 1);
-//                    new Handler().postDelayed(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            data.remove(data.size() - 1);
-//                            adapter.notifyItemRemoved(data.size());
-//                            adapter.notifyDataSetChanged();
-//                            adapter.setLoaded();
-//                        }
-//                    }, 4000);
-//                } else {
-//                    Toast.makeText(getApplicationContext(), "Completed", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
-
         return view;
     }
 
@@ -108,8 +89,12 @@ public class TasksFragment extends Fragment implements Activity, TaskNavigator {
     @Override
     public void onListener() {
         mSwipeRefreshLayout.setOnRefreshListener(() -> {
-            getTasks();
-            mSwipeRefreshLayout.setRefreshing(false);
+            Handler handler = new Handler();
+            handler.postDelayed(() -> {
+
+                getTasks();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }, 1000);
         });
 
         fab.setOnClickListener(v -> startActivity(
@@ -146,6 +131,12 @@ public class TasksFragment extends Fragment implements Activity, TaskNavigator {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         taskListAdapter = new TaskListAdapter(data,imageUrls,recyclerView,getActivity());
         recyclerView.setAdapter(taskListAdapter);
+    }
+
+
+
+    private void typeRefresh() {
+        mSwipeRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_SMARTISAN);
     }
 
     private void getTasks(){

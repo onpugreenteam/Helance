@@ -77,6 +77,7 @@ public class ProfileFragment extends Fragment implements Activity {
     private TextView resumesCount;
     private MyTaskViewModel myTaskViewModel;
     private MyResumeViewModel resumeViewModel;
+//    private View line;
     private io.reactivex.disposables.CompositeDisposable mDisposable = new CompositeDisposable();
 
     private final int[] imageResId = {
@@ -122,6 +123,7 @@ public class ProfileFragment extends Fragment implements Activity {
 
     @Override
     public void findViewById() {
+//        line = view.findViewById(R.id.fragment_profile_view);
         appBarLayout = view.findViewById(R.id.fragment_profile_main_appbar);
         swipeRefreshLayout = view.findViewById(R.id.fragment_profile_swipeRefreshLayout);
         tasksCount = view.findViewById(R.id.fragment_profile_task_count);
@@ -147,6 +149,7 @@ public class ProfileFragment extends Fragment implements Activity {
         tabLayout.setupWithViewPager(viewPager);
 
         swipeRefreshLayout.setOnRefreshListener(() -> {
+//            line.setVisibility(View.GONE);
             final Handler handler = new Handler();
             handler.postDelayed(() -> {
                 if (IsOnline.getInstance().isConnectingToInternet(Objects.requireNonNull(getContext()))) {
@@ -156,6 +159,7 @@ public class ProfileFragment extends Fragment implements Activity {
                     Toast.makeText(getContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
                 }
                 swipeRefreshLayout.setRefreshing(false);
+//                line.setVisibility(View.VISIBLE);
             }, 1500);
 
         });

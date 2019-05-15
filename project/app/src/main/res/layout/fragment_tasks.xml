@@ -42,7 +42,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_search_black_24dp" />
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <com.baoyz.widget.PullRefreshLayout
         android:id="@+id/fragment_tasks_swipeRefresh"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -57,7 +57,7 @@
             android:layout_height="match_parent"
             android:padding="4dp"/>
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </com.baoyz.widget.PullRefreshLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fragment_tasks_floatingActionButton"

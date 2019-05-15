@@ -56,7 +56,7 @@ public class FragmentTasks extends Fragment implements Activity, TaskNavigator {
     }
 
     private void typeRefresh() {
-        pullRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_CIRCLES);
+        pullRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_SMARTISAN);
     }
 
     @Override

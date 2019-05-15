@@ -149,19 +149,6 @@ public class RegistrationActivity1 extends AppCompatActivity implements Activity
         public void afterTextChanged(Editable s) {
             checkLogin();
             checkEmail();
-
-//            boolean isEmailValid = isEmailValid(Objects.requireNonNull(register_email).getText().toString());
-//            if (!isEmailValid) {
-//                register_email.setError(getString(R.string.error_invalid_email));
-//            } else {
-//                register_email.setError(null);
-//            }
-//            checkEmail();
-//            if (email_exists) {
-//                register_email.setError(getString(R.string.error_exist_email));
-//            } else {
-//                register_email.setError(null);
-//            }
         }
     };
 
@@ -263,7 +250,7 @@ public class RegistrationActivity1 extends AppCompatActivity implements Activity
             intent.putExtra("email", register_email.getText().toString().trim());
             intent.putExtra("login", register_login.getText().toString().trim());
             intent.putExtra("name", register_name.getText().toString().trim());
-            intent.putExtra("country", register_country.getSelectedCountryNameCode());
+            intent.putExtra("country", register_country.getSelectedCountryName());
             startActivity(intent);
 
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

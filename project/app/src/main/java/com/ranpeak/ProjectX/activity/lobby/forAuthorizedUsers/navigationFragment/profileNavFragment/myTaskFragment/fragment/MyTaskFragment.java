@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.baoyz.widget.PullRefreshLayout;
 import com.ranpeak.ProjectX.R;
 import com.ranpeak.ProjectX.activity.interfaces.Activity;
 import com.ranpeak.ProjectX.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myTaskFragment.adapter.MyTaskListAdapter;
@@ -72,6 +73,8 @@ public class MyTaskFragment extends Fragment implements Activity {
     public void onListener() {
     }
 
+
+
     private void initItems() {
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -90,7 +93,6 @@ public class MyTaskFragment extends Fragment implements Activity {
                     adapter.notifyDataSetChanged();
                 })
         );
-//        disposable.dispose();
 
         // if one of the items was clicked
         adapter.setOnItemClickListener(new MyTaskListAdapter.OnItemClickListener() {

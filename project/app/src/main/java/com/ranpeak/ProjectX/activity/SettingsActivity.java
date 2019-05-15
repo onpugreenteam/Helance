@@ -65,6 +65,9 @@ public class SettingsActivity extends AppCompatActivity implements Activity {
             startActivity(intent);
             finish();
         });
+        button.setOnClickListener((v) -> {
+            finish();
+        });
     }
 
     private void toolbar() {

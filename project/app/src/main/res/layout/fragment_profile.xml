@@ -63,7 +63,8 @@
     <com.baoyz.widget.PullRefreshLayout
         android:id="@+id/fragment_profile_swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@android:color/white">
 
         <android.support.design.widget.CoordinatorLayout
             android:id="@+id/fragment_profile_coordinatorLayout"
@@ -85,10 +86,11 @@
                     android:orientation="vertical"
                     app:layout_scrollFlags="scroll|snap">
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/colorPrimaryDark" />
+                    <!--<View-->
+                        <!--android:id="@+id/fragment_profile_view"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="1dp"-->
+                        <!--android:background="@color/colorPrimaryDark" />-->
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
@@ -148,6 +150,7 @@
                             android:id="@+id/fragment_profile_linearLayout"
                             android:layout_width="205dp"
                             android:layout_height="wrap_content"
+                            android:weightSum=""
                             android:background="@color/colorPrimary"
                             android:gravity="center"
                             android:orientation="vertical"
@@ -245,6 +248,7 @@
                 android:id="@+id/fragment_profile_viewPager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@android:color/white"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
         </android.support.design.widget.CoordinatorLayout>
     </com.baoyz.widget.PullRefreshLayout>

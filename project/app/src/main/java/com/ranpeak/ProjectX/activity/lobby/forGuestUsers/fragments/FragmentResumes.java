@@ -56,7 +56,7 @@ public class FragmentResumes extends Fragment implements Activity, ResumeNavigat
     }
 
     private void typeRefresh() {
-        pullRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_WATER_DROP);
+        pullRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_SMARTISAN);
     }
 
     @Override
