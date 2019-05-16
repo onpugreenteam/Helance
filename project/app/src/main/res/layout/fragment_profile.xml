@@ -150,7 +150,6 @@
                             android:id="@+id/fragment_profile_linearLayout"
                             android:layout_width="205dp"
                             android:layout_height="wrap_content"
-                            android:weightSum=""
                             android:background="@color/colorPrimary"
                             android:gravity="center"
                             android:orientation="vertical"
@@ -252,4 +251,4 @@
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
         </android.support.design.widget.CoordinatorLayout>
     </com.baoyz.widget.PullRefreshLayout>
-</LinearLayout><!--</android.support.v4.widget.SwipeRefreshLayout>-->
+</LinearLayout>

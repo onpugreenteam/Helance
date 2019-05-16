@@ -110,7 +110,9 @@ public class ResumeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
 
-            Glide.with(activity).load(getRandomChestItem(images)).into(viewHolder.profile_user);
+            Glide.with(activity)
+                    .load(getRandomChestItem(images))
+                    .into(viewHolder.profile_user);
 
             viewHolder.cardView.setOnClickListener(v -> {
                 Toast.makeText(v.getContext(), "Open resume", Toast.LENGTH_LONG).show();
