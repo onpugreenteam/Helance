@@ -279,6 +279,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity,
         } else {
             Toast.makeText(this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
         }
+
     }
 
     // если все поля не тронуты(ни одно из них не заполнено), то возвращает true
