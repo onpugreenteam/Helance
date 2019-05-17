@@ -240,6 +240,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity,
     // проверка всех полей на правильность
     // checking every field
     private void attemptCreatingTask() {
+
         if(IsOnline.getInstance().isConnectingToInternet(getApplicationContext())) {
             // Reset errors.
             typeName.setError(null);
