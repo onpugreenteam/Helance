@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.ranpeak.ProjectX">
+    package="com.company.Helance">
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission
@@ -22,69 +22,69 @@
         android:xlargeScreens="true" />
 
     <application
-        android:name=".dataBase.App"
+        android:name="com.company.Helance.dataBase.App"
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myResumeFragment.resume.MyResumeViewActivity"
+        <activity android:name="com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myResumeFragment.resume.MyResumeViewActivity"
             android:theme="@style/AppTheme.SlidrActivityTheme">
         </activity>
-        <activity android:name=".activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myResumeFragment.resume.MyResumeEditActivity"
+        <activity android:name="com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myResumeFragment.resume.MyResumeEditActivity"
             android:theme="@style/ToolBarProfile">
         </activity>
-        <activity android:name=".activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myTaskFragment.task.MyTaskViewActivity"
+        <activity android:name="com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myTaskFragment.task.MyTaskViewActivity"
             android:theme="@style/AppTheme.SlidrActivityTheme">
 
         </activity>
-        <activity android:name=".activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myTaskFragment.task.MyTaskEditActivity"
+        <activity android:name="com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myTaskFragment.task.MyTaskEditActivity"
             android:theme="@style/ToolBarProfile">
 
         </activity>
         <activity
-            android:name=".activity.registration.activities.RegistrationActivity1"
+            android:name="com.company.Helance.activity.registration.activities.RegistrationActivity1"
             android:label="@string/title_activity_registration"
             android:theme="@style/ToolBarProfile" />
         <activity
-            android:name=".activity.registration.activities.RegistrationActivity5"
+            android:name="com.company.Helance.activity.registration.activities.RegistrationActivity5"
             android:theme="@style/ToolBarProfile" />
         <activity
-            android:name=".activity.registration.activities.RegistrationActivity3"
+            android:name="com.company.Helance.activity.registration.activities.RegistrationActivity3"
             android:theme="@style/ToolBarProfile" />
         <activity
-            android:name=".activity.editProfile.EditProfileActivity"
+            android:name="com.company.Helance.activity.editProfile.EditProfileActivity"
             android:theme="@style/ToolBarProfile" />
         <activity
-            android:name=".activity.registration.activities.RegistrationActivity4"
+            android:name="com.company.Helance.activity.registration.activities.RegistrationActivity4"
             android:theme="@style/ToolBarProfile" />
-        <activity android:name=".activity.creating.creatingTask.FullScreenImageActivity" />
+        <activity android:name="com.company.Helance.activity.creating.creatingTask.FullScreenImageActivity" />
         <activity
-            android:name=".activity.creating.creatingResume.CreatingResumeActivity"
-            android:theme="@style/ToolBarProfile" />
-        <activity
-            android:name=".activity.creating.creatingTask.CreatingTaskActivity"
-            android:theme="@style/ToolBarProfile" />
-        <activity android:name=".activity.search.SearchTaskAlertDialog" />
-        <activity
-            android:name=".activity.SettingsActivity"
+            android:name="com.company.Helance.activity.creating.creatingResume.CreatingResumeActivity"
             android:theme="@style/ToolBarProfile" />
         <activity
-            android:name=".activity.passwordRecovery.PassRecoveryActivity1"
+            android:name="com.company.Helance.activity.creating.creatingTask.CreatingTaskActivity"
+            android:theme="@style/ToolBarProfile" />
+        <activity android:name="com.company.Helance.activity.search.SearchTaskAlertDialog" />
+        <activity
+            android:name="com.company.Helance.activity.SettingsActivity"
             android:theme="@style/ToolBarProfile" />
         <activity
-            android:name=".activity.passwordRecovery.PassRecoveryActivity2"
+            android:name="com.company.Helance.activity.passwordRecovery.PassRecoveryActivity1"
             android:theme="@style/ToolBarProfile" />
         <activity
-            android:name=".activity.passwordRecovery.PassRecoveryActivity3"
+            android:name="com.company.Helance.activity.passwordRecovery.PassRecoveryActivity2"
             android:theme="@style/ToolBarProfile" />
         <activity
-            android:name=".activity.logIn.LogInActivity"
+            android:name="com.company.Helance.activity.passwordRecovery.PassRecoveryActivity3"
+            android:theme="@style/ToolBarProfile" />
+        <activity
+            android:name="com.company.Helance.activity.logIn.LogInActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".activity.search.SearchResumeAlertDialog" />
+        <activity android:name="com.company.Helance.activity.search.SearchResumeAlertDialog" />
         <activity
-            android:name=".activity.splashscreen.SplashScreen"
+            android:name="com.company.Helance.activity.splashscreen.SplashScreen"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -92,11 +92,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.lobby.forAuthorizedUsers.LobbyActivity" />
-        <activity android:name=".activity.lobby.forGuestUsers.LobbyForGuestActivity" />
-        <activity android:name=".activity.viewTaskOrResume.ViewResumeActivity"
+        <activity android:name="com.company.Helance.activity.lobby.forAuthorizedUsers.LobbyActivity" />
+        <activity android:name="com.company.Helance.activity.lobby.forGuestUsers.LobbyForGuestActivity" />
+        <activity android:name="com.company.Helance.activity.viewTaskOrResume.ViewResumeActivity"
             android:theme="@style/AppTheme.SlidrActivityTheme"/>
-        <activity android:name=".activity.viewTaskOrResume.ViewTaskActivity"
+        <activity android:name="com.company.Helance.activity.viewTaskOrResume.ViewTaskActivity"
             android:theme="@style/AppTheme.SlidrActivityTheme"/>
 
 

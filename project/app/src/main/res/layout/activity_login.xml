@@ -1,14 +1,14 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.ranpeak.ProjectX.activity.logIn.LogInActivity">
+    tools:context="com.company.Helance.activity.logIn.LogInActivity">
 
     <data>
         <import type="android.view.View"/>
 
         <variable
             name="viewModel"
-            type="com.ranpeak.ProjectX.activity.logIn.viewmodel.LoginViewModel" />
+            type="com.company.Helance.activity.logIn.viewmodel.LoginViewModel" />
     </data>
 
 <ScrollView
