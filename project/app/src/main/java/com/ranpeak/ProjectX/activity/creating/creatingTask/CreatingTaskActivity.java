@@ -20,7 +20,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
@@ -249,7 +248,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity,
             boolean cancel = false;
             View focusView = null;
 
-            if (!stringContainsItemFromList(lessonPicker.getText().toString(), Constants.Values.LESSONS)) {
+            if (!stringContainsItemFromList(lessonPicker.getText().toString())) {
                 cancel = true;
             } else if (typeName.getText().toString().trim().isEmpty()) {
                 cancel = true;
@@ -287,19 +286,21 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity,
         return typeName.getText().toString().isEmpty()
                 && taskDescription.getText().toString().isEmpty()
                 && taskPrice.getText().toString().isEmpty()
-                && !stringContainsItemFromList(lessonPicker.getText().toString(), Constants.Values.LESSONS)
+                && !stringContainsItemFromList(lessonPicker.getText().toString())
                 && datePicker.getText().toString().equals(getString(R.string.select_date));
     }
 
     //проверяет входит ли какое-либо значение в какой-либо указанный массив
     // check if selected lesson exists in Constants.Values.LESSONS
-    private static boolean stringContainsItemFromList(String inputStr, String[] items) {
-        for (String item : items) {
+    private static boolean stringContainsItemFromList(String inputStr) {
+
+        for (String item : Constants.Values.LESSONS) {
             if (inputStr.contains(item)) {
                 return true;
             }
         }
         return false;
+
     }
 
     @Override
