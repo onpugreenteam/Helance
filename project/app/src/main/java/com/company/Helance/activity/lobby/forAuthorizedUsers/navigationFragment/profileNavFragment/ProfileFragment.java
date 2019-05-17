@@ -145,8 +145,8 @@ public class ProfileFragment extends Fragment implements Activity {
                 startActivity(new Intent(getActivity(), SettingsActivity.class)));
         editProfile.setOnClickListener(v ->
                 startActivity(new Intent(getActivity(), EditProfileActivity.class)));
-        avatar.setOnClickListener(v -> startActivityForResult(
-                new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI), GALLERY));
+//        avatar.setOnClickListener(v -> startActivityForResult(
+//                new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI), GALLERY));
         tabLayout.setupWithViewPager(viewPager);
 
         swipeRefreshLayout.setOnRefreshListener(() -> {
