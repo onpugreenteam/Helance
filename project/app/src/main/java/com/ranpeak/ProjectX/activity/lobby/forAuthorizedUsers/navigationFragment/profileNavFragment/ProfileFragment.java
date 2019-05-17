@@ -31,6 +31,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.baoyz.widget.PullRefreshLayout;
+import com.bumptech.glide.Glide;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -224,8 +225,11 @@ public class ProfileFragment extends Fragment implements Activity {
             if (data != null) {
                 Uri contentURI = data.getData();
                 try {
+                    Glide.with(getContext())
+                            .load(contentURI)
+                            .into(avatar);
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), contentURI);
-                    avatar.setImageBitmap(bitmap);
+//                    avatar.setImageBitmap(bitmap);
                     avatar.setVisibility(View.VISIBLE);
                     SharedPrefManager.getInstance(getContext()).userUpdateImage(encodeToBase64(bitmap));
                     uploadImage(bitmap);
