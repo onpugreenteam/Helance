@@ -18,7 +18,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.company.Helance.R;
 import com.company.Helance.activity.viewTaskOrResume.ViewResumeActivity;
-import com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.ILoadMore;
+import com.company.Helance.interfaces.ILoadMore;
 import com.company.Helance.dto.ResumeDTO;
 
 import java.util.ArrayList;
@@ -143,7 +143,7 @@ public class ResumeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
 
 
-    public class ResumeViewHolder extends RecyclerView.ViewHolder implements com.company.Helance.activity.interfaces.Activity {
+    public class ResumeViewHolder extends RecyclerView.ViewHolder implements com.company.Helance.interfaces.Activity {
         CardView cardView;
         TextView author;
         TextView text;

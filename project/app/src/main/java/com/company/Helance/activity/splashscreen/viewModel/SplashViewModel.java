@@ -3,7 +3,7 @@ package com.company.Helance.activity.splashscreen.viewModel;
 import android.content.Context;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
-import com.company.Helance.activity.splashscreen.commands.SplashNavigator;
+import com.company.Helance.interfaces.navigators.SplashNavigator;
 import com.company.Helance.base.BaseViewModel;
 import com.company.Helance.networking.volley.Constants;
 import com.company.Helance.networking.volley.RequestHandler;

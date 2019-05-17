@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.company.Helance.R;
 import com.company.Helance.activity.lobby.forGuestUsers.LobbyForGuestActivity;
-import com.company.Helance.activity.splashscreen.commands.SplashNavigator;
+import com.company.Helance.interfaces.navigators.SplashNavigator;
 import com.company.Helance.activity.splashscreen.viewModel.SplashViewModel;
 
 public class SplashScreen extends AppCompatActivity implements SplashNavigator {

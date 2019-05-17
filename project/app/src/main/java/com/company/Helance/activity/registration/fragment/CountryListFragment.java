@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 import com.company.Helance.R;
-import com.company.Helance.activity.interfaces.Activity;
+import com.company.Helance.interfaces.Activity;
 import com.company.Helance.activity.registration.activities.RegistrationActivity1;
 
 public class CountryListFragment extends DialogFragment implements Activity {

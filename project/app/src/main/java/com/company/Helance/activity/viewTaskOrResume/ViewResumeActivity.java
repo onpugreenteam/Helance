@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.r0adkll.slidr.Slidr;
 import com.company.Helance.R;
-import com.company.Helance.activity.interfaces.Activity;
+import com.company.Helance.interfaces.Activity;
 import com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.MyResumeViewModel;
 import com.company.Helance.activity.viewTaskOrResume.contact.ContactDialogFragment;
 import com.company.Helance.dto.ResumeDTO;
@@ -24,7 +24,7 @@ import com.company.Helance.dto.SocialNetworkDTO;
 import com.company.Helance.networking.IsOnline;
 import com.company.Helance.networking.retrofit.ApiService;
 import com.company.Helance.networking.retrofit.RetrofitClient;
-import com.company.Helance.settings.SharedPrefManager;
+import com.company.Helance.settingsApp.SharedPrefManager;
 
 import java.util.Objects;
 

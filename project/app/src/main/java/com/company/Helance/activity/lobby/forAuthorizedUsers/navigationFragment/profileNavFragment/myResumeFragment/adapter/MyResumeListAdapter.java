@@ -77,7 +77,7 @@ public class MyResumeListAdapter extends ListAdapter<MyResumeDTO,  MyResumeListA
         return getItem(position);
     }
 
-    public class MyResumeListViewHolder extends RecyclerView.ViewHolder implements com.company.Helance.activity.interfaces.Activity {
+    public class MyResumeListViewHolder extends RecyclerView.ViewHolder implements com.company.Helance.interfaces.Activity {
 
         private OnItemClickListener listener;
         private Activity activity;

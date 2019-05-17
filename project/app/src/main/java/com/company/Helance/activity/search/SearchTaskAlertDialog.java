@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.company.Helance.R;
-import com.company.Helance.activity.interfaces.Activity;
+import com.company.Helance.interfaces.Activity;
 
 public class SearchTaskAlertDialog extends AppCompatActivity implements Activity {
 

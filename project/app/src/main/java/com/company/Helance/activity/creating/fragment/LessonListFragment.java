@@ -1,4 +1,4 @@
-package com.company.Helance.activity.creating;
+package com.company.Helance.activity.creating.fragment;
 
 import android.app.DialogFragment;
 import android.os.Bundle;
@@ -12,7 +12,7 @@ import android.widget.SearchView;
 import com.company.Helance.R;
 import com.company.Helance.activity.creating.creatingResume.CreatingResumeActivity;
 import com.company.Helance.activity.creating.creatingTask.CreatingTaskActivity;
-import com.company.Helance.activity.interfaces.Activity;
+import com.company.Helance.interfaces.Activity;
 import com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myResumeFragment.resume.MyResumeEditActivity;
 import com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myTaskFragment.task.MyTaskEditActivity;
 import com.company.Helance.networking.volley.Constants;

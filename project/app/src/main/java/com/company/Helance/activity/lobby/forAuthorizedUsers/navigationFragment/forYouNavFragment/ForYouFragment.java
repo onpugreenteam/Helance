@@ -18,7 +18,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 import com.company.Helance.R;
-import com.company.Helance.activity.interfaces.Activity;
+import com.company.Helance.interfaces.Activity;
 import com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.forYouNavFragment.adapter.ForYouListAdapter;
 import com.company.Helance.dataBase.App;
 import com.company.Helance.dataBase.local.LocalDB;

@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import com.company.Helance.activity.lobby.DefaultSubscriber;
-import com.company.Helance.activity.lobby.commands.ResumeNavigator;
+import com.company.Helance.interfaces.navigators.ResumeNavigator;
 import com.company.Helance.base.BaseViewModel;
 import com.company.Helance.dataBase.App;
 import com.company.Helance.dataBase.local.LocalDB;
@@ -63,6 +63,7 @@ public class ResumeViewModel extends BaseViewModel<ResumeNavigator> {
     @SuppressLint("CheckResult")
     private void getResumesFromLocalDB(){
         resumeDAO.getAllResumes()
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(resumeDTOS -> {
                     getNavigator().getDataInAdapter(resumeDTOS);
@@ -85,7 +86,7 @@ public class ResumeViewModel extends BaseViewModel<ResumeNavigator> {
                     @Override
                     public void onNext(@io.reactivex.annotations.NonNull List<Long> longs) {
                         super.onNext(longs);
-                        Log.d("AddResumes","insert countries transaction complete");
+                        Log.d("AddResumes","insert resumes transaction complete");
                     }
 
                     @Override
@@ -96,7 +97,7 @@ public class ResumeViewModel extends BaseViewModel<ResumeNavigator> {
 
                     @Override
                     public void onComplete() {
-                        Log.d("AddResumes","insert countries transaction complete");
+                        Log.d("AddResumes","insert resumes transaction complete");
                     }
                 });
     }

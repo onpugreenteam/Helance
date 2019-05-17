@@ -68,7 +68,7 @@
             android:theme="@style/ToolBarProfile" />
         <activity android:name="com.company.Helance.activity.search.SearchTaskAlertDialog" />
         <activity
-            android:name="com.company.Helance.activity.SettingsActivity"
+            android:name="com.company.Helance.activity.settings.SettingsActivity"
             android:theme="@style/ToolBarProfile" />
         <activity
             android:name="com.company.Helance.activity.passwordRecovery.PassRecoveryActivity1"

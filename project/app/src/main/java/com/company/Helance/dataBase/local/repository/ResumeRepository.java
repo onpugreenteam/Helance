@@ -26,9 +26,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ResumeRepository {
+
     private ResumeDAO resumeDAO;
     private static LiveData<Integer> countOfUsersResumes;
-    private ApiService apiService = RetrofitClient.getInstance().create(ApiService.class);
+    private ApiService apiService = RetrofitClient.getInstance()
+            .create(ApiService.class);
 
 
     public ResumeRepository(Application application) {

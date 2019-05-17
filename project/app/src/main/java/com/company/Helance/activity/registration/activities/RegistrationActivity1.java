@@ -16,7 +16,7 @@ import android.widget.EditText;
 
 import com.hbb20.CountryCodePicker;
 import com.company.Helance.R;
-import com.company.Helance.activity.interfaces.Activity;
+import com.company.Helance.interfaces.Activity;
 import com.company.Helance.activity.registration.viewModel.RegistrationViewModel;
 
 import java.util.Objects;

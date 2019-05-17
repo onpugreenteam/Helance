@@ -16,7 +16,7 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.hbb20.CountryCodePicker;
 import com.company.Helance.R;
-import com.company.Helance.activity.interfaces.Activity;
+import com.company.Helance.interfaces.Activity;
 import com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.MyProfileViewModel;
 import com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.MyResumeViewModel;
 import com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.MyTaskViewModel;
@@ -24,7 +24,7 @@ import com.company.Helance.dto.SocialNetworkDTO;
 import com.company.Helance.networking.IsOnline;
 import com.company.Helance.networking.volley.Constants;
 import com.company.Helance.networking.volley.RequestHandler;
-import com.company.Helance.settings.SharedPrefManager;
+import com.company.Helance.settingsApp.SharedPrefManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;

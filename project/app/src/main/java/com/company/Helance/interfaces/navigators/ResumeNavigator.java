@@ -1,4 +1,4 @@
-package com.company.Helance.activity.lobby.commands;
+package com.company.Helance.interfaces.navigators;
 
 import com.company.Helance.dto.ResumeDTO;
 

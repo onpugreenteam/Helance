@@ -14,8 +14,8 @@ import android.widget.Toast;
 
 import com.baoyz.widget.PullRefreshLayout;
 import com.company.Helance.R;
-import com.company.Helance.activity.interfaces.Activity;
-import com.company.Helance.activity.lobby.commands.TaskNavigator;
+import com.company.Helance.interfaces.Activity;
+import com.company.Helance.interfaces.navigators.TaskNavigator;
 import com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.tasksNavFragment.adapter.TaskListAdapter;
 import com.company.Helance.activity.lobby.viewModel.TaskViewModel;
 import com.company.Helance.dto.TaskDTO;

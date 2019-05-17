@@ -1,4 +1,4 @@
-package com.company.Helance.activity.logIn.commands;
+package com.company.Helance.interfaces.navigators;
 
 public interface LoginNavigator {
 

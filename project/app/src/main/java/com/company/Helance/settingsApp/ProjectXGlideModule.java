@@ -1,4 +1,4 @@
-package com.company.Helance.settings;
+package com.company.Helance.settingsApp;
 
 import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.module.AppGlideModule;

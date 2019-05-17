@@ -13,11 +13,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.company.Helance.R;
-import com.company.Helance.activity.interfaces.Activity;
+import com.company.Helance.interfaces.Activity;
 import com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.MyProfileViewModel;
 import com.company.Helance.dto.SocialNetworkDTO;
 import com.company.Helance.networking.volley.Constants;
-import com.company.Helance.settings.SharedPrefManager;
+import com.company.Helance.settingsApp.SharedPrefManager;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;

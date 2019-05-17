@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import com.company.Helance.activity.lobby.DefaultSubscriber;
-import com.company.Helance.activity.lobby.commands.TaskNavigator;
+import com.company.Helance.interfaces.navigators.TaskNavigator;
 import com.company.Helance.base.BaseViewModel;
 import com.company.Helance.dataBase.App;
 import com.company.Helance.dataBase.local.LocalDB;
@@ -66,6 +66,7 @@ public class TaskViewModel extends BaseViewModel<TaskNavigator> {
     @SuppressLint("CheckResult")
     private void getTasksFromLocalDB(){
         taskDAO.getAllTasks()
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(taskDTOS -> {
                     getNavigator().getDataInAdapter(taskDTOS);
@@ -88,7 +89,7 @@ public class TaskViewModel extends BaseViewModel<TaskNavigator> {
                     @Override
                     public void onNext(@io.reactivex.annotations.NonNull List<Long> longs) {
                         super.onNext(longs);
-                        Log.d("AddTasks","insert countries transaction complete");
+                        Log.d("AddTasks","insert tasks transaction complete");
                     }
 
                     @Override
@@ -99,7 +100,7 @@ public class TaskViewModel extends BaseViewModel<TaskNavigator> {
 
                     @Override
                     public void onComplete() {
-                        Log.d("AddTasks","insert countries transaction complete");
+                        Log.d("AddTasks","insert tasks transaction complete");
                     }
                 });
     }

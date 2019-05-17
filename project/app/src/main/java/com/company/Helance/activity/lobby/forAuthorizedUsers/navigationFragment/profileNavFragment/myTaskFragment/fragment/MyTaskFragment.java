@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.company.Helance.R;
-import com.company.Helance.activity.interfaces.Activity;
+import com.company.Helance.interfaces.Activity;
 import com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myTaskFragment.adapter.MyTaskListAdapter;
 import com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myTaskFragment.task.MyTaskEditActivity;
 import com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myTaskFragment.task.MyTaskViewActivity;
@@ -23,7 +23,7 @@ import com.company.Helance.dto.MyTaskDTO;
 import com.company.Helance.networking.IsOnline;
 import com.company.Helance.networking.retrofit.ApiService;
 import com.company.Helance.networking.retrofit.RetrofitClient;
-import com.company.Helance.settings.SharedPrefManager;
+import com.company.Helance.settingsApp.SharedPrefManager;
 import com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.MyTaskViewModel;
 
 import java.util.Objects;

@@ -14,14 +14,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.company.Helance.R;
-import com.company.Helance.activity.creating.LessonListFragment;
-import com.company.Helance.activity.interfaces.Activity;
+import com.company.Helance.activity.creating.fragment.LessonListFragment;
+import com.company.Helance.interfaces.Activity;
 import com.company.Helance.dto.MyResumeDTO;
 import com.company.Helance.networking.IsOnline;
 import com.company.Helance.networking.retrofit.ApiService;
 import com.company.Helance.networking.retrofit.RetrofitClient;
 import com.company.Helance.networking.volley.Constants;
-import com.company.Helance.settings.SharedPrefManager;
+import com.company.Helance.settingsApp.SharedPrefManager;
 import com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.MyResumeViewModel;
 
 import java.util.Objects;

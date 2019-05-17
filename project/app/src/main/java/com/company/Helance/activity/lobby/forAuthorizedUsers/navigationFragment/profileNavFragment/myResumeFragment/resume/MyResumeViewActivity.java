@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.r0adkll.slidr.Slidr;
 import com.company.Helance.R;
-import com.company.Helance.activity.interfaces.Activity;
+import com.company.Helance.interfaces.Activity;
 import com.company.Helance.dto.MyResumeDTO;
 import com.company.Helance.networking.IsOnline;
 import com.company.Helance.networking.retrofit.ApiService;

@@ -1,4 +1,4 @@
-package com.company.Helance.activity.splashscreen.commands;
+package com.company.Helance.interfaces.navigators;
 
 public interface SplashNavigator {
 

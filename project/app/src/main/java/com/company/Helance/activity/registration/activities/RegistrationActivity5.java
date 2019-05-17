@@ -13,11 +13,11 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.company.Helance.R;
-import com.company.Helance.activity.interfaces.Activity;
+import com.company.Helance.interfaces.Activity;
 import com.company.Helance.activity.lobby.forAuthorizedUsers.LobbyActivity;
 import com.company.Helance.activity.logIn.LogInActivity;
 import com.company.Helance.activity.registration.viewModel.RegistrationViewModel;
-import com.company.Helance.settings.SharedPrefManager;
+import com.company.Helance.settingsApp.SharedPrefManager;
 
 import java.util.Objects;
 

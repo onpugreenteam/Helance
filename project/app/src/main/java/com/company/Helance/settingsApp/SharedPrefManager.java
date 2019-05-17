@@ -1,4 +1,4 @@
-package com.company.Helance.settings;
+package com.company.Helance.settingsApp;
 
 import android.content.Context;
 import android.content.SharedPreferences;

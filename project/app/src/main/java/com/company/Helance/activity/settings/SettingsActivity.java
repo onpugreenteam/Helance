@@ -1,4 +1,4 @@
-package com.company.Helance.activity;
+package com.company.Helance.activity.settings;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -10,12 +10,12 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.company.Helance.R;
-import com.company.Helance.activity.interfaces.Activity;
+import com.company.Helance.interfaces.Activity;
 import com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.MyProfileViewModel;
 import com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.MyResumeViewModel;
 import com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.MyTaskViewModel;
 import com.company.Helance.activity.lobby.forGuestUsers.LobbyForGuestActivity;
-import com.company.Helance.settings.SharedPrefManager;
+import com.company.Helance.settingsApp.SharedPrefManager;
 
 import java.util.Objects;
 

@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.r0adkll.slidr.Slidr;
 import com.company.Helance.R;
-import com.company.Helance.activity.interfaces.Activity;
+import com.company.Helance.interfaces.Activity;
 import com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.MyTaskViewModel;
 import com.company.Helance.dto.MyTaskDTO;
 import com.company.Helance.networking.IsOnline;

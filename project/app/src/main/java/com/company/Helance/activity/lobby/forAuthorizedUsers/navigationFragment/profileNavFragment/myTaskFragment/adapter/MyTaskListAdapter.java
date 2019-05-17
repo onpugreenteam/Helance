@@ -13,7 +13,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.company.Helance.R;
-import com.company.Helance.activity.interfaces.Activity;
+import com.company.Helance.interfaces.Activity;
 import com.company.Helance.dto.MyTaskDTO;
 
 

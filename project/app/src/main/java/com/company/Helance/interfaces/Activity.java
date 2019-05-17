@@ -1,4 +1,4 @@
-package com.company.Helance.activity.interfaces;
+package com.company.Helance.interfaces;
 
 public interface Activity {
     void findViewById();

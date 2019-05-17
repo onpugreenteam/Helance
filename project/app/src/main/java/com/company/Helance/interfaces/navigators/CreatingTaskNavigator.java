@@ -1,4 +1,4 @@
-package com.company.Helance.activity.creating.commands;
+package com.company.Helance.interfaces.navigators;
 
 public interface CreatingTaskNavigator {
 

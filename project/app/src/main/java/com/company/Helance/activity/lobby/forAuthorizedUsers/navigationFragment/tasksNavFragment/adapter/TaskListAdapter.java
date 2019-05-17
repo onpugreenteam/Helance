@@ -19,7 +19,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.company.Helance.R;
 import com.company.Helance.activity.viewTaskOrResume.ViewTaskActivity;
-import com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.ILoadMore;
+import com.company.Helance.interfaces.ILoadMore;
 import com.company.Helance.dto.TaskDTO;
 
 import java.util.ArrayList;
@@ -143,7 +143,7 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.data = data;
     }
 
-    public class TaskViewHolder extends RecyclerView.ViewHolder implements com.company.Helance.activity.interfaces.Activity {
+    public class TaskViewHolder extends RecyclerView.ViewHolder implements com.company.Helance.interfaces.Activity {
         CardView cardView;
         TextView author;
         TextView headline;

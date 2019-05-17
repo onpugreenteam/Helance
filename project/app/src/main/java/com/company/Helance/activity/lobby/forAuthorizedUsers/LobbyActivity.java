@@ -10,7 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.company.Helance.R;
-import com.company.Helance.activity.interfaces.Activity;
+import com.company.Helance.interfaces.Activity;
 import com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.forYouNavFragment.ForYouFragment;
 import com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.ProfileFragment;
 import com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.resumesNavFragment.ResumesFragment;
