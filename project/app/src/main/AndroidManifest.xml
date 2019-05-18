@@ -2,11 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.company.Helance">
-    <!-- To auto-complete the email text field in the login form with the user's emails -->
-    <!--<uses-permission android:name="android.permission.GET_ACCOUNTS" />-->
-    <!--<uses-permission-->
-        <!--android:name="android.permission.ACCOUNT_MANAGER"-->
-        <!--tools:ignore="ProtectedPermissions" />-->
+<!--     To auto-complete the email text field in the login form with the user's emails -->
+<!--    <uses-permission android:name="android.permission.GET_ACCOUNTS" />-->
+<!--    <uses-permission-->
+<!--        android:name="android.permission.ACCOUNT_MANAGER"-->
+<!--        tools:ignore="ProtectedPermissions" />-->
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -28,7 +28,8 @@
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="portrait"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
         <activity android:name="com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myResumeFragment.resume.MyResumeViewActivity"
             android:theme="@style/AppTheme.SlidrActivityTheme">
         </activity>

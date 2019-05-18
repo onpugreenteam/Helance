@@ -133,8 +133,12 @@ public class RegistrationActivity1 extends AppCompatActivity implements Activity
 
         @Override
         public void afterTextChanged(Editable s) {
-            checkLogin();
-            checkEmail();
+            if (isLoginValidLong(register_login.getText().toString()) && isLoginValidShort(register_login.getText().toString())) {
+                checkLogin();
+            }
+            if(isEmailValid(register_email.getText().toString())) {
+                checkEmail();
+            }
         }
     };
 

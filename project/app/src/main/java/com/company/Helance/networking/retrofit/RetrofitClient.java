@@ -12,9 +12,8 @@ public class RetrofitClient {
 
     private static Retrofit retrofit;
     private static Gson gson;
-//    private static final String BASE_URL = "https://projectx174.herokuapp.com/";
+    private static final String BASE_URL = "https://projectx174.herokuapp.com/";
 //    private static final String BASE_URL = "http://192.168.0.113:8080/";
-    private static final String BASE_URL = "http://172.17.224.225:8080/";
 
     public static synchronized Retrofit getInstance() {
         if (retrofit == null) {

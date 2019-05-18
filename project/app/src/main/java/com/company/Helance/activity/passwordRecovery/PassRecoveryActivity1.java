@@ -66,7 +66,9 @@ public class PassRecoveryActivity1 extends AppCompatActivity implements Activity
 
             @Override
             public void afterTextChanged(Editable s) {
-                checkEmailOnServer();
+                if(isEmailValid(emailEditText.getText().toString())){
+                    checkEmailOnServer();
+                }
             }
         });
         nextButton.setOnClickListener(v -> checkEmail());
