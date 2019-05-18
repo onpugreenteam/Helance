@@ -62,8 +62,7 @@ public class RegistrationActivity1 extends AppCompatActivity implements Activity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {// todo: goto back activity from here
-            finish();
+        if (item.getItemId() == android.R.id.home) {
 
             // если пустых полей нет, то открывается диалог с потверждение закрытия окна
             if (!allFieldsEmpty()) {

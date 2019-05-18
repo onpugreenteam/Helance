@@ -13,7 +13,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.company.Helance.R;
 import com.company.Helance.activity.lobby.forGuestUsers.LobbyForGuestActivity;
@@ -93,7 +92,7 @@ public class SplashScreen extends AppCompatActivity implements SplashNavigator {
         finish();
     }
 
-    private boolean checkInternetConnection() {
+    private void checkInternetConnection() {
 
         ConnectivityManager connManager =
                 (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -101,32 +100,30 @@ public class SplashScreen extends AppCompatActivity implements SplashNavigator {
         NetworkInfo networkInfo = connManager.getActiveNetworkInfo();
 
         if (networkInfo == null) {
-            Toast.makeText(this, "No default network is currently active", Toast.LENGTH_LONG).show();
-            return false;
+//            Toast.makeText(this, "No default network is currently active", Toast.LENGTH_LONG).show();
+            return;
         }
 
         if (!networkInfo.isConnected()) {
-            Toast.makeText(this, "Network is not connected", Toast.LENGTH_LONG).show();
-            return false;
+//            Toast.makeText(this, "Network is not connected", Toast.LENGTH_LONG).show();
+            return;
         }
 
         if (!networkInfo.isAvailable()) {
-            Toast.makeText(this, "Network not available", Toast.LENGTH_LONG).show();
-            return false;
+//            Toast.makeText(this, "Network not available", Toast.LENGTH_LONG).show();
         }
-        Toast.makeText(this, "Network OK", Toast.LENGTH_LONG).show();
-        return true;
+//        Toast.makeText(this, "Network OK", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void handleError(Throwable throwable) {
-        Toast.makeText(getApplicationContext(), "Server don`t started", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(), "Server don`t started", Toast.LENGTH_SHORT).show();
         startLoadData();
     }
 
     @Override
     public void completeLoad() {
-        Toast.makeText(getApplicationContext(), "Data downloading", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(), "Data downloading", Toast.LENGTH_SHORT).show();
         startLoadData();
     }
 }
