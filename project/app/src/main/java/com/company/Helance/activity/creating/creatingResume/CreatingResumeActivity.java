@@ -37,6 +37,7 @@ public class CreatingResumeActivity extends AppCompatActivity implements Activit
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(CREATING_RESUME_ACTIVITY);
 
@@ -46,14 +47,17 @@ public class CreatingResumeActivity extends AppCompatActivity implements Activit
 
         creatingResumeViewModel = new CreatingResumeViewModel(getApplicationContext());
         creatingResumeViewModel.setNavigator(this);
+
     }
 
     @Override
     public void findViewById() {
+
         lessonPicker = findViewById(R.id.creating_resume_lesson_list_in_resume);
         description = findViewById(R.id.creating_resume_description);
         descriptionLength = findViewById(R.id.creating_resume_description_length);
         create = findViewById(R.id.creating_resume_button);
+
     }
 
     @Override
