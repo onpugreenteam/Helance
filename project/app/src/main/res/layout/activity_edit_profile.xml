@@ -1,182 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorSecondaryLight"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="8dp">
 
-        <ScrollView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp">
+            android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/edit_profile_name_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/name"
+                android:textColor="@color/darkText"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/edit_profile_name_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:hint="@string/name"
+                android:inputType="textPersonName"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColorHint="@color/textOnPrimary"
+                android:textSize="20sp" />
 
-                <TextView
-                    android:id="@+id/edit_profile_name_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:text="@string/name"
-                    android:textColor="@color/darkText"
-                    android:textSize="16sp" />
+            <TextView
+                android:id="@+id/edit_profile_country_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/country"
+                android:textColor="@color/darkText"
+                android:textSize="16sp" />
 
-                <EditText
-                    android:id="@+id/edit_profile_name_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/name"
-                    android:inputType="textPersonName"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:textColorHint="@color/textOnPrimary"
-                    android:textSize="20sp" />
+            <com.hbb20.CountryCodePicker
+                android:id="@+id/edit_profile_country"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:ccpDialog_showPhoneCode="false"
+                app:ccp_defaultNameCode="US"
+                app:ccp_showFullName="true"
+                app:ccp_showNameCode="false"
+                app:ccp_showPhoneCode="false"
+                app:ccp_textGravity="LEFT"
+                app:layout_constraintTop_toBottomOf="@+id/registration_textView_country" />
 
-                <TextView
-                    android:id="@+id/edit_profile_country_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="@string/country"
-                    android:textColor="@color/darkText"
-                    android:textSize="16sp" />
+            <TextView
+                android:id="@+id/edit_profile_email_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/email"
+                android:textColor="@color/darkText"
+                android:textSize="16sp" />
 
-                <com.hbb20.CountryCodePicker
-                    android:id="@+id/edit_profile_country"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:ccpDialog_showPhoneCode="false"
-                    app:ccp_defaultNameCode="US"
-                    app:ccp_showFullName="true"
-                    app:ccp_showNameCode="false"
-                    app:ccp_showPhoneCode="false"
-                    app:ccp_textGravity="LEFT"
-                    app:layout_constraintTop_toBottomOf="@+id/registration_textView_country" />
+            <EditText
+                android:id="@+id/edit_profile_email_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="20dp"
+                android:hint="@string/email"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColorHint="@color/textOnPrimary"
+                android:textSize="20sp" />
 
-                <TextView
-                    android:id="@+id/edit_profile_email_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/email"
-                    android:textColor="@color/darkText"
-                    android:textSize="16sp" />
+            <TextView
+                android:id="@+id/edit_profile_telephone_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/telephone"
+                android:textColor="@color/darkText"
+                android:textSize="16sp" />
 
-                <EditText
-                    android:id="@+id/edit_profile_email_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="20dp"
-                    android:hint="@string/email"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:textColorHint="@color/textOnPrimary"
-                    android:textSize="20sp" />
+            <EditText
+                android:id="@+id/edit_profile_telephone_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="20dp"
+                android:hint="@string/telephone"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColorHint="@color/textOnPrimary"
+                android:textSize="20sp" />
 
-                <TextView
-                    android:id="@+id/edit_profile_telephone_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/telephone"
-                    android:textColor="@color/darkText"
-                    android:textSize="16sp" />
+            <TextView
+                android:id="@+id/edit_profile_social_network_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/socialNetworkDTOS"
+                android:textColor="@color/darkText"
+                android:textSize="24sp" />
 
-                <EditText
-                    android:id="@+id/edit_profile_telephone_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="20dp"
-                    android:hint="@string/telephone"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:textColorHint="@color/textOnPrimary"
-                    android:textSize="20sp" />
+            <TextView
+                android:id="@+id/edit_profile_social_network_telegramm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/telegram"
+                android:textColor="@color/darkText"
+                android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/edit_profile_social_network_text_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/socialNetworkDTOS"
-                    android:textColor="@color/darkText"
-                    android:textSize="24sp" />
+            <EditText
+                android:id="@+id/edit_profile_social_network_telegramm_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="20dp"
+                android:hint="@string/telegram"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColorHint="@color/textOnPrimary"
+                android:textSize="20sp" />
 
-                <TextView
-                    android:id="@+id/edit_profile_social_network_telegramm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="@string/telegram"
-                    android:textColor="@color/darkText"
-                    android:textSize="16sp" />
+            <TextView
+                android:id="@+id/edit_profile_social_network_instagramm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/instagram"
+                android:textColor="@color/darkText"
+                android:textSize="16sp" />
 
-                <EditText
-                    android:id="@+id/edit_profile_social_network_telegramm_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="20dp"
-                    android:hint="@string/telegram"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:textColorHint="@color/textOnPrimary"
-                    android:textSize="20sp" />
+            <EditText
+                android:id="@+id/edit_profile_social_network_instagramm_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="20dp"
+                android:hint="@string/instagram"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColorHint="@color/textOnPrimary"
+                android:textSize="20sp" />
 
-                <TextView
-                    android:id="@+id/edit_profile_social_network_instagramm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/instagram"
-                    android:textColor="@color/darkText"
-                    android:textSize="16sp" />
+            <TextView
+                android:id="@+id/edit_profile_social_network_facebook"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/facebook"
+                android:textColor="@color/darkText"
+                android:textSize="16sp" />
 
-                <EditText
-                    android:id="@+id/edit_profile_social_network_instagramm_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="20dp"
-                    android:hint="@string/instagram"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:textColorHint="@color/textOnPrimary"
-                    android:textSize="20sp" />
+            <EditText
+                android:id="@+id/edit_profile_social_network_facebook_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="20dp"
+                android:hint="@string/facebook"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColorHint="@color/textOnPrimary"
+                android:textSize="20sp" />
 
-                <TextView
-                    android:id="@+id/edit_profile_social_network_facebook"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/facebook"
-                    android:textColor="@color/darkText"
-                    android:textSize="16sp" />
-
-                <EditText
-                    android:id="@+id/edit_profile_social_network_facebook_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="20dp"
-                    android:hint="@string/facebook"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:textColorHint="@color/textOnPrimary"
-                    android:textSize="20sp" />
-
-            </LinearLayout>
-
-        </ScrollView>
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="bottom"
-            android:paddingTop="7dp"
-            android:padding="8dp">
+            android:padding="8dp"
+            android:paddingTop="8dp">
 
             <Button
                 android:id="@+id/edit_profile_password_button"
@@ -202,4 +201,5 @@
                 android:textColor="@color/colorSecondaryLight"
                 android:textStyle="bold" />
         </RelativeLayout>
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>

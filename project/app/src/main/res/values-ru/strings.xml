@@ -177,4 +177,5 @@
     <string name="phylosophy">Философия</string>
     <string name="programming">Программирование</string>
     <string name="recomendations">Рекомендации</string>
+    <string name="title_activity_registration">Регистрация</string>
 </resources>

@@ -76,20 +76,11 @@ public class RegistrationActivity4 extends AppCompatActivity implements Activity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                // todo: goto back activity from here
-
-//                Intent intent = new Intent(CreatingTaskActivity.this, LobbyActivity.class);
-////                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-//                startActivity(intent);
-//                finish();
-                finish();
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
