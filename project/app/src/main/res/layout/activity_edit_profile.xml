@@ -167,7 +167,6 @@
                 android:singleLine="true"
                 android:textColorHint="@color/textOnPrimary"
                 android:textSize="20sp" />
-
         </LinearLayout>
 
         <RelativeLayout
