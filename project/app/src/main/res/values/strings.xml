@@ -44,7 +44,7 @@
         completions."
     </string>
     <string name="registration_button">Sign up now</string>
-    <string name="title_activity_registration" translatable="false">Registration</string>
+    <string name="title_activity_registration">Registration</string>
     <string name="prompt_name">Name</string>
     <string name="prompt_country">Country</string>
     <string name="password">Password</string>
@@ -244,7 +244,7 @@
     <string name="resumes">RESUMES</string>
     <string name="phone">Phone</string>
     <string name="email_example" translatable="false">example@email.com</string>
-    <string name="telegram_example">\@example</string>
+    <string name="telegram_example" translatable="false">\@example</string>
     <string name="facebook" translatable="false">Facebook</string>
     <string name="price">Price</string>
     <string name="update_status">Update status</string>

@@ -70,6 +70,8 @@ public class MyResumeListAdapter extends ListAdapter<MyResumeDTO,  MyResumeListA
 
         if(!currentItem.isActive()){
             holder.status.setTextColor(Color.parseColor("#D33434"));
+        }else{
+            holder.status.setTextColor(Color.parseColor("#808080"));
         }
     }
 
@@ -127,9 +129,6 @@ public class MyResumeListAdapter extends ListAdapter<MyResumeDTO,  MyResumeListA
                 if (listener != null) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
-                        if(status.getText().toString().equals(R.string.not_active)){
-                            status.setTextColor(Color.parseColor("#808080"));
-                        }
                         listener.onUpdateStatusClick(getItem(position), position);
                     }
                 }

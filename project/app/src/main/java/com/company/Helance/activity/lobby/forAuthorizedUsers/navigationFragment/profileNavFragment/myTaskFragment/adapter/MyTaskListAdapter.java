@@ -74,6 +74,8 @@ public class MyTaskListAdapter extends ListAdapter<MyTaskDTO, MyTaskListAdapter.
 
         if(!currentItem.isActive()){
             myTaskListViewHolder.status.setTextColor(Color.parseColor("#D33434"));
+        }else{
+            myTaskListViewHolder.status.setTextColor(Color.parseColor("#808080"));
         }
     }
 
@@ -132,9 +134,6 @@ public class MyTaskListAdapter extends ListAdapter<MyTaskDTO, MyTaskListAdapter.
                 if (listener != null) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
-                        if(status.getText().toString().equals(R.string.active)){
-                            status.setTextColor(Color.parseColor("#808080"));
-                        }
                         listener.onUpdateStatusClick(getItem(position), position);
                     }
                 }
