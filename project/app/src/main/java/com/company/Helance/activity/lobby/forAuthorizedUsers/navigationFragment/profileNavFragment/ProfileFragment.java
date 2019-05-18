@@ -110,7 +110,7 @@ public class ProfileFragment extends Fragment implements Activity {
 
         initData();
         initFragments(viewPager);
-        requestMultiplePermissions();
+//        requestMultiplePermissions();
 
         // Спрашмвает пользователя разрешение на доступ к галерее(если он его не давал еще)
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
@@ -202,13 +202,13 @@ public class ProfileFragment extends Fragment implements Activity {
         country.setText(String.valueOf(SharedPrefManager.getInstance(getContext()).getUserCountry()));
         avatar.setVisibility(View.VISIBLE);
 
-        if (!SharedPrefManager.getInstance(getContext()).getUserAvatar().equals("nullk")) {
-            byte[] decodedString = Base64.decode(String.valueOf(SharedPrefManager.getInstance(getContext()).getUserAvatar()), Base64.DEFAULT);
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            avatar.setImageBitmap(decodedByte);
-        } else {
-            avatar.setVisibility(View.VISIBLE);
-        }
+//        if (!SharedPrefManager.getInstance(getContext()).getUserAvatar().equals("nullk")) {
+//            byte[] decodedString = Base64.decode(String.valueOf(SharedPrefManager.getInstance(getContext()).getUserAvatar()), Base64.DEFAULT);
+//            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+//            avatar.setImageBitmap(decodedByte);
+//        } else {
+//            avatar.setVisibility(View.VISIBLE);
+//        }
     }
 
 

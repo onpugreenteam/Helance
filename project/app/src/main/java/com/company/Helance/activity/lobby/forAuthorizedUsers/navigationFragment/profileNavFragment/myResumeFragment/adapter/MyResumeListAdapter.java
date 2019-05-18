@@ -38,7 +38,7 @@ public class MyResumeListAdapter extends ListAdapter<MyResumeDTO,  MyResumeListA
         public boolean areContentsTheSame(@NonNull MyResumeDTO oldItem, @NonNull MyResumeDTO newItem) {
             return oldItem.getDateStart().equals(newItem.getDateStart())
                     && oldItem.getOpportunities().equals(newItem.getOpportunities())
-                    && oldItem.getStatus().equals(newItem.getStatus())
+                    && oldItem.isActive() == newItem.isActive()
                     && oldItem.getSubject().equals(newItem.getSubject())
                     && oldItem.getUserCountry().equals(newItem.getUserCountry())
                     && oldItem.getUserEmail().equals(newItem.getUserEmail())
@@ -62,13 +62,13 @@ public class MyResumeListAdapter extends ListAdapter<MyResumeDTO,  MyResumeListA
 
         holder.opportunities.setText(currentItem.getOpportunities());
         holder.author.setText(currentItem.getUserName());
-        holder.status.setText(currentItem.getStatus());
+        holder.status.setText(currentItem.isActive() ? R.string.active : R.string.not_active);
         holder.subject.setText(currentItem.getSubject());
         holder.views.setText(String.valueOf(currentItem.getViews()));
         holder.dateStart.setText(currentItem.getDateStart());
 //        Glide.with(activity).load(currentItem.getUserAvatar()).into(holder.avatar);
 
-        if(holder.status.getText().toString().equals("Not active")){
+        if(holder.status.getText().toString().equals(R.string.not_active)){
             holder.status.setTextColor(Color.parseColor("#D33434"));
         }
     }
@@ -127,7 +127,7 @@ public class MyResumeListAdapter extends ListAdapter<MyResumeDTO,  MyResumeListA
                 if (listener != null) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
-                        if(status.getText().toString().equals("Not active")){
+                        if(status.getText().toString().equals(R.string.not_active)){
                             status.setTextColor(Color.parseColor("#808080"));
                         }
                         listener.onUpdateStatusClick(getItem(position), position);

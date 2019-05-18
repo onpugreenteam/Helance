@@ -70,12 +70,12 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity,
         findViewById();
         onListener();
 
-        // Спрашмвает пользователя разрешение на доступ к галерее(если он его не давал еще)
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
-                PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    REQUEST_PERMISSION);
-        }
+//        // Спрашмвает пользователя разрешение на доступ к галерее(если он его не давал еще)
+//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
+//                PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+//                    REQUEST_PERMISSION);
+//        }
 
         creatingTaskViewModel = new CreatingTaskViewModel(getApplicationContext());
         creatingTaskViewModel.setNavigator(this);
@@ -113,10 +113,11 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity,
             dialog.show();
 
         });
-        selectImages.setOnClickListener(v -> {
-            startActivityForResult(new Intent(Intent.ACTION_PICK,
-                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI), GALLERY);
-        });
+        selectImages.setVisibility(View.INVISIBLE);
+//        selectImages.setOnClickListener(v -> {
+//            startActivityForResult(new Intent(Intent.ACTION_PICK,
+//                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI), GALLERY);
+//        });
         dateSetListener = (view, year, month, dayOfMonth) -> {
             month = month + 1;
             String date = dayOfMonth + "." + month + "." + year;
@@ -158,18 +159,15 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity,
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                // если пустых полей нет, то открывается диалог с потверждение закрытия окна
-                if (!allFieldsEmpty()) {
-                    openDialog();
-                }
-                // если ни одно из полей не заполнено, то окно закрывается без открытия диалога
-                else finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == android.R.id.home) {// если пустых полей нет, то открывается диалог с потверждение закрытия окна
+            if (!allFieldsEmpty()) {
+                openDialog();
+            }
+            // если ни одно из полей не заполнено, то окно закрывается без открытия диалога
+            else finish();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     // если нажата кнопка назад на устройстве

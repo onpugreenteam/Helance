@@ -149,7 +149,7 @@ public class MyResumeEditActivity extends AppCompatActivity implements Activity 
                 editedResume.setSubject(subject.getText().toString());
                 editedResume.setOpportunities(opportunities.getText().toString());
                 editedResume.setDateStart(((MyResumeDTO) getIntent().getSerializableExtra("MyResume")).getDateStart());
-                editedResume.setStatus(((MyResumeDTO) getIntent().getSerializableExtra("MyResume")).getStatus());
+                editedResume.setActive(((MyResumeDTO) getIntent().getSerializableExtra("MyResume")).isActive());
                 editedResume.setUserLogin(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()));
                 editedResume.setUserEmail(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserEmail()));
                 editedResume.setUserName(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserName()));
@@ -177,7 +177,7 @@ public class MyResumeEditActivity extends AppCompatActivity implements Activity 
         item1.setSubject(subject.getText().toString());
         item1.setOpportunities(opportunities.getText().toString());
         item1.setDateStart(((MyResumeDTO) getIntent().getSerializableExtra("MyResume")).getDateStart());
-        item1.setStatus(((MyResumeDTO) getIntent().getSerializableExtra("MyResume")).getStatus());
+        item1.setActive(((MyResumeDTO) getIntent().getSerializableExtra("MyResume")).isActive());
         item1.setUserLogin(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()));
         item1.setUserEmail(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserEmail()));
         item1.setUserName(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserName()));
@@ -188,7 +188,7 @@ public class MyResumeEditActivity extends AppCompatActivity implements Activity 
         return item1.getSubject().equals(item2.getSubject())
                 && item1.getOpportunities().equals(item2.getOpportunities())
                 && item1.getDateStart().equals(item2.getDateStart())
-                && item1.getStatus().equals(item2.getStatus());
+                && item1.isActive() == item2.isActive();
 //                && item1.getFileTasks().equals(item2.getFileTasks());
     }
 

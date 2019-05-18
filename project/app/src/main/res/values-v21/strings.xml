@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="choice_of_connection">Choice of connection</string>
-    <string name="emailcontact">emailContact</string>
-    <string name="phonecontact">phoneContact</string>
-</resources>

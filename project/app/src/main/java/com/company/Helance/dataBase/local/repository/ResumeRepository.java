@@ -71,7 +71,7 @@ public class ResumeRepository {
                 new ResumePOJO(resume.getId(),
                         resume.getSubject(),
                         resume.getDateStart(),
-                        resume.getStatus(),
+                        resume.isActive(),
                         resume.getOpportunities(),
                         resume.getUserLogin(),
                         resume.getViews(),

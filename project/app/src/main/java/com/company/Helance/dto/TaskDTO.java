@@ -50,10 +50,10 @@ public class TaskDTO implements Serializable {
     @Expose
     private String deadline;
 
-    @SerializedName("status")
-    @ColumnInfo (name = "status")
+    @SerializedName("active")
+    @ColumnInfo (name = "active")
     @Expose
-    private String status;
+    private boolean active;
 
     @SerializedName("userLogin")
     @ColumnInfo (name = "userLogin")
@@ -99,7 +99,7 @@ public class TaskDTO implements Serializable {
     }
 
     @Ignore
-    public TaskDTO(long id, String subject, String headLine, String description, String dateStart, float price, String deadline, String status, String userLogin, String userEmail, String userName, String userAvatar, String userCountry, String fileTasks, String views, String telephone) {
+    public TaskDTO(long id, String subject, String headLine, String description, String dateStart, float price, String deadline, boolean active, String userLogin, String userEmail, String userName, String userAvatar, String userCountry, String fileTasks, String views, String telephone) {
         this.id = id;
         this.subject = subject;
         this.headLine = headLine;
@@ -107,7 +107,7 @@ public class TaskDTO implements Serializable {
         this.dateStart = dateStart;
         this.price = price;
         this.deadline = deadline;
-        this.status = status;
+        this.active = active;
         this.userLogin = userLogin;
         this.userEmail = userEmail;
         this.userName = userName;
@@ -175,12 +175,12 @@ public class TaskDTO implements Serializable {
         this.price = price;
     }
 
-    public String getStatus() {
-        return status;
+    public boolean isActive() {
+        return active;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public String getFileTasks() {

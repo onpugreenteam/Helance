@@ -109,16 +109,16 @@ public class MyTaskFragment extends Fragment implements Activity {
             }
 
             @Override
-            public void onUpdateStatusClick(MyTaskDTO task) {
+            public void onUpdateStatusClick(MyTaskDTO task, int pos) {
                 if(IsOnline.getInstance().isConnectingToInternet(Objects.requireNonNull(getContext()))) {
-                    if (task.getStatus().equals(getString(R.string.not_active))) {
-                        task.setStatus(getString(R.string.active));
+                    if (!task.isActive()) {
+                        task.setActive(true);
                     } else {
-                        task.setStatus(getString(R.string.not_active));
+                        task.setActive(false);
                     }
 
                     myTaskViewModel.update(task);
-                    adapter.notifyDataSetChanged();
+                    adapter.notifyItemChanged(pos);
                 } else Toast.makeText(getContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
             }
 

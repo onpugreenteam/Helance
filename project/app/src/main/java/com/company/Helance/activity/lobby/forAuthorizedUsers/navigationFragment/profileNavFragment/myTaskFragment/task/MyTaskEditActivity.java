@@ -200,7 +200,7 @@ public class MyTaskEditActivity extends AppCompatActivity implements Activity {
                 editedTask.setDateStart(((MyTaskDTO) getIntent().getSerializableExtra("MyTask")).getDateStart());
                 editedTask.setPrice(Float.parseFloat(price.getText().toString()));
                 editedTask.setDeadline(deadline.getText().toString());
-                editedTask.setStatus(((MyTaskDTO) getIntent().getSerializableExtra("MyTask")).getStatus());
+                editedTask.setActive(((MyTaskDTO) getIntent().getSerializableExtra("MyTask")).isActive());
                 editedTask.setUserLogin(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()));
                 editedTask.setUserEmail(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserEmail()));
                 editedTask.setUserName(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserName()));
@@ -251,7 +251,7 @@ public class MyTaskEditActivity extends AppCompatActivity implements Activity {
         item1.setDateStart(((MyTaskDTO) getIntent().getSerializableExtra("MyTask")).getDateStart());
         item1.setPrice(Float.parseFloat(price.getText().toString()));
         item1.setDeadline(deadline.getText().toString());
-        item1.setStatus(((MyTaskDTO) getIntent().getSerializableExtra("MyTask")).getStatus());
+        item1.setActive(((MyTaskDTO) getIntent().getSerializableExtra("MyTask")).isActive());
         item1.setUserLogin(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserLogin()));
         item1.setUserEmail(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserEmail()));
         item1.setUserName(String.valueOf(SharedPrefManager.getInstance(getApplicationContext()).getUserName()));
@@ -266,7 +266,7 @@ public class MyTaskEditActivity extends AppCompatActivity implements Activity {
                 && item1.getDateStart().equals(item2.getDateStart())
                 && item1.getPrice() == item2.getPrice()
                 && item1.getDeadline().equals(item2.getDeadline())
-                && item1.getStatus().equals(item2.getStatus());
+                && item1.isActive() == item2.isActive();
 //                && item1.getFileTasks().equals(item2.getFileTasks());
     }
 

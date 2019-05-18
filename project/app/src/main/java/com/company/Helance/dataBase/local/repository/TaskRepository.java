@@ -74,7 +74,7 @@ public class TaskRepository {
                         taskDTO.getDateStart(),
                         taskDTO.getPrice(),
                         taskDTO.getDeadline(),
-                        taskDTO.getStatus(),
+                        taskDTO.isActive(),
                         taskDTO.getUserLogin(),
                         taskDTO.getViews(),
                         taskDTO.getTelephone()

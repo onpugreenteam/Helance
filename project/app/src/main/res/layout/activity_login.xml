@@ -58,8 +58,7 @@
             android:paddingStart="15dp"
             android:singleLine="true"
             android:textColorHint="@color/colorSecondaryLight"
-            android:textCursorDrawable="@drawable/custom_edit_text_cursor_color"
-            android:theme="@style/CustomColorAccent" />
+            android:textCursorDrawable="@drawable/custom_edit_text_cursor_color"/>
 
         <EditText
             android:id="@+id/login_activity_password"
@@ -77,8 +76,7 @@
             android:paddingEnd="15dp"
             android:singleLine="true"
             android:textColorHint="@color/colorSecondaryLight"
-            android:textCursorDrawable="@drawable/custom_edit_text_cursor_color"
-            android:theme="@style/CustomColorAccent" />
+            android:textCursorDrawable="@drawable/custom_edit_text_cursor_color" />
 
         <TextView
             android:id="@+id/login_activity_forgot_password"

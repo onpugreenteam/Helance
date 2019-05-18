@@ -108,10 +108,10 @@ public class MyResumeFragment extends Fragment implements Activity {
             @Override
             public void onUpdateStatusClick(MyResumeDTO resumeDTO, int pos) {
                 if(IsOnline.getInstance().isConnectingToInternet(Objects.requireNonNull(getContext()))) {
-                    if (resumeDTO.getStatus().equals(getString(R.string.not_active))) {
-                        resumeDTO.setStatus(getString(R.string.active));
+                    if (!resumeDTO.isActive()) {
+                        resumeDTO.setActive(true);
                     } else {
-                        resumeDTO.setStatus(getString(R.string.not_active));
+                        resumeDTO.setActive(false);
                     }
                     resumeViewModel.update(resumeDTO);
                     adapter.notifyItemChanged(pos);

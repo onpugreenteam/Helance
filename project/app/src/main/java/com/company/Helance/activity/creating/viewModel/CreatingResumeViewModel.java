@@ -34,7 +34,6 @@ public class CreatingResumeViewModel extends BaseViewModel<CreatingResumeNavigat
 
         final DateFormat df = new SimpleDateFormat("d MMM yyyy");
         final String dateStart = df.format(Calendar.getInstance().getTime());
-        final String status = "Active";
         final int views = 0;
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
@@ -51,7 +50,7 @@ public class CreatingResumeViewModel extends BaseViewModel<CreatingResumeNavigat
                 params.put("dateStart", dateStart);
                 params.put("users", String.valueOf(SharedPrefManager.getInstance(context).getUserLogin()));
                 params.put("subject", typeLesson);
-                params.put("status", status);
+                params.put("active", "true");
                 params.put("views", String.valueOf(views));
                 return params;
             }

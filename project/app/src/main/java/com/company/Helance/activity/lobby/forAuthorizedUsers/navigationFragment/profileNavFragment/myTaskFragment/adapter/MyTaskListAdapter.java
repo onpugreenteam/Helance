@@ -42,7 +42,7 @@ public class MyTaskListAdapter extends ListAdapter<MyTaskDTO, MyTaskListAdapter.
                     && oldItem.getDateStart().equals(newItem.getDateStart())
                     && oldItem.getPrice() == newItem.getPrice()
                     && oldItem.getDeadline().equals(newItem.getDeadline())
-                    && oldItem.getStatus().equals(newItem.getStatus())
+                    && oldItem.isActive() == newItem.isActive()
                     && oldItem.getUserLogin().equals(newItem.getUserLogin())
                     && oldItem.getUserEmail().equals(newItem.getUserEmail())
                     && oldItem.getUserName().equals(newItem.getUserName())
@@ -67,12 +67,12 @@ public class MyTaskListAdapter extends ListAdapter<MyTaskDTO, MyTaskListAdapter.
         myTaskListViewHolder.subject.setText(currentItem.getSubject());
         myTaskListViewHolder.headline.setText(currentItem.getHeadLine());
         myTaskListViewHolder.deadLine.setText(currentItem.getDeadline());
-        myTaskListViewHolder.status.setText(currentItem.getStatus());
+        myTaskListViewHolder.status.setText(currentItem.isActive() ? R.string.active : R.string.not_active);
         myTaskListViewHolder.author.setText(currentItem.getUserName());
         myTaskListViewHolder.views.setText(String.valueOf(currentItem.getViews()));
         //        Glide.with(activity).load(currentItem.getUserAvatar()).into(myTaskListViewHolder.avatar);
 
-        if(myTaskListViewHolder.status.getText().toString().equals("Not active")){
+        if(myTaskListViewHolder.status.getText().toString().equals(R.string.not_active)){
             myTaskListViewHolder.status.setTextColor(Color.parseColor("#D33434"));
         }
     }
@@ -132,10 +132,10 @@ public class MyTaskListAdapter extends ListAdapter<MyTaskDTO, MyTaskListAdapter.
                 if (listener != null) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
-                        if(status.getText().toString().equals("Not active")){
+                        if(status.getText().toString().equals(R.string.not_active)){
                             status.setTextColor(Color.parseColor("#808080"));
                         }
-                        listener.onUpdateStatusClick(getItem(position));
+                        listener.onUpdateStatusClick(getItem(position), position);
                     }
                 }
             });
@@ -177,7 +177,7 @@ public class MyTaskListAdapter extends ListAdapter<MyTaskDTO, MyTaskListAdapter.
 
         void itemDeletable(boolean delete);
 
-        void onUpdateStatusClick(MyTaskDTO taskDTO);
+        void onUpdateStatusClick(MyTaskDTO taskDTO, int pos);
 
         void onDeleteClick(MyTaskDTO task);
 

@@ -1,8 +1,8 @@
 <resources>
 
     <!--facebook-->
-    <string name="facebook_app_id">250707362523649</string>
-    <string name="fb_login_protocol_scheme">fb250707362523649</string>
+    <string name="facebook_app_id" translatable="false">250707362523649</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb250707362523649</string>
 
 
     <string name="item_settings">Settings</string>
@@ -34,7 +34,7 @@
     <string name="error_invalid_password_short">This password is too short</string>
     <string name="error_exist_login">This login is used</string>
     <string name="error_exist_email">This email is used</string>
-    <string name="passwordStars">********</string>
+    <string name="passwordStars" translatable="false">********</string>
 
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
@@ -55,10 +55,10 @@
     <string name="country">Country</string>
     <string name="telephone">Telephone</string>
     <string name="telegram">Telegram</string>
-    <string name="instagram">Instagram</string>
+    <string name="instagram" translatable="false">Instagram</string>
     <string name="country_picker">Click to select your country</string>
     <string name="log_out">Log out</string>
-    <string name="splashscreenText">Ranpeak</string>
+    <string name="splashscreenText" translatable="false">Ranpeak</string>
     <string name="choosedWrongCoutry">Choosed wrong country</string>
     <string name="invalidEmailOrPassword">Invalid email or password</string>
     <string name="next">Next</string>
@@ -74,7 +74,7 @@
     <string name="header">Header</string>
     <string name="enterEmail">Enter email</string>
     <string name="yourCode">Your code</string>
-    <string name="code">1234</string>
+    <string name="code" translatable="false">1234</string>
     <string name="registration_name">Your name</string>
     <string name="registration_surname">Your surname</string>
     <string name="registration_email">Your email</string>
@@ -90,8 +90,8 @@
     <string name="registration_textView_phone_number">Type your phone number:</string>
     <string name="registration_textView_social_networks">Type your social networks:</string>
     <string name="registration_textView_telegram">Telegram:</string>
-    <string name="registration_textView_instagram">Instagram:</string>
-    <string name="registration_textView_facebook">Facebook:</string>
+    <string name="registration_textView_instagram" translatable="false">Instagram:</string>
+    <string name="registration_textView_facebook" translatable="false">Facebook:</string>
     <string name="registration_link_telegram">example</string>
     <string name="registration_link_instagram">example</string>
     <string name="registration_link_facebook">example</string>
@@ -113,7 +113,7 @@
 
     <string name="profile">Profile</string>
     <string name="title_activity_settings">Settings</string>
-    <string name="projectx">Helance</string>
+    <string name="projectx" translatable="false">Helance</string>
     <string name="internet_error">Internet connection lost</string>
     <string name="internet_check">Server don`t worked</string>
     <string name="task_price">Type task price</string>
@@ -157,7 +157,7 @@
     <string name="edit_resume_toolbar_name">Edit Resume</string>
 
     <!-- Example settings for Data & Sync -->
-    <string name="pref_header_data_sync">Data &amp; sync</string>
+    <string name="pref_header_data_sync" translatable="false">Data &amp; sync</string>
 
     <string name="pref_title_sync_frequency">Sync frequency</string>
     <string-array name="pref_sync_frequency_titles">
@@ -223,13 +223,13 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="creating_task_contractual_price">Contractual price</string>
-    <string name="creating_task_task_description_length">150</string>
-    <string name="creating_resume_resume_opportunities_length">200</string>
+    <string name="creating_task_task_description_length" translatable="false">150</string>
+    <string name="creating_resume_resume_opportunities_length" translatable="false">200</string>
     <string name="forgot_password">Forgot password?</string>
     <string name="login_with">Login with</string>
     <string name="or">- OR -</string>
     <string name="don_t_have_an_account">Don\'t have an account?</string>
-    <string name="registration_phone_number">(999) 999–9999</string>
+    <string name="registration_phone_number" translatable="false">(999) 999–9999</string>
     <string name="contact">Contact</string>
     <string name="item_nav_my_resumes">My resumes</string>
     <string name="item_nav_my_tasks">My tasks</string>
@@ -238,14 +238,14 @@
     <string name="choose_lesson">Choose lesson</string>
     <string name="cancel_registration">You want to cancel registration?</string>
     <string name="john_snow">John Snow</string>
-    <string name="count_of_tasks">0</string>
+    <string name="count_of_tasks" translatable="false">0</string>
     <string name="tasks">TASKS</string>
-    <string name="count_of_resumes">0</string>
+    <string name="count_of_resumes" translatable="false">0</string>
     <string name="resumes">RESUMES</string>
     <string name="phone">Phone</string>
-    <string name="email_example">example@email.com</string>
+    <string name="email_example" translatable="false">example@email.com</string>
     <string name="telegram_example">\@example</string>
-    <string name="facebook">Facebook</string>
+    <string name="facebook" translatable="false">Facebook</string>
     <string name="price">Price</string>
     <string name="update_status">Update status</string>
     <string name="task_status">Status</string>
@@ -258,8 +258,8 @@
     <string name="not_active">Not active</string>
     <string name="opportunities">Opportunities</string>
     <string name="choice_of_connection">Choice of connection</string>
-    <string name="emailcontact">emailContact</string>
-    <string name="phonecontact">phoneContact</string>
+    <string name="emailcontact" translatable="false">emailContact</string>
+    <string name="phonecontact" translatable="false">phoneContact</string>
     <string name="contact_user">Contact User</string>
     <string name="no_internet">Check internet connection</string>
     <string name="error_wrong_number">This number is incorrect</string>

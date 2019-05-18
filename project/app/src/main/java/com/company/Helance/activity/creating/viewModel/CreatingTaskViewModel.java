@@ -32,7 +32,6 @@ public class CreatingTaskViewModel extends BaseViewModel<CreatingTaskNavigator> 
 
     public void postTask(String headline,String descrpiption,String dateEnd,String subject,float price) {
 
-        final String status = "Active";
 
         DateFormat df = new SimpleDateFormat("d MMM yyyy");
         final String dateStart = df.format(Calendar.getInstance().getTime());
@@ -55,7 +54,7 @@ public class CreatingTaskViewModel extends BaseViewModel<CreatingTaskNavigator> 
                 params.put("user", String.valueOf(SharedPrefManager.getInstance(context).getUserLogin()));
                 params.put("subject", subject);
                 params.put("price", String.valueOf(price));
-                params.put("status", status);
+                params.put("active", String.valueOf(true));
                 params.put("views", String.valueOf(views));
                 return params;
             }

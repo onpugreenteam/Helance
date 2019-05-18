@@ -16,7 +16,7 @@ public class TaskPOJO {
 
     private String deadline;
 
-    private String status;
+    private boolean active;
 
     private String user;
 
@@ -27,7 +27,7 @@ public class TaskPOJO {
     public TaskPOJO() {
     }
 
-    public TaskPOJO(long id, String subject, String headLine, String description, String dateStart, float price, String deadline, String status, String userLogin, int views, String telephone) {
+    public TaskPOJO(long id, String subject, String headLine, String description, String dateStart, float price, String deadline, boolean active, String userLogin, int views, String telephone) {
         this.id = id;
         this.subject = subject;
         this.headLine = headLine;
@@ -35,7 +35,7 @@ public class TaskPOJO {
         this.dateStart = dateStart;
         this.price = price;
         this.deadline = deadline;
-        this.status = status;
+        this.active = active;
         this.user = userLogin;
         this.views = views;
         this.telephone = telephone;
@@ -97,12 +97,12 @@ public class TaskPOJO {
         this.price = price;
     }
 
-    public String getStatus() {
-        return status;
+    public boolean isActive() {
+        return active;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public String getUserLogin() {

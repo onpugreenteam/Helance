@@ -8,7 +8,7 @@ public class ResumePOJO {
 
     private String dateStart;
 
-    private String status;
+    private boolean active;
 
     private String opportunities;
 
@@ -21,11 +21,11 @@ public class ResumePOJO {
     public ResumePOJO() {
     }
 
-    public ResumePOJO(long id, String subject, String dateStart, String status, String opportunities, String userLogin, int views, String telephone) {
+    public ResumePOJO(long id, String subject, String dateStart, boolean active, String opportunities, String userLogin, int views, String telephone) {
         this.id = id;
         this.subject = subject;
         this.dateStart = dateStart;
-        this.status = status;
+        this.active = active;
         this.opportunities = opportunities;
         this.users = userLogin;
         this.views = views;
@@ -64,12 +64,12 @@ public class ResumePOJO {
         this.dateStart = dateStart;
     }
 
-    public String getStatus() {
-        return status;
+    public boolean isActive() {
+        return active;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public String getUserLogin() {

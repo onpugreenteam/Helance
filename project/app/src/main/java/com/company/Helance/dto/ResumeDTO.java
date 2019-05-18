@@ -37,10 +37,10 @@ public class ResumeDTO implements Serializable {
     @Expose
     private String opportunities;
 
-    @JsonProperty("status")
-    @ColumnInfo (name = "status")
+    @JsonProperty("active")
+    @ColumnInfo (name = "active")
     @Expose
-    private String status;
+    private boolean active;
 
     @SerializedName("userLogin")
     @ColumnInfo (name = "userLogin")
@@ -81,12 +81,12 @@ public class ResumeDTO implements Serializable {
     }
 
     @Ignore
-    public ResumeDTO(long id, String subject, String dateStart, String opportunities, String status, String userLogin, String userEmail, String userName, String userAvatar, String userCountry, String views, String telephone) {
+    public ResumeDTO(long id, String subject, String dateStart, String opportunities, boolean active, String userLogin, String userEmail, String userName, String userAvatar, String userCountry, String views, String telephone) {
         this.id = id;
         this.subject = subject;
         this.dateStart = dateStart;
         this.opportunities = opportunities;
-        this.status = status;
+        this.active = active;
         this.userLogin = userLogin;
         this.userEmail = userEmail;
         this.userName = userName;
@@ -128,12 +128,12 @@ public class ResumeDTO implements Serializable {
         this.opportunities = opportunities;
     }
 
-    public String getStatus() {
-        return status;
+    public boolean isActive() {
+        return active;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public String getUserLogin() {

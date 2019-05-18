@@ -62,8 +62,8 @@ public class LobbyForGuestActivity extends AppCompatActivity implements Activity
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new FragmentTasks(), "Tasks");
-        adapter.addFragment(new FragmentResumes(), "Resumes");
+        adapter.addFragment(new FragmentTasks(), getString(R.string.tasks));
+        adapter.addFragment(new FragmentResumes(), getString(R.string.resumes));
         viewPager.setAdapter(adapter);
     }
 }
