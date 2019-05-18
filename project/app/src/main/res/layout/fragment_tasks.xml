@@ -22,7 +22,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="14dp"
         android:layout_marginBottom="8dp"
-        android:text="Tasks"
+        android:text="@string/tasks"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@id/fragment_tasks_toolbar"

@@ -6,11 +6,13 @@
     android:paddingLeft="16dp"
     android:orientation="vertical"
     android:theme="@style/NoActionBar">
+
     <SearchView
         android:id="@+id/search_countries"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </SearchView>
+
     <ListView
         android:id="@+id/country_list"
         android:layout_width="match_parent"

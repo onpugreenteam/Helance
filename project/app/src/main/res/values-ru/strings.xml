@@ -153,7 +153,6 @@
     <string name="telegram">Телеграм</string>
     <string name="telephone">Номер телефона</string>
     <string name="title_activity_login2">Войти</string>
-    <string name="title_activity_registration" translatable="false">Регистрация</string>
     <string name="title_activity_settings">Настройки</string>
     <string name="toolbar_name">Настройки</string>
     <string name="type_here">Введите здесь</string>
@@ -167,4 +166,15 @@
     <string name="yes">Да</string>
     <string name="yourCode">Ваш код</string>
     <string name="yourEmail">Ваша почта</string>
+    <string name="country_list">Список стран</string>
+    <string name="maths">Математика</string>
+    <string name="art">Исскуство</string>
+    <string name="physics">Физика</string>
+    <string name="economics">Экономика</string>
+    <string name="english">Английский</string>
+    <string name="history">История</string>
+    <string name="other">Другое</string>
+    <string name="phylosophy">Философия</string>
+    <string name="programming">Программирование</string>
+    <string name="recomendations">Рекомендации</string>
 </resources>

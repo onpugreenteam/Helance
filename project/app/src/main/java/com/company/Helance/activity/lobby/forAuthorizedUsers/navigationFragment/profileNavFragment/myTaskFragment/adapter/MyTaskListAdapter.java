@@ -61,6 +61,7 @@ public class MyTaskListAdapter extends ListAdapter<MyTaskDTO, MyTaskListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull MyTaskListViewHolder myTaskListViewHolder, int position) {
+
         MyTaskDTO currentItem = getItem(position);
 
         myTaskListViewHolder.price.setText(String.valueOf(currentItem.getPrice()));
@@ -134,6 +135,9 @@ public class MyTaskListAdapter extends ListAdapter<MyTaskDTO, MyTaskListAdapter.
                 if (listener != null) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
+                        if(status.getText().toString().equals(R.string.not_active)){
+                            status.setTextColor(Color.parseColor("#808080"));
+                        }
                         listener.onUpdateStatusClick(getItem(position), position);
                     }
                 }

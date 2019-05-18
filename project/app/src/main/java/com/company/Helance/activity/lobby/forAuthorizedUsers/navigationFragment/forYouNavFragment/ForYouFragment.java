@@ -34,7 +34,7 @@ public class ForYouFragment extends Fragment implements Activity {
     private ArrayList<String> imageUrls = new ArrayList<>();
     private RecyclerView recyclerView;
     private ForYouListAdapter adapter;
-    final String subject = "Maths";
+    private String subject;
     private ImageView search;
     private ProgressBar progressDialog;
 
@@ -50,6 +50,7 @@ public class ForYouFragment extends Fragment implements Activity {
         onListener();
         progressDialog = new ProgressBar(getContext());
 
+        subject = getString(R.string.maths);
         initImageBitmaps();
 
         localDB = App.getInstance().getLocalDB();

@@ -265,10 +265,8 @@ public class EditProfileActivity extends AppCompatActivity implements Activity {
 
                     if (beforeEditingTelegram.isEmpty()) {
                         socialNetworkDTOTg.setIdNetwork((int) (Math.random() * 100) + 1);
-                        Toast.makeText(this, "insert", Toast.LENGTH_SHORT).show();
                         insertNetworkOnServer(socialNetworkDTOTg);
                     } else {
-                        Toast.makeText(this, "update", Toast.LENGTH_SHORT).show();
 
                         updateNetworksOnServer(
                                 socialNetworkDTOTg.getUserLogin(),
@@ -277,8 +275,6 @@ public class EditProfileActivity extends AppCompatActivity implements Activity {
                         );
                     }
                 } else {
-                    Toast.makeText(this, "delete", Toast.LENGTH_SHORT).show();
-
                     if (!beforeEditingTelegram.isEmpty()) {
                         socialNetworkDTOTg.setIdNetwork((int) (Math.random() * 100) + 1);
                         deleteNetworksOnServer(socialNetworkDTOTg);
@@ -391,7 +387,6 @@ public class EditProfileActivity extends AppCompatActivity implements Activity {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             if (jsonObject.getString("message").equals("no")) {
-                                Toast.makeText(getApplicationContext(), "This email already registered", Toast.LENGTH_LONG).show();
                                 this.email.setError(getString(R.string.error_exist_email));
                                 email_exists = true;
 
@@ -403,7 +398,7 @@ public class EditProfileActivity extends AppCompatActivity implements Activity {
                             e.printStackTrace();
                         }
                     },
-                    error -> Toast.makeText(getApplicationContext(), "Please turn on Internet", Toast.LENGTH_LONG).show()) {
+                    error -> Toast.makeText(getApplicationContext(), getString(R.string.internet_error), Toast.LENGTH_LONG).show()) {
                 @Override
                 protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<>();

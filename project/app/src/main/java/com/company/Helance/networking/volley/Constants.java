@@ -1,5 +1,9 @@
 package com.company.Helance.networking.volley;
 
+import android.content.res.Resources;
+
+import com.company.Helance.R;
+
 import java.util.regex.Pattern;
 
 public class Constants {
@@ -42,9 +46,15 @@ public class Constants {
         }
 
         public static final String[] LESSONS = new String[]{
-                "Art",
-                "Maths", "Physics", "Programming", "Economic",
-                "Philosophy", "English", "History", "Other"
+                Resources.getSystem().getString(R.string.art),
+                Resources.getSystem().getString(R.string.maths),
+                Resources.getSystem().getString(R.string.physics),
+                "Programming",
+                "Economic",
+                "Philosophy",
+                "English",
+                "History",
+                "Other"
         };
 
         public static final String TELEGRAM = "Telegram";

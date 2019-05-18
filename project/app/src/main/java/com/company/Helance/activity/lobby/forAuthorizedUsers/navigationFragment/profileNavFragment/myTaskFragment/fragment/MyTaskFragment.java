@@ -116,7 +116,6 @@ public class MyTaskFragment extends Fragment implements Activity {
                     } else {
                         task.setActive(false);
                     }
-
                     myTaskViewModel.update(task);
                     adapter.notifyItemChanged(pos);
                 } else Toast.makeText(getContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
