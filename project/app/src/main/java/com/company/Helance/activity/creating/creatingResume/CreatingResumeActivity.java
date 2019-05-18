@@ -37,6 +37,7 @@ public class CreatingResumeActivity extends AppCompatActivity implements Activit
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(CREATING_RESUME_ACTIVITY);
 
@@ -46,6 +47,7 @@ public class CreatingResumeActivity extends AppCompatActivity implements Activit
 
         creatingResumeViewModel = new CreatingResumeViewModel(getApplicationContext());
         creatingResumeViewModel.setNavigator(this);
+
     }
 
     @Override
