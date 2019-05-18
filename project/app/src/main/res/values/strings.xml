@@ -244,7 +244,7 @@
     <string name="resumes">RESUMES</string>
     <string name="phone">Phone</string>
     <string name="email_example" translatable="false">example@email.com</string>
-    <string name="telegram_example">\@example</string>
+    <string name="telegram_example" translatable="false">\@example</string>
     <string name="facebook" translatable="false">Facebook</string>
     <string name="price">Price</string>
     <string name="update_status">Update status</string>
@@ -265,6 +265,17 @@
     <string name="error_wrong_number">This number is incorrect</string>
     <string name="error_email_not_exist">No such email on server</string>
     <string name="error_code">Wrong code</string>
+    <string name="country_list">Country list</string>
+    <string name="art">Art</string>
+    <string name="maths">Maths</string>
+    <string name="physics">Physics</string>
+    <string name="programming">Programming</string>
+    <string name="economics">Economics</string>
+    <string name="phylosophy">Phylosophy</string>
+    <string name="english">English</string>
+    <string name="history">History</string>
+    <string name="other">Other</string>
+    <string name="recomendations">Recomendations</string>
 
 
 </resources>

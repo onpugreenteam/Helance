@@ -40,6 +40,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
+import static com.company.Helance.networking.volley.Constants.Values.LESSONS;
+
 public class CreatingTaskActivity extends AppCompatActivity implements Activity, CreatingTaskNavigator {
 
     private EditText typeName;
@@ -98,7 +100,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity,
 
     @Override
     public void onListener() {
-        lessonPicker.setOnClickListener(v -> lessonListFragment.show(fm, "Country lists"));
+        lessonPicker.setOnClickListener(v -> lessonListFragment.show(fm, getString(R.string.country_list)));
         create.setOnClickListener(view -> attemptCreatingTask());
         datePicker.setOnClickListener(v -> {
             Calendar calendar = Calendar.getInstance();
@@ -246,7 +248,7 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity,
             boolean cancel = false;
             View focusView = null;
 
-            if (!stringContainsItemFromList(lessonPicker.getText().toString())) {
+            if (lessonPicker.getText().toString().equals(getString(R.string.select_lesson))) {
                 cancel = true;
             } else if (typeName.getText().toString().trim().isEmpty()) {
                 cancel = true;
@@ -265,7 +267,6 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity,
             }
 
             if (cancel) {
-                Toast.makeText(getApplicationContext(), "feel all required fields", Toast.LENGTH_SHORT).show();
                 if (focusView != null) {
                     focusView.requestFocus();
                 }
@@ -285,33 +286,18 @@ public class CreatingTaskActivity extends AppCompatActivity implements Activity,
         return typeName.getText().toString().isEmpty()
                 && taskDescription.getText().toString().isEmpty()
                 && taskPrice.getText().toString().isEmpty()
-                && !stringContainsItemFromList(lessonPicker.getText().toString())
+                && lessonPicker.getText().toString().equals(getString(R.string.select_lesson))
                 && datePicker.getText().toString().equals(getString(R.string.select_date));
-
-    }
-
-    //проверяет входит ли какое-либо значение в какой-либо указанный массив
-    // check if selected lesson exists in Constants.Values.LESSONS
-    private static boolean stringContainsItemFromList(String inputStr) {
-
-        for (String item : Constants.Values.LESSONS) {
-            if (inputStr.contains(item)) {
-                return true;
-            }
-        }
-        return false;
 
     }
 
     @Override
     public void handleError(Throwable throwable) {
         Log.d("Task post error",throwable.getMessage());
-        Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onComplete() {
-        Toast.makeText(getApplicationContext(), "Successful", Toast.LENGTH_LONG).show();
     }
 
     @Override

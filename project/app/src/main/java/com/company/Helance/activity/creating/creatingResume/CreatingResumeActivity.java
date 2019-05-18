@@ -14,14 +14,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.company.Helance.R;
 import com.company.Helance.activity.creating.fragment.LessonListFragment;
-import com.company.Helance.interfaces.navigators.CreatingResumeNavigator;
 import com.company.Helance.activity.creating.viewModel.CreatingResumeViewModel;
 import com.company.Helance.interfaces.Activity;
+import com.company.Helance.interfaces.navigators.CreatingResumeNavigator;
 import com.company.Helance.networking.IsOnline;
 import com.company.Helance.networking.volley.Constants;
+
 import java.util.Objects;
+
+import static com.company.Helance.networking.volley.Constants.Values.LESSONS;
 
 public class CreatingResumeActivity extends AppCompatActivity implements Activity, CreatingResumeNavigator {
 
@@ -62,7 +66,7 @@ public class CreatingResumeActivity extends AppCompatActivity implements Activit
 
     @Override
     public void onListener() {
-        lessonPicker.setOnClickListener(v -> lessonListFragment.show(fm, "Country lists"));
+        lessonPicker.setOnClickListener(v -> lessonListFragment.show(fm, getString(R.string.country_list)));
         create.setOnClickListener(view -> attemptCreatingResume());
         description.addTextChangedListener(new TextWatcher() {
             @Override
@@ -100,21 +104,17 @@ public class CreatingResumeActivity extends AppCompatActivity implements Activit
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                // todo: goto back activity from here
+        if (item.getItemId() == android.R.id.home) {// todo: goto back activity from here
 
-                // если пустых полей нет, то открывается диалог с потверждение закрытия окна
-                if (!allFieldsEmpty()) {
-                    openDialog();
-                }
-                // если ни одно из полей не заполнено, то окно закрывается без открытия диалога
-                else finish();
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
+            // если пустых полей нет, то открывается диалог с потверждение закрытия окна
+            if (!allFieldsEmpty()) {
+                openDialog();
+            }
+            // если ни одно из полей не заполнено, то окно закрывается без открытия диалога
+            else finish();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     // открытие подтверждающего диалога перед закрытием окна
@@ -131,19 +131,8 @@ public class CreatingResumeActivity extends AppCompatActivity implements Activit
 
     // если все поля не тронуты(ни одно из них не заполнено), то возвращает true
     private boolean allFieldsEmpty() {
-        return !stringContainsItemFromList(lessonPicker.getText().toString(), Constants.Values.LESSONS)
+        return lessonPicker.getText().toString().equals(getString(R.string.select_lesson))
                 && description.getText().toString().isEmpty();
-    }
-
-    //проверяет входит ли какое-либо значение в какой-либо указанный массив
-    // check if selected lesson exists in Constants.Values.LESSONS
-    private static boolean stringContainsItemFromList(String inputStr, String[] items) {
-        for (String item : items) {
-            if (inputStr.contains(item)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     // устанавливает в поле LessonPicker выбранный пользователем предмет
@@ -162,7 +151,7 @@ public class CreatingResumeActivity extends AppCompatActivity implements Activit
             boolean cancel = false;
             View focusView = null;
 
-            if (!stringContainsItemFromList(lessonPicker.getText().toString(), Constants.Values.LESSONS)) {
+            if (lessonPicker.getText().toString().equals(getString(R.string.select_lesson))) {
                 cancel = true;
             } else if (description.getText().toString().trim().isEmpty()) {
                 cancel = true;
@@ -171,7 +160,6 @@ public class CreatingResumeActivity extends AppCompatActivity implements Activit
             }
 
             if (cancel) {
-                Toast.makeText(getApplicationContext(), "feel all required fields", Toast.LENGTH_SHORT).show();
                 if (focusView != null) {
                     focusView.requestFocus();
                 }
@@ -187,12 +175,10 @@ public class CreatingResumeActivity extends AppCompatActivity implements Activit
     @Override
     public void handleError(Throwable throwable) {
         Log.d("Error post resume",throwable.getMessage());
-        Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onComplete() {
-        Toast.makeText(getApplicationContext(), "Successful", Toast.LENGTH_LONG).show();
     }
 
     @Override

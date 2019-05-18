@@ -193,7 +193,7 @@ public class MyResumeEditActivity extends AppCompatActivity implements Activity 
     }
 
     //проверяет входит ли какое-либо значение в какой-либо указанный массив
-    // check if selected lesson exists in Constants.Values.LESSONS
+    // check if selected lesson exists in Constants.Values.LESSONS_LIST
     private static boolean stringContainsItemFromList(String inputStr) {
         for (String item : Constants.Values.LESSONS) {
             if (inputStr.contains(item)) {

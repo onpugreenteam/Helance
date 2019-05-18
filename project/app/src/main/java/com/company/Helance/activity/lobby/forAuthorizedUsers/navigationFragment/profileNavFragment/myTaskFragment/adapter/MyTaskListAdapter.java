@@ -1,5 +1,6 @@
 package com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myTaskFragment.adapter;
 
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.recyclerview.extensions.ListAdapter;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.company.Helance.R;
 import com.company.Helance.interfaces.Activity;
 import com.company.Helance.dto.MyTaskDTO;
+import com.company.Helance.networking.volley.Constants;
 
 
 public class MyTaskListAdapter extends ListAdapter<MyTaskDTO, MyTaskListAdapter.MyTaskListViewHolder> {
@@ -61,20 +63,22 @@ public class MyTaskListAdapter extends ListAdapter<MyTaskDTO, MyTaskListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull MyTaskListViewHolder myTaskListViewHolder, int position) {
-        MyTaskDTO currentItem = getItem(position);
 
+        MyTaskDTO currentItem = getItem(position);
         myTaskListViewHolder.price.setText(String.valueOf(currentItem.getPrice()));
         myTaskListViewHolder.subject.setText(currentItem.getSubject());
         myTaskListViewHolder.headline.setText(currentItem.getHeadLine());
         myTaskListViewHolder.deadLine.setText(currentItem.getDeadline());
         myTaskListViewHolder.status.setText(currentItem.isActive() ? R.string.active : R.string.not_active);
+        if (myTaskListViewHolder.status.getText().equals(activity.getString(R.string.not_active))){
+            myTaskListViewHolder.status.setTextColor(Color.parseColor("#D33434"));
+        } else {
+            myTaskListViewHolder.status.setTextColor(Color.parseColor("#808080"));
+        }
         myTaskListViewHolder.author.setText(currentItem.getUserName());
         myTaskListViewHolder.views.setText(String.valueOf(currentItem.getViews()));
         //        Glide.with(activity).load(currentItem.getUserAvatar()).into(myTaskListViewHolder.avatar);
 
-        if(myTaskListViewHolder.status.getText().toString().equals(R.string.not_active)){
-            myTaskListViewHolder.status.setTextColor(Color.parseColor("#D33434"));
-        }
     }
 
     public MyTaskDTO getTaskAt(int position) {
@@ -132,9 +136,6 @@ public class MyTaskListAdapter extends ListAdapter<MyTaskDTO, MyTaskListAdapter.
                 if (listener != null) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
-                        if(status.getText().toString().equals(R.string.not_active)){
-                            status.setTextColor(Color.parseColor("#808080"));
-                        }
                         listener.onUpdateStatusClick(getItem(position), position);
                     }
                 }
@@ -168,20 +169,18 @@ public class MyTaskListAdapter extends ListAdapter<MyTaskDTO, MyTaskListAdapter.
                 popupMenu.show();
             });
         }
+
     }
 
     public interface OnItemClickListener {
+
         void onItemClick(MyTaskDTO task);
-
         void onItemLongClick(MyTaskDTO task);
-
         void itemDeletable(boolean delete);
-
         void onUpdateStatusClick(MyTaskDTO taskDTO, int pos);
-
         void onDeleteClick(MyTaskDTO task);
-
         void onEditClick(MyTaskDTO task);
+
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {

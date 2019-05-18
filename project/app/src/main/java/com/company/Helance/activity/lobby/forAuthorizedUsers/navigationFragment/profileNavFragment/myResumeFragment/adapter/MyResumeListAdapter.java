@@ -1,6 +1,7 @@
 package com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myResumeFragment.adapter;
 
 import android.app.Activity;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.recyclerview.extensions.ListAdapter;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import com.company.Helance.R;
 import com.company.Helance.dto.MyResumeDTO;
+import com.company.Helance.networking.volley.Constants;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -68,8 +70,11 @@ public class MyResumeListAdapter extends ListAdapter<MyResumeDTO,  MyResumeListA
         holder.dateStart.setText(currentItem.getDateStart());
 //        Glide.with(activity).load(currentItem.getUserAvatar()).into(holder.avatar);
 
-        if(holder.status.getText().toString().equals(R.string.not_active)){
+
+        if (holder.status.getText().equals(activity.getString(R.string.not_active))) {
             holder.status.setTextColor(Color.parseColor("#D33434"));
+        } else {
+            holder.status.setTextColor(Color.parseColor("#808080"));
         }
     }
 
@@ -127,9 +132,6 @@ public class MyResumeListAdapter extends ListAdapter<MyResumeDTO,  MyResumeListA
                 if (listener != null) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
-                        if(status.getText().toString().equals(R.string.not_active)){
-                            status.setTextColor(Color.parseColor("#808080"));
-                        }
                         listener.onUpdateStatusClick(getItem(position), position);
                     }
                 }

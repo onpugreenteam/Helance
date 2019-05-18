@@ -23,7 +23,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="14dp"
         android:layout_marginBottom="8dp"
-        android:text="Recommendations"
+        android:text="@string/recomendations"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@id/fragment_recommendations_toolbar"

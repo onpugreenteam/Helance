@@ -15,7 +15,6 @@ import com.company.Helance.activity.creating.creatingTask.CreatingTaskActivity;
 import com.company.Helance.interfaces.Activity;
 import com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myResumeFragment.resume.MyResumeEditActivity;
 import com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myTaskFragment.task.MyTaskEditActivity;
-import com.company.Helance.networking.volley.Constants;
 
 public class LessonListFragment extends DialogFragment implements Activity {
 
@@ -23,6 +22,8 @@ public class LessonListFragment extends DialogFragment implements Activity {
     private ListView listView;
     private ArrayAdapter<String> adapter;
     private View rootView;
+
+    public static String[] LESSONS_LIST;
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
@@ -34,8 +35,20 @@ public class LessonListFragment extends DialogFragment implements Activity {
         findViewById();
         onListener();
 
+        LESSONS_LIST = new String[]{
+                getString(R.string.art),
+                getString(R.string.maths),
+                getString(R.string.physics),
+                getString(R.string.programming),
+                getString(R.string.economics),
+                getString(R.string.phylosophy),
+                getString(R.string.english),
+                getString(R.string.history),
+                getString(R.string.other)
+        };
+
         adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1,
-                Constants.Values.LESSONS);
+                LESSONS_LIST);
         listView.setAdapter(adapter);
 
         // search view properties
