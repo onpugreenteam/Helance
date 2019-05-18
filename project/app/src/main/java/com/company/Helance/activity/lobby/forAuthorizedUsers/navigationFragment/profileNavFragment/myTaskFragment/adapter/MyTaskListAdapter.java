@@ -72,7 +72,7 @@ public class MyTaskListAdapter extends ListAdapter<MyTaskDTO, MyTaskListAdapter.
         myTaskListViewHolder.views.setText(String.valueOf(currentItem.getViews()));
         //        Glide.with(activity).load(currentItem.getUserAvatar()).into(myTaskListViewHolder.avatar);
 
-        if(myTaskListViewHolder.status.getText().toString().equals(R.string.not_active)){
+        if(!currentItem.isActive()){
             myTaskListViewHolder.status.setTextColor(Color.parseColor("#D33434"));
         }
     }
@@ -132,7 +132,7 @@ public class MyTaskListAdapter extends ListAdapter<MyTaskDTO, MyTaskListAdapter.
                 if (listener != null) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
-                        if(status.getText().toString().equals(R.string.not_active)){
+                        if(status.getText().toString().equals(R.string.active)){
                             status.setTextColor(Color.parseColor("#808080"));
                         }
                         listener.onUpdateStatusClick(getItem(position), position);

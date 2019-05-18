@@ -68,7 +68,7 @@ public class MyResumeListAdapter extends ListAdapter<MyResumeDTO,  MyResumeListA
         holder.dateStart.setText(currentItem.getDateStart());
 //        Glide.with(activity).load(currentItem.getUserAvatar()).into(holder.avatar);
 
-        if(holder.status.getText().toString().equals(R.string.not_active)){
+        if(!currentItem.isActive()){
             holder.status.setTextColor(Color.parseColor("#D33434"));
         }
     }
