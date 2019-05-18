@@ -44,7 +44,7 @@
         completions."
     </string>
     <string name="registration_button">Sign up now</string>
-    <string name="title_activity_registration" translatable="false">Registration</string>
+    <string name="title_activity_registration">Registration</string>
     <string name="prompt_name">Name</string>
     <string name="prompt_country">Country</string>
     <string name="password">Password</string>

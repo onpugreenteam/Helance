@@ -147,17 +147,23 @@
                         android:layout_height="wrap_content">
 
                         <LinearLayout
-                            android:id="@+id/fragment_profile_linearLayout"
-                            android:layout_width="205dp"
-                            android:layout_height="wrap_content"
-                            android:background="@color/colorPrimary"
-                            android:gravity="center"
-                            android:orientation="vertical"
-                            android:paddingTop="4dp"
-                            android:paddingBottom="4dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:weightSum="2">
+
+                            <LinearLayout
+                                android:id="@+id/fragment_profile_linearLayout"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:background="@color/colorPrimary"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:paddingTop="4dp"
+                                android:paddingBottom="4dp"
+                                android:layout_weight="1"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
 
                             <TextView
                                 android:id="@+id/fragment_profile_task_count"
@@ -178,37 +184,39 @@
                                 android:textSize="20sp" />
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:layout_width="205dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="0dp"
-                            android:background="@color/colorPrimaryDark"
-                            android:gravity="center"
-                            android:orientation="vertical"
-                            android:paddingTop="4dp"
-                            android:paddingBottom="4dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/fragment_profile_linearLayout"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <TextView
-                                android:id="@+id/fragment_profile_resumes_count"
-                                android:layout_width="match_parent"
+                            <LinearLayout
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_marginBottom="0dp"
+                                android:background="@color/colorPrimaryDark"
                                 android:gravity="center"
-                                android:text="@string/count_of_resumes"
-                                android:textColor="@color/colorSecondaryLight"
-                                android:textSize="25sp" />
+                                android:orientation="vertical"
+                                android:paddingTop="4dp"
+                                android:layout_weight="1"
+                                android:paddingBottom="4dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/fragment_profile_linearLayout"
+                                app:layout_constraintTop_toTopOf="parent">
 
-                            <TextView
-                                android:id="@+id/fragment_profile_textView_resume"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="@string/resumes"
-                                android:textColor="@color/colorSecondaryLight"
-                                android:textSize="20sp" />
+                                <TextView
+                                    android:id="@+id/fragment_profile_resumes_count"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:text="@string/count_of_resumes"
+                                    android:textColor="@color/colorSecondaryLight"
+                                    android:textSize="25sp" />
+
+                                <TextView
+                                    android:id="@+id/fragment_profile_textView_resume"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:text="@string/resumes"
+                                    android:textColor="@color/colorSecondaryLight"
+                                    android:textSize="20sp" />
+                            </LinearLayout>
                         </LinearLayout>
                     </android.support.constraint.ConstraintLayout>
 
