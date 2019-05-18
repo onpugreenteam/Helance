@@ -52,10 +52,12 @@ public class CreatingResumeActivity extends AppCompatActivity implements Activit
 
     @Override
     public void findViewById() {
+
         lessonPicker = findViewById(R.id.creating_resume_lesson_list_in_resume);
         description = findViewById(R.id.creating_resume_description);
         descriptionLength = findViewById(R.id.creating_resume_description_length);
         create = findViewById(R.id.creating_resume_button);
+
     }
 
     @Override
