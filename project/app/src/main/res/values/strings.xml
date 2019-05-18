@@ -239,9 +239,9 @@
     <string name="cancel_registration">You want to cancel registration?</string>
     <string name="john_snow">John Snow</string>
     <string name="count_of_tasks" translatable="false">0</string>
-    <string name="tasks">TASKS</string>
+    <string name="tasks">Tasks</string>
     <string name="count_of_resumes" translatable="false">0</string>
-    <string name="resumes">RESUMES</string>
+    <string name="resumes">Resumes</string>
     <string name="phone">Phone</string>
     <string name="email_example" translatable="false">example@email.com</string>
     <string name="telegram_example" translatable="false">\@example</string>
