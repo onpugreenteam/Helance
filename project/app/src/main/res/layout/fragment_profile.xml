@@ -2,59 +2,87 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.ProfileFragment">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/fragment_resumes_toolbar"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="@color/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/fragment_profile_edit_profile"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="start|top"
-            android:layout_marginEnd="32dp"
-            android:background="?android:selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_edit_white_24dp" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/fragment_resumes_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@color/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/fragment_profile_login"
-            android:layout_width="wrap_content"
+
+
+
+        </android.support.v7.widget.Toolbar>
+
+
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:gravity="start"
-            android:text="@string/login"
-            android:textColor="@color/colorSecondaryLight"
-            android:textSize="20sp" />
-
-        <ImageView
-            android:id="@+id/fragment_profile_settings"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="end"
-            android:layout_margin="16dp"
-            android:background="?android:selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_settings_white_24dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
+            <ImageView
+                android:id="@+id/fragment_profile_edit_profile"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_gravity="start"
+                android:background="?android:selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_edit_white_24dp" />
 
-    </android.support.v7.widget.Toolbar>
+            <TextView
+                android:id="@+id/fragment_profile_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="start"
+                android:text="@string/login"
+                android:textColor="@color/colorSecondaryLight"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/fragment_profile_edit_profile"
+                app:layout_constraintTop_toTopOf="parent" />
 
+            <ImageView
+                android:id="@+id/fragment_profile_settings"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_gravity="end"
+                android:background="?android:selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_settings_white_24dp" />
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -87,19 +115,19 @@
                     app:layout_scrollFlags="scroll|snap">
 
                     <!--<View-->
-                        <!--android:id="@+id/fragment_profile_view"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="1dp"-->
-                        <!--android:background="@color/colorPrimaryDark" />-->
+                    <!--android:id="@+id/fragment_profile_view"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1dp"-->
+                    <!--android:background="@color/colorPrimaryDark" />-->
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:paddingBottom="4dp"
                         android:paddingStart="16dp"
                         android:paddingTop="4dp"
-                        android:paddingEnd="16dp">
+                        android:paddingEnd="16dp"
+                        android:paddingBottom="4dp">
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/fragment_profile_avatar"
@@ -155,44 +183,44 @@
                                 android:id="@+id/fragment_profile_linearLayout"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="1"
                                 android:background="@color/colorPrimary"
                                 android:gravity="center"
                                 android:orientation="vertical"
                                 android:paddingTop="4dp"
                                 android:paddingBottom="4dp"
-                                android:layout_weight="1"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent">
 
-                            <TextView
-                                android:id="@+id/fragment_profile_task_count"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="@string/count_of_tasks"
-                                android:textColor="@color/colorSecondaryLight"
-                                android:textSize="25sp" />
+                                <TextView
+                                    android:id="@+id/fragment_profile_task_count"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:text="@string/count_of_tasks"
+                                    android:textColor="@color/colorSecondaryLight"
+                                    android:textSize="25sp" />
 
-                            <TextView
-                                android:id="@+id/fragment_profile_textView_task"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="@string/tasks"
-                                android:textColor="@color/colorSecondaryLight"
-                                android:textSize="20sp" />
-                        </LinearLayout>
+                                <TextView
+                                    android:id="@+id/fragment_profile_textView_task"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:text="@string/tasks"
+                                    android:textColor="@color/colorSecondaryLight"
+                                    android:textSize="20sp" />
+                            </LinearLayout>
 
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="0dp"
+                                android:layout_weight="1"
                                 android:background="@color/colorPrimaryDark"
                                 android:gravity="center"
                                 android:orientation="vertical"
                                 android:paddingTop="4dp"
-                                android:layout_weight="1"
                                 android:paddingBottom="4dp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
@@ -230,6 +258,7 @@
                     android:id="@+id/fragment_profile_tabLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:tabMaxWidth="0dp"
                     app:tabGravity="fill"
                     app:tabMode="fixed">
 
