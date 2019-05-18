@@ -276,6 +276,7 @@
     <string name="history">History</string>
     <string name="other">Other</string>
     <string name="recomendations">Recomendations</string>
+    <string name="add_task">Add task</string>
 
 
 </resources>

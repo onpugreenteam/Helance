@@ -50,10 +50,12 @@
         app:itemIconTint="@color/nav_item_colors"
         app:itemTextColor="@color/nav_item_colors"
         app:labelVisibilityMode="unlabeled"
+        android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/lobby_nav_items">
+        app:menu="@menu/lobby_nav_items"
+        android:focusable="true">
 
     </android.support.design.widget.BottomNavigationView>
 </android.support.constraint.ConstraintLayout>
