@@ -64,6 +64,7 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
                         Log.d("Login",jsonObject.getString("login"));
                         Log.d("Email",jsonObject.getString("email"));
                         Log.d("Active", String.valueOf(jsonObject.getBoolean("active")));
+                        Log.d("Avatar",jsonObject.getString("avatar"));
                         // если аккаунт не активирован, то открывается активность где надо ввести код
                         if ((jsonObject.getString("login").equals(login)
                                 || jsonObject.getString("email").equals(login))

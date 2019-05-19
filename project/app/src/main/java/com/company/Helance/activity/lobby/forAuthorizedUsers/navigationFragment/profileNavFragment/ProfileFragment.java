@@ -202,12 +202,12 @@ public class ProfileFragment extends Fragment implements Activity {
         country.setText(String.valueOf(SharedPrefManager.getInstance(getContext()).getUserCountry()));
         avatar.setVisibility(View.VISIBLE);
 
-
-        if (SharedPrefManager.getInstance(getContext()).getUserAvatar() != null) {
-            Glide.with(this).load(SharedPrefManager.getInstance(getContext()).getUserAvatar()).into(avatar);
-//            byte[] decodedString = Base64.decode(String.valueOf(SharedPrefManager.getInstance(getContext()).getUserAvatar()), Base64.DEFAULT);
-//            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-//            avatar.setImageBitmap(decodedByte);
+        if(String.valueOf(SharedPrefManager.getInstance(getContext()).getUserAvatar()).equals("null")){
+            avatar.setImageResource(R.drawable.helance_logo_png);
+        }else {
+            Glide.with(getContext())
+                    .load(String.valueOf(SharedPrefManager.getInstance(getContext()).getUserAvatar()))
+                    .into(avatar);
         }
     }
 

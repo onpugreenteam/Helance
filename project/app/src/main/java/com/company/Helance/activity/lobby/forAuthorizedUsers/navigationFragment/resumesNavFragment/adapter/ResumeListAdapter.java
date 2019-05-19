@@ -13,13 +13,12 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.company.Helance.R;
 import com.company.Helance.activity.viewTaskOrResume.ViewResumeActivity;
-import com.company.Helance.interfaces.ILoadMore;
 import com.company.Helance.dto.ResumeDTO;
+import com.company.Helance.interfaces.ILoadMore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,12 +109,17 @@ public class ResumeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
 
-            Glide.with(activity)
-                    .load(getRandomChestItem(images))
-                    .into(viewHolder.profile_user);
+            if(item.getUserAvatar() != null){
+                Glide.with(activity)
+                        .load(item.getUserAvatar())
+                        .into(viewHolder.profile_user);
+            }else {
+                Glide.with(activity)
+                        .load(getRandomChestItem(images))
+                        .into(viewHolder.profile_user);
+            }
 
             viewHolder.cardView.setOnClickListener(v -> {
-                Toast.makeText(v.getContext(), "Open resume", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(v.getContext(), ViewResumeActivity.class);
                 intent.putExtra("ResumeObject", item);
                 v.getContext().startActivity(intent);

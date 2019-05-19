@@ -2,11 +2,9 @@ package com.company.Helance.activity.viewTaskOrResume;
 
 import android.annotation.SuppressLint;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,20 +13,22 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.company.Helance.activity.settings.LanguageHelper;
-import com.company.Helance.base.BaseActivity;
-import com.r0adkll.slidr.Slidr;
+import com.bumptech.glide.Glide;
 import com.company.Helance.R;
-import com.company.Helance.interfaces.Activity;
 import com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.MyTaskViewModel;
 import com.company.Helance.activity.viewTaskOrResume.contact.ContactDialogFragment;
+import com.company.Helance.base.BaseActivity;
 import com.company.Helance.dto.SocialNetworkDTO;
 import com.company.Helance.dto.TaskDTO;
+import com.company.Helance.interfaces.Activity;
 import com.company.Helance.networking.IsOnline;
 import com.company.Helance.networking.retrofit.ApiService;
 import com.company.Helance.networking.retrofit.RetrofitClient;
 import com.company.Helance.settingsApp.SharedPrefManager;
+import com.r0adkll.slidr.Slidr;
+
 import java.util.Objects;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -104,6 +104,14 @@ public class ViewTaskActivity extends BaseActivity implements Activity {
     private void setData(){
         Intent intent = getIntent();
         taskDTO = (TaskDTO) intent.getSerializableExtra("TaskObject");
+
+        if(taskDTO.getUserAvatar() != null){
+            Glide.with(getApplicationContext())
+                    .load(taskDTO.getUserAvatar())
+                    .into(imageView);
+        }else {
+            imageView.setImageResource(R.drawable.helance_logo_png);
+        }
 
         userEmail = taskDTO.getUserEmail();
         userPhone = taskDTO.getTelephone();
