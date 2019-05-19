@@ -13,7 +13,7 @@ public class SharedPrefManager {
     private static final String KEY_NAME = "user_name";
     private static final String KEY_EMAIL = "user_email";
     private static final String KEY_COUNTRY = "user_country";
-    private static final String KEY_AVATAR = null;
+    private static final String KEY_AVATAR = "user_avatar";
     private static final String KEY_TELEPHONE = "user_telephone";
     private static final String KEY_TELEGRAM = "user_telegram";
     private static final String KEY_INSTAGRAM = "user_instagram";

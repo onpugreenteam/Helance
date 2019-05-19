@@ -72,7 +72,8 @@
         <activity android:name="com.company.Helance.activity.search.SearchTaskAlertDialog" />
         <activity
             android:name="com.company.Helance.activity.settings.SettingsActivity"
-            android:theme="@style/ToolBarProfile" />
+            android:theme="@style/ToolBarProfile"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.company.Helance.activity.passwordRecovery.PassRecoveryActivity1"
             android:theme="@style/ToolBarProfile" />

@@ -14,13 +14,12 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.company.Helance.R;
 import com.company.Helance.activity.viewTaskOrResume.ViewTaskActivity;
-import com.company.Helance.interfaces.ILoadMore;
 import com.company.Helance.dto.TaskDTO;
+import com.company.Helance.interfaces.ILoadMore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -112,12 +111,17 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
 
-            Glide.with(activity)
+            if(item.getUserAvatar() != null){
+                Glide.with(activity)
+                        .load(item.getUserAvatar())
+                        .into(viewHolder.profile_user);
+            }else {
+                Glide.with(activity)
                     .load(getRandomChestItem(images))
                     .into(viewHolder.profile_user);
+            }
 
             viewHolder.cardView.setOnClickListener(v -> {
-                Toast.makeText(v.getContext(), "Open task", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(v.getContext(),ViewTaskActivity.class);
                 intent.putExtra("TaskObject", item);
                 v.getContext().startActivity(intent);

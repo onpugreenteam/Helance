@@ -20,7 +20,7 @@ public class Constants {
        public static final String LOGIN_USER = HOST + "login";
        public static final String CHECK_LOGIN = HOST + "checkLogin";
        public static final String CHECK_EMAIL = HOST + "checkEmail";
-       public static final String UPLOAD_AVATAR = HOST + "upload/avatar";
+       public static final String UPLOAD_AVATAR = HOST + "storage/uploadAvatar";
        public static final String GET_AVATAR = HOST + "aaa/";
        public static final String GET_ALL_TASK = HOST + "getAllTasks";
        public static final String ADD_TASK = HOST + "addTask";
