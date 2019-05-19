@@ -67,7 +67,11 @@ public class MyResumeListAdapter extends ListAdapter<MyResumeDTO,  MyResumeListA
         holder.subject.setText(currentItem.getSubject());
         holder.views.setText(String.valueOf(currentItem.getViews()));
         holder.dateStart.setText(currentItem.getDateStart());
-        Glide.with(activity).load(currentItem.getUserAvatar()).into(holder.avatar);
+        if(currentItem.getUserAvatar() == null) {
+            Glide.with(activity).load(R.drawable.helance_logo_png).into(holder.avatar);
+        } else {
+            Glide.with(activity).load(currentItem.getUserAvatar()).into(holder.avatar);
+        }
 
         if(!currentItem.isActive()){
             holder.status.setTextColor(Color.parseColor("#D33434"));

@@ -72,7 +72,11 @@ public class MyTaskListAdapter extends ListAdapter<MyTaskDTO, MyTaskListAdapter.
         myTaskListViewHolder.status.setText(currentItem.isActive() ? R.string.active : R.string.not_active);
         myTaskListViewHolder.author.setText(currentItem.getUserName());
         myTaskListViewHolder.views.setText(String.valueOf(currentItem.getViews()));
-        Glide.with(activity).load(currentItem.getUserAvatar()).into(myTaskListViewHolder.avatar);
+        if(currentItem.getUserAvatar() == null) {
+            Glide.with(activity).load(R.drawable.helance_logo_png).into(myTaskListViewHolder.avatar);
+        } else {
+            Glide.with(activity).load(currentItem.getUserAvatar()).into(myTaskListViewHolder.avatar);
+        }
 
         if (!currentItem.isActive()) {
             myTaskListViewHolder.status.setTextColor(Color.parseColor("#D33434"));
