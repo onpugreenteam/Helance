@@ -1,11 +1,5 @@
 package com.company.Helance.activity.viewTaskOrResume.contact;
 
-import android.content.ClipData;
-import android.content.ClipData;
-import android.content.ClipData.Item;
-import android.content.ClipboardManager;
-import android.content.ClipboardManager;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,15 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.company.Helance.R;
 import com.company.Helance.interfaces.Activity;
 
 import org.jetbrains.annotations.NotNull;
-
-import static android.content.Context.CLIPBOARD_SERVICE;
-import static android.support.v4.content.ContextCompat.getSystemService;
 
 public class ContactDialogFragment extends BottomSheetDialogFragment implements Activity {
 
