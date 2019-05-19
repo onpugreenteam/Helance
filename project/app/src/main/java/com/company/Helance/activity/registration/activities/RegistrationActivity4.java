@@ -1,21 +1,18 @@
 package com.company.Helance.activity.registration.activities;
 
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.company.Helance.activity.settings.LanguageHelper;
 import com.company.Helance.base.BaseActivity;
 import com.github.reinaldoarrosi.maskededittext.MaskedEditText;
 import com.hbb20.CountryCodePicker;
@@ -32,9 +29,7 @@ public class RegistrationActivity4 extends BaseActivity implements Activity {
 
     private final static int REGISTRATION_ACTIVITY4 = R.layout.activity_registration4;
 
-    private TextInputLayout registration_username;
     private Button nextButton;
-    //    private EditText registration_phoneNumber;
     private CountryCodePicker registration_phoneNumber_code;
     private MaskedEditText registration_phoneNumber;
     private EditText registration_telegram;
@@ -99,9 +94,7 @@ public class RegistrationActivity4 extends BaseActivity implements Activity {
 
     @Override
     public void onListener() {
-        nextButton.setOnClickListener(view -> {
-            attemptRegistration();
-        });
+        nextButton.setOnClickListener(view -> attemptRegistration());
         registration_phoneNumber.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -168,6 +161,9 @@ public class RegistrationActivity4 extends BaseActivity implements Activity {
         if (registration_telegram.getText().toString().length() != 0
                 || registration_instagram.getText().toString().length() != 0
                 || registration_facebook.getText().toString().length() != 0) {
+
+            Log.d("registration", "1");
+
             List<SocialNetworkPOJO> networkPOJOList = new ArrayList<>();
             if (registration_telegram.getText().toString().length() != 0) {
                 networkPOJOList.add(
@@ -178,7 +174,6 @@ public class RegistrationActivity4 extends BaseActivity implements Activity {
                                 login
                                 )
                 );
-//                registerNetwork(login, getString(R.string.telegram), registration_telegram.getText().toString());
             }
             if (registration_instagram.getText().toString().length() != 0) {
                 networkPOJOList.add(
@@ -189,7 +184,6 @@ public class RegistrationActivity4 extends BaseActivity implements Activity {
                                 login
                         )
                 );
-//                registerNetwork(login, getString(R.string.instagram), registration_instagram.getText().toString());
             }
 
             if (registration_facebook.getText().toString().length() != 0) {
@@ -201,17 +195,16 @@ public class RegistrationActivity4 extends BaseActivity implements Activity {
                                 login
                         )
                 );
-//                registerNetwork(login, getString(R.string.facebook_app_id), registration_facebook.getText().toString());
             }
             registrationViewModel.register(login, email, name,
                     password, country, phone,
                     networkPOJOList);
-//            registerNetwork(networkPOJOList);
         } else {
             registrationViewModel.register(login, email, name, password, country, phone);
+            Log.d("registration", "2");
+
         }
     }
-
 
     @Override
     public void finish() {

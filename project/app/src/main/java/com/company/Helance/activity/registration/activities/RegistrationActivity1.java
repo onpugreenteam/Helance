@@ -1,12 +1,10 @@
 package com.company.Helance.activity.registration.activities;
 
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -15,7 +13,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.company.Helance.activity.settings.LanguageHelper;
 import com.company.Helance.base.BaseActivity;
 import com.hbb20.CountryCodePicker;
 import com.company.Helance.R;
@@ -120,31 +117,44 @@ public class RegistrationActivity1 extends BaseActivity implements Activity {
     @Override
     public void onListener() {
         nextButton.setOnClickListener(v -> attemptRegistration());
-        register_login.addTextChangedListener(textWatcher);
-        register_email.addTextChangedListener(textWatcher);
-        register_name.addTextChangedListener(textWatcher);
+        register_login.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                if (isLoginValidLong(register_login.getText().toString()) && isLoginValidShort(register_login.getText().toString())) {
+                    checkLogin();
+                }
+            }
+        });
+        register_email.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (isEmailValid(register_email.getText().toString())) {
+                    checkEmail();
+                }
+            }
+        });
     }
-
-    private TextWatcher textWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            if (isLoginValidLong(register_login.getText().toString()) && isLoginValidShort(register_login.getText().toString())) {
-                checkLogin();
-            }
-            if(isEmailValid(register_email.getText().toString())) {
-                checkEmail();
-            }
-        }
-    };
 
     private void checkLogin() {
         final String login = Objects.requireNonNull(register_login).getText().toString().trim();
@@ -159,7 +169,7 @@ public class RegistrationActivity1 extends BaseActivity implements Activity {
 
     private void checkEmail() {
         final String email = Objects.requireNonNull(register_email).getText().toString().trim();
-        if(!registrationViewModel.checkUserEmail(email)) {
+        if (!registrationViewModel.checkUserEmail(email)) {
             register_email.setError(getString(R.string.error_exist_email));
             email_exists = true;
         } else {
@@ -263,11 +273,11 @@ public class RegistrationActivity1 extends BaseActivity implements Activity {
     }
 
     private boolean isLoginValidShort(String login) {
-        return login.length() > 4;
+        return login.length() > 3;
     }
 
     private boolean isLoginValidLong(String login) {
-        return login.length() < 10;
+        return login.length() < 20 && login.length() > 3;
     }
 
     private boolean isEmailValid(String email) {
