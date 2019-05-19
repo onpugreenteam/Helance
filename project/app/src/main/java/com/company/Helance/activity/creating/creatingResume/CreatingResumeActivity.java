@@ -1,11 +1,9 @@
 package com.company.Helance.activity.creating.creatingResume;
 
 import android.app.FragmentManager;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -19,7 +17,6 @@ import android.widget.Toast;
 import com.company.Helance.R;
 import com.company.Helance.activity.creating.fragment.LessonListFragment;
 import com.company.Helance.activity.creating.viewModel.CreatingResumeViewModel;
-import com.company.Helance.activity.settings.LanguageHelper;
 import com.company.Helance.base.BaseActivity;
 import com.company.Helance.interfaces.Activity;
 import com.company.Helance.interfaces.navigators.CreatingResumeNavigator;
@@ -56,7 +53,6 @@ public class CreatingResumeActivity extends BaseActivity implements Activity, Cr
 
     @Override
     public void findViewById() {
-
         lessonPicker = findViewById(R.id.creating_resume_lesson_list_in_resume);
         description = findViewById(R.id.creating_resume_description);
         descriptionLength = findViewById(R.id.creating_resume_description_length);
@@ -105,7 +101,6 @@ public class CreatingResumeActivity extends BaseActivity implements Activity, Cr
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {// todo: goto back activity from here
-
             // если пустых полей нет, то открывается диалог с потверждение закрытия окна
             if (!allFieldsEmpty()) {
                 openDialog();
@@ -175,10 +170,12 @@ public class CreatingResumeActivity extends BaseActivity implements Activity, Cr
     @Override
     public void handleError(Throwable throwable) {
         Log.d("Error post resume",throwable.getMessage());
+        Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onComplete() {
+        Toast.makeText(getApplicationContext(),"Successful",Toast.LENGTH_SHORT).show();
     }
 
     @Override
