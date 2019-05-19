@@ -179,4 +179,7 @@
     <string name="recomendations">Рекомендации</string>
     <string name="add_task">Добавить заявку</string>
     <string name="title_activity_registration">Регистрация</string>
+    <string name="facebook">Фейсбук</string>
+    <string name="registration_textView_facebook" translatable="false">Фейсбук:</string>
+    <string name="registration_textView_instagram" translatable="false">Инстаграм</string>
 </resources>

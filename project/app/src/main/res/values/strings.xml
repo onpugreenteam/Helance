@@ -63,7 +63,6 @@
     <string name="instagram" translatable="false">Instagram</string>
     <string name="country_picker">Click to select your country</string>
     <string name="log_out">Log out</string>
-    <string name="splashscreenText" translatable="false">Ranpeak</string>
     <string name="choosedWrongCoutry">Choosed wrong country</string>
     <string name="invalidEmailOrPassword">Invalid email or password</string>
     <string name="next">Next</string>
@@ -95,8 +94,8 @@
     <string name="registration_textView_phone_number">Type your phone number:</string>
     <string name="registration_textView_social_networks">Type your social networks:</string>
     <string name="registration_textView_telegram">Telegram:</string>
-    <string name="registration_textView_instagram" translatable="false">Instagram:</string>
-    <string name="registration_textView_facebook" translatable="false">Facebook:</string>
+    <string name="registration_textView_instagram">Instagram:</string>
+    <string name="registration_textView_facebook">Facebook:</string>
     <string name="registration_link_telegram">example</string>
     <string name="registration_link_instagram">example</string>
     <string name="registration_link_facebook">example</string>
@@ -250,7 +249,7 @@
     <string name="phone">Phone</string>
     <string name="email_example" translatable="false">example@email.com</string>
     <string name="telegram_example" translatable="false">\@example</string>
-    <string name="facebook" translatable="false">Facebook</string>
+    <string name="facebook">Facebook</string>
     <string name="price">Price</string>
     <string name="update_status">Update status</string>
     <string name="task_status">Status</string>

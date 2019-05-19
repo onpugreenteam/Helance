@@ -34,7 +34,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="50dp"
                 android:layout_marginBottom="50dp"
-                app:srcCompat="@drawable/ic_splash_screen_logo" />
+                app:srcCompat="@drawable/helance_logo_item_png" />
 
             <TextView
                 android:id="@+id/login_activity_text_view_error"

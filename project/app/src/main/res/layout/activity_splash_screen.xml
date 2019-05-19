@@ -19,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/ic_splash_screen_logo" />
+        app:srcCompat="@drawable/ic_helance_logo_item_svg"/>
 
     <TextView
         android:id="@+id/splash_text"

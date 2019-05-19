@@ -127,7 +127,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                android:src="@mipmap/ic_launcher"
+                android:src="@drawable/helance_logo_png"
                 card:layout_constraintBottom_toBottomOf="parent"
                 card:layout_constraintEnd_toEndOf="parent"
                 card:layout_constraintHorizontal_bias="0.0"
