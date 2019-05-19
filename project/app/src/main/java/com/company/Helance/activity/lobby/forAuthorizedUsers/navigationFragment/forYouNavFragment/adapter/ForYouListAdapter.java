@@ -59,7 +59,6 @@ public class ForYouListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         });
     }
 
-
     @Override
     public int getItemViewType(int position) {
         return data.get(position) == null ? VIEW_TYPE_LOADING:VIEW_TYPE_ITEM;
@@ -85,16 +84,12 @@ public class ForYouListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return rv;
     }
 
-
     private static String getRandomChestItem(ArrayList<String> images) {
         return images.get(new Random().nextInt(images.size()));
     }
 
-
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
-
 
         if(holder instanceof TaskViewHolder){
             TaskDTO item = data.get(position);
@@ -134,7 +129,6 @@ public class ForYouListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-
     @Override
     public int getItemCount() {
         return data.size();
@@ -147,8 +141,6 @@ public class ForYouListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void setData(List<TaskDTO> data) {
         this.data = data;
     }
-
-
 
     public class TaskViewHolder extends RecyclerView.ViewHolder implements com.company.Helance.interfaces.Activity {
         CardView cardView;
@@ -183,8 +175,6 @@ public class ForYouListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-
-
     private class LoadingViewHolder extends RecyclerView.ViewHolder{
 
         public ProgressBar progressBar;
@@ -194,5 +184,4 @@ public class ForYouListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             progressBar = itemView.findViewById(R.id.progress_bar_loading);
         }
     }
-
 }

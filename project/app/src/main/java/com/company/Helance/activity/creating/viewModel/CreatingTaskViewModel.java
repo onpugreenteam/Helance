@@ -32,7 +32,6 @@ public class CreatingTaskViewModel extends BaseViewModel<CreatingTaskNavigator> 
 
     public void postTask(String headline,String descrpiption,String dateEnd,String subject,float price) {
 
-
         DateFormat df = new SimpleDateFormat("d MMM yyyy");
         final String dateStart = df.format(Calendar.getInstance().getTime());
         final int views = 0;

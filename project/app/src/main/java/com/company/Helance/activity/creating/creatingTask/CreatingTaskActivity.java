@@ -2,7 +2,6 @@ package com.company.Helance.activity.creating.creatingTask;
 
 import android.app.DatePickerDialog;
 import android.app.FragmentManager;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -11,7 +10,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -24,16 +22,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
-import com.company.Helance.activity.settings.LanguageHelper;
-import com.company.Helance.base.BaseActivity;
-import com.github.chrisbanes.photoview.PhotoView;
 import com.company.Helance.R;
 import com.company.Helance.activity.creating.fragment.LessonListFragment;
-import com.company.Helance.interfaces.navigators.CreatingTaskNavigator;
 import com.company.Helance.activity.creating.viewModel.CreatingTaskViewModel;
+import com.company.Helance.base.BaseActivity;
 import com.company.Helance.interfaces.Activity;
+import com.company.Helance.interfaces.navigators.CreatingTaskNavigator;
 import com.company.Helance.networking.IsOnline;
+import com.github.chrisbanes.photoview.PhotoView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -292,10 +290,12 @@ public class CreatingTaskActivity extends BaseActivity implements Activity, Crea
     @Override
     public void handleError(Throwable throwable) {
         Log.d("Task post error",throwable.getMessage());
+        Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onComplete() {
+        Toast.makeText(getApplicationContext(),"Successful",Toast.LENGTH_SHORT).show();
     }
 
     @Override
