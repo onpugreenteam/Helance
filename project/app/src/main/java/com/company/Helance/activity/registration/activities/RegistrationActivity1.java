@@ -1,6 +1,7 @@
 package com.company.Helance.activity.registration.activities;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -14,6 +15,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.company.Helance.activity.settings.LanguageHelper;
+import com.company.Helance.base.BaseActivity;
 import com.hbb20.CountryCodePicker;
 import com.company.Helance.R;
 import com.company.Helance.interfaces.Activity;
@@ -23,7 +26,7 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class RegistrationActivity1 extends AppCompatActivity implements Activity {
+public class RegistrationActivity1 extends BaseActivity implements Activity {
 
     private final static int REGISTRATION_ACTIVITY1 = R.layout.activity_registration1;
 
@@ -39,6 +42,7 @@ public class RegistrationActivity1 extends AppCompatActivity implements Activity
     private RegistrationViewModel registrationViewModel;
 //    private final CountryListFragment countryListFragment = new CountryListFragment();
 //    private final FragmentManager fm = getFragmentManager();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +78,7 @@ public class RegistrationActivity1 extends AppCompatActivity implements Activity
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     // если нажата кнопка назад на устройстве
     @Override

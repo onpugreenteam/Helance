@@ -1,6 +1,7 @@
 package com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myTaskFragment.task;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,8 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.company.Helance.activity.settings.LanguageHelper;
+import com.company.Helance.base.BaseActivity;
 import com.r0adkll.slidr.Slidr;
 import com.company.Helance.R;
 import com.company.Helance.interfaces.Activity;
@@ -24,7 +27,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 
-public class MyTaskViewActivity extends AppCompatActivity implements Activity {
+public class MyTaskViewActivity extends BaseActivity implements Activity {
 
     private static MyTaskDTO myTaskItem;
     private static MyTaskDTO taskDTO;
@@ -42,6 +45,7 @@ public class MyTaskViewActivity extends AppCompatActivity implements Activity {
     private TextView deadline;
     private TextView price;
     private CircleImageView avatar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,5 +1,6 @@
 package com.company.Helance.activity.creating.creatingTask;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -8,8 +9,10 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.company.Helance.R;
+import com.company.Helance.activity.settings.LanguageHelper;
+import com.company.Helance.base.BaseActivity;
 
-public class FullScreenImageActivity extends AppCompatActivity {
+public class FullScreenImageActivity extends BaseActivity {
 
     ImageView fullScreenImageView;
 
@@ -29,7 +32,6 @@ public class FullScreenImageActivity extends AppCompatActivity {
             }
         }
     }
-
 
     private void findViewById() {
         fullScreenImageView = findViewById(R.id.fullScreenImageView);

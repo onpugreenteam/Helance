@@ -1,6 +1,7 @@
 package com.company.Helance.activity.passwordRecovery;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -15,13 +16,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.company.Helance.R;
+import com.company.Helance.activity.settings.LanguageHelper;
+import com.company.Helance.base.BaseActivity;
 import com.company.Helance.interfaces.Activity;
 import com.company.Helance.activity.logIn.LogInActivity;
 import com.company.Helance.activity.registration.viewModel.RegistrationViewModel;
 
 import java.util.Objects;
 
-public class PassRecoveryActivity3 extends AppCompatActivity implements Activity {
+public class PassRecoveryActivity3 extends BaseActivity implements Activity {
 
     private TextView textView;
     private TextInputEditText password1;

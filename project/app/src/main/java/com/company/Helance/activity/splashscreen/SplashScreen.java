@@ -16,10 +16,12 @@ import android.widget.TextView;
 
 import com.company.Helance.R;
 import com.company.Helance.activity.lobby.forGuestUsers.LobbyForGuestActivity;
+import com.company.Helance.activity.settings.LanguageHelper;
+import com.company.Helance.base.BaseActivity;
 import com.company.Helance.interfaces.navigators.SplashNavigator;
 import com.company.Helance.activity.splashscreen.viewModel.SplashViewModel;
 
-public class SplashScreen extends AppCompatActivity implements SplashNavigator {
+public class SplashScreen extends BaseActivity implements SplashNavigator {
 
     private final static int SPLASH_ACTIVITY = R.layout.activity_splash_screen;
     private TextView textView;

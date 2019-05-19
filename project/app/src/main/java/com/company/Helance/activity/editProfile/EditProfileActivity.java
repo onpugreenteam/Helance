@@ -1,6 +1,7 @@
 package com.company.Helance.activity.editProfile;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,8 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
+import com.company.Helance.activity.settings.LanguageHelper;
+import com.company.Helance.base.BaseActivity;
 import com.hbb20.CountryCodePicker;
 import com.company.Helance.R;
 import com.company.Helance.interfaces.Activity;
@@ -39,7 +42,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class EditProfileActivity extends AppCompatActivity implements Activity {
+public class EditProfileActivity extends BaseActivity implements Activity {
 
     private EditText name;
     private CountryCodePicker country;

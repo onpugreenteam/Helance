@@ -3,6 +3,7 @@ package com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment
 import android.app.DatePickerDialog;
 import android.app.FragmentManager;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -19,6 +20,8 @@ import android.widget.Toast;
 
 import com.company.Helance.R;
 import com.company.Helance.activity.creating.fragment.LessonListFragment;
+import com.company.Helance.activity.settings.LanguageHelper;
+import com.company.Helance.base.BaseActivity;
 import com.company.Helance.interfaces.Activity;
 import com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.MyTaskViewModel;
 import com.company.Helance.dto.MyTaskDTO;
@@ -31,7 +34,7 @@ import com.company.Helance.settingsApp.SharedPrefManager;
 import java.util.Calendar;
 import java.util.Objects;
 
-public class MyTaskEditActivity extends AppCompatActivity implements Activity {
+public class MyTaskEditActivity extends BaseActivity implements Activity {
 
     private DatePickerDialog.OnDateSetListener dateSetListener;
     private final FragmentManager fm = getFragmentManager();

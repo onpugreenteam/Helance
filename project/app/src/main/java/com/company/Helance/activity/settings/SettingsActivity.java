@@ -1,15 +1,21 @@
 package com.company.Helance.activity.settings;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.TextView;
+import android.widget.Spinner;
 
 import com.company.Helance.R;
+import com.company.Helance.activity.lobby.forAuthorizedUsers.LobbyActivity;
 import com.company.Helance.interfaces.Activity;
 import com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.MyProfileViewModel;
 import com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.viewModel.MyResumeViewModel;
@@ -21,16 +27,20 @@ import java.util.Objects;
 
 public class SettingsActivity extends AppCompatActivity implements Activity {
 
-    private TextView searchText;
-    private TextView receiveNotification;
+    private Spinner language;
     private CheckBox checkBox1;
-    private TextView receiveeEmailNotifications;
     private CheckBox checkBox2;
     private Button button;
     private Button logOut;
-    private MyTaskViewModel taskViewModel;
-    private MyResumeViewModel resumeViewModel;
-    private MyProfileViewModel profileViewModel;
+
+    private Language lang = new Language();
+
+
+    // override the base context of application to update default locale for this activity
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LanguageHelper.onAttach(base));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,16 +48,15 @@ public class SettingsActivity extends AppCompatActivity implements Activity {
         setContentView(R.layout.activity_settings);
 
         findViewById();
-        onListener();
         toolbar();
+        onListener();
+        spinner();
     }
 
     @Override
     public void findViewById() {
-        searchText = findViewById(R.id.settings_activity_search_text);
-        receiveNotification = findViewById(R.id.settings_activity_receive_notification_text);
+        language = findViewById(R.id.settings_activity_language);
         checkBox1 = findViewById(R.id.settings_activity_checkBox_1);
-        receiveeEmailNotifications = findViewById(R.id.settings_activity_receive_email_notifications_text);
         checkBox2 = findViewById(R.id.settings_activity_checkBox_2);
         button = findViewById(R.id.settings_activity_button);
         logOut = findViewById(R.id.settings_activity_button_log_out);
@@ -55,45 +64,107 @@ public class SettingsActivity extends AppCompatActivity implements Activity {
 
     @Override
     public void onListener() {
-        logOut.setOnClickListener(v->{
+        logOut.setOnClickListener(v -> {
             SharedPrefManager.getInstance(this).logout();
             removeAllDataFromLocalDB();
             Intent intent = new Intent(this, LobbyForGuestActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             finish();
         });
-        button.setOnClickListener((v) -> {
-            finish();
-        });
+        button.setOnClickListener((v) -> switchLanguage(SettingsActivity.this, lang.getLanguageCode()));
+
     }
 
     private void toolbar() {
+
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.toolbar_name);
+
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                // todo: goto back activity from here
-                finish();
-                return true;
 
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == android.R.id.home) {// todo: goto back activity from here
+            finish();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
+
     }
 
     public void removeAllDataFromLocalDB() {
-        profileViewModel = ViewModelProviders.of(this).get(MyProfileViewModel.class);
+
+        MyProfileViewModel profileViewModel = ViewModelProviders.of(this).get(MyProfileViewModel.class);
         profileViewModel.deleteAllSocialNetworks();
-        taskViewModel = ViewModelProviders.of(this).get(MyTaskViewModel.class);
+
+        MyTaskViewModel taskViewModel = ViewModelProviders.of(this).get(MyTaskViewModel.class);
         taskViewModel.deleteAllUsersTasks();
-        resumeViewModel = ViewModelProviders.of(this).get(MyResumeViewModel.class);
+
+        MyResumeViewModel resumeViewModel = ViewModelProviders.of(this).get(MyResumeViewModel.class);
         resumeViewModel.deleteAllUsersResumes();
+
+    }
+
+    private void spinner() {
+
+        ArrayAdapter mAdapter = new ArrayAdapter(SettingsActivity.this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.ln));
+        language.setAdapter(mAdapter);
+        for (int i =0; i < language.getCount(); i++) {
+            if (LanguageHelper.getLanguage(SettingsActivity.this).equals("ru")) {
+                language.setSelection(1);
+            } else if (LanguageHelper.getLanguage(SettingsActivity.this).equals("en")) {
+                language.setSelection(0);
+            }
+        }
+
+
+
+        language.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        lang.setLanguageCode("en");
+                        lang.setLanguageName("en");
+                        lang.setLanguageNameInDefaultLocale("en");
+
+                        Log.d("lang_selected", lang.getLanguageCode());
+                        break;
+                    case 1:
+
+                        lang.setLanguageCode("ru");
+                        lang.setLanguageName("ru");
+                        lang.setLanguageNameInDefaultLocale("ru");
+
+                        Log.d("lang_selected", lang.getLanguageCode());
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    public void switchLanguage(android.app.Activity activity, String languageCode) {
+
+        LanguageHelper.setLanguage(activity, languageCode);
+        Log.d("lang_code", LanguageHelper.getLanguage(SettingsActivity.this));
+        relaunch();
+
+    }
+
+    public void relaunch (){
+
+        Intent i = new Intent(SettingsActivity.this, LobbyActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(i);
+        finish();
+
     }
 }

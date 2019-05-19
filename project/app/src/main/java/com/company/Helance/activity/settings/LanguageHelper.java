@@ -6,34 +6,36 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
+import android.os.LocaleList;
 import android.preference.PreferenceManager;
 
 import java.util.Locale;
 
-/**
- * Created by devdeeds.com on 18/4/17.
- * by Jayakrishnan P.M
- */
+public class LanguageHelper {
 
-public class LocaleHelper {
+    private static final String SELECTED_LANGUAGE = "Language.Helper.Selected.Language";
 
-    private static final String SELECTED_LANGUAGE = "Locale.Helper.Selected.Language";
-
+    // returns Context having application default locale for all activities
     public static Context onAttach(Context context) {
         String lang = getPersistedData(context, Locale.getDefault().getLanguage());
-        return setLocale(context, lang);
+        return setLanguage(context, lang);
     }
 
+    // sets application locale with default locale persisted in preference manager on each new launch of application and
+    // returns Context having application default locale
     public static Context onAttach(Context context, String defaultLanguage) {
         String lang = getPersistedData(context, defaultLanguage);
-        return setLocale(context, lang);
+        return setLanguage(context, lang);
     }
 
+    // returns language code persisted in preference manager
     public static String getLanguage(Context context) {
         return getPersistedData(context, Locale.getDefault().getLanguage());
     }
 
-    public static Context setLocale(Context context, String language) {
+    // persists new language code change in preference manager and updates application default locale
+    // returns Context having application default locale
+    public static Context setLanguage(Context context, String language) {
         persist(context, language);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -43,11 +45,13 @@ public class LocaleHelper {
         return updateResourcesLegacy(context, language);
     }
 
-    private static String getPersistedData(Context context, String defaultLanguage) {
+    // returns language code persisted in preference manager
+    public static String getPersistedData(Context context, String defaultLanguage) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         return preferences.getString(SELECTED_LANGUAGE, defaultLanguage);
     }
 
+    // persists new language code in preference manager
     private static void persist(Context context, String language) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = preferences.edit();
@@ -56,19 +60,29 @@ public class LocaleHelper {
         editor.apply();
     }
 
+    // For android device versions above Nougat (7.0)
+    // updates application default locale configurations and
+    // returns new Context object for the current Context but whose resources are adjusted to match the given Configuration
     @TargetApi(Build.VERSION_CODES.N)
     private static Context updateResources(Context context, String language) {
+
         Locale locale = new Locale(language);
-        Locale.setDefault(locale);
 
         Configuration configuration = context.getResources().getConfiguration();
-        configuration.setLocale(locale);
+
+        LocaleList localeList = new LocaleList(locale);
+        localeList.setDefault(localeList);
+        configuration.setLocales(localeList);
 
         return context.createConfigurationContext(configuration);
     }
 
+    // For android device versions below Nougat (7.0)
+    // updates application default locale configurations and
+    // returns new Context object for the current Context but whose resources are adjusted to match the given Configuration
     @SuppressWarnings("deprecation")
     private static Context updateResourcesLegacy(Context context, String language) {
+
         Locale locale = new Locale(language);
         Locale.setDefault(locale);
 

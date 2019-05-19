@@ -53,6 +53,9 @@ ext {
 
 dependencies {
 
+    // Paper library to save selected language in SharedPref
+    implementation 'io.paperdb:paperdb:2.5'
+
     //slide to close activity
     implementation 'com.r0adkll:slidableactivity:2.0.6'
     // Phone number mask for edittext

@@ -1,6 +1,7 @@
 package com.company.Helance.activity.creating.creatingResume;
 
 import android.app.FragmentManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -18,16 +19,15 @@ import android.widget.Toast;
 import com.company.Helance.R;
 import com.company.Helance.activity.creating.fragment.LessonListFragment;
 import com.company.Helance.activity.creating.viewModel.CreatingResumeViewModel;
+import com.company.Helance.activity.settings.LanguageHelper;
+import com.company.Helance.base.BaseActivity;
 import com.company.Helance.interfaces.Activity;
 import com.company.Helance.interfaces.navigators.CreatingResumeNavigator;
 import com.company.Helance.networking.IsOnline;
-import com.company.Helance.networking.volley.Constants;
 
 import java.util.Objects;
 
-import static com.company.Helance.networking.volley.Constants.Values.LESSONS;
-
-public class CreatingResumeActivity extends AppCompatActivity implements Activity, CreatingResumeNavigator {
+public class CreatingResumeActivity extends BaseActivity implements Activity, CreatingResumeNavigator {
 
     private final static int CREATING_RESUME_ACTIVITY = R.layout.activity_creating_resume;
 

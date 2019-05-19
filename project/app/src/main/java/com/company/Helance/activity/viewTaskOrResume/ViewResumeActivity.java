@@ -2,6 +2,7 @@ package com.company.Helance.activity.viewTaskOrResume;
 
 import android.annotation.SuppressLint;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.company.Helance.activity.settings.LanguageHelper;
+import com.company.Helance.base.BaseActivity;
 import com.r0adkll.slidr.Slidr;
 import com.company.Helance.R;
 import com.company.Helance.interfaces.Activity;
@@ -33,7 +36,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class ViewResumeActivity extends AppCompatActivity implements Activity {
+public class ViewResumeActivity extends BaseActivity implements Activity {
 
     private TextView subject;
     private TextView date;

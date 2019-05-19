@@ -1,6 +1,7 @@
 package com.company.Helance.activity.registration.activities;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.support.design.widget.TextInputLayout;
@@ -14,6 +15,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.company.Helance.activity.settings.LanguageHelper;
+import com.company.Helance.base.BaseActivity;
 import com.github.reinaldoarrosi.maskededittext.MaskedEditText;
 import com.hbb20.CountryCodePicker;
 import com.company.Helance.R;
@@ -25,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class RegistrationActivity4 extends AppCompatActivity implements Activity {
+public class RegistrationActivity4 extends BaseActivity implements Activity {
 
     private final static int REGISTRATION_ACTIVITY4 = R.layout.activity_registration4;
 

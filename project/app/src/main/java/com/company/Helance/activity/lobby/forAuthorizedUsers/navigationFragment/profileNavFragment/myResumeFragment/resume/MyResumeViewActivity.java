@@ -1,6 +1,7 @@
 package com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.myResumeFragment.resume;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +11,8 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.company.Helance.activity.settings.LanguageHelper;
+import com.company.Helance.base.BaseActivity;
 import com.r0adkll.slidr.Slidr;
 import com.company.Helance.R;
 import com.company.Helance.interfaces.Activity;
@@ -26,7 +29,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 
-public class MyResumeViewActivity extends AppCompatActivity implements Activity {
+public class MyResumeViewActivity extends BaseActivity implements Activity {
 
     private static MyResumeDTO myResumeItem;
     private static MyResumeDTO resumeDTO;

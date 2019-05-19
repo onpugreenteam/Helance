@@ -13,7 +13,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -26,6 +25,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.company.Helance.R;
+import com.company.Helance.activity.settings.LanguageHelper;
+import com.company.Helance.base.BaseActivity;
 import com.company.Helance.interfaces.Activity;
 import com.company.Helance.activity.lobby.forAuthorizedUsers.LobbyActivity;
 import com.company.Helance.activity.lobby.forGuestUsers.LobbyForGuestActivity;
@@ -41,7 +42,7 @@ import java.util.ArrayList;
 import java.util.List;
 import static android.Manifest.permission.READ_CONTACTS;
 
-public class LogInActivity extends AppCompatActivity implements LoaderCallbacks<Cursor>, Activity, LoginNavigator {
+public class LogInActivity extends BaseActivity implements LoaderCallbacks<Cursor>, Activity, LoginNavigator {
 
     private final static int LOGIN_ACTIVITY = R.layout.activity_login;
     /**

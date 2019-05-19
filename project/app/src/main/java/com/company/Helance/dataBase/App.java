@@ -5,6 +5,7 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
+import com.company.Helance.activity.settings.LanguageHelper;
 import com.company.Helance.dataBase.local.LocalDB;
 
 public class App extends Application {
@@ -15,7 +16,8 @@ public class App extends Application {
 
     @Override
     protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
+        // override the base context of application to update default locale for the application
+        super.attachBaseContext(LanguageHelper.onAttach(base, LanguageHelper.getLanguage(base)));
 
         MultiDex.install(this);
     }
@@ -24,7 +26,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
-        localDB = Room.databaseBuilder(this, LocalDB.class,"database")
+        localDB = Room.databaseBuilder(this, LocalDB.class, "database")
                 .build();
     }
 
@@ -35,5 +37,6 @@ public class App extends Application {
     public LocalDB getLocalDB() {
         return localDB;
     }
+
 
 }

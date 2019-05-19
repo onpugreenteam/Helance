@@ -1,5 +1,10 @@
 <resources>
 
+    <string-array name="language_option">
+        <item>English</item>
+        <item>Russian</item>
+    </string-array>
+
     <!--facebook-->
     <string name="facebook_app_id" translatable="false">250707362523649</string>
     <string name="fb_login_protocol_scheme" translatable="false">fb250707362523649</string>

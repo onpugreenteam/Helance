@@ -1,5 +1,6 @@
 package com.company.Helance.activity.registration.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -12,12 +13,14 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.company.Helance.R;
+import com.company.Helance.activity.settings.LanguageHelper;
+import com.company.Helance.base.BaseActivity;
 import com.company.Helance.interfaces.Activity;
 
 import java.util.Objects;
 
 
-public class RegistrationActivity3 extends AppCompatActivity implements Activity {
+public class RegistrationActivity3 extends BaseActivity implements Activity {
 
     private final static int REGISTRATION_ACTIVITY2 = R.layout.activity_registration3;
 

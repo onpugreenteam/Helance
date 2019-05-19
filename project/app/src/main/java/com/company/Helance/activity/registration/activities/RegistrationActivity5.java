@@ -1,6 +1,7 @@
 package com.company.Helance.activity.registration.activities;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.company.Helance.R;
+import com.company.Helance.activity.settings.LanguageHelper;
+import com.company.Helance.base.BaseActivity;
 import com.company.Helance.interfaces.Activity;
 import com.company.Helance.activity.lobby.forAuthorizedUsers.LobbyActivity;
 import com.company.Helance.activity.logIn.LogInActivity;
@@ -21,7 +24,7 @@ import com.company.Helance.settingsApp.SharedPrefManager;
 
 import java.util.Objects;
 
-public class RegistrationActivity5 extends AppCompatActivity implements Activity {
+public class RegistrationActivity5 extends BaseActivity implements Activity {
 
     private TextInputLayout code;
     private Button next;

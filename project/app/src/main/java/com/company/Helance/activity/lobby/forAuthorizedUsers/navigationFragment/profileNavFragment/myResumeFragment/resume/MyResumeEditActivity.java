@@ -2,6 +2,7 @@ package com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment
 
 import android.app.FragmentManager;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,8 @@ import android.widget.Toast;
 
 import com.company.Helance.R;
 import com.company.Helance.activity.creating.fragment.LessonListFragment;
+import com.company.Helance.activity.settings.LanguageHelper;
+import com.company.Helance.base.BaseActivity;
 import com.company.Helance.interfaces.Activity;
 import com.company.Helance.dto.MyResumeDTO;
 import com.company.Helance.networking.IsOnline;
@@ -26,7 +29,7 @@ import com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.
 
 import java.util.Objects;
 
-public class MyResumeEditActivity extends AppCompatActivity implements Activity {
+public class MyResumeEditActivity extends BaseActivity implements Activity {
 
     private final FragmentManager fm = getFragmentManager();
     private final LessonListFragment lessonListFragment = new LessonListFragment();

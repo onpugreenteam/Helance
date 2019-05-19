@@ -10,6 +10,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.company.Helance.R;
+import com.company.Helance.activity.settings.LanguageHelper;
+import com.company.Helance.base.BaseActivity;
 import com.company.Helance.interfaces.Activity;
 import com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.forYouNavFragment.ForYouFragment;
 import com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.profileNavFragment.ProfileFragment;
@@ -17,11 +19,10 @@ import com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.
 import com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.tasksNavFragment.TasksFragment;
 
 
-public class LobbyActivity extends AppCompatActivity implements Activity {
+public class LobbyActivity extends BaseActivity implements Activity {
 
    private final static int LOBBY_ACTIVITY = R.layout.activity_lobby;
 
-//   private AnimationDrawable animationDrawable;
    private BottomNavigationView bottomNavigationView;
    final Fragment resumes = new ResumesFragment();
    final Fragment tasks = new TasksFragment();

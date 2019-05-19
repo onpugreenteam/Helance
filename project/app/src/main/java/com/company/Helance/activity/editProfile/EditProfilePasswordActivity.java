@@ -1,5 +1,6 @@
 package com.company.Helance.activity.editProfile;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
@@ -8,9 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.company.Helance.R;
+import com.company.Helance.activity.settings.LanguageHelper;
+import com.company.Helance.base.BaseActivity;
 import com.company.Helance.interfaces.Activity;
 
-public class EditProfilePasswordActivity extends AppCompatActivity implements Activity {
+public class EditProfilePasswordActivity extends BaseActivity implements Activity {
 
     private TextInputLayout oldPassword;
     private TextInputLayout newPassword;

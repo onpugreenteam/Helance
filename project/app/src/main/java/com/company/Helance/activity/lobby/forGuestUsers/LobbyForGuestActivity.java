@@ -1,5 +1,6 @@
 package com.company.Helance.activity.lobby.forGuestUsers;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -9,6 +10,8 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import com.company.Helance.R;
+import com.company.Helance.activity.settings.LanguageHelper;
+import com.company.Helance.base.BaseActivity;
 import com.company.Helance.interfaces.Activity;
 import com.company.Helance.activity.lobby.forAuthorizedUsers.LobbyActivity;
 import com.company.Helance.activity.lobby.forGuestUsers.adapter.ViewPagerAdapter;
@@ -17,7 +20,7 @@ import com.company.Helance.activity.lobby.forGuestUsers.fragments.FragmentTasks;
 import com.company.Helance.activity.logIn.LogInActivity;
 import com.company.Helance.settingsApp.SharedPrefManager;
 
-public class LobbyForGuestActivity extends AppCompatActivity implements Activity {
+public class LobbyForGuestActivity extends BaseActivity implements Activity {
 
     private final static int LOBBY_FOR_GUEST_ACTIVITY = R.layout.activity_lobby_for_guest;
 

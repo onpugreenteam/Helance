@@ -1,16 +1,14 @@
 package com.company.Helance.activity.creating.creatingTask;
 
-import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.FragmentManager;
+import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +25,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
+import com.company.Helance.activity.settings.LanguageHelper;
+import com.company.Helance.base.BaseActivity;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.company.Helance.R;
 import com.company.Helance.activity.creating.fragment.LessonListFragment;
@@ -34,15 +34,13 @@ import com.company.Helance.interfaces.navigators.CreatingTaskNavigator;
 import com.company.Helance.activity.creating.viewModel.CreatingTaskViewModel;
 import com.company.Helance.interfaces.Activity;
 import com.company.Helance.networking.IsOnline;
-import com.company.Helance.networking.volley.Constants;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
-import static com.company.Helance.networking.volley.Constants.Values.LESSONS;
-
-public class CreatingTaskActivity extends AppCompatActivity implements Activity, CreatingTaskNavigator {
+public class CreatingTaskActivity extends BaseActivity implements Activity, CreatingTaskNavigator {
 
     private EditText typeName;
     private EditText taskDescription;

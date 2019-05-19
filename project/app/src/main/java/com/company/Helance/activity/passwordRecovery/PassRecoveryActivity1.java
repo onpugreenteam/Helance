@@ -1,6 +1,7 @@
 package com.company.Helance.activity.passwordRecovery;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -14,6 +15,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.company.Helance.R;
+import com.company.Helance.activity.settings.LanguageHelper;
+import com.company.Helance.base.BaseActivity;
 import com.company.Helance.interfaces.Activity;
 import com.company.Helance.activity.registration.viewModel.RegistrationViewModel;
 
@@ -21,7 +24,7 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class PassRecoveryActivity1 extends AppCompatActivity implements Activity {
+public class PassRecoveryActivity1 extends BaseActivity implements Activity {
 
     private TextView emailTextView;
     private EditText emailEditText;
@@ -30,8 +33,6 @@ public class PassRecoveryActivity1 extends AppCompatActivity implements Activity
 
 
     private RegistrationViewModel registrationViewModel;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
