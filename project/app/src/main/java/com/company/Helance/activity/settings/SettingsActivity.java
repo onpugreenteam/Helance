@@ -82,10 +82,12 @@ public class SettingsActivity extends AppCompatActivity implements Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         // Inflate the menu; this adds items to the action bar if it is present.
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu_edit_profile, menu);
         return true;
+
     }
 
     private void toolbar() {
