@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -51,8 +53,6 @@ public class EditProfileActivity extends BaseActivity implements Activity {
     private EditText telegram;
     private EditText instgram;
     private EditText facebook;
-    private Button save;
-    private Button password;
 
     private String beforeEditingName;
     private String beforeEditingCountry;
@@ -94,18 +94,11 @@ public class EditProfileActivity extends BaseActivity implements Activity {
         telegram = findViewById(R.id.edit_profile_social_network_telegramm_edit_text);
         instgram = findViewById(R.id.edit_profile_social_network_instagramm_edit_text);
         facebook = findViewById(R.id.edit_profile_social_network_facebook_edit_text);
-        save = findViewById(R.id.edit_profile_save_button);
-        password = findViewById(R.id.edit_profile_password_button);
     }
 
     @Override
     public void onListener() {
-        password.setOnClickListener(v -> {
 
-        });
-        save.setOnClickListener(v -> {
-            checkFields();
-        });
     }
 
 
@@ -113,6 +106,7 @@ public class EditProfileActivity extends BaseActivity implements Activity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(getString(R.string.app_name));
+        getSupportActionBar().setDisplayOptions(R.id.menu_save);
     }
 
     @Override
@@ -121,10 +115,20 @@ public class EditProfileActivity extends BaseActivity implements Activity {
             case android.R.id.home:
                 finish();
                 return true;
-
+            case R.id.menu_save:
+                checkFields();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_edit_profile, menu);
+        return true;
     }
 
     private void setText() {
@@ -222,7 +226,7 @@ public class EditProfileActivity extends BaseActivity implements Activity {
     }
 
     private void attemptEdit() {
-        if(IsOnline.getInstance().isConnectingToInternet(getApplicationContext())) {
+        if (IsOnline.getInstance().isConnectingToInternet(getApplicationContext())) {
             if (
                     name.getText().toString().equals(
                             beforeEditingName)

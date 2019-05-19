@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.company.Helance.R;
 import com.company.Helance.activity.lobby.forAuthorizedUsers.LobbyActivity;
@@ -30,9 +33,10 @@ public class SettingsActivity extends AppCompatActivity implements Activity {
     private Spinner language;
     private CheckBox checkBox1;
     private CheckBox checkBox2;
-    private Button button;
+    private Button changePassword;
     private Button logOut;
 
+    private String baseLang;
     private Language lang = new Language();
 
 
@@ -58,7 +62,7 @@ public class SettingsActivity extends AppCompatActivity implements Activity {
         language = findViewById(R.id.settings_activity_language);
         checkBox1 = findViewById(R.id.settings_activity_checkBox_1);
         checkBox2 = findViewById(R.id.settings_activity_checkBox_2);
-        button = findViewById(R.id.settings_activity_button);
+        changePassword = findViewById(R.id.settings_activity_button_password);
         logOut = findViewById(R.id.settings_activity_button_log_out);
     }
 
@@ -72,8 +76,16 @@ public class SettingsActivity extends AppCompatActivity implements Activity {
             startActivity(intent);
             finish();
         });
-        button.setOnClickListener((v) -> switchLanguage(SettingsActivity.this, lang.getLanguageCode()));
+        changePassword.setOnClickListener((v) -> Toast.makeText(this, getString(R.string.is_developing), Toast.LENGTH_SHORT).show());
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_edit_profile, menu);
+        return true;
     }
 
     private void toolbar() {
@@ -90,6 +102,12 @@ public class SettingsActivity extends AppCompatActivity implements Activity {
         if (item.getItemId() == android.R.id.home) {// todo: goto back activity from here
             finish();
             return true;
+        } else if (item.getItemId() == R.id.menu_save) {
+            if( !lang.getLanguageCode().equals(baseLang) ) {
+                switchLanguage(SettingsActivity.this, lang.getLanguageCode());
+            } else {
+                finish();
+            }
         }
         return super.onOptionsItemSelected(item);
 
@@ -120,7 +138,11 @@ public class SettingsActivity extends AppCompatActivity implements Activity {
             }
         }
 
-
+        if (LanguageHelper.getLanguage(SettingsActivity.this).equals("ru")) {
+            baseLang = "ru";
+        } else if (LanguageHelper.getLanguage(SettingsActivity.this).equals("en")) {
+            baseLang = "en";
+        }
 
         language.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

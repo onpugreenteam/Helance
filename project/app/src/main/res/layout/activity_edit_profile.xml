@@ -168,37 +168,5 @@
                 android:textColorHint="@color/textOnPrimary"
                 android:textSize="20sp" />
         </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="bottom"
-            android:padding="8dp"
-            android:paddingTop="8dp">
-
-            <Button
-                android:id="@+id/edit_profile_password_button"
-                style="?android:textAppearanceSmall"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:background="@drawable/rectangle_rounded_button"
-                android:text="@string/password"
-                android:textColor="@color/colorSecondaryLight"
-                android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/edit_profile_save_button"
-                style="?android:textAppearanceSmall"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:background="@drawable/rectangle_rounded_button"
-                android:text="@string/save"
-                android:textColor="@color/colorSecondaryLight"
-                android:textStyle="bold" />
-        </RelativeLayout>
     </LinearLayout>
 </ScrollView>

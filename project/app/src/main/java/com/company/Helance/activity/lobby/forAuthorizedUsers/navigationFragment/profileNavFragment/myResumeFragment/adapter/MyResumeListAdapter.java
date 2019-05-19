@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.company.Helance.R;
 import com.company.Helance.dto.MyResumeDTO;
 
@@ -66,7 +67,7 @@ public class MyResumeListAdapter extends ListAdapter<MyResumeDTO,  MyResumeListA
         holder.subject.setText(currentItem.getSubject());
         holder.views.setText(String.valueOf(currentItem.getViews()));
         holder.dateStart.setText(currentItem.getDateStart());
-//        Glide.with(activity).load(currentItem.getUserAvatar()).into(holder.avatar);
+        Glide.with(activity).load(currentItem.getUserAvatar()).into(holder.avatar);
 
         if(!currentItem.isActive()){
             holder.status.setTextColor(Color.parseColor("#D33434"));

@@ -139,15 +139,27 @@
                   <entry key="vectorAssetStep">
                     <value>
                       <PersistentState>
+                        <option name="children">
+                          <map>
+                            <entry key="clipartAsset">
+                              <value>
+                                <PersistentState>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="url" value="jar:file:/D:/Andrey/Programs/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/navigation/ic_check_black_24dp.xml" />
+                                    </map>
+                                  </option>
+                                </PersistentState>
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                         <option name="values">
                           <map>
-                            <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="808080" />
-                            <entry key="height" value="512" />
-                            <entry key="outputName" value="ic_helance_logo_item_svg" />
+                            <entry key="outputName" value="save_changes" />
                             <entry key="overrideSize" value="true" />
                             <entry key="sourceFile" value="C:\Users\andre\OneDrive\Pictures\Helance_logo_item_svg.svg" />
-                            <entry key="width" value="512" />
                           </map>
                         </option>
                       </PersistentState>

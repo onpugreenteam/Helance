@@ -31,8 +31,8 @@ public class EditProfilePasswordActivity extends BaseActivity implements Activit
     public void findViewById() {
         oldPassword = findViewById(R.id.edit_profile_password_old_TextInputLayout);
         newPassword = findViewById(R.id.edit_profile_password_new_TextInputLayout);
-        confirmPassword = findViewById(R.id.edit_profile_сonfirm_password_edit_text);
-        save = findViewById(R.id.edit_profile_save_button);
+        confirmPassword = findViewById(R.id.edit_profile_password_сonfirm_password_edit_text);
+        save = findViewById(R.id.edit_profile_password_save_button);
     }
 
     @Override
