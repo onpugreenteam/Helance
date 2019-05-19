@@ -182,4 +182,6 @@
     <string name="facebook">Фейсбук</string>
     <string name="registration_textView_facebook" translatable="false">Фейсбук:</string>
     <string name="registration_textView_instagram" translatable="false">Инстаграм</string>
+    <string name="change_password">Изменить пароль</string>
+    <string name="is_developing">Эта функция находится в разработке</string>
 </resources>

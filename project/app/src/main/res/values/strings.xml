@@ -281,6 +281,8 @@
     <string name="other">Other</string>
     <string name="recomendations">Recomendations</string>
     <string name="add_task">Add task</string>
+    <string name="change_password">Change password</string>
+    <string name="is_developing">This function is not ready yet!</string>
 
 
 </resources>

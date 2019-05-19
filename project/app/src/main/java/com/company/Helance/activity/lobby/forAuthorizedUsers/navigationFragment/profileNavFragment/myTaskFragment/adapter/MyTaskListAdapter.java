@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.company.Helance.R;
 import com.company.Helance.interfaces.Activity;
 import com.company.Helance.dto.MyTaskDTO;
@@ -71,11 +72,11 @@ public class MyTaskListAdapter extends ListAdapter<MyTaskDTO, MyTaskListAdapter.
         myTaskListViewHolder.status.setText(currentItem.isActive() ? R.string.active : R.string.not_active);
         myTaskListViewHolder.author.setText(currentItem.getUserName());
         myTaskListViewHolder.views.setText(String.valueOf(currentItem.getViews()));
-        //        Glide.with(activity).load(currentItem.getUserAvatar()).into(myTaskListViewHolder.avatar);
+        Glide.with(activity).load(currentItem.getUserAvatar()).into(myTaskListViewHolder.avatar);
 
-        if(!currentItem.isActive()){
+        if (!currentItem.isActive()) {
             myTaskListViewHolder.status.setTextColor(Color.parseColor("#D33434"));
-        }else{
+        } else {
             myTaskListViewHolder.status.setTextColor(Color.parseColor("#808080"));
         }
     }
@@ -135,7 +136,7 @@ public class MyTaskListAdapter extends ListAdapter<MyTaskDTO, MyTaskListAdapter.
                 if (listener != null) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
-                        if(status.getText().toString().equals(R.string.not_active)){
+                        if (status.getText().toString().equals(R.string.not_active)) {
                             status.setTextColor(Color.parseColor("#808080"));
                         }
                         listener.onUpdateStatusClick(getItem(position), position);
