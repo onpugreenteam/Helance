@@ -27,7 +27,6 @@
     <string name="create">Создать</string>
     <string name="creating_task_contractual_price">Договорная цена</string>
     <string name="date">Дата</string>
-    <string name="default_language">Английский</string>
     <string name="delete">Удалить</string>
     <string name="description">Описание</string>
     <string name="description_name">Описание ваших возможностей</string>
@@ -150,7 +149,6 @@
     <string name="task_price">Введите стоимость вашей заявки</string>
     <string name="task_status">Статус</string>
     <string name="tasks">Заявки</string>
-    <string name="telegram">Телеграм</string>
     <string name="telephone">Номер телефона</string>
     <string name="title_activity_login2">Войти</string>
     <string name="title_activity_settings">Настройки</string>
@@ -165,7 +163,6 @@
     <string name="views">Просмотры</string>
     <string name="yes">Да</string>
     <string name="yourCode">Ваш код</string>
-    <string name="yourEmail">Ваша почта</string>
     <string name="country_list">Список стран</string>
     <string name="maths">Математика</string>
     <string name="art">Искусство</string>
@@ -179,9 +176,9 @@
     <string name="recomendations">Рекомендации</string>
     <string name="add_task">Добавить заявку</string>
     <string name="title_activity_registration">Регистрация</string>
-    <string name="facebook">Фейсбук</string>
     <string name="registration_textView_facebook" translatable="false">Фейсбук:</string>
     <string name="registration_textView_instagram" translatable="false">Инстаграм</string>
     <string name="change_password">Изменить пароль</string>
     <string name="is_developing">Эта функция находится в разработке</string>
+    <string name="yourEmail">Ваша почта</string>
 </resources>

@@ -258,7 +258,6 @@ public class EditProfileActivity extends BaseActivity implements Activity {
 //                        beforeEditingFacebook)
                 /*)*/ {
                 Log.d("update_all", "update_all");
-//            String login, String name, String country, String email, String telephone
                 updateUserInfoOnServer(
                         java.lang.String.valueOf(SharedPrefManager.getInstance(this).getUserLogin()),
                         name.getText().toString(), country.getSelectedCountryName().toString(),
@@ -349,36 +348,6 @@ public class EditProfileActivity extends BaseActivity implements Activity {
 
                 finish();
             }
-
-//        else if (
-//                !name.getText().toString().equals(
-//                        beforeEditingName)
-//                        && !country.getText().toString().equals(
-//                        beforeEditingCountry)
-//                        && !email.getText().toString().equals(
-//                        beforeEditingEmail)
-//        ) {
-//            Log.d("update_serv", "update_serv");
-//
-//            updateUserInfoOnServer();
-//        } else if (!telegram.getText().toString().equals(beforeEditingTelegram)) {
-//            socialNetworkDTOTg.setNetworkLogin(telegram.getText().toString());
-//            Log.d("update_tg", "update_tg");
-//
-//            updateNetworksOnServer(socialNetworkDTOTg);
-//        }
-//
-//        else if(!instgram.getText().toString().equals(beforeEditingInstagram)) {
-//            socialNetworkDTOInst.setNetworkLogin(instgram.getText().toString());
-//            Log.d("update_int", "update_int");
-//            updateNetworksOnServer(socialNetworkDTOInst);
-//        }
-//
-//        else if(!facebook.getText().toString().equals(beforeEditingFacebook)) {
-//            socialNetworkDTOFacebook.setNetworkLogin(facebook.getText().toString());
-//            Log.d("update_fb", "update_fb");
-//            updateNetworksOnServer(socialNetworkDTOFacebook);
-//        }
         } else {
             Toast.makeText(this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
         }
