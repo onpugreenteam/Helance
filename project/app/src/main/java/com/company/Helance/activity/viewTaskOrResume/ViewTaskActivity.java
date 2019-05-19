@@ -39,7 +39,7 @@ public class ViewTaskActivity extends BaseActivity implements Activity {
     private TextView subject;
     private TextView header;
     private TextView description;
-    private LinearLayout linearLayout;
+    private TextView price;
     private CircleImageView imageView;
     private TextView name;
     private TextView email;
@@ -79,10 +79,10 @@ public class ViewTaskActivity extends BaseActivity implements Activity {
 
     @Override
     public void findViewById() {
+        price = findViewById(R.id.activity_task_view_price);
         subject = findViewById(R.id.activity_task_view_subject);
         header = findViewById(R.id.activity_task_view_header);
         description = findViewById(R.id.activity_task_view_description);
-        linearLayout = findViewById(R.id.task_view_activity_linearLayout);
         imageView = findViewById(R.id.profile_image_view);
         name = findViewById(R.id.activity_task_view_name);
         country = findViewById(R.id.activity_task_view_country);
@@ -117,6 +117,7 @@ public class ViewTaskActivity extends BaseActivity implements Activity {
         userPhone = taskDTO.getTelephone();
         userName = taskDTO.getUserName();
 
+        price.setText(String.valueOf(taskDTO.getPrice()));
         subject.setText(taskDTO.getSubject());
         header.setText(taskDTO.getHeadLine());
         description.setText(taskDTO.getDescription());

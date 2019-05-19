@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.company.Helance.activity.settings.LanguageHelper;
 import com.company.Helance.base.BaseActivity;
 import com.r0adkll.slidr.Slidr;
@@ -132,9 +133,9 @@ public class MyResumeViewActivity extends BaseActivity implements Activity {
     }
 
     private void setData(MyResumeDTO resumeDTO) {
-//        Glide.with(getApplicationContext())
-//                .load(resumeDTO.getUserAvatar())
-//                .into(avatar);
+        Glide.with(MyResumeViewActivity.this)
+                .load(resumeDTO.getUserAvatar())
+                .into(avatar);
         subject.setText(resumeDTO.getSubject());
         opportunities.setText(resumeDTO.getOpportunities());
         userCountry.setText(resumeDTO.getUserCountry());

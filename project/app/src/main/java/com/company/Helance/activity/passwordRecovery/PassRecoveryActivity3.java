@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
@@ -27,7 +28,7 @@ import java.util.Objects;
 public class PassRecoveryActivity3 extends BaseActivity implements Activity {
 
     private TextView textView;
-    private TextInputEditText password1;
+    private AppCompatEditText password1;
     private EditText password2 ;
     private Button nextButton;
     private String email;
@@ -49,7 +50,7 @@ public class PassRecoveryActivity3 extends BaseActivity implements Activity {
     @Override
     public void findViewById() {
         textView = findViewById(R.id.password_recovery3_activity_text_view);
-        password1 = findViewById(R.id.new_password_activity_TextInputEditText);
+        password1 = findViewById(R.id.new_password_activity_AppCompatEditText);
         password2 = findViewById(R.id.new_password_edit_text);
         nextButton = findViewById(R.id.password_recovery3_button);
     }

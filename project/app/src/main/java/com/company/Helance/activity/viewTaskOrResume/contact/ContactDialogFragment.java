@@ -1,5 +1,11 @@
 package com.company.Helance.activity.viewTaskOrResume.contact;
 
+import android.content.ClipData;
+import android.content.ClipData;
+import android.content.ClipData.Item;
+import android.content.ClipboardManager;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,11 +15,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.company.Helance.R;
 import com.company.Helance.interfaces.Activity;
 
 import org.jetbrains.annotations.NotNull;
+
+import static android.content.Context.CLIPBOARD_SERVICE;
+import static android.support.v4.content.ContextCompat.getSystemService;
 
 public class ContactDialogFragment extends BottomSheetDialogFragment implements Activity {
 
@@ -36,7 +46,7 @@ public class ContactDialogFragment extends BottomSheetDialogFragment implements 
     private ConstraintLayout instagramField;
     private ConstraintLayout facebokField;
 
-    private final String DEF_VAL="no";
+    private final String DEF_VAL = "no";
 
     public ContactDialogFragment() {
     }
@@ -55,19 +65,19 @@ public class ContactDialogFragment extends BottomSheetDialogFragment implements 
 //        ((View) view.getParent()).setBackgroundColor(getResources().getColor(android.R.color.transparent));
         Bundle bundle = getArguments();
 
-        userEmail = bundle.getString(getString(R.string.email),"no email(");
-        userPhone = bundle.getString(getString(R.string.phone),"no phone number(");
-        userName = bundle.getString(getString(R.string.name),"no name(");
-        userTelegram = bundle.getString(getString(R.string.telegram),DEF_VAL);
-        userInstagram = bundle.getString(getString(R.string.instagram),DEF_VAL);
-        userFacebook = bundle.getString(getString(R.string.facebook),DEF_VAL);
+        userEmail = bundle.getString(getString(R.string.email), "no email(");
+        userPhone = bundle.getString(getString(R.string.phone), "no phone number(");
+        userName = bundle.getString(getString(R.string.name), "no name(");
+        userTelegram = bundle.getString(getString(R.string.telegram), DEF_VAL);
+        userInstagram = bundle.getString(getString(R.string.instagram), DEF_VAL);
+        userFacebook = bundle.getString(getString(R.string.facebook), DEF_VAL);
 
         findViewById();
         onListener();
 
         phone.setText(userPhone);
         email.setText(userEmail);
-        name.setText(getString(R.string.contact)+" "+userName);
+        name.setText(getString(R.string.contact) + " " + userName);
         if (!userTelegram.equals(DEF_VAL)) {
             telegramField.setVisibility(View.VISIBLE);
             telegram.setText(userTelegram);
@@ -106,6 +116,10 @@ public class ContactDialogFragment extends BottomSheetDialogFragment implements 
             startActivity(intent);
         });
 
+        phoneField.setOnLongClickListener( v -> {
+            return true;
+        });
+
         emailField.setOnClickListener(v -> {
             Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
                     "mailto", userEmail, null));
@@ -115,15 +129,15 @@ public class ContactDialogFragment extends BottomSheetDialogFragment implements 
         });
 
         telegramField.setOnClickListener(c -> {
-            Intent telegramIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://telegram.me/"+userTelegram));
+            Intent telegramIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://telegram.me/" + userTelegram));
             startActivity(telegramIntent);
         });
         instagramField.setOnClickListener(c -> {
-            Intent telegramIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("http://instagram.com/"+userInstagram));
+            Intent telegramIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://instagram.com/" + userInstagram));
             startActivity(telegramIntent);
         });
         facebokField.setOnClickListener(c -> {
-            Intent telegramIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.facebook.com/"+userFacebook));
+            Intent telegramIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/" + userFacebook));
             startActivity(telegramIntent);
         });
     }

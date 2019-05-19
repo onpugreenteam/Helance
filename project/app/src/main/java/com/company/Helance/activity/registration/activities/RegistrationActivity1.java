@@ -273,7 +273,7 @@ public class RegistrationActivity1 extends BaseActivity implements Activity {
     }
 
     private boolean isLoginValidShort(String login) {
-        return login.length() > 3;
+        return login.length() > 4;
     }
 
     private boolean isLoginValidLong(String login) {
@@ -288,7 +288,7 @@ public class RegistrationActivity1 extends BaseActivity implements Activity {
     }
 
     private boolean isNameValid(String name) {
-        return name.length() > 2;
+        return name.length() > 1;
     }
 
     private boolean allFieldsEmpty() {

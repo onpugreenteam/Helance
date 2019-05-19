@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.company.Helance.activity.settings.LanguageHelper;
 import com.company.Helance.base.BaseActivity;
 import com.r0adkll.slidr.Slidr;
@@ -109,9 +110,9 @@ public class MyTaskViewActivity extends BaseActivity implements Activity {
     }
 
     private void setData(MyTaskDTO taskDTO) {
-//        Glide.with(getApplicationContext())
-//                .load(taskDTO.getUserAvatar())
-//                .into(avatar);
+        Glide.with(MyTaskViewActivity.this)
+                .load(taskDTO.getUserAvatar())
+                .into(avatar);
         subject.setText(taskDTO.getSubject());
         header.setText(taskDTO.getHeadLine());
         description.setText(taskDTO.getDescription());
