@@ -48,6 +48,7 @@
         android:clickable="true"
         android:focusable="true"
         android:padding="16dp"
+        android:background="?android:selectableItemBackground"
         app:layout_constraintEnd_toEndOf="@+id/toolbar"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_search_black_24dp" />
