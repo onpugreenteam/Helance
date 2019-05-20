@@ -9,4 +9,8 @@ public interface ResumeNavigator {
     void handleError(Throwable throwable);
 
     void getDataInAdapter(List<ResumeDTO> resumeDTOS);
+
+    void startLoading();
+
+    void stopLoading();
 }

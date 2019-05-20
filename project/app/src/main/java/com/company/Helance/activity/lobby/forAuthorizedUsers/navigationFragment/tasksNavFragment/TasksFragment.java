@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.baoyz.widget.PullRefreshLayout;
@@ -36,6 +37,7 @@ public class TasksFragment extends Fragment implements Activity, TaskNavigator {
     private ImageView search;
     private FloatingActionButton fab;
     private TaskViewModel taskViewModel;
+    private ProgressBar progressBar;
 
     public TasksFragment() {
     }
@@ -83,6 +85,7 @@ public class TasksFragment extends Fragment implements Activity, TaskNavigator {
         mSwipeRefreshLayout = view.findViewById(R.id.fragment_tasks_swipeRefresh);
         fab = view.findViewById(R.id.fragment_tasks_floatingActionButton);
         search = view.findViewById(R.id.fragment_tasks_search);
+        progressBar = view.findViewById(R.id.loading_tasks);
     }
 
     @Override
@@ -124,6 +127,16 @@ public class TasksFragment extends Fragment implements Activity, TaskNavigator {
         data.clear();
         data.addAll(taskDTOS);
         taskListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void startLoading() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void stopLoading() {
+        progressBar.setVisibility(View.GONE);
     }
 
     private void setupAdapter(){

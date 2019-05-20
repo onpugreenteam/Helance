@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.baoyz.widget.PullRefreshLayout;
@@ -30,7 +31,8 @@ public class FragmentResumes extends Fragment implements Activity, ResumeNavigat
     private List<ResumeDTO> data = new ArrayList<>();
     private ArrayList<String> imageUrls = new ArrayList<>();
     private ResumeViewModel resumeViewModel;
-    PullRefreshLayout pullRefreshLayout;
+    private PullRefreshLayout pullRefreshLayout;
+    private ProgressBar progressBar;
 
     public FragmentResumes() {
 
@@ -63,6 +65,7 @@ public class FragmentResumes extends Fragment implements Activity, ResumeNavigat
     public void findViewById() {
         pullRefreshLayout = view.findViewById(R.id.refresh_resumes);
         recyclerView = view.findViewById(R.id.recycler_resumes);
+        progressBar = view.findViewById(R.id.loading_resumes_guest);
     }
 
     @Override
@@ -86,6 +89,16 @@ public class FragmentResumes extends Fragment implements Activity, ResumeNavigat
         data.clear();
         data.addAll(resumeDTOS);
         resumeListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void startLoading() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void stopLoading() {
+        progressBar.setVisibility(View.GONE);
     }
 
     private void initImageBitmaps() {

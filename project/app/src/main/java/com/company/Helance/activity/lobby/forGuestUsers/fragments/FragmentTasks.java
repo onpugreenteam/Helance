@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.baoyz.widget.PullRefreshLayout;
@@ -31,7 +32,8 @@ public class FragmentTasks extends Fragment implements Activity, TaskNavigator {
      private List<TaskDTO> data = new ArrayList<>();
      private ArrayList<String> imageUrls = new ArrayList<>();
      private TaskViewModel taskViewModel;
-     PullRefreshLayout pullRefreshLayout;
+     private PullRefreshLayout pullRefreshLayout;
+     private ProgressBar progressBar;
 
      public FragmentTasks() {
      }
@@ -63,6 +65,7 @@ public class FragmentTasks extends Fragment implements Activity, TaskNavigator {
     public void findViewById() {
          pullRefreshLayout = view.findViewById(R.id.refresh_tasks);
          recyclerView = view.findViewById(R.id.recycler_tasks);
+         progressBar = view.findViewById(R.id.loading_tasks_guest);
     }
 
     @Override
@@ -74,9 +77,6 @@ public class FragmentTasks extends Fragment implements Activity, TaskNavigator {
                  pullRefreshLayout.setRefreshing(false);
              }, 1000);
          });
-
-
-
     }
 
     @Override
@@ -90,6 +90,17 @@ public class FragmentTasks extends Fragment implements Activity, TaskNavigator {
          data.addAll(taskDTOS);
          taskListAdapter.notifyDataSetChanged();
     }
+
+    @Override
+    public void startLoading() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void stopLoading() {
+        progressBar.setVisibility(View.GONE);
+    }
+
 
     private void setupAdapter(){
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

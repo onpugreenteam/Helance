@@ -38,6 +38,7 @@ public class TaskViewModel extends BaseViewModel<TaskNavigator> {
 
     @SuppressLint("CheckResult")
     public void getTasksFromServer(){
+        getNavigator().startLoading();
         apiService.getAllTask()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -47,6 +48,7 @@ public class TaskViewModel extends BaseViewModel<TaskNavigator> {
                         addTasksToLocalDB(taskDTOS);
                         getNavigator().getDataInAdapter(taskDTOS);
                         Log.d("Task size from server", String.valueOf(taskDTOS.size()));
+                        getNavigator().stopLoading();
                     }
 
                     @Override
@@ -54,6 +56,7 @@ public class TaskViewModel extends BaseViewModel<TaskNavigator> {
                         Log.d("Error", e.getMessage());
                         getNavigator().handleError(e);
                         getTasksFromLocalDB();
+                        getNavigator().stopLoading();
                     }
 
                     @Override

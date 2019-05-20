@@ -9,4 +9,8 @@ public interface TaskNavigator {
     void handleError(Throwable throwable);
 
     void getDataInAdapter(List<TaskDTO> taskDTOS);
+
+    void startLoading();
+
+    void stopLoading();
 }

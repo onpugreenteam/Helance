@@ -35,6 +35,7 @@ public class ResumeViewModel extends BaseViewModel<ResumeNavigator> {
 
     @SuppressLint("CheckResult")
     public void getResumesFromServer(){
+        getNavigator().startLoading();
         apiService.getAllResumes()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -44,6 +45,7 @@ public class ResumeViewModel extends BaseViewModel<ResumeNavigator> {
                         addResumesToLocalDB(resumeDTOS);
                         getNavigator().getDataInAdapter(resumeDTOS);
                         Log.d("Resume size from server", String.valueOf(resumeDTOS.size()));
+                        getNavigator().stopLoading();
                     }
 
                     @Override
@@ -51,6 +53,7 @@ public class ResumeViewModel extends BaseViewModel<ResumeNavigator> {
                         Log.d("Error", e.getMessage());
                         getNavigator().handleError(e);
                         getResumesFromLocalDB();
+                        getNavigator().stopLoading();
                     }
 
                     @Override

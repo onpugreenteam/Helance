@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.baoyz.widget.PullRefreshLayout;
@@ -35,6 +36,7 @@ public class ResumesFragment extends Fragment implements Activity, ResumeNavigat
     private ImageView search;
     private PullRefreshLayout mSwipeRefreshLayout;
     private ResumeViewModel resumeViewModel;
+    private ProgressBar progressBar;
 
     public ResumesFragment() {
     }
@@ -64,29 +66,23 @@ public class ResumesFragment extends Fragment implements Activity, ResumeNavigat
         recyclerView = view.findViewById(R.id.fragment_resumes_recycleView);
         search = view.findViewById(R.id.fragment_resumes_search);
         mSwipeRefreshLayout = view.findViewById(R.id.fragment_resumes_swipeRefresh);
+        progressBar = view.findViewById(R.id.loading_resumes);
     }
-
 
     private void typeRefresh() {
         mSwipeRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_SMARTISAN);
     }
 
-
     @Override
     public void onListener() {
-
         mSwipeRefreshLayout.setOnRefreshListener(() -> {
             final Handler handler = new Handler();
             handler.postDelayed( () -> {
-
                         getResumes();
                         mSwipeRefreshLayout.setRefreshing(false);
                     }, 1000
-
             );
-
         });
-
         fab.setOnClickListener(v -> startActivity(
                 new Intent(getContext(), CreatingResumeActivity.class)));
 
@@ -135,6 +131,16 @@ public class ResumesFragment extends Fragment implements Activity, ResumeNavigat
         data.clear();
         data.addAll(resumeDTOS);
         resumeListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void startLoading() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void stopLoading() {
+        progressBar.setVisibility(View.GONE);
     }
 
     private void setupAdapter(){
