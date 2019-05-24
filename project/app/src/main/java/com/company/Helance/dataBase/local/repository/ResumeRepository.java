@@ -164,7 +164,7 @@ public class ResumeRepository {
 
     private void refreshAllUsersResumes(List<MyResumeDTO> myResumeDTOS) {
         Completable.fromRunnable(() -> {
-            resumeDAO.deleteAllResumes();
+            resumeDAO.deleteAllUsersResumes();
             resumeDAO.insertAllUsersResumes(myResumeDTOS);
         })
                 .subscribeOn(Schedulers.io())
