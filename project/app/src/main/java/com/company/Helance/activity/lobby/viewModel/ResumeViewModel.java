@@ -53,7 +53,6 @@ public class ResumeViewModel extends BaseViewModel<ResumeNavigator> {
                         Log.d("Error", e.getMessage());
                         getNavigator().handleError(e);
                         getResumesFromLocalDB();
-                        getNavigator().stopLoading();
                     }
 
                     @Override
@@ -71,8 +70,10 @@ public class ResumeViewModel extends BaseViewModel<ResumeNavigator> {
                 .subscribe(resumeDTOS -> {
                     getNavigator().getDataInAdapter(resumeDTOS);
                     Log.d("Resume size in LocalDB", String.valueOf(resumeDTOS.size()));
+                    getNavigator().stopLoading();
                 },throwable -> {
                     getNavigator().handleError(throwable);
+                    getNavigator().stopLoading();
                 });
     }
 

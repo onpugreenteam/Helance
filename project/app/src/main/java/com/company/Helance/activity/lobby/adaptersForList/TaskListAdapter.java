@@ -1,10 +1,11 @@
-package com.company.Helance.activity.lobby.forAuthorizedUsers.navigationFragment.resumesNavFragment.adapter;
+package com.company.Helance.activity.lobby.adaptersForList;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.StrictMode;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,49 +17,44 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.company.Helance.R;
-import com.company.Helance.activity.viewTaskOrResume.ViewResumeActivity;
-import com.company.Helance.dto.ResumeDTO;
+import com.company.Helance.activity.viewTaskOrResume.ViewTaskActivity;
+import com.company.Helance.dto.TaskDTO;
 import com.company.Helance.interfaces.ILoadMore;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
-public class ResumeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final int VIEW_TYPE_ITEM = 0, VIEW_TYPE_LOADING = 1;
     private ILoadMore loadMore;
     private boolean isLoading;
     private int visibleThreshold = 5;
     private int lastVisibleItem, totalItemCount;
-    private List<ResumeDTO> data;
-    private ArrayList<String> images = new ArrayList<>();
+    private List<TaskDTO> data;
     private Context context;
     private Activity activity;
 
-    public ResumeListAdapter(List<ResumeDTO> data, ArrayList<String> images, RecyclerView recyclerView, Activity activity) {
+    public TaskListAdapter(List<TaskDTO> data, RecyclerView recyclerView, Activity activity) {
         this.data = data;
-        this.images = images;
         this.activity = activity;
-//
-//        final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-//        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-//            @Override
-//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-//                super.onScrolled(recyclerView, dx, dy);
-//                totalItemCount = linearLayoutManager.getItemCount();
-//                lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
-//                if (!isLoading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
-//                    if (loadMore != null) {
-//                        loadMore.onLoadMore();
-//                        isLoading = true;
-//                    }
-//
-//                }
-//            }
-//        });
-    }
 
+        final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                totalItemCount = linearLayoutManager.getItemCount();
+                lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
+                if (!isLoading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
+                    if (loadMore != null) {
+                        loadMore.onLoadMore();
+                        isLoading = true;
+                    }
+
+                }
+            }
+        });
+    }
 
     @Override
     public int getItemViewType(int position) {
@@ -75,8 +71,8 @@ public class ResumeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         RecyclerView.ViewHolder rv = null;
 
         if(viewType == VIEW_TYPE_ITEM){
-            View view = LayoutInflater.from(activity).inflate(R.layout.resume_item, parent, false);
-            rv = new ResumeViewHolder(view);
+            View view = LayoutInflater.from(activity).inflate(R.layout.task_item, parent, false);
+            rv = new TaskViewHolder(view);
         }else if(viewType == VIEW_TYPE_LOADING){
             View view = LayoutInflater.from(activity).inflate(R.layout.item_loading, parent, false);
             rv = new LoadingViewHolder(view);
@@ -85,26 +81,21 @@ public class ResumeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return rv;
     }
 
-
-    private static String getRandomChestItem(ArrayList<String> images) {
-        return images.get(new Random().nextInt(images.size()));
-    }
-
-
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-        if(holder instanceof ResumeViewHolder){
-            ResumeDTO item = data.get(position);
-            ResumeViewHolder viewHolder = (ResumeViewHolder) holder;
+        if(holder instanceof TaskViewHolder){
+            TaskDTO item = data.get(position);
+            TaskViewHolder viewHolder = (TaskViewHolder) holder;
 
             viewHolder.profile_user.setAnimation(AnimationUtils.loadAnimation(activity,R.anim.anim_for_image));
             viewHolder.cardView.setAnimation(AnimationUtils.loadAnimation(activity,R.anim.anim_card_view));
 
             viewHolder.author.setText(item.getUserLogin());
-            viewHolder.text.setText(item.getOpportunities());
+            viewHolder.headline.setText(item.getHeadLine());
             viewHolder.subject.setText(item.getSubject());
             viewHolder.date.setText(item.getDateStart());
+            viewHolder.price.setText(String.valueOf(item.getPrice()));
 
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
@@ -114,14 +105,13 @@ public class ResumeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         .load(item.getUserAvatar())
                         .into(viewHolder.profile_user);
             }else {
-                Glide.with(activity)
-                        .load(getRandomChestItem(images))
-                        .into(viewHolder.profile_user);
+                viewHolder.profile_user
+                        .setImageResource(R.drawable.helance_logo_png);
             }
 
             viewHolder.cardView.setOnClickListener(v -> {
-                Intent intent = new Intent(v.getContext(), ViewResumeActivity.class);
-                intent.putExtra("ResumeObject", item);
+                Intent intent = new Intent(v.getContext(),ViewTaskActivity.class);
+                intent.putExtra("TaskObject", item);
                 v.getContext().startActivity(intent);
             });
 
@@ -130,7 +120,6 @@ public class ResumeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             loadingViewHolder.progressBar.setIndeterminate(true);
         }
     }
-
 
     @Override
     public int getItemCount() {
@@ -141,21 +130,21 @@ public class ResumeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         isLoading = false;
     }
 
-    public void setData(List<ResumeDTO> data) {
+    public void setData(List<TaskDTO> data) {
         this.data = data;
     }
 
 
-
-    public class ResumeViewHolder extends RecyclerView.ViewHolder implements com.company.Helance.interfaces.Activity {
+    public class TaskViewHolder extends RecyclerView.ViewHolder implements com.company.Helance.interfaces.Activity {
         CardView cardView;
         TextView author;
-        TextView text;
+        TextView headline;
         TextView date;
         TextView subject;
         ImageView profile_user;
+        TextView price;
 
-        public ResumeViewHolder(View itemView) {
+        public TaskViewHolder(View itemView) {
             super(itemView);
             findViewById();
             onListener();
@@ -164,12 +153,13 @@ public class ResumeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         @Override
         public void findViewById() {
-            cardView = itemView.findViewById(R.id.cardView11);
-            author = itemView.findViewById(R.id.resume_author);
-            text = itemView.findViewById(R.id.text);
-            subject = itemView.findViewById(R.id.subject1);
-            date = itemView.findViewById(R.id.dateStart);
-            profile_user = itemView.findViewById(R.id.profile1_user);
+            cardView = itemView.findViewById(R.id.cardView);
+            author = itemView.findViewById(R.id.task_author);
+            headline = itemView.findViewById(R.id.headline);
+            subject = itemView.findViewById(R.id.subject);
+            date = itemView.findViewById(R.id.date);
+            profile_user = itemView.findViewById(R.id.profile_user);
+            price = itemView.findViewById(R.id.price);
         }
 
         @Override
@@ -177,8 +167,6 @@ public class ResumeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         }
     }
-
-
 
     private class LoadingViewHolder extends RecyclerView.ViewHolder{
 

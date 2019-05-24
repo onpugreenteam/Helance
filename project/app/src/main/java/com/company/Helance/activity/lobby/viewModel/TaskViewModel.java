@@ -35,7 +35,6 @@ public class TaskViewModel extends BaseViewModel<TaskNavigator> {
         this.context = context;
     }
 
-
     @SuppressLint("CheckResult")
     public void getTasksFromServer(){
         getNavigator().startLoading();
@@ -56,7 +55,6 @@ public class TaskViewModel extends BaseViewModel<TaskNavigator> {
                         Log.d("Error", e.getMessage());
                         getNavigator().handleError(e);
                         getTasksFromLocalDB();
-                        getNavigator().stopLoading();
                     }
 
                     @Override
@@ -74,8 +72,10 @@ public class TaskViewModel extends BaseViewModel<TaskNavigator> {
                 .subscribe(taskDTOS -> {
                     getNavigator().getDataInAdapter(taskDTOS);
                     Log.d("Task size in LocalDB", String.valueOf(taskDTOS.size()));
+                    getNavigator().stopLoading();
                 },throwable -> {
                     getNavigator().handleError(throwable);
+                    getNavigator().stopLoading();
                 });
     }
 

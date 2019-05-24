@@ -55,4 +55,5 @@ public interface ResumeDAO {
     void deleteAllUsersResumes();
 
 
+
 }

@@ -17,12 +17,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.company.Helance.R;
 import com.company.Helance.activity.viewTaskOrResume.ViewTaskActivity;
-import com.company.Helance.interfaces.ILoadMore;
 import com.company.Helance.dto.TaskDTO;
+import com.company.Helance.interfaces.ILoadMore;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class ForYouListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -32,13 +30,11 @@ public class ForYouListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private int visibleThreshold = 5;
     private int lastVisibleItem, totalItemCount;
     private List<TaskDTO> data;
-    private ArrayList<String> images = new ArrayList<>();
     private Context context;
     private Activity activity;
 
-    public ForYouListAdapter(List<TaskDTO> data, ArrayList<String> images, RecyclerView recyclerView, Activity activity) {
+    public ForYouListAdapter(List<TaskDTO> data, RecyclerView recyclerView, Activity activity) {
         this.data = data;
-        this.images = images;
         this.activity = activity;
 
         final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
@@ -84,10 +80,6 @@ public class ForYouListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return rv;
     }
 
-    private static String getRandomChestItem(ArrayList<String> images) {
-        return images.get(new Random().nextInt(images.size()));
-    }
-
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
@@ -112,9 +104,8 @@ public class ForYouListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         .load(item.getUserAvatar())
                         .into(viewHolder.profile_user);
             }else {
-                Glide.with(activity)
-                        .load(getRandomChestItem(images))
-                        .into(viewHolder.profile_user);
+               viewHolder.profile_user
+                       .setImageResource(R.drawable.helance_logo_png);
             }
 
             viewHolder.cardView.setOnClickListener(v -> {
