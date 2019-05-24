@@ -175,7 +175,7 @@ public class SettingsActivity extends AppCompatActivity implements Activity {
         });
     }
 
-    public void switchLanguage(android.app.Activity activity, String languageCode) {
+    private void switchLanguage(android.app.Activity activity, String languageCode) {
 
         LanguageHelper.setLanguage(activity, languageCode);
         Log.d("lang_code", LanguageHelper.getLanguage(SettingsActivity.this));
@@ -183,7 +183,7 @@ public class SettingsActivity extends AppCompatActivity implements Activity {
 
     }
 
-    public void relaunch (){
+    private void relaunch (){
 
         Intent i = new Intent(SettingsActivity.this, LobbyActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

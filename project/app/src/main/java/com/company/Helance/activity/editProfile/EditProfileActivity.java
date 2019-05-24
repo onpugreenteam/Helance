@@ -106,7 +106,7 @@ public class EditProfileActivity extends BaseActivity implements Activity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(getString(R.string.app_name));
-        getSupportActionBar().setDisplayOptions(R.id.menu_save);
+//        getSupportActionBar().setDisplayOptions(R.id.menu_save);
     }
 
     @Override

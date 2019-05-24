@@ -96,8 +96,8 @@ public class CreatingTaskActivity extends BaseActivity implements Activity, Crea
 
     @Override
     public void onListener() {
-        lessonPicker.setOnClickListener(v -> lessonListFragment.show(fm, getString(R.string.country_list)));
         create.setOnClickListener(view -> attemptCreatingTask());
+        lessonPicker.setOnClickListener(v -> lessonListFragment.show(fm, getString(R.string.country_list)));
         datePicker.setOnClickListener(v -> {
             Calendar calendar = Calendar.getInstance();
             int year = calendar.get(Calendar.YEAR);
@@ -254,11 +254,13 @@ public class CreatingTaskActivity extends BaseActivity implements Activity, Crea
                 cancel = true;
                 focusView = taskDescription;
                 taskDescription.setError(getString(R.string.error_field_required));
-            } else if (taskPrice.getText().toString().trim().isEmpty()) {
-                cancel = true;
-                focusView = taskPrice;
-                taskPrice.setError(getString(R.string.error_field_required));
-            } else if (datePicker.getText().toString().equals(getString(R.string.select_date))) {
+            }
+//            else if (taskPrice.getText().toString().trim().isEmpty()) {
+//                cancel = true;
+//                focusView = taskPrice;
+//                taskPrice.setError(getString(R.string.error_field_required));
+//            }
+            else if (datePicker.getText().toString().equals(getString(R.string.select_date))) {
                 cancel = true;
             }
 
@@ -281,7 +283,7 @@ public class CreatingTaskActivity extends BaseActivity implements Activity, Crea
 
         return typeName.getText().toString().isEmpty()
                 && taskDescription.getText().toString().isEmpty()
-                && taskPrice.getText().toString().isEmpty()
+//                && taskPrice.getText().toString().isEmpty()
                 && lessonPicker.getText().toString().equals(getString(R.string.select_lesson))
                 && datePicker.getText().toString().equals(getString(R.string.select_date));
 
@@ -304,7 +306,8 @@ public class CreatingTaskActivity extends BaseActivity implements Activity, Crea
         final String descrpiption = taskDescription.getText().toString().trim();
         final String dateEnd = datePicker.getText().toString().trim();
         final String subject = lessonPicker.getText().toString().trim();
-        final float price = Float.parseFloat(taskPrice.getText().toString().trim());
+        final float price = 1;
+//        final float price = Float.parseFloat(taskPrice.getText().toString().trim());
         creatingTaskViewModel.postTask(headline,descrpiption,dateEnd,subject,price);
     }
 }
