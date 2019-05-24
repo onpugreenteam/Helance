@@ -14,7 +14,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -24,22 +23,23 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.company.Helance.R;
-import com.company.Helance.activity.settings.LanguageHelper;
-import com.company.Helance.base.BaseActivity;
-import com.company.Helance.interfaces.Activity;
 import com.company.Helance.activity.lobby.forAuthorizedUsers.LobbyActivity;
 import com.company.Helance.activity.lobby.forGuestUsers.LobbyForGuestActivity;
-import com.company.Helance.interfaces.navigators.LoginNavigator;
 import com.company.Helance.activity.logIn.viewmodel.LoginViewModel;
 import com.company.Helance.activity.passwordRecovery.PassRecoveryActivity1;
 import com.company.Helance.activity.registration.activities.RegistrationActivity1;
 import com.company.Helance.activity.registration.activities.RegistrationActivity5;
+import com.company.Helance.base.BaseActivity;
 import com.company.Helance.databinding.ActivityLoginBinding;
+import com.company.Helance.interfaces.Activity;
+import com.company.Helance.interfaces.navigators.LoginNavigator;
 import com.company.Helance.networking.IsOnline;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import static android.Manifest.permission.READ_CONTACTS;
 
 public class LogInActivity extends BaseActivity implements LoaderCallbacks<Cursor>, Activity, LoginNavigator {
@@ -73,7 +73,7 @@ public class LogInActivity extends BaseActivity implements LoaderCallbacks<Curso
 
         findViewById();
         onListener();
-//        populateAutoComplete();
+        populateAutoComplete();
 //        animationBackground();
     }
 

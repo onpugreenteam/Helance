@@ -65,7 +65,7 @@ public class ProfileViewModel extends BaseViewModel<ProfileNavigator> {
             protected Map<String, DataPart> getByteData() {
                 Map<String, DataPart> params = new HashMap<>();
                 long imageName = System.currentTimeMillis();
-               params.put("file", new VolleyMultipartRequest.DataPart(imageName + ".png", getFileDataFromDrawable(bitmap)));
+               params.put("file", new VolleyMultipartRequest.DataPart(imageName + ".jpeg", getFileDataFromDrawable(bitmap)));
                 return params;
             }
         };
@@ -80,7 +80,7 @@ public class ProfileViewModel extends BaseViewModel<ProfileNavigator> {
     // Преобразует картинку пользователя в массив байтов(для передачи на сервер)
     private byte[] getFileDataFromDrawable(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 80, byteArrayOutputStream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream);
         return byteArrayOutputStream.toByteArray();
     }
 
