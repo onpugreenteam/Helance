@@ -118,7 +118,6 @@ public class MyTaskDTO implements Serializable {
         this.telephone = telephone;
     }
 
-
     public long getId() {
         return id;
     }
